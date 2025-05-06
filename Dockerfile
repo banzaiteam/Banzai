@@ -5,13 +5,10 @@ WORKDIR /app
 # Устанавливаем pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY .npmrc ./
 COPY pnpm-lock.yaml ./
 COPY package.json ./
 
 RUN pnpm install --frozen-lockfile
-
-
 
 # Устанавливаем pnpm снова для этого слоя
 RUN corepack enable && corepack prepare pnpm@latest --activate
