@@ -4,7 +4,8 @@
     "build": "next build",
     "build:production": "next build",
     "dev": "next dev --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
