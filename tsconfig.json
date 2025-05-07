@@ -20,7 +20,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["src/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@stories/*": ["src/stories/*"],
+      "@widgets/*": ["src/widgets/*"],
     }
   },
   "include": [

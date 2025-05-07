@@ -13,8 +13,8 @@ FROM node:20.11-alpine AS builder
 WORKDIR /app
 
 # Копируем зависимости и pnpm
-COPY --from=dependencies /app/node_modules ./node_modules
-COPY --from=dependencies /app/pnpm-lock.yaml ./
+COPY --from=dependencies /src/app/node_modules ./node_modules
+COPY --from=dependencies /src/app/pnpm-lock.yaml ./
 COPY . .
 
 # Устанавливаем pnpm через Corepack и билдим
@@ -28,9 +28,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Копируем только необходимое
-COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+COPY --from=builder /src/app/package.json /app/pnpm-lock.yaml ./
+COPY --from=builder /src/app/node_modules ./node_modules
+COPY --from=builder /src/app/.next ./.next
 
 # Настраиваем pnpm через Corepack
 RUN corepack enable && corepack prepare pnpm@latest --activate
