@@ -20,7 +20,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["src/*"],
+      "@features/*": ["src/features/*"],
+      "@shared/*": ["src/shared/*"],
+      "@stories/*": ["src/stories/*"],
+      "@widgets/*": ["src/widgets/*"],
     }
   },
   "include": [
@@ -28,7 +32,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/lib/placeholder-data.ts",
     "scripts/seed.js"
   ],
   "exclude": ["node_modules"]

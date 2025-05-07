@@ -1,7 +1,10 @@
 import type { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Базовая конфигурация Next.js
+  reactStrictMode: true,
+
 };
 
 export default nextConfig;
