@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+    body {
+        @apply bg-dark-700 text-light-100 leading-normal;/* или text-white, если используете дефолт */
+    }
+}
