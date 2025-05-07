@@ -5,7 +5,6 @@ WORKDIR /app
 # Устанавливаем pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY .npmrc ./
 COPY pnpm-lock.yaml ./
 COPY package.json ./
 
