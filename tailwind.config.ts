@@ -50,7 +50,6 @@ const config: Config = {
           700: '#0d0d0d',
           900: '#000000',
         },
-        DEFAULT: '#ffffff', // light.100 — дефолтный цвет
       },
       fontFamily: {
         sans: ['Inter', 'Roboto', 'Barlow', 'sans-serif'],
@@ -62,7 +61,6 @@ const config: Config = {
         normal: '1.5',
         relaxed: '1.75',
         loose: '2',
-        DEFAULT: '1.5', // дефолтная высота строки
       },
     },
   },
