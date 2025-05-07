@@ -1,29 +1,39 @@
-#Устанавливаем зависимости
-FROM node:20.11-alpine as dependencies
+# Установка зависимостей
+FROM node:20.11-alpine AS dependencies
 WORKDIR /app
 
-# Устанавливаем pnpm
+# Устанавливаем pnpm через Corepack (рекомендуемый способ)
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY pnpm-lock.yaml ./
-COPY package.json ./
-
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+# Билд приложения
+FROM node:20.11-alpine AS builder
+WORKDIR /app
 
+# Копируем зависимости и pnpm
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY --from=dependencies /app/pnpm-lock.yaml ./
+COPY . .
 
-# Устанавливаем pnpm снова для этого слоя
+# Устанавливаем pnpm через Corepack и билдим
+RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN pnpm build:production
+
+# Финальный рантайм
+FROM node:20.11-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Копируем только необходимое
+COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next
+
+# Настраиваем pnpm через Corepack
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY . ./
-COPY --from=dependencies /app/node_modules ./node_modules
-
-RUN npm run build:production
-
-
-
-# Устанавливаем pnpm снова для рантайма
-
-COPY --from=builder /app/ ./
 EXPOSE 3000
 CMD ["pnpm", "start"]
