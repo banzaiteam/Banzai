@@ -4,12 +4,12 @@ pipeline {
     agent any
     environment {
         ENV_TYPE = "production"
-        PORT = 3872
+        PORT = 3871
         NAMESPACE = "yogram-ru"
         REGISTRY_HOSTNAME = "idogmat"
         REGISTRY = "registry.hub.docker.com"
-        PROJECT = "yogram-front"
-        DEPLOYMENT_NAME = "yogram-front-deployment"
+        PROJECT = "yogram"
+        DEPLOYMENT_NAME = "yogram-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
     }
