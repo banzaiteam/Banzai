@@ -1,0 +1,149 @@
+
+div.wrapper {
+  position: relative;
+  cursor: text;
+  color: var(--light-900);
+  border-radius: 2px;
+  border: 1px solid var(--dark-100);
+  outline: 1px solid transparent;
+  transition: all .3s;
+  padding: 6px 12px;
+  background-clip: border-box;
+  column-gap: 10px;
+  outline-offset: 0;
+
+  &:hover {
+    border-color: var(--light-900);
+  }
+
+
+  & input {
+
+    transition: inherit;
+    color: inherit;
+    &::selection {
+      color: inherit;
+      background-color: var(--dark-300);
+    }
+  }
+
+  &:active input {
+    color: var(--light-100);
+  }
+
+  &:active {
+
+  }
+
+  & input::placeholder {
+    color: var(--light-900);
+    transition: inherit;
+  }
+
+  &:active input::placeholder {
+    color: var(--light-100);
+  }
+
+
+  & input:focus-visible:not(:placeholder-shown) {
+    color: var(--light-100);
+  }
+
+
+  svg {
+    transition: all .3s;
+
+  }
+
+  &:focus-within svg {
+    color: var(--light-100);
+  }
+
+  &:focus-within {
+
+    border-color: var(--primary-500);
+    outline-color: var(--primary-500);
+  }
+
+  &:active {
+    border-color: white;
+    outline-color: transparent;
+    background-color: var(--dark-500);
+  }
+}
+
+div.wrapper.disabled {
+  cursor: not-allowed;
+  color: var(--dark-100);
+
+  & input {
+    cursor: inherit;
+    -webkit-text-fill-color: inherit;
+  }
+
+  & input::placeholder {
+    -webkit-text-fill-color: var(--light-900);
+
+  }
+
+  &:hover {
+    border-color: var(--dark-100);
+  }
+
+  &:active {
+
+    background-color: transparent;
+  }
+  & input:active,&:active input {
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+  }
+
+  & > .sub_title {
+    cursor: not-allowed;
+  }
+
+  svg {
+    cursor: not-allowed;
+    stroke: var(--dark-100);
+  }
+}
+
+div.wrapper.error {
+
+
+  &, &:hover, &:active {
+    outline-color: transparent;
+    border-color: var(--danger-500);
+  }
+
+  &:not(:active):focus-within {
+    border-color: var(--primary-500);
+    outline-color: var(--primary-500);
+  }
+
+}
+
+.sub_title {
+  color: inherit;
+  position: absolute;
+  top: 0;
+  left: 2px;
+  transform: translateY(-100%);
+  font-size: 14px;
+  line-height: 171%;
+}
+
+.error_message {
+  color: var(--danger-500);
+  position: absolute;
+  bottom: 0;
+  left: 2px;
+  transform: translateY(100%);
+  font-size: 14px;
+  line-height: var(--line-height-relaxed);
+}
+
+
+
+
