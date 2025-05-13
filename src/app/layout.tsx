@@ -1,5 +1,7 @@
 import Page from "@/app/page";
-import '../shared/styles/global.css' // Подключение глобальных стилей
+import '@shared/styles/global.css' // Подключение глобальных стилей
+import '@radix-ui/themes/styles.css';
+
 
 export default function RootLayout({
                                      children,

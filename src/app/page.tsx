@@ -1,10 +1,14 @@
 import colors from "tailwindcss/colors";
 import {Icon} from "@shared/ui/icon/Icon";
+import {RadixTextarea} from "@shared/ui";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
+    <main >
       Banzai
+      <RadixTextarea/>
+      <RadixTextarea disabled/>
+      <RadixTextarea error errorMessage='Ошибка'/>
             <Icon name="home-outline" size={92} stroke='#fff'  />
     </main>
   );
