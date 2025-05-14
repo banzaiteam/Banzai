@@ -10,6 +10,7 @@ export default function Page() {
       <RadixTextarea disabled/>
       <RadixTextarea error errorMessage='Ошибка'/>
             <Icon name="home-outline" size={92} stroke='#fff'  />
+
     </main>
   );
 }
