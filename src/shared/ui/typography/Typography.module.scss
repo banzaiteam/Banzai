@@ -1,0 +1,67 @@
+@mixin text-style($fontSize, $fontWeight, $lineHeight) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+}
+
+.large {
+  @include text-style(var(--font-size-xxl), var(--font-weight-semi-bold), var(----line-height-snug))
+}
+
+.h1 {
+  @include text-style(var(--font-size-xl), var(--font-weight-bold), var(--line-height-relaxed))
+}
+
+.h2 {
+  @include text-style(var(--font-size-l), var(--font-weight-bold), var(--line-height-snug))
+}
+
+.h3 {
+  @include text-style(var(--font-size-m), var(--font-weight-semi-bold), var(--line-height-normal))
+}
+
+.regular_text_16 {
+  @include text-style(var(--font-size-m), var(--font-weight-regular), var(--line-height-normal));
+}
+
+.bold_text_16 {
+  @include text-style(var(--font-size-m), var(--font-weight-bold), var(--line-height-normal));
+}
+
+.regular_text_14 {
+  @include text-style(var(--font-size-s), var(--font-weight-regular), var(--line-height-relaxed));
+}
+
+.medium_text_14 {
+  @include text-style(var(--font-size-s), var(--font-weight-medium), var(--line-height-relaxed));
+}
+
+.bold_text_14 {
+  @include text-style(var(--font-size-s), var(--font-weight-bold), var(--line-height-relaxed));
+}
+
+.small_text {
+  @include text-style(var(--font-size-xs), var(--font-weight-regular), var(--line-height-snug));
+}
+
+.semi_bold_small_text {
+  @include text-style(var(--font-size-xs), var(--font-weight-semi-bold), var(--line-height-snug));
+}
+
+.regular_link {
+  @include text-style(var(--font-size-s), var(--font-weight-regular), var(--line-height-relaxed));
+
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--primary-500);
+}
+
+.small_link {
+  @include text-style(var(--font-size-xs), var(--font-weight-regular), var(--line-height-snug));
+
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--primary-500);
+}
