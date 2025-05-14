@@ -1,0 +1,30 @@
+
+.navigation{
+  background-color: var(--dark-900);//700
+  border-top: 1px solid var(--dark-300);
+  padding: 18px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+}
+
+.list{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  column-gap: 36px;
+}
+
+.item{
+  display: flex;
+  line-height: 0;
+
+  a{
+    color: var(--light-100);
+  }
+}
+
