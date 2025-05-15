@@ -1,28 +1,24 @@
-import { TextArea, TextAreaProps } from '@radix-ui/themes';
-import styles from './RadixTextarea.module.scss';
+import styles from './Pagination.module.scss';
+import {Bullet} from "@shared/ui/pagination/bullet/Bullet";
+import {Icon} from "@shared/ui/icon/Icon";
 
-type Props = TextAreaProps & {
+type Props = {
   error?: boolean;
   errorMessage?: string;
 };
 
-export const RadixTextarea: React.FC<Props> = ({
-                                                 className = '',
-                                                 error = false,
-                                                 errorMessage,
-                                                 disabled,
+export const Pagination: React.FC<Props> = ({
                                                  ...rest
                                                }) => {
   return (
     <div className={styles.wrapper}>
-      <TextArea
-        className={`${styles.textarea} ${error ? styles.error : ''} ${className}`}
-        disabled={disabled}
-        {...rest}
-      />
-      {error && errorMessage && (
-        <div className={styles.errorMessage}>{errorMessage}</div>
-      )}
+      <Bullet><Icon name={'arrow-ios-back'} stroke={'white'}/></Bullet>
+      <Bullet >{1}</Bullet>
+      <Bullet >{2}</Bullet>
+      <Bullet >{3}</Bullet>
+      <Bullet >{'...'}</Bullet>
+      <Bullet >{6}</Bullet>
+      <Bullet><Icon name={'arrow-ios-forward'} stroke={'white'}/></Bullet>
     </div>
   );
 };
