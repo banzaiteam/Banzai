@@ -1,6 +1,6 @@
 import colors from "tailwindcss/colors";
-import {Icon} from "@shared/ui/icon/Icon";
 import {Pagination, RadixTextarea} from "@shared/ui";
+import {Calendar} from "@/assets/icons/components";
 
 export default function Page() {
   return (
@@ -9,8 +9,7 @@ export default function Page() {
       <RadixTextarea/>
       <RadixTextarea disabled/>
       <RadixTextarea error errorMessage='Ошибка'/>
-      <Icon name="home-outline" size={92} stroke='#fff'/>
-
+<Calendar/>
       <div style={{padding: '40px'}}>
         <Pagination/>
       </div>
