@@ -1,15 +1,19 @@
 import colors from "tailwindcss/colors";
-import {Icon} from "@shared/ui/icon/Icon";
-import {RadixTextarea} from "@shared/ui";
+import {Pagination, Textarea} from "@shared/ui";
+import {Calendar} from "@/assets/icons/components";
 
 export default function Page() {
   return (
-    <main >
+    <main>
       Banzai
-      <RadixTextarea/>
-      <RadixTextarea disabled/>
-      <RadixTextarea error errorMessage='Ошибка'/>
-            <Icon name="home-outline" size={92} stroke='#fff'  />
+      <Textarea title={'Заголовок'} placeholder="Введите текст..."/>
+      <Textarea title={'Заголовок'} placeholder="Введите текст..." disabled/>
+      <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
+      <Calendar/>
+      <div style={{padding: '40px'}}>
+        <Pagination/>
+      </div>
+
     </main>
   );
 }
