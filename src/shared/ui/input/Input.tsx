@@ -16,7 +16,7 @@ export type InputProps = {
 
 
 } & Omit<ComponentPropsWithoutRef<'input'>, 'type'>
-
+type InputSlot = ComponentPropsWithoutRef<'button'>
 
 export const Input = (props: InputProps) => {
 
@@ -66,10 +66,16 @@ export const Input = (props: InputProps) => {
 
             <input type={type} id={idCurrent} disabled={disabled} className={clsx(className, {...stateClassClsx, }, children && {...sideClassClsx})} onChange={onCurrentChangeHandler} {...rest} />
 
-            {children && <span {...rest} className={clsx(s.slot, sideClassClsx)}>{children}
+            {children && <span className={clsx(s.children_wrapper, sideClassClsx)}>{children}
+
             </span>}
 
         </div>
 
     </>
 }
+
+export const InputSlot =(props:InputSlot)=>{
+const {className,...rest} = props
+    return <button className={clsx(s.slot_button,className)} {...rest} />
+};

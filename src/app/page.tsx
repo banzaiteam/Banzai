@@ -1,6 +1,11 @@
+'use client'
 import {Pagination,Input, RadixTextarea} from "@shared/ui";
-import {Calendar, EyeOutline} from "@/assets/icons/components";
+import {Calendar, EyeOffOutline, EyeOutline} from "@/assets/icons/components";
+import {InputSlot} from "@shared/ui/input/Input";
+import {useState} from "react";
 export default function Page() {
+
+    const [isShowPassword,setIsShowPassword] = useState(false);
   return (
       <main>
           Banzai
@@ -26,8 +31,11 @@ export default function Page() {
 
           </div>
           <div style={{padding: '25px'}}>
-              <Input placeholder={'text...'} error helperText={'some error...'}>
+              <Input placeholder={'password'} type={ isShowPassword ? 'text':'password'}>
 
+                  <InputSlot aria-label={isShowPassword ? 'Показывать' :'Не показывать' } onClick={ ()=>{setIsShowPassword(!isShowPassword)}}>
+                      {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> : <EyeOutline stroke={'currentColor'}/>}
+                  </InputSlot>
 
               </Input>
 
