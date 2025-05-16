@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <main>
       Banzai
-      <RadixTextarea/>
+      <RadixTextarea  />
       <RadixTextarea disabled/>
       <RadixTextarea error errorMessage='Ошибка'/>
 <Calendar/>

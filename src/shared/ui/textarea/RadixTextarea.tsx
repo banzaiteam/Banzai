@@ -1,23 +1,24 @@
-import { TextArea, TextAreaProps } from '@radix-ui/themes';
+import {TextArea, TextAreaProps} from '@radix-ui/themes';
 import styles from './RadixTextarea.module.scss';
+import {clsx} from "clsx";
 
 type Props = TextAreaProps & {
   error?: boolean;
   errorMessage?: string;
 };
 
-export const RadixTextarea: React.FC<Props> = ({
-                                                 className = '',
-                                                 error = false,
-                                                 errorMessage,
-                                                 disabled,
-                                                 ...rest
-                                               }) => {
+export const RadixTextarea: React.FC<Props> = (
+  {
+    error = false,
+    errorMessage,
+    className,
+    ...rest
+  }) => {
   return (
     <div className={styles.wrapper}>
+      <p className={styles.text}></p>
       <TextArea
-        className={`${styles.textarea} ${error ? styles.error : ''} ${className}`}
-        disabled={disabled}
+        className={clsx(styles.textareaWrapper, error && styles.error, className)}
         {...rest}
       />
       {error && errorMessage && (
