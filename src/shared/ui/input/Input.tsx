@@ -1,9 +1,8 @@
 'use client'
-import {TextField} from '@radix-ui/themes';
-
-import React, {useId} from 'react';
+import React, {type ChangeEvent, type ComponentPropsWithoutRef, useId} from 'react';
 import clsx from "clsx";
 import s from './Input.module.scss'
+import {useInput} from "@shared/ui/input/useInput";
 
 
 type InputTypes = 'text' | 'email' | 'password'
@@ -13,17 +12,24 @@ export type InputProps = {
     subTitle?: string
     error?: boolean
     helperText?: string
-} & Omit<TextField.RootProps, 'type'>
+    side?: 'left' | 'right'
+
+
+} & Omit<ComponentPropsWithoutRef<'input'>, 'type'>
 
 
 export const Input = (props: InputProps) => {
+
+
+
     const {
-        type='text',
+        type = 'text',
         subTitle = '',
         error = false,
         helperText = '',
-
-        value,
+        onChange,
+        side = 'right',
+        value='',
         disabled = false,
         className,
         id,
@@ -31,19 +37,39 @@ export const Input = (props: InputProps) => {
         ...rest
     } = props
 
+
+
+    const {onChange:onCurrentChange} = useInput(value)
+
     const idCurrent = id || useId()
 
+    const stateClassClsx = {
+        [s.disabled]: disabled,
+        [s.error]: error
+    };
+    const sideClassClsx = {
+        [s.left]: side === 'left',
+        [s.right]: side === 'right',
+    }
+
+
+    const onCurrentChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
+        onCurrentChange?.(e)
+        onChange?.(e)
+    };
+
     return <>
-        <TextField.Root type={type} autoComplete={"off"} {...rest} id={idCurrent} className={clsx(className, s.wrapper, {
-            [s.disabled]: disabled,
-            [s.error]: error
-        })} disabled={disabled}>
+        <div className={clsx(s.wrapper, {...stateClassClsx})}>
 
             {subTitle && <label className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
             {helperText && <span className={s.error_message}>{helperText}</span>}
-            {children}
 
-        </TextField.Root>
+            <input type={type} id={idCurrent} disabled={disabled} className={clsx(className, {...stateClassClsx, }, children && {...sideClassClsx})} onChange={onCurrentChangeHandler} {...rest} />
+
+            {children && <span {...rest} className={clsx(s.slot, sideClassClsx)}>{children}
+            </span>}
+
+        </div>
 
     </>
 }
