@@ -8,6 +8,7 @@
   }
 
   & .textareaWrapper {
+    border-width: 0px;
 
     textarea {
       width: 100%;
@@ -35,7 +36,8 @@
       }
 
       &:focus {
-        border: 2px solid var(--primary-700);
+        border: 1px solid var(--primary-700);
+        outline: 1px solid var(--primary-700);
         color: var(--light-100);
       }
 
@@ -63,6 +65,7 @@
   textarea {
     border: 1px solid var(--danger-500) !important;
     color: var(--light-100) !important;
+    outline: none !important;
   }
 }
 
