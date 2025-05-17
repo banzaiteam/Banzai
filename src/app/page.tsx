@@ -1,11 +1,10 @@
-import colors from "tailwindcss/colors";
-import {Pagination, Textarea} from "@shared/ui";
-import {Calendar} from "@/assets/icons/components";
 'use client'
-import {Pagination,Input, RadixTextarea} from "@shared/ui";
-import {Calendar, EyeOffOutline, EyeOutline, Search} from "@/assets/icons/components";
+import {Textarea} from "@shared/ui";
+
+import {Pagination,Input} from "@shared/ui";
 import {InputSlot} from "@shared/ui/input/Input";
 import {useState} from "react";
+import {Calendar, EyeOffOutline, EyeOutline, Search} from "@/assets/icons/components";
 
 
 export default function Page() {
@@ -21,71 +20,65 @@ export default function Page() {
       <div style={{padding: '40px'}}>
         <Pagination/>
       </div>
-      <main>
-          Banzai
-          <Input placeholder={'text...'}/>
-          <Input disabled placeholder={'text...'}>
+        <Input placeholder={'text...'}/>
+        <Input disabled placeholder={'text...'}>
 
-              <EyeOutline stroke={'currentColor'}/>
-          </Input>
+            <EyeOutline stroke={'currentColor'}/>
+        </Input>
 
-          <div style={{padding: '25px'}}>
-              <Input placeholder={'text...'} subTitle={'suffix'}>
+        <div style={{padding: '25px'}}>
+            <Input placeholder={'text...'} subTitle={'suffix'}>
 
-                  <EyeOutline stroke={'currentColor'}/>
+                <EyeOutline stroke={'currentColor'}/>
 
-              </Input>
+            </Input>
 
-          </div>
-          <div style={{padding: '25px'}}>
-              <Input placeholder={'text...'} disabled subTitle={'suffix'}>
+        </div>
+        <div style={{padding: '25px'}}>
+            <Input placeholder={'text...'} disabled subTitle={'suffix'}>
 
-                  <EyeOutline stroke={'currentColor'}/>
+                <EyeOutline stroke={'currentColor'}/>
 
-              </Input>
+            </Input>
 
-          </div>
-          <div style={{padding: '25px'}}>
-              <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'}>
+        </div>
+        <div style={{padding: '25px'}}>
+            <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'}>
 
-                  <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={() => {
-                      setIsShowPassword(!isShowPassword)
-                  }}>
-                      {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
-                          <EyeOutline stroke={'currentColor'}/>}
-                  </InputSlot>
+                <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={() => {
+                    setIsShowPassword(!isShowPassword)
+                }}>
+                    {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
+                        <EyeOutline stroke={'currentColor'}/>}
+                </InputSlot>
 
-              </Input>
+            </Input>
 
-          </div>
-          <div style={{padding: '25px'}}>
-              <Input placeholder={'text...'} disabled subTitle={'suffix'} side={'left'}>
+        </div>
+        <div style={{padding: '25px'}}>
+            <Input placeholder={'text...'} disabled subTitle={'suffix'} side={'left'}>
 
-                  <EyeOutline stroke={'currentColor'}/>
+                <EyeOutline stroke={'currentColor'}/>
 
-              </Input>
+            </Input>
 
-          </div>
+        </div>
 
-          <div style={{padding: '25px'}}>
-              <Input placeholder={'text...'} error helperText={'help...'} subTitle={'suffix'} side={'left'}>
+        <div style={{padding: '25px'}}>
+            <Input placeholder={'text...'} error helperText={'help...'} subTitle={'suffix'} side={'left'}>
 
 
-<InputSlot>
-    <Search stroke={'currentColor'} />
-</InputSlot>
-              </Input>
+                <InputSlot>
+                    <Search stroke={'currentColor'} />
+                </InputSlot>
+            </Input>
 
-          </div>
+        </div>
 
-          <RadixTextarea/>
-          <RadixTextarea disabled/>
-          <RadixTextarea error errorMessage='Ошибка'/>
-          <Calendar/>
-          <div style={{padding: '40px'}}>
-              <Pagination/>
-          </div>
-
+        <Calendar/>
+        <div style={{padding: '40px'}}>
+            <Pagination/>
+        </div>
     </main>
-  );
+  )
 }
