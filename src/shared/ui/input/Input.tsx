@@ -3,6 +3,7 @@ import React, {type ChangeEvent, type ComponentPropsWithoutRef, useId} from 'rea
 import clsx from "clsx";
 import s from './Input.module.scss'
 import {useInput} from "@shared/ui/input/useInput";
+import {TextField} from "@radix-ui/themes";
 
 
 type InputTypes = 'text' | 'email' | 'password'
@@ -15,8 +16,9 @@ export type InputProps = {
     side?: 'left' | 'right'
 
 
-} & Omit<ComponentPropsWithoutRef<'input'>, 'type'>
-type InputSlot = ComponentPropsWithoutRef<'button'>
+} & Omit<ComponentPropsWithoutRef<typeof TextField.Root>, 'type'>
+
+type InputSlotProps = ComponentPropsWithoutRef<'button'>
 
 export const Input = (props: InputProps) => {
 
@@ -59,23 +61,26 @@ export const Input = (props: InputProps) => {
     };
 
     return <>
-        <div className={clsx(s.wrapper, {...stateClassClsx})}>
+        <TextField.Root className={clsx(s.wrapper, {...stateClassClsx},children && {...sideClassClsx})} type={type} id={idCurrent} disabled={disabled} onChange={onCurrentChangeHandler} {...rest}>
 
+
+
+            {/*<input type={type} id={idCurrent} disabled={disabled} className={clsx(className, {...stateClassClsx }, children && {...sideClassClsx})} onChange={onCurrentChangeHandler} {...rest} />*/}
+
+            {children && <TextField.Slot className={clsx(s.children_wrapper, sideClassClsx)}>
+                {children}
+
+            </TextField.Slot>}
             {subTitle && <label className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
             {helperText && <span className={s.error_message}>{helperText}</span>}
-
-            <input type={type} id={idCurrent} disabled={disabled} className={clsx(className, {...stateClassClsx, }, children && {...sideClassClsx})} onChange={onCurrentChangeHandler} {...rest} />
-
-            {children && <span className={clsx(s.children_wrapper, sideClassClsx)}>{children}
-
-            </span>}
-
-        </div>
+        </TextField.Root>
 
     </>
 }
 
-export const InputSlot =(props:InputSlot)=>{
+export const InputSlot =(props:InputSlotProps)=>{
 const {className,...rest} = props
+
     return <button className={clsx(s.slot_button,className)} {...rest} />
+
 };

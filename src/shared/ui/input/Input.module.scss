@@ -4,6 +4,20 @@
   transition: all .3s;
 
 
+
+  &.left {
+    input {
+      padding-left: 48px;
+    }
+
+  }
+
+  &.right {
+    input {
+      padding-right: 48px;
+    }
+  }
+
   & input {
 
     width: 100%;
@@ -11,15 +25,9 @@
     border: 1px solid var(--dark-100);
     outline: 1px solid transparent;
     transition: inherit;
-    color: var(--light-900);
+    color: var(--light-100);
     padding: 6px 12px;
 
-    &.left{
-      padding-left: 48px;
-    }
-    &.right{
-      padding-right: 48px;
-    }
 
     /*&::selection {
       background-color: var(--dark-300);
@@ -51,18 +59,27 @@
   & input::placeholder {
     color: var(--light-900);
     transition: inherit;
+
   }
 
-  & input:not(:placeholder-shown) {
-    color: var(--light-100);
-  }///
+  /*& input:not(:placeholder-shown) {
+    color: red;
+  }*/
+
+  ///
 
   & input:disabled {
+    color: inherit;
     cursor: not-allowed;
     border-color: var(--dark-100);
 
     &:active {
       background-color: transparent;
+    }
+
+    &::placeholder {
+      color: inherit;
+      -webkit-text-fill-color: var(--light-900); //radix placeholder чёрный
     }
   }
 
@@ -75,60 +92,57 @@
       border-color: var(--light-100);
     }
   }
-  & input:focus + span{
+
+  & input:focus + div {
     color: var(--light-100);
   }
-  & input.error {
-
-
-  &, &:hover, &:active {
-    border-color: var(--danger-500);
-  }
-  &:not(:active):focus{
-    border-color: var(--primary-500);
-
-    outline: 1px solid var(--primary-500);
-  }
 
 
 
 
-}
 
-  svg {
-    color: inherit;
-    transition: all .3s;
-  }
-
-  & .children_wrapper{
+  & .children_wrapper {
     color: var(--light-900);
     cursor: pointer;
     position: absolute;
     line-height: 0;
     top: 50%;
     transform: translateY(-50%);
-
   }
 
- & .left{
+  & .left {
     left: 12px;
   }
- & .right{
+
+  & .right {
     right: 12px;
   }
+
+ & .sub_title {
+    color: var(--light-900);
+    position: absolute;
+    top: 0;
+    left: 2px;
+    transform: translateY(-100%);
+    font-size: 14px;
+    line-height: 171%;
+  }
+
+ & .error_message {
+    color: var(--danger-500);
+    position: absolute;
+    bottom: 0;
+    left: 2px;
+    transform: translateY(100%);
+    font-size: 14px;
+    line-height: var(--line-height-relaxed);
+  }
+
+
   &.disabled {
     cursor: not-allowed;
     color: var(--dark-100);
 
-    & input {
-      cursor: inherit;
-      color: inherit;
-    }
-
-    & input::placeholder {
-      color: inherit;
-
-    }
 
     &:hover {
       border-color: var(--dark-100);
@@ -151,39 +165,33 @@
       cursor: not-allowed;
       color: var(--dark-100);
     }
-    .sub_title{
+
+    .sub_title {
       color: inherit;
     }
   }
-}
 
+  &.error{
+    input {
+      &, &:hover, &:active {
+        border-color: var(--danger-500);
+      }
 
+      &:not(:active):focus {
+        border-color: var(--primary-500);
 
-.sub_title {
-  color: var(--light-900);
-  position: absolute;
-  top: 0;
-  left: 2px;
-  transform: translateY(-100%);
-  font-size: 14px;
-  line-height: 171%;
-}
+        outline: 1px solid var(--primary-500);
+      }
+    }
+  }
 
-.error_message {
-  color: var(--danger-500);
-  position: absolute;
-  bottom: 0;
-  left: 2px;
-  transform: translateY(100%);
-  font-size: 14px;
-  line-height: var(--line-height-relaxed);
-}
-
-.slot_button{
-  line-height: 0;
-  color: inherit;
-  svg{
+  svg {
+    transition: all .3s;
   }
 }
 
 
+.slot_button {
+  line-height: 0;
+  color: inherit;
+}
