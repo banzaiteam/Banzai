@@ -8,7 +8,9 @@
     "test": "echo 'test lock' && exit 0",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "sprite": "svg-sprite -s --dest public --symbol-sprite sprite.svg icons/*.svg"
+    "sprite": "svg-sprite -s --dest public --symbol-sprite sprite.svg src/assets/icons/svg/*.svg",
+    "rename-icons": "node scripts/rename-icons.cjs",
+    "generate-icons": "pnpm run rename-icons && npx @svgr/cli --out-dir src/assets/icons/components --jsx-runtime automatic --typescript --ref --memo --replace-attr-values \"#000=currentcolor\"  --replace-attr-values \"#fff=currentcolor\" -- src/assets/icons/svg"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
