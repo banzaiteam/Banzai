@@ -1,0 +1,33 @@
+.header {
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    color: var(--light-100);
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 5px;
+  }
+
+  &__inner {
+    padding: 12px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--dark-300);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .registration {
+    display: flex;
+    gap: 25px;
+  }
+}
