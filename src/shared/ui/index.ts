@@ -1,4 +1,4 @@
-export { RadixTextarea } from "./textarea/RadixTextarea";
-export { RadixButton } from "./button/RadixButton";
-export { Pagination } from "./pagination/Pagination";
-export { AlertToast } from "./alert/AlertToast";
+export {RadixButton} from './button/RadixButton'
+export {Textarea} from './textarea/Textarea'
+export {Pagination} from './pagination/Pagination'
+export {AlertToast} from './alert/AlertToast'

@@ -1,5 +1,5 @@
 import colors from "tailwindcss/colors";
-import {AlertToast, Pagination, RadixTextarea} from "@shared/ui";
+import {AlertToast, Pagination, Textarea} from "@shared/ui";
 import {Calendar} from "@/assets/icons/components";
 
 export default function Page() {
@@ -9,10 +9,10 @@ export default function Page() {
       <AlertToast status={"error"} message={'Error! Server is not available'} hasCloseButton={true}/>
       <AlertToast status={"success"} message={'Your settings are saved'} hasCloseButton={true}/>
       Banzai
-      <RadixTextarea/>
-      <RadixTextarea disabled/>
-      <RadixTextarea error errorMessage='Ошибка'/>
-<Calendar/>
+      <Textarea title={'Заголовок'} placeholder="Введите текст..."/>
+      <Textarea title={'Заголовок'} placeholder="Введите текст..." disabled/>
+      <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
+      <Calendar/>
       <div style={{padding: '40px'}}>
         <Pagination/>
       </div>
