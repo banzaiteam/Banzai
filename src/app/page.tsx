@@ -1,3 +1,4 @@
+"use client";
 import colors from "tailwindcss/colors";
 import { Icon } from "@shared/ui/icon/Icon";
 import { RadixTextarea } from "@shared/ui";
@@ -11,7 +12,15 @@ export default function Page() {
       <RadixTextarea disabled />
       <RadixTextarea error errorMessage="Ошибка" />
       <Icon name="home-outline" size={92} stroke="#fff" />
-      <Select />
+      <Select
+        options={[
+          { label: "English", value: "en" },
+          { label: "Spanish", value: "es" },
+        ]}
+        placeholder="Select ..."
+        onValueChange={(v) => console.log(v)}
+        // disabled={true}
+      />
     </main>
   );
 }

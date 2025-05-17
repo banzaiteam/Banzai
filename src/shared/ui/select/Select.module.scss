@@ -12,16 +12,24 @@
     position: relative;
     &:hover {
       background-color: transparent;
+      border: 1px solid var(--light-100);
+      color: var(--dark-100);
     }
     &:focus {
-      border: 2px solid var(--primary-500);
+      border: 1px solid var(--primary-500);
       color: var(--light-900);
     }
     &:active {
       color: var(--light-100);
+      border: 1px solid var(--light-100);
     }
     &::placeholder {
       // color: var(--light-100);
+    }
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
     }
   }
   &__dropdown {
@@ -31,6 +39,10 @@
     top: 35px;
     left: -10px;
     border: 1px solid var(--dark-100);
+    &:hover {
+      border: 1px solid var(--light-100);
+      color: var(--dark-100);
+    }
   }
 }
 
