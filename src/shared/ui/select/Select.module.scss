@@ -2,6 +2,7 @@
   &__box {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 210px;
     padding: 6px 12px;
     border: 1px solid var(--dark-100);
@@ -19,6 +20,13 @@
       border: 1px solid var(--primary-500);
       color: var(--light-900);
     }
+
+    &:focus .arrow__icon {
+      color: var(--light-100);
+    }
+    &:focus-visible {
+      outline: none;
+    }
     &:active {
       color: var(--light-100);
       border: 1px solid var(--light-100);
@@ -33,11 +41,11 @@
     }
   }
   &__dropdown {
-    background-color: transparent;
+    background-color: var(--dark-500);
     width: 210px;
     position: absolute;
     top: 35px;
-    left: -10px;
+    left: -2px;
     border: 1px solid var(--dark-100);
     &:hover {
       border: 1px solid var(--light-100);
@@ -46,8 +54,8 @@
   }
 }
 
-.Icon {
-  color: Var(--light-100);
+.arrow__icon {
+  display: flex;
 }
 
 .Viewport {
@@ -56,6 +64,9 @@
 
 .Item {
   padding: 6px 10px;
+  &:focus-visible {
+    outline: none;
+  }
   &:hover {
     background-color: var(--dark-300);
     color: var(--primary-500);

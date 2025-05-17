@@ -8,6 +8,12 @@ import classnames from "classnames";
 //   ChevronUpIcon,
 // } from "@radix-ui/react-icons";
 import styles from "./Select.module.scss";
+import {
+  ArrowIosBackOutline,
+  ArrowIosDownOutline,
+  ArrowIosUp,
+  FlagUnitedKingdom,
+} from "@/assets/icons/components";
 
 type Option = {
   label: string;
@@ -24,51 +30,64 @@ type SelectProps = {
 
 const Select: React.FC<SelectProps> = ({
   options,
-  placeholder,
+  placeholder = "Select ...",
   onValueChange,
   value,
   disabled = false,
-}) => (
-  <div className="select">
-    {/*  button that the user clicks to open the dropdown */}
-    <RadixSelect.Root value={value} onValueChange={onValueChange}>
-      {/* This is the clickable area (like a <button>). When the user clicks it, the dropdown opens. */}
-      <RadixSelect.Trigger
-        className={classnames(styles.select__box, {
-          [styles.disabled]: disabled,
-        })}
-        aria-label="Select Box"
-        disabled={disabled}
+}) => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className="select">
+      {/*  button that the user clicks to open the dropdown */}
+      <RadixSelect.Root
+        value={value}
+        onValueChange={onValueChange}
+        open={open}
+        onOpenChange={setOpen}
       >
-        {/* aria-label helps screen readers understand this is a selector */}
-        <RadixSelect.Value placeholder={placeholder} />
-        <RadixSelect.Icon className={styles.Icon}>
-          {/* <ChevronDownIcon /> */}
-        </RadixSelect.Icon>
-      </RadixSelect.Trigger>
+        {/* This is the clickable area (like a <button>). When the user clicks it, the dropdown opens. */}
+        <RadixSelect.Trigger
+          className={classnames(styles.select__box, {
+            [styles.disabled]: disabled,
+          })}
+          aria-label="Select Box"
+          disabled={disabled}
+        >
+          {/* aria-label helps screen readers understand this is a selector */}
+          <RadixSelect.Value placeholder={placeholder} />
+          {/* <RadixSelect.Icon className={styles.Icon}>
+          <ChevronDownIcon />
+        </RadixSelect.Icon> */}
+          <RadixSelect.Icon asChild>
+            <span className={styles.arrow__icon}>
+              {open ? <ArrowIosUp /> : <ArrowIosDownOutline />}
+            </span>
+          </RadixSelect.Icon>
+        </RadixSelect.Trigger>
 
-      {/* dropdown opens (after you click the button) */}
-      {/* Portal puts the dropdown menu outside the normal DOM tree, so it can float over everything on the screen (like  modal) */}
-      {!disabled && (
-        <RadixSelect.Portal>
-          {/* Content is the box that opens — the full dropdown. */}
-          <RadixSelect.Content className={styles.select__dropdown}>
-            {/* <ChevronUpIcon /> */}
-            {/* Viewport — it's where options live */}
-            <RadixSelect.Viewport className={styles.Viewport}>
-              {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </RadixSelect.Viewport>
-          </RadixSelect.Content>
-        </RadixSelect.Portal>
-      )}
-    </RadixSelect.Root>
-  </div>
-);
-
+        {/* dropdown opens (after you click the button) */}
+        {/* Portal puts the dropdown menu outside the normal DOM tree, so it can float over everything on the screen (like  modal) */}
+        {!disabled && (
+          <RadixSelect.Portal>
+            {/* Content is the box that opens — the full dropdown. */}
+            <RadixSelect.Content className={styles.select__dropdown}>
+              {/* <ChevronUpIcon /> */}
+              {/* Viewport — it's where options live */}
+              <RadixSelect.Viewport className={styles.Viewport}>
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </RadixSelect.Viewport>
+            </RadixSelect.Content>
+          </RadixSelect.Portal>
+        )}
+      </RadixSelect.Root>
+    </div>
+  );
+};
 /** comments are description in storybook */
 //  below is .jsx we neet to make .tsx so we adding two types <
 //   React.ComponentRef<typeof RadixSelect.Item>,
