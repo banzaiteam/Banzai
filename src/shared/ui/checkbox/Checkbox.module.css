@@ -1,85 +1,84 @@
-.checkbox  {
+.container  {
     display: flex;
     column-gap: 10px;
     align-items: center;
-    width: fit-content;
 }
 
-.Root {
+.label {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 170%;
+    color: var(--light-100);
+}
+
+.checkbox {
     all: unset;
+    position: relative;
+    box-sizing: border-box;
     width: 18px;
     height: 18px;
-    border: 2px solid #EDF3FA;
-    border-radius: 5px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    position: relative;
+    border: 2px solid var(--light-100);
+    border-radius: 2px;
+    background: transparent;
 
     &::before {
         content: "";
-
         position: absolute;
         z-index: -1;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-
         width: 0;
         height: 0;
-
         border-radius: 50%;
-
         transition: ease-in 0.2s;
     }
 
     &:hover::before {
         width: 36px;
         height: 36px;
-        background-color: #333333;
+        background-color: var(--dark-300);
     }
 
     &:active::before {
         width: 36px;
         height: 36px;
-        background-color:  #333333;
+        background-color: var(--dark-100);
     }
 
     &:focus-visible::before {
         width: 36px;
         height: 36px;
-        background-color:  #171717;
+        background-color: var(--dark-500);
     }
 
     &:disabled {
         pointer-events: none;
-        color:  #4c4c4c;
-        border: 2px solid  #4c4c4c;
+        color: var(--light-900);
+        border: 2px solid var(--light-900);
 
         & + .label {
-            color:  #46515e;
+            color: var(--light-900);
         }
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
     }
 
     &[data-state="checked"] {
-        border: 2px solid  #ffffff;
+        border: 2px solid var(--light-100);
+        background-color: var(--light-100);
+        color: var(--dark-100);
 
         &:disabled {
-            background-color:  #4c4c4c;
-            border: 2px solid  #4c4c4c;
+            background-color: var(--dark-100);
+            border: 2px solid var(--dark-100);
         }
     }
+
 }
-
-/*.Indicator {*/
-/*    color: #7ec33e;*/
-/*}*/
-
-/*.Label {*/
-/*    color: white;*/
-/*    padding-left: 15px;*/
-/*    font-size: 15px;*/
-/*    line-height: 1;*/
-/*}*/
