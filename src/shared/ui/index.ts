@@ -1,4 +1,4 @@
 export {Button} from './button/Button'
-export {RadixTextarea} from './textarea/RadixTextarea'
+export {Textarea} from './textarea/Textarea'
 export {Pagination} from './pagination/Pagination'
 export {Input} from './input/Input'

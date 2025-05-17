@@ -7,16 +7,11 @@ const dirWithIcons = 'src/assets/icons/components';
 async function main() {
     const files = await fsp.readdir(dirWithIcons);
     files.forEach(async (file) => {
-        const newName = file
-            .replaceAll(' ', '-').replaceAll('(', '')
-            .replaceAll(')', '')
-            .toLowerCase();
-
-        fsp.rename(
-            join(dirWithIcons, file),
-            join(dirWithIcons, newName)
-        );
-    });
+        const filePath = join(dirWithIcons, file)
+        const fileContent = await fsp.readFile(filePath, 'utf-8')
+        const newFileContent = fileContent.replaceAll('#fff', 'currentcolor')
+        fsp.writeFile(filePath, newFileContent)
+    })
 }
 
 void main();
