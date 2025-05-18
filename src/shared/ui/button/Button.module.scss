@@ -1,0 +1,121 @@
+.wrapper {
+  & .button {
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    display: inline-flex;
+    gap: 10px;
+    padding: 6px 24px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  & .primary {
+    background-color: var(--primary-500);
+
+    &:hover {
+      background-color: var(--primary-100);
+    }
+
+    &:active {
+      background-color: var(--primary-700);
+      color: var(--light-500);
+    }
+
+    &:focus {
+      border: 2px solid var(--primary-700);
+    }
+
+    &:disabled {
+      background-color: var(--primary-900);
+      color: var(--light-900);
+    }
+  }
+
+  & .secondary,
+  & .variant21 {
+    background-color: var(--dark-300);
+
+    &:hover {
+      background-color: var(--dark-100);
+    }
+
+    &:active {
+      background-color: var(--dark-400);
+    }
+
+    &:focus {
+      border: 2px solid var(--primary-300);
+    }
+
+    &:disabled {
+      background-color: var(--dark-500);
+      color: var(--light-900);
+    }
+  }
+
+  & .outline {
+    border: 1px solid var(--primary-500);
+    color: var(--primary-500);
+
+    // &[data-accent-color] {
+    //   background-color: transparent !important;
+    // };
+
+    &:focus {
+      box-shadow: 0 0 0 2px var(--primary-700);
+      border: 1px solid transparent;
+      color: var(--primary-700);
+    }
+
+    &:hover {
+      border: 1px solid var(--primary-100);
+      color: var(--primary-100);
+    }
+
+    &:active {
+      border: 1px solid var(--primary-700);
+      color: var(--primary-700);
+    }
+
+    &:disabled {
+      border: 1px solid var(--primary-900);
+      color: var(--primary-900);
+    }
+  }
+
+    & .text-button {
+    color: var(--primary-500);
+    width: 100px;
+    // &[data-accent-color] {
+    //   background-color: transparent !important;
+    //   box-shadow: none !important;
+    // };
+
+    &:hover {
+      color: var(--primary-100);
+    }
+
+    &:active {
+      color: var(--primary-700);
+    }
+
+    &:focus {
+      border: 2px solid var(--primary-700);
+    }
+
+    &:disabled {
+      color: var(--primary-900);
+    }
+  }
+
+  & .variant21 {
+    padding: 6px 10px;
+  }
+}
