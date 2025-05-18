@@ -17,7 +17,7 @@ type VariantType =
     | 'regular_link'
     | 'small_link'
 
-type Props<T extends ElementType = "p"> = {
+type Props<T extends ElementType = 'p'> = {
     as?: T
     children: ReactNode
     className?: string
