@@ -1,11 +1,11 @@
 import Link from "next/link";
 import styles from "./Header.module.scss";
 import Select from "../select/Select";
+import { FlagRussia, FlagUnitedKingdom } from "@/assets/icons/components";
 
 const languageOptions = [
-  { label: "English", value: "en" },
-  { label: "Español", value: "es" },
-  { label: "Italiano", value: "it" },
+  { label: "English", value: "en", flag: <FlagUnitedKingdom /> },
+  { label: "Russian", value: "ru", flag: <FlagRussia /> },
 ];
 
 const Header: React.FC = () => {

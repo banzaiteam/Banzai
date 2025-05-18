@@ -13,14 +13,16 @@
     position: relative;
     &:hover {
       background-color: transparent;
-      border: 1px solid var(--light-100);
+      border: 1px solid var(--dark-100);
       color: var(--dark-100);
+    }
+    &:hover .arrow__icon {
+      color: var(--light-100);
     }
     &:focus {
       border: 1px solid var(--primary-500);
       color: var(--light-900);
     }
-
     &:focus .arrow__icon {
       color: var(--light-100);
     }
@@ -31,13 +33,13 @@
       color: var(--light-100);
       border: 1px solid var(--light-100);
     }
-    &::placeholder {
-      // color: var(--light-100);
-    }
     &.disabled {
       opacity: 0.5;
       cursor: not-allowed;
       pointer-events: none;
+    }
+    &[data-state="open"] {
+      border-color: var(--light-100);
     }
   }
   &__dropdown {
@@ -50,6 +52,12 @@
     &:hover {
       border: 1px solid var(--light-100);
       color: var(--dark-100);
+    }
+    &:hover .select__box {
+      border: 1px solid var(--light-100);
+    }
+    &[data-state="open"] {
+      border-color: var(--light-100);
     }
   }
 }
@@ -74,11 +82,8 @@
   }
 }
 
-.ItemIndicator {
-  position: absolute;
-  left: 0;
-  width: 25px;
-  display: inline-flex;
+.item__text {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
 }

@@ -1,16 +1,18 @@
 import Page from "@/app/page";
-import '@shared/styles/global.css' // Подключение глобальных стилей
-import '@radix-ui/themes/styles.css';
-
+import "@shared/styles/global.css"; // Подключение глобальных стилей
+import "@radix-ui/themes/styles.css";
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-    <body><Page/></body>
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <body>
+        <Page />
+      </body>
     </html>
   );
 }

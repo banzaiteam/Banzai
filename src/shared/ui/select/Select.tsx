@@ -2,22 +2,13 @@ import * as React from "react";
 // import { Select } from "radix-ui";
 import * as RadixSelect from "@radix-ui/react-select";
 import classnames from "classnames";
-// import {
-//   CheckIcon,
-//   ChevronDownIcon,
-//   ChevronUpIcon,
-// } from "@radix-ui/react-icons";
 import styles from "./Select.module.scss";
-import {
-  ArrowIosBackOutline,
-  ArrowIosDownOutline,
-  ArrowIosUp,
-  FlagUnitedKingdom,
-} from "@/assets/icons/components";
+import { ArrowIosDownOutline, ArrowIosUp } from "@/assets/icons/components";
 
 type Option = {
   label: string;
   value: string;
+  flag?: React.ReactNode;
 };
 
 type SelectProps = {
@@ -30,19 +21,30 @@ type SelectProps = {
 
 const Select: React.FC<SelectProps> = ({
   options,
-  placeholder = "Select ...",
+  placeholder = "English",
   onValueChange,
   value,
   disabled = false,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const defaultValue = value ?? options[0]?.value ?? "";
+  const [selectedValue, setSelectedValue] = React.useState(defaultValue);
+
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setSelectedValue(value);
+    }
+  }, [value]);
 
   return (
     <div className="select">
       {/*  button that the user clicks to open the dropdown */}
       <RadixSelect.Root
-        value={value}
-        onValueChange={onValueChange}
+        value={selectedValue}
+        onValueChange={(val) => {
+          setSelectedValue(val);
+          onValueChange?.(val);
+        }}
         open={open}
         onOpenChange={setOpen}
       >
@@ -53,12 +55,15 @@ const Select: React.FC<SelectProps> = ({
           })}
           aria-label="Select Box"
           disabled={disabled}
+          data-state={open ? "open" : "closed"}
         >
           {/* aria-label helps screen readers understand this is a selector */}
-          <RadixSelect.Value placeholder={placeholder} />
-          {/* <RadixSelect.Icon className={styles.Icon}>
-          <ChevronDownIcon />
-        </RadixSelect.Icon> */}
+          <RadixSelect.Value>
+            <span className={styles.item__text}>
+              {options.find((o) => o.value === selectedValue)?.flag}
+              {options.find((o) => o.value === selectedValue)?.label}
+            </span>
+          </RadixSelect.Value>
           <RadixSelect.Icon asChild>
             <span className={styles.arrow__icon}>
               {open ? <ArrowIosUp /> : <ArrowIosDownOutline />}
@@ -72,13 +77,14 @@ const Select: React.FC<SelectProps> = ({
           <RadixSelect.Portal>
             {/* Content is the box that opens — the full dropdown. */}
             <RadixSelect.Content className={styles.select__dropdown}>
-              {/* <ChevronUpIcon /> */}
               {/* Viewport — it's where options live */}
               <RadixSelect.Viewport className={styles.Viewport}>
                 {options.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
+                  <SelectItem
+                    key={option.value}
+                    value={option.value}
+                    option={option}
+                  />
                 ))}
               </RadixSelect.Viewport>
             </RadixSelect.Content>
@@ -95,18 +101,23 @@ const Select: React.FC<SelectProps> = ({
 // >
 const SelectItem = React.forwardRef<
   React.ComponentRef<typeof RadixSelect.Item>,
-  React.ComponentPropsWithoutRef<typeof RadixSelect.Item>
->(({ children, className, ...props }, forwardedRef) => {
+  React.ComponentPropsWithoutRef<typeof RadixSelect.Item> & { option: Option }
+>(({ children, className, option, ...props }, forwardedRef) => {
   return (
     <RadixSelect.Item
       className={classnames(styles.Item, className)}
       {...props}
       ref={forwardedRef}
     >
-      <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
-      <RadixSelect.ItemIndicator className={styles.ItemIndicator}>
-        {/* <CheckIcon /> */}
-      </RadixSelect.ItemIndicator>
+      <RadixSelect.ItemText>
+        <div className={styles.item__text}>
+          {option.flag}
+          {option.label}
+        </div>
+      </RadixSelect.ItemText>
+      <RadixSelect.ItemIndicator
+        className={styles.ItemIndicator}
+      ></RadixSelect.ItemIndicator>
     </RadixSelect.Item>
   );
 });
