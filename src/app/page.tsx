@@ -1,8 +1,12 @@
-import colors from "tailwindcss/colors";
+'use client'
 import {Pagination, Textarea} from "@shared/ui";
 import {Calendar} from "@/assets/icons/components";
+import {useState} from "react";
 
 export default function Page() {
+
+  const [currentPage, setCurrentPage] = useState(1);
+
   return (
     <main>
       Banzai
@@ -11,7 +15,10 @@ export default function Page() {
       <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
       <Calendar/>
       <div style={{padding: '40px'}}>
-        <Pagination/>
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={(page)=>setCurrentPage(page)}
+          totalPages={15}/>
       </div>
 
     </main>
