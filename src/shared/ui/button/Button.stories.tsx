@@ -32,7 +32,7 @@ const meta: Meta<typeof Button> = {
       control: { type: 'text' },
       description: 'CSS width value (e.g., "100px", "50%")',
     },
-    height: {
+    minHeight: {
       control: { type: 'text' },
       description: 'CSS height value',
     },
@@ -112,7 +112,7 @@ export const CustomSizes: Story = {
       <Button variant="primary" width="200px">
         Large Button
       </Button>
-      <Button variant="secondary" width="120px" height="48px">
+      <Button variant="secondary" width="120px" minHeight="48px">
         Small Button
       </Button>
     </div>

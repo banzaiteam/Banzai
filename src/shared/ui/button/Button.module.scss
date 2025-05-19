@@ -92,7 +92,7 @@
 
     & .text-button {
     color: var(--primary-500);
-    width: 100px;
+    min-width: 100px;
     // &[data-accent-color] {
     //   background-color: transparent !important;
     //   box-shadow: none !important;

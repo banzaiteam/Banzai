@@ -10,9 +10,10 @@ export default function Page() {
         <Button width="103px">{'Follow'}</Button>
         <Button disabled>{'Button'}</Button>
         <Button variant="secondary">{'Button'}</Button>
-        <Button variant="outline">{'Button'}</Button>
-        <Button variant="outline" width="300px" height="48px">{'Yes'}</Button>
-        <Button variant="outline" width="300px" height="48px" disabled>{'Yes'}</Button>
+        <Button variant="secondary">{'Button Button Button Button Button'}</Button>
+        {/* <Button variant="outline">{'Button'}</Button> */}
+        {/* <Button variant="outline" width="300px" minHeight="48px">{'Yes'}</Button> */}
+        {/* <Button variant="outline" width="300px" minHeight="48px" disabled>{'Yes'}</Button> */}
         <Button variant="text-button">{'Button'}</Button>
         <Button variant="variant21">
           <FlagRussia/>

@@ -6,7 +6,7 @@ type Props = Omit<ButtonProps, 'variant'> & {
   variant?: 'primary' | 'secondary' | 'outline' | 'text-button' | 'variant21'
   children: React.ReactNode;
   width?: string;
-  height?: string;
+  minHeight?: string;
 };
 
 export const Button: React.FC<Props> = ({
@@ -14,14 +14,14 @@ export const Button: React.FC<Props> = ({
                                           variant = 'primary',
                                           children,
                                           width = 'fit-content',
-                                          height = '36px',
+                                          minHeight = '36px',
                                           ...rest
                                           }) => {
   const combinedClasses = `${styles.button} ${styles[variant]} ${className}`
 
   return (
     <div className={styles.wrapper}>
-      <RadixButton className={combinedClasses} style={{ width, height }} {...rest}>
+      <RadixButton className={combinedClasses} style={{ width, minHeight }} {...rest}>
         {children}
       </RadixButton>
     </div>
