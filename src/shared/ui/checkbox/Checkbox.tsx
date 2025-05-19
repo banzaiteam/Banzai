@@ -1,6 +1,6 @@
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
 import s from "./Checkbox.module.css";
-import {ComponentPropsWithoutRef, useId} from "react";
+import {ComponentPropsWithoutRef, useId} from 'react';
 import CheckmarkOutline from "@/assets/icons/components/CheckmarkOutline";
 
 type Props =   {
@@ -17,7 +17,7 @@ export const Checkbox= ({ label, ...rest}: Props) => {
                 {...rest}
             >
                 <CheckboxRadix.Indicator>
-                    <CheckmarkOutline  />
+                    <CheckmarkOutline width={17} height={17} />
                 </CheckboxRadix.Indicator>
             </CheckboxRadix.Root>
             {label && <label className={s.label}>
