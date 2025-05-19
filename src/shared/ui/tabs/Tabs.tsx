@@ -1,6 +1,6 @@
-import * as TabsRadix from "@radix-ui/react-tabs"
-import s from "./Tabs.module.scss";
-import {ComponentPropsWithoutRef, ReactNode} from "react";
+import * as TabsRadix from '@radix-ui/react-tabs'
+import s from './Tabs.module.scss';
+import {ComponentPropsWithoutRef, ReactNode} from 'react';
 
 type TabItem = {
     value: string
