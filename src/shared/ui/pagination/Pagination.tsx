@@ -47,6 +47,11 @@ export const Pagination: React.FC<Props> = ({currentPage, totalPages, onPageChan
         ariaLabel="Next page"
         tabIndex={currentPage === totalPages ? -1 : 0}
       ><ArrowIosForward/></PaginationItem>
+      <div className={styles.show}>
+        <p>Show</p>
+        <button>100</button>
+        <p>on page</p>
+      </div>
     </div>
   );
 };

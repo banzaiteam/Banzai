@@ -8,6 +8,7 @@
   display: grid;
   place-items: center;
   transition: all 0.3s;
+  background: var(--dark-700);
 
   &.active{
     background:  var(--light-100);
