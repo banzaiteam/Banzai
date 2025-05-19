@@ -3,7 +3,7 @@ import { Button as RadixButton, ButtonProps } from '@radix-ui/themes';
 import styles from './Button.module.scss';
 
 type Props = Omit<ButtonProps, 'variant'> & {
-  variant?: 'primary' | 'secondary' | 'outline' | 'text-button' | 'variant21'
+  variant?: 'primary' | 'secondary' | 'outline' | 'text-button' | 'with-icons'
   children: React.ReactNode;
   width?: string;
   minHeight?: string;

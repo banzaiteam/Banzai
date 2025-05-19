@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outline', 'text-button', 'variant21'],
+      options: ['primary', 'secondary', 'outline', 'text-button', 'with-icons'],
       defaultValue: 'primary',
     },
     children: {
@@ -46,7 +46,7 @@ type Story = StoryObj<typeof Button>;
 export const Primary: Story = {
   args: {
     variant: 'primary',
-    children: 'Primary Button',
+    children: 'This is Primary Button',
   },
 };
 
@@ -75,7 +75,7 @@ export const TextButton: Story = {
 export const WithIcon: Story = {
   name: 'With Icon',
   args: {
-    variant: 'variant21',
+    variant: 'with-icons',
     children: (
       <>
         <FlagRussia />

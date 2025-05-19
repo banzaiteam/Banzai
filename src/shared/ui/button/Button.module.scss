@@ -39,7 +39,7 @@
   }
 
   & .secondary,
-  & .variant21 {
+  & .with-icons {
     background-color: var(--dark-300);
 
     &:hover {
@@ -62,11 +62,8 @@
 
   & .outline {
     border: 1px solid var(--primary-500);
+    background-color: var(--dark-700);
     color: var(--primary-500);
-
-    // &[data-accent-color] {
-    //   background-color: transparent !important;
-    // };
 
     &:focus {
       box-shadow: 0 0 0 2px var(--primary-700);
@@ -92,11 +89,8 @@
 
     & .text-button {
     color: var(--primary-500);
+    background-color: var(--dark-700);
     min-width: 100px;
-    // &[data-accent-color] {
-    //   background-color: transparent !important;
-    //   box-shadow: none !important;
-    // };
 
     &:hover {
       color: var(--primary-100);
@@ -115,7 +109,7 @@
     }
   }
 
-  & .variant21 {
+  & .with-icons {
     padding: 6px 10px;
   }
 }
