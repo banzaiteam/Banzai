@@ -1,6 +1,6 @@
 import React from "react";
 import * as Toast from "@radix-ui/react-toast";
-import styles from "./AlertToast.module.scss";
+import styles from "./Alert.module.scss";
 import { Close } from "@/assets/icons/components";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   duration?: number;
 }
 
-export const AlertToast = ({ status, message, hasCloseButton = false, duration = Infinity }: Props) => {
+export const Alert = ({ status, message, hasCloseButton = false, duration = Infinity }: Props) => {
   const renderMessage = () => {
     if (status !== 'error') {
       return message
@@ -36,7 +36,7 @@ export const AlertToast = ({ status, message, hasCloseButton = false, duration =
         </Toast.Description>
         {hasCloseButton && (
         <Toast.Action asChild altText="Close notification" className={styles['close-button']}>
-          <Close />
+          <Close className={styles.icon}/>
         </Toast.Action>
         )}
       </Toast.Root>

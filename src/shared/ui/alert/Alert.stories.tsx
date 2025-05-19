@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Theme } from '@radix-ui/themes';
-import { AlertToast } from './AlertToast';
+import { Alert } from './Alert';
 
-const meta: Meta<typeof AlertToast> = {
-  title: 'Shared/AlertToast',
-  component: AlertToast,
+const meta: Meta<typeof Alert> = {
+  title: 'Shared/Alert',
+  component: Alert,
   tags: ['autodocs'],
   decorators: [
     (Story) => (
@@ -37,7 +37,7 @@ const meta: Meta<typeof AlertToast> = {
 
 export default meta;
 
-type Story = StoryObj<typeof AlertToast>;
+type Story = StoryObj<typeof Alert>;
 
 export const Success: Story = {
   args: {
@@ -50,7 +50,7 @@ export const Success: Story = {
 export const Error: Story = {
   args: {
     status: 'error',
-    message: 'Server is not available',
+    message: 'Error! Server is not available',
     hasCloseButton: true,
   },
 };
@@ -67,7 +67,7 @@ export const AutoClose: Story = {
 export const Persistent: Story = {
   args: {
     status: 'error',
-    message: 'Critical error - will not auto-close',
+    message: 'Error! The format of the uploaded photo must be PNG and JPEG',
     hasCloseButton: true,
     duration: Infinity,
   },
@@ -77,7 +77,7 @@ export const Persistent: Story = {
 export const WithoutCloseButton: Story = {
   args: {
     status: 'success',
-    message: 'You cannot close this notification',
+    message: 'Your settings are saved',
     hasCloseButton: false,
   },
 };

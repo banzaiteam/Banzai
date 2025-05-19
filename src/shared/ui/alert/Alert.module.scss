@@ -6,6 +6,10 @@
   justify-content: space-between;
   gap: 24px;
   border-radius: 2px;
+
+  @media (max-width: 480px) {
+    padding: 6px 15px;
+  }
 }
 
 .success {
@@ -19,12 +23,17 @@
 
   .first-word {
     font-weight: 700;
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
   }
 }
 
 .description {
-  font-weight: 400;
   text-align: center;
+  // for storybook
+  color: var(--light-100);
 }
 
 .close-button {
@@ -33,22 +42,11 @@
   height: 24px;
 }
 
-.viewport {
-  // position: fixed;
-  // bottom: 20px;
-  // right: 20px;
-  max-width: 444px;
-  width: 100%;
+.icon {
+  // for storybook
+  color: var(--light-100)
 }
 
-@media (max-width: 480px) {
-  .toast {
-    padding: 6px 15px;
-  }
-
-  .error {
-    .first-word {
-      font-size: 14px;
-    }
-  }
+.viewport {
+  width: 100%;
 }
