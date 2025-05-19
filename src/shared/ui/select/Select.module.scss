@@ -15,6 +15,9 @@
       background-color: transparent;
       border: 1px solid var(--dark-100);
       color: var(--dark-100);
+      svg {
+        filter: brightness(0.5);
+      }
     }
     &:hover .arrow__icon {
       color: var(--light-100);

@@ -1,7 +1,5 @@
 import * as React from "react";
-// import { Select } from "radix-ui";
 import * as RadixSelect from "@radix-ui/react-select";
-import classnames from "classnames";
 import styles from "./Select.module.scss";
 import { ArrowIosDownOutline, ArrowIosUp } from "@/assets/icons/components";
 
@@ -14,45 +12,34 @@ type Option = {
 type SelectProps = {
   options: Option[];
   placeholder?: string;
-  onValueChange?: (value: string) => void;
-  value?: string;
+  onValueChange: (value: string) => void;
+  value: string;
   disabled?: boolean;
 };
 
 const Select: React.FC<SelectProps> = ({
   options,
-  placeholder = "English",
+  placeholder,
   onValueChange,
   value,
   disabled = false,
 }) => {
   const [open, setOpen] = React.useState(false);
-  const defaultValue = value ?? options[0]?.value ?? "";
-  const [selectedValue, setSelectedValue] = React.useState(defaultValue);
 
-  React.useEffect(() => {
-    if (value !== undefined) {
-      setSelectedValue(value);
-    }
-  }, [value]);
+  const findOption = options.find((o) => o.value === value);
 
   return (
     <div className="select">
       {/*  button that the user clicks to open the dropdown */}
       <RadixSelect.Root
-        value={selectedValue}
-        onValueChange={(val) => {
-          setSelectedValue(val);
-          onValueChange?.(val);
-        }}
+        value={value}
+        onValueChange={onValueChange}
         open={open}
         onOpenChange={setOpen}
       >
         {/* This is the clickable area (like a <button>). When the user clicks it, the dropdown opens. */}
         <RadixSelect.Trigger
-          className={classnames(styles.select__box, {
-            [styles.disabled]: disabled,
-          })}
+          className={`${styles.select__box} ${disabled ? styles.disabled : ""}`}
           aria-label="Select Box"
           disabled={disabled}
           data-state={open ? "open" : "closed"}
@@ -60,8 +47,8 @@ const Select: React.FC<SelectProps> = ({
           {/* aria-label helps screen readers understand this is a selector */}
           <RadixSelect.Value>
             <span className={styles.item__text}>
-              {options.find((o) => o.value === selectedValue)?.flag}
-              {options.find((o) => o.value === selectedValue)?.label}
+              {findOption?.flag || null}
+              {findOption?.label}
             </span>
           </RadixSelect.Value>
           <RadixSelect.Icon asChild>
@@ -105,7 +92,7 @@ const SelectItem = React.forwardRef<
 >(({ children, className, option, ...props }, forwardedRef) => {
   return (
     <RadixSelect.Item
-      className={classnames(styles.Item, className)}
+      className={`${styles.Item} ${className ?? ""}`}
       {...props}
       ref={forwardedRef}
     >
