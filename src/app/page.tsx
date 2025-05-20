@@ -65,7 +65,13 @@ export default function Page() {
     }];
 
 const sidebarItemMapped = useMemo(() => {
-    return  linksData.map(({id,title,path,icon,iconActive}) => <SidebarItem key={id} path={path} icon={pathname.startsWith(path) ? iconActive : icon}>{title}</SidebarItem>)
+
+    return  linksData.map(({id,title,path,icon,iconActive}) => {
+
+    const isActive = pathname.startsWith(path);
+
+        return  <SidebarItem key={id} path={path} icon={isActive ? iconActive : icon} isActive={isActive}>{title}</SidebarItem>
+    })
 },[])
     return (
 
@@ -75,10 +81,10 @@ const sidebarItemMapped = useMemo(() => {
              "header header"
              "sidebar main"
                         `,
-            gridTemplateColumns: 'auto 1fr', // sidebar — auto, main — растягивается
-            gridTemplateRows: 'auto 1fr',    // header — auto, остальное — по контенту
-            height: '100vh',                 // на всю высоту экрана
-            gap: '16px'                      // отступы между областями
+            gridTemplateColumns: 'auto 1fr',
+            gridTemplateRows: 'auto 1fr',
+            height: '100vh',
+            gap: '16px'
         }}>
 
             <header style={{gridArea: 'header'}}>
@@ -90,7 +96,7 @@ const sidebarItemMapped = useMemo(() => {
                         {sidebarItemMapped}
                     </SidebarGroup>
                 </SidebarNavigation>
-                <SidebarItem icon={<LogOutOutline stroke={'currentColor'} />} onClick={()=>alert('321')}>Log Out</SidebarItem>
+                <SidebarItem isActive={true} icon={<LogOutOutline stroke={'currentColor'} />} onClick={()=>alert('Some event')}>Log Out</SidebarItem>
             </Sidebar>
 
 
