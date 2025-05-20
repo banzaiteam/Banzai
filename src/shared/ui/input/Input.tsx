@@ -1,8 +1,7 @@
 'use client'
-import React, {type ChangeEvent, type ComponentPropsWithoutRef, useId} from 'react';
+import React, {type ComponentPropsWithoutRef, useId} from 'react';
 import clsx from "clsx";
 import s from './Input.module.scss'
-import {useInput} from "@shared/ui/input/useInput";
 import {TextField} from "@radix-ui/themes";
 
 
@@ -29,9 +28,7 @@ export const Input = (props: InputProps) => {
         subTitle = '',
         error = false,
         helperText = '',
-        onChange,
         side = 'right',
-        value='',
         disabled = false,
         className,
         id,
@@ -39,9 +36,6 @@ export const Input = (props: InputProps) => {
         ...rest
     } = props
 
-
-
-    const {onChange:onCurrentChange} = useInput(value)
 
     const idCurrent = id || useId()
 
@@ -53,19 +47,8 @@ export const Input = (props: InputProps) => {
         [s.left]: side === 'left',
         [s.right]: side === 'right',
     }
-
-
-    const onCurrentChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
-        onCurrentChange?.(e)
-        onChange?.(e)
-    };
-
     return <>
-        <TextField.Root className={clsx(s.wrapper, {...stateClassClsx},children && {...sideClassClsx})} type={type} id={idCurrent} disabled={disabled} onChange={onCurrentChangeHandler} {...rest}>
-
-
-
-            {/*<input type={type} id={idCurrent} disabled={disabled} className={clsx(className, {...stateClassClsx }, children && {...sideClassClsx})} onChange={onCurrentChangeHandler} {...rest} />*/}
+        <TextField.Root className={clsx(s.wrapper,className, {...stateClassClsx},children && {...sideClassClsx})} type={type} id={idCurrent} disabled={disabled} {...rest}>
 
             {children && <TextField.Slot className={clsx(s.children_wrapper, sideClassClsx)}>
                 {children}
