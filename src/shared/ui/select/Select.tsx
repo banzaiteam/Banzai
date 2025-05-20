@@ -48,7 +48,7 @@ const Select: React.FC<SelectProps> = ({
           <RadixSelect.Value>
             <span className={styles.item__text}>
               {findOption?.flag || null}
-              {findOption?.label}
+              <span className={styles.item__label}>{findOption?.label}</span>
             </span>
           </RadixSelect.Value>
           <RadixSelect.Icon asChild>

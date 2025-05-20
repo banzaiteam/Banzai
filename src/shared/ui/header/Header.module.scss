@@ -31,3 +31,17 @@
     gap: 25px;
   }
 }
+
+@media (max-width: 650px) {
+  .header {
+    &__inner {
+      padding: 12px 12px;
+    }
+    .registration {
+      display: none;
+    }
+    .logo {
+      font-size: 20px;
+    }
+  }
+}
