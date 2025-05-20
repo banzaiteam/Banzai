@@ -11,74 +11,77 @@ export default function Page() {
 
     const [isShowPassword,setIsShowPassword] = useState(false);
   return (
-    <main>
-      Banzai
-      <Textarea title={'Заголовок'} placeholder="Введите текст..."/>
-      <Textarea title={'Заголовок'} placeholder="Введите текст..." disabled/>
-      <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
-      <Calendar/>
-      <div style={{padding: '40px'}}>
-        <Pagination/>
-      </div>
-        <Input placeholder={'text...'}/>
-        <Input disabled placeholder={'text...'}>
+      <main>
+          Banzai
+          <Textarea title={'Заголовок'} placeholder="Введите текст..."/>
+          <Textarea title={'Заголовок'} placeholder="Введите текст..." disabled/>
+          <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
+          <Calendar/>
+          <div style={{padding: '40px'}}>
+              <Pagination/>
+          </div>
 
-            <EyeOutline stroke={'currentColor'}/>
-        </Input>
+              <div style={{padding: '25px'}}>
 
-        <div style={{padding: '25px'}}>
-            <Input placeholder={'text...'} subTitle={'suffix'}>
+              <Input aria-label={'123'} placeholder={'text...'}/>
+          </div>
+              <div style={{padding: '25px'}}>
 
-                <EyeOutline stroke={'currentColor'}/>
+              <Input disabled placeholder={'text...'}>
 
-            </Input>
+                  <EyeOutline stroke={'currentColor'}/>
+              </Input>
+          </div>
+              <div style={{padding: '25px'}}>
+                  <Input placeholder={'text...'} subTitle={'suffix'}>
 
-        </div>
-        <div style={{padding: '25px'}}>
-            <Input placeholder={'text...'} disabled subTitle={'suffix'}>
+                      <EyeOutline stroke={'currentColor'}/>
 
-                <EyeOutline stroke={'currentColor'}/>
+                  </Input>
 
-            </Input>
+              </div>
+              <div style={{padding: '25px'}}>
+                  <Input placeholder={'text...'} disabled subTitle={'suffix'}>
 
-        </div>
-        <div style={{padding: '25px'}}>
-            <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'}>
+                      <EyeOutline stroke={'currentColor'}/>
 
-                <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={() => {
-                    setIsShowPassword(!isShowPassword)
-                }}>
-                    {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
-                        <EyeOutline stroke={'currentColor'}/>}
-                </InputSlot>
+                  </Input>
 
-            </Input>
+              </div>
+              <div style={{padding: '25px'}}>
+                  <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'}>
 
-        </div>
-        <div style={{padding: '25px'}}>
-            <Input placeholder={'text...'} disabled subTitle={'suffix'} side={'left'}>
+                      <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={() => {
+                          setIsShowPassword(!isShowPassword)
+                      }}>
+                          {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
+                              <EyeOutline stroke={'currentColor'}/>}
+                      </InputSlot>
 
-                <EyeOutline stroke={'currentColor'}/>
+                  </Input>
 
-            </Input>
+              </div>
+              <div style={{padding: '25px'}}>
+                  <Input placeholder={'text...'} disabled subTitle={'suffix'} side={'left'}>
 
-        </div>
+                      <EyeOutline stroke={'currentColor'}/>
 
-        <div style={{padding: '25px'}}>
-            <Input placeholder={'text...'} error helperText={'help...'} subTitle={'suffix'} side={'left'}>
+                  </Input>
+
+              </div>
+              <div style={{padding: '25px'}}>
+                  <Input placeholder={'text...'} error helperText={'help...'} subTitle={'suffix'} side={'left'}>
 
 
-                <InputSlot>
-                    <Search stroke={'currentColor'} />
-                </InputSlot>
-            </Input>
+                      <InputSlot>
+                          <Search stroke={'currentColor'}/>
+                      </InputSlot>
+                  </Input>
 
-        </div>
+              </div>
 
-        <Calendar/>
-        <div style={{padding: '40px'}}>
-            <Pagination/>
-        </div>
-    </main>
-  )
+              <Calendar/>
+
+      </main>
+)
 }

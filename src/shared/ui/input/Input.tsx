@@ -33,12 +33,14 @@ export const Input = (props: InputProps) => {
         className,
         id,
         children,
+        ["aria-label"]:ariaLabel,
         ...rest
     } = props
 
 
     const idCurrent = id || useId()
-
+    const helperTextId = `${idCurrent}-helper-text`;
+const labelId =`${idCurrent}-label`
     const stateClassClsx = {
         [s.disabled]: disabled,
         [s.error]: error
@@ -48,14 +50,20 @@ export const Input = (props: InputProps) => {
         [s.right]: side === 'right',
     }
     return <>
-        <TextField.Root className={clsx(s.wrapper,className, {...stateClassClsx},children && {...sideClassClsx})} type={type} id={idCurrent} disabled={disabled} {...rest}>
+        <TextField.Root className={clsx(s.wrapper,className, {...stateClassClsx},children && {...sideClassClsx})} type={type} id={idCurrent} disabled={disabled}
+                        aria-label={ariaLabel}
+                        aria-labelledby={subTitle && labelId}
+                        aria-describedby={helperText && helperTextId}
+                        aria-invalid={error}
+                        aria-disabled={disabled}
+                        {...rest} >
 
             {children && <TextField.Slot className={clsx(s.children_wrapper, sideClassClsx)}>
                 {children}
 
             </TextField.Slot>}
-            {subTitle && <label className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
-            {helperText && <span className={s.error_message}>{helperText}</span>}
+            {subTitle && <label id={labelId} className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
+            {helperText && <span id={helperTextId} className={s.error_message}>{helperText}</span>}
         </TextField.Root>
 
     </>
