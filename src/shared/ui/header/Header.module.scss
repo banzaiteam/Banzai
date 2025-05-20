@@ -24,6 +24,9 @@
     display: flex;
     align-items: center;
     gap: 36px;
+    .more {
+      display: none;
+    }
   }
 
   .registration {
@@ -42,6 +45,12 @@
     }
     .logo {
       font-size: 20px;
+    }
+    .bell {
+      display: none;
+    }
+    .more {
+      display: flex;
     }
   }
 }

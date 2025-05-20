@@ -111,6 +111,10 @@
       .item__label {
         display: none;
       }
+      &:active {
+        color: var(--light-100);
+        border: none;
+      }
     }
   }
 }

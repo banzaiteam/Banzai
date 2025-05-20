@@ -1,13 +1,20 @@
 import Link from "next/link";
 import styles from "./Header.module.scss";
 import Select from "../select/Select";
-import { FlagRussia, FlagUnitedKingdom } from "@/assets/icons/components";
+import {
+  FlagRussia,
+  FlagUnitedKingdom,
+  MoreHorizontal,
+  OutlineBell,
+} from "@/assets/icons/components";
 import { useState } from "react";
 
 const languageOptions = [
   { label: "English", value: "en", flag: <FlagUnitedKingdom /> },
   { label: "Russian", value: "ru", flag: <FlagRussia /> },
 ];
+
+const isLoggedIn = false; //authentication state
 
 const Header: React.FC = () => {
   const [value, setValue] = useState(languageOptions[0].value);
@@ -19,15 +26,21 @@ const Header: React.FC = () => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
+            {isLoggedIn && <OutlineBell className={styles.bell} />}
             <Select
               options={languageOptions}
               value={value}
               onValueChange={setValue}
             />
-            <div className={styles.registration}>
-              <div className="login">login</div>
-              <div className="signup">signup</div>
-            </div>
+            <button className={styles.more}>
+              {isLoggedIn && <MoreHorizontal />}
+            </button>
+            {!isLoggedIn && (
+              <div className={styles.registration}>
+                <div className="login">login</div>
+                <div className="signup">signup</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
