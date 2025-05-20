@@ -39,7 +39,9 @@
       }
 
       &:focus {
-        border: 2px solid var(--primary-700);
+        border: 1px solid var(--primary-700);
+        outline: 1px solid var(--primary-700);
+
         color: var(--light-100);
       }
 
