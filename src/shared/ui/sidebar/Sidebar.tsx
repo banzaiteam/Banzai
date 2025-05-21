@@ -3,7 +3,7 @@ import clsx from "clsx";
 import s from "./Sidebar.module.scss";
 import Link from "next/link";
 
-type Props = {} & ComponentPropsWithoutRef<'aside'>;
+export type SidebarProps = {} & ComponentPropsWithoutRef<'aside'>;
 type SidebarNavigationProps = {} & ComponentPropsWithoutRef<'nav'>
 type SidebarGroupProps = {} & ComponentPropsWithoutRef<'ul'>
 type SidebarItemProps = {
@@ -15,14 +15,12 @@ type SidebarItemProps = {
     disabled?: boolean;
 } & Omit<ComponentPropsWithoutRef<'li'>, 'onClick'>
 
-export const Sidebar = (props: Props) => {
+export const Sidebar = (props: SidebarProps) => {
     const {className, ...rest} = props
     const classNames = clsx(s.aside, className);
 
     return (
         <aside className={classNames} aria-label="Основная навигация"  {...rest} />
-
-
     );
 };
 
@@ -42,7 +40,6 @@ export const SidebarNavigation = (props: SidebarNavigationProps) => {
 
     </nav>
 }
-
 
 export const SidebarItem = (props: SidebarItemProps) => {
 
@@ -65,7 +62,7 @@ export const SidebarItem = (props: SidebarItemProps) => {
     const content = <>{icon}{children}</>
 
     return <> {path ?
-        <li className={clsx(classNames)} role="none" {...rest}>
+        <li className={classNames} role="none" {...rest}>
             {disabled ? <span
                 aria-disabled="true"
                 role="menuitem"
