@@ -64,6 +64,14 @@ export const WithSubTitle: Story = {
     subTitle:'SubTitle'
     },
 };
+export const WithSubTitleWithError: Story = {
+    args: {
+        ...Default.args,
+        subTitle:'SubTitle',
+        error: true,
+        helperText: 'Обязательное поле',
+    },
+};
 export const WithDisabled: Story = {
     args: {
         ...Default.args,
