@@ -1,23 +1,24 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import {Input, type InputProps, InputSlot} from "@shared/ui/input";
-import {Icon} from "@shared/ui/icon/Icon";
-import {type MouseEvent, useCallback, useState} from "react";
+import type {Meta, StoryObj} from '@storybook/react';
+import {useState} from "react";
 import {fn} from "@storybook/test";
+import {Input, type InputProps, InputSlot} from "@shared/ui";
+import {EyeOffOutline, EyeOutline, SearchOutline} from "@/assets/icons/components";
 
 
-
-const RenderPassword = ({onClick,...rest}:InputProps)       =>{
+const RenderPassword = ({onClick,...rest}:InputProps) => {
     const [isShowPassword, setIsShowPassword] = useState(false);
 
-    const eyeToggle = useCallback ((e:MouseEvent<HTMLInputElement>)=>{e.stopPropagation();
-        onClick?.(e);
-        setIsShowPassword(prev=>!prev);
-       },[])
+   const  onClickHandler = () =>{
+       setIsShowPassword(!isShowPassword);
+   }
 
-    return <Input   {...rest}  type={isShowPassword ? 'text':'password' }>
-        <InputSlot  side={'right'} onClick={eyeToggle}>
-            {isShowPassword ? <Icon name="eye-off-outline" size={24} stroke='white'/> : <Icon name="eye-outline" size={24} stroke='white'/> }
+    return  <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'} {...rest}>
+
+        <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={onClickHandler}>
+            {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
+                <EyeOutline stroke={'currentColor'}/>}
         </InputSlot>
+
     </Input>
 }
 
@@ -46,9 +47,8 @@ export const Default: Story = {
     args: {
         onChange:fn(),
 
-        placeholder: 'Введите текст...', // Более уместно для textarea
+        placeholder: 'Введите текст...',
         size: '3', // Размер из Radix (1-3)
-
     },
 };
 export const WithError: Story = {
@@ -84,15 +84,13 @@ export const Password: Story = {
 export const Search: Story = {
 
     args: {
-
         ...Default.args,
         subTitle:'Search',
-        children: <InputSlot >
-            <Icon name="search-outline" size={24} stroke='currentColor'/>
+        side:'left',
+        children: <InputSlot>
+            <SearchOutline  stroke='currentColor'/>
         </InputSlot>
-
     },
 };
-
 
 

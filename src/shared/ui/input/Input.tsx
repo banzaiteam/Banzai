@@ -40,7 +40,7 @@ export const Input = (props: InputProps) => {
 
     const idCurrent = id || useId()
     const helperTextId = `${idCurrent}-helper-text`;
-const labelId =`${idCurrent}-label`
+    const labelId =`${idCurrent}-label`
     const stateClassClsx = {
         [s.disabled]: disabled,
         [s.error]: error
