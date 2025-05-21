@@ -1,10 +1,7 @@
 'use client'
-import {Pagination, Textarea} from "@shared/ui";
+import {MobileNavigation, Pagination, Textarea} from "@shared/ui";
 import {Calendar} from "@/assets/icons/components";
 import {useState} from "react";
-import colors from "tailwindcss/colors";
-import {Icon} from "@shared/ui/icon/Icon";
-import {MobileNavigation, RadixTextarea} from "@shared/ui";
 
 export default function Page() {
 

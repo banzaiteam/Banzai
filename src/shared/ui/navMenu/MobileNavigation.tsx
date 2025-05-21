@@ -1,7 +1,6 @@
 'use client'
 
 import {NavMenu, NavMenuItem, NavMenuList} from "@shared/ui";
-import {Icon} from "@shared/ui/icon/Icon";
 import {usePathname} from "next/navigation";
 import {useIsMobile} from "@shared/ui/navMenu/lib/useIsMobile";
 import {checkIsActive} from "@shared/ui/navMenu/lib/checkIsActive";
@@ -16,12 +15,11 @@ export const MobileNavigation = (props: Props) => {
     const isMobile = useIsMobile()
 
 
-    const mappedNavMenuItems = navMenuItemsData.map(({id, path, label, nameIcon}) => {
+    const mappedNavMenuItems = navMenuItemsData.map(({id, path, label, icon,activeIcon}) => {
         const isActive = checkIsActive(path,pathname)
 
-        return <NavMenuItem key={id} path={path} aria-label={label}>
-            {isActive ? <Icon name={nameIcon} stroke={'var(--primary-100)'}/> :
-                        <Icon name={nameIcon + '-outline'} stroke={'currentColor'}/>}
+        return <NavMenuItem isActive={isActive}  key={id} path={path} aria-label={label}>
+            {isActive ?  activeIcon : icon}
                 </NavMenuItem>
     })
 

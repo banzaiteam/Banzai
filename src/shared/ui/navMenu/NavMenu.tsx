@@ -5,7 +5,7 @@ import Link from "next/link";
 import {createPortal} from "react-dom";
 
 type MenuProps = {} & ComponentPropsWithoutRef<'nav'>
-type MenuItemProps = {path:string,label?:string} & ComponentPropsWithoutRef<'li'>
+type MenuItemProps = {path:string,label?:string,isActive?:boolean} & ComponentPropsWithoutRef<'li'>
 type MenuListProps = {} & ComponentPropsWithoutRef<'ul'>
 
 
@@ -24,9 +24,9 @@ export const NavMenuList = (props: MenuListProps) => {
   )
 }
 export const NavMenuItem = (props: MenuItemProps) => {
-  const {className,path,label,children,...rest} = props
+  const {className,path,label,children,isActive=false,...rest} = props
   return (
-      <li className={clsx(s.item,className) } {...rest}>
+      <li className={clsx(s.item,isActive && s.active,className) } {...rest}>
           <Link href={path} aria-label={label} role="menuitem" passHref>
               {children}
           </Link>
