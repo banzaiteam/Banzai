@@ -5,7 +5,7 @@
 }
 
 .large {
-  @include text-style(var(--font-size-xxl), var(--font-weight-semi-bold), var(----line-height-snug))
+  @include text-style(var(--font-size-xxl), var(--font-weight-semi-bold), var(--line-height-snug))
 }
 
 .h1 {

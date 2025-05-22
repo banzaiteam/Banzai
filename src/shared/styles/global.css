@@ -62,6 +62,8 @@
     --second-family: "Roboto", sans-serif;
     --third-family: "Barlow", sans-serif;
 
+
+    /* Размер шрифта */
     --font-size-xs: 12px;
     --font-size-s: 14px;
     --font-size-m: 16px;
@@ -69,6 +71,7 @@
     --font-size-xl: 20px;
     --font-size-xxl: 26px;
 
+    /* Насыщенность шрифта */
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semi-bold: 600;

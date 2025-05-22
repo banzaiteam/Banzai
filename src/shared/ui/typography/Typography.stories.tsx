@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Typography } from './Typography'
+import { Typography } from '@shared/ui'
 
 const meta = {
     component: Typography,
@@ -15,94 +15,119 @@ export const Large: Story = {
     args: {
         variant: 'large',
         as: 'div',
-        children: <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
             quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
-            officia sapiente vero, voluptatem!</div>,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const H1: Story = {
     args: {
         variant: 'h1',
-        children: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+        as: 'h1',
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
             quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
-            officia sapiente vero, voluptatem!</p>,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const H2: Story = {
     args: {
         variant: 'h2',
-        ...H1.args,
+        as: 'h2',
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const H3: Story = {
     args: {
         variant: 'h3',
-        ...H1.args,
+        as: 'h3',
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Regular_text_16: Story = {
     args: {
         variant: 'regular_text_16',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Bold_text_16: Story = {
     args: {
         variant: 'bold_text_16',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Regular_text_14: Story = {
     args: {
         variant: 'regular_text_14',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Medium_text_14: Story = {
     args: {
         variant: 'medium_text_14',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Bold_text_14: Story = {
     args: {
         variant: 'bold_text_14',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Small_text: Story = {
     args: {
         variant: 'small_text',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Semi_bold_small_text: Story = {
     args: {
         variant: 'semi_bold_small_text',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Regular_link: Story = {
     args: {
         variant: 'regular_link',
-        ...H1.args,
+        children: <>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</>,
     }
 }
 
 export const Small_link: Story = {
     args: {
         variant: 'small_link',
-        ...H1.args,
+        children: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus doloremque impedit iste nihil
+            quia voluptatibus. Adipisci cum dicta, doloremque ea earum eligendi exercitationem libero maxime molestias,
+            officia sapiente vero, voluptatem!</p>,
     }
 }

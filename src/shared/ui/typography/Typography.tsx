@@ -19,7 +19,7 @@ type VariantType =
 
 type Props<T extends ElementType = 'p'> = {
     as?: T
-    children: ReactNode
+    children?: ReactNode
     className?: string
     variant?: VariantType
 } & ComponentPropsWithoutRef<T>
