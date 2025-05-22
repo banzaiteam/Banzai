@@ -11,6 +11,19 @@
     color: var(--light-100);
     line-height: 24px;
     position: relative;
+    transition: all 0.5s;
+    &.small {
+      width: 60px;
+      padding: 2px 8px;
+      font-size: 14px;
+      .arrow__icon {
+        display: block;
+      }
+      svg {
+        width: 18px;
+        height: 16px;
+      }
+    }
     &:hover {
       background-color: transparent;
       border: 1px solid var(--dark-100);
@@ -52,6 +65,13 @@
     top: 35px;
     left: -2px;
     border: 1px solid var(--dark-100);
+    transition: all 0.5s;
+    &.small {
+      width: 60px;
+      top: 30px;
+      left: -10px;
+      transition: all 0.5s;
+    }
     &:hover {
       border: 1px solid var(--light-100);
       color: var(--dark-100);
@@ -75,6 +95,7 @@
 
 .Item {
   padding: 6px 10px;
+  cursor: pointer;
   &:focus-visible {
     outline: none;
   }

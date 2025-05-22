@@ -14,7 +14,7 @@ const languageOptions = [
   { label: "Russian", value: "ru", flag: <FlagRussia /> },
 ];
 
-const isLoggedIn = false; //authentication state
+const isLoggedIn = false; //temporary authentication state
 
 const Header: React.FC = () => {
   const [value, setValue] = useState(languageOptions[0].value);

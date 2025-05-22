@@ -15,6 +15,7 @@ type SelectProps = {
   onValueChange: (value: string) => void;
   value: string;
   disabled?: boolean;
+  size?: "default" | "small";
 };
 
 const Select: React.FC<SelectProps> = ({
@@ -23,6 +24,7 @@ const Select: React.FC<SelectProps> = ({
   onValueChange,
   value,
   disabled = false,
+  size = "default",
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -39,7 +41,9 @@ const Select: React.FC<SelectProps> = ({
       >
         {/* This is the clickable area (like a <button>). When the user clicks it, the dropdown opens. */}
         <RadixSelect.Trigger
-          className={`${styles.select__box} ${disabled ? styles.disabled : ""}`}
+          className={`${styles.select__box} ${
+            disabled ? styles.disabled : ""
+          } ${size === "small" ? styles.small : ""}`}
           aria-label="Select Box"
           disabled={disabled}
           data-state={open ? "open" : "closed"}
@@ -63,14 +67,23 @@ const Select: React.FC<SelectProps> = ({
         {!disabled && (
           <RadixSelect.Portal>
             {/* Content is the box that opens — the full dropdown. */}
-            <RadixSelect.Content className={styles.select__dropdown}>
+            <RadixSelect.Content
+              className={`${styles.select__dropdown} ${
+                size === "small" ? styles.small : ""
+              }`}
+            >
               {/* Viewport — it's where options live */}
-              <RadixSelect.Viewport className={styles.Viewport}>
+              <RadixSelect.Viewport
+                className={`${styles.Viewport} ${
+                  size === "small" ? styles.small : ""
+                }`}
+              >
                 {options.map((option) => (
                   <SelectItem
                     key={option.value}
                     value={option.value}
                     option={option}
+                    size={size}
                   />
                 ))}
               </RadixSelect.Viewport>
@@ -88,7 +101,10 @@ const Select: React.FC<SelectProps> = ({
 // >
 const SelectItem = React.forwardRef<
   React.ComponentRef<typeof RadixSelect.Item>,
-  React.ComponentPropsWithoutRef<typeof RadixSelect.Item> & { option: Option }
+  React.ComponentPropsWithoutRef<typeof RadixSelect.Item> & {
+    option: Option;
+    size?: "default" | "small";
+  }
 >(({ children, className, option, ...props }, forwardedRef) => {
   return (
     <RadixSelect.Item
@@ -110,3 +126,13 @@ const SelectItem = React.forwardRef<
 });
 
 export default Select;
+
+// uncomment for testing for numbers select box and pass it for parent;
+// const [numberValue, setNumberValue] = useState("100");
+// const numberOptions = [
+//   { label: "10", value: "10" },
+//   { label: "20", value: "20" },
+//   { label: "30", value: "30" },
+//   { label: "50", value: "50" },
+//   { label: "100", value: "100" },
+// ];
