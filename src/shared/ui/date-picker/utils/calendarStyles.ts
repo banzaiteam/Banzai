@@ -1,4 +1,4 @@
-export const calendarStyle = `
+export const calendarStyles = `
   .air-datepicker {
     --adp-width: 252px;
     display: block !important;
@@ -65,8 +65,8 @@ export const calendarStyle = `
   }
 
   .custom-airdatepicker .air-datepicker-nav--action:hover svg path {
-    stroke: var(--primary-500); /* Изменение цвета обводки */
-    transition: stroke 0.2s ease; /* Плавное изменение */
+    stroke: var(--primary-500);
+    transition: stroke 0.2s ease;
   }
 
   .custom-airdatepicker .air-datepicker-body--cells {
@@ -96,7 +96,7 @@ export const calendarStyle = `
 
   /* Базовый стиль дня */
   .custom-airdatepicker .air-datepicker-cell.-day- {
-    transition: all 0.2s ease;
+    transition: all 0.01s;
   }
 
   /* Active (момент клика) */

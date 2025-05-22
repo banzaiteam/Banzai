@@ -1,4 +1,3 @@
-// utils/CalendarConfig.ts
 import localeEn from 'air-datepicker/locale/en';
 import type { AirDatepickerOptions } from 'air-datepicker';
 import type { DatePickerProps } from '../DatePicker';
@@ -84,7 +83,12 @@ export const getCalendarConfig = ({
   },
   onRenderCell: ({ date, cellType, datepicker }) => {
     const type = cellType as string;
-    const baseStyle = 'font-family: var(--font-family), sans-serif; line-height: var(--line-height-normal); font-size: 16px; width: 36px; height: 36px;';
+    const baseStyle = ` font-family: var(--font-family), 
+                        sans-serif; 
+                        line-height: var(--line-height-normal); 
+                        font-size: 16px; 
+                        width: 36px; 
+                        height: 36px;`
     
     if (type === 'day') {
       const dayNumber = date.getDate().toString();

@@ -8,6 +8,7 @@ type Props = {
   isCalendarOpen: boolean
   disabled: boolean
   onBlur: () => void
+  onFocus: () => void
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -19,6 +20,7 @@ export const DateInput = forwardRef<HTMLInputElement, Props>(
       isCalendarOpen,
       disabled,
       onBlur,
+      onFocus,
       onChange,
       ...rest
     },

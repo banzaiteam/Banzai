@@ -1,8 +1,7 @@
-// hooks/useDatePickerEffects.ts
 import { useEffect } from 'react';
 import AirDatepicker from 'air-datepicker';
-import { calendarStyle } from '../utils/calendarStyle';
-import { getCalendarConfig } from '../utils/calendarConfig';
+import { calendarStyles } from '../utils/calendarStyles';
+import { getCalendarConfig } from '../utils/getCalendarConfig';
 import { validateDate } from '../utils/dateValidation';
 
 export const useDatePickerEffects = (
@@ -18,7 +17,7 @@ export const useDatePickerEffects = (
 ) => {
   useEffect(() => {
     if (disabled || !inputRef.current) return;
-    
+
     const config = getCalendarConfig({
       id,
       mode,
@@ -36,7 +35,7 @@ export const useDatePickerEffects = (
     dpRef.current = dp;
 
     const style = document.createElement('style');
-    style.textContent = calendarStyle;
+    style.textContent = calendarStyles;
     document.head.appendChild(style);
 
     return () => {

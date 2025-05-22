@@ -1,4 +1,3 @@
-// utils/dateValidation.ts
 export type ValidationResult = {
   isValid: boolean;
   errorMessage: string;
@@ -14,7 +13,7 @@ export const validateDate: ValidateDateFn = (dateStr, mode, required) => {
     };
   }
 
-  // Для режима range разрешаем формат "dd/mm/yyyy - dd/mm/yyyy"
+  // For range mode - format "dd/mm/yyyy - dd/mm/yyyy"
   const dateRegex = mode === 'range' 
     ? /^(\d{2}\/\d{2}\/\d{4}\s*-\s*\d{2}\/\d{2}\/\d{4})$/
     : /^\d{2}\/\d{2}\/\d{4}$/;
@@ -26,7 +25,7 @@ export const validateDate: ValidateDateFn = (dateStr, mode, required) => {
     };
   }
 
-  // Проверяем все даты (для range - обе даты)
+  // Check all dates (for range - both dates)
   const datesToValidate = mode === 'range' 
     ? dateStr.split(' - ').map(part => part.trim())
     : [dateStr];

@@ -30,8 +30,7 @@ export const DatePicker: React.FC<DatePickerProps> = (
     error: externalError = false,
     errorMessage: externalErrorMessage = '',
     value = null,
-    onChange,
-    ...rest
+    onChange
   }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,15 +38,15 @@ export const DatePicker: React.FC<DatePickerProps> = (
     isCalendarOpen,
     internalError,
     internalErrorMessage,
+    isTouched,
     dpRef,
     setIsCalendarOpen,
     handleValidation,
     handleDateChange,
-    handleManualInput
+    handleManualInput,
+    handleFocus,
+    handleBlur
   } = useDatePickerLogic(mode, required, inputRef as React.RefObject<HTMLInputElement>, onChange);
-
-    const error = externalError || internalError;
-    const errorMessage = externalErrorMessage || internalErrorMessage;
 
   useDatePickerEffects(
     id,
@@ -61,24 +60,23 @@ export const DatePicker: React.FC<DatePickerProps> = (
     required
   );
 
-  const handleBlur = () => {
-    if (inputRef.current) {
-      handleValidation(inputRef.current.value);
-    }
-  };
+  // Combining errors
+  const showError = (externalError || internalError) && isTouched;
+  const messageToShow = isTouched ? (externalErrorMessage || internalErrorMessage) : '';
 
   return (
     <div className={styles.wrapper}>
       <Label id={id} label={label} disabled={disabled} required={required}/>
       <DateInput  id={id}
-                  error={error}
+                  error={showError}
                   isCalendarOpen={isCalendarOpen}
                   disabled={disabled}
                   onBlur={handleBlur}
                   onChange={handleManualInput}
+                  onFocus={handleFocus}
                   ref={inputRef}
       />
-      <ErrorMessage error={error} errorMessage={errorMessage}/>
+      <ErrorMessage error={showError} errorMessage={messageToShow}/>
     </div>
   );
 };
