@@ -10,15 +10,14 @@ export default function Page() {
   return (
     <main>
       Banzai
-      <Textarea style={{marginRight: '20px'}} title={'Заголовок'} placeholder="Введите текст..."/>
+      <Textarea title={'Заголовок'} placeholder="Введите текст..."/>
       <Textarea title={'Заголовок'} placeholder="Введите текст..." disabled/>
       <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
-
       <Calendar/>
       <div style={{padding: '40px'}}>
         <Pagination
           currentPage={currentPage}
-          onPageChange={(page)=>setCurrentPage(page)}
+          onPageChange={(page) => setCurrentPage(page)}
           totalPages={15}/>
       </div>
 
