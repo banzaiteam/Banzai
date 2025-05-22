@@ -20,7 +20,6 @@ export default function Page() {
           onPageChange={(page) => setCurrentPage(page)}
           totalPages={15}/>
       </div>
-
     </main>
   );
 }
