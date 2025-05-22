@@ -1,29 +1,27 @@
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
-import s from "./Checkbox.module.css";
+import s from "./Checkbox.module.scss";
 import {ComponentPropsWithoutRef, useId} from 'react';
-import CheckmarkOutline from "@/assets/icons/components/CheckmarkOutline";
+import CheckmarkOutlineNEW from "@/assets/icons/components/CheckmarkOutlineNEW";
 
 type Props =   {
     label? : string
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-export const Checkbox= ({ label, ...rest}: Props) => {
-    const id = useId()
+export const Checkbox= ({ label, id, ...rest}: Props) => {
+    const uniqueId = id || useId();
+
     return (
         <div className={s.container}>
-            <CheckboxRadix.Root
-                className={s.checkbox}
-                id={id}
-                {...rest}
-            >
-                <CheckboxRadix.Indicator>
-                    <CheckmarkOutline width={17} height={17} />
+            <CheckboxRadix.Root className={s.checkbox} {...rest} id={uniqueId}>
+                <CheckboxRadix.Indicator className={s.CheckboxIndicator}>
+                    <CheckmarkOutlineNEW/>
                 </CheckboxRadix.Indicator>
             </CheckboxRadix.Root>
-            {label && <label className={s.label}>
+            {label && <label className={s.label} htmlFor={uniqueId}>
                 {label}
             </label>}
         </div>
+
     )
 }
 
