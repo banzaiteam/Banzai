@@ -1,0 +1,11 @@
+  .scroll-viewport {
+    /* Стили для области контента */
+    width: 100% !important;
+    height: auto !important;
+    max-height: 200px !important; /* Или нужная вам высота */
+  }
+
+  .scroll-root {
+    /* Дополнительные стили для корневого элемента Scroll */
+   height: 200px;
+  }
