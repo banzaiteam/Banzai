@@ -148,4 +148,9 @@ export const calendarStyles = `
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
   }
+
+  .custom-airdatepicker .air-datepicker-cell.-month-,
+  .custom-airdatepicker .air-datepicker-cell.-year- {
+    color: var(--light-900) !important;
+  }
 `

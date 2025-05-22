@@ -61,8 +61,9 @@ export const DatePicker: React.FC<DatePickerProps> = (
   );
 
   // Combining errors
-  const showError = (externalError || internalError) && isTouched;
-  const messageToShow = isTouched ? (externalErrorMessage || internalErrorMessage) : '';
+  const showError = externalError || (internalError && isTouched);
+  const messageToShow = externalError ? externalErrorMessage : 
+                       (internalError && isTouched) ? internalErrorMessage : '';
 
   return (
     <div className={styles.wrapper}>

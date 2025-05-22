@@ -22,6 +22,7 @@ export const getCalendarConfig = ({
   inputRef
 }: CalendarConfigParams): AirDatepickerOptions => ({
   firstDay: 1,
+  inline: true,
   locale: localeEn,
   range: mode === 'range',
   multipleDates: mode === 'range' ? 2 : false,

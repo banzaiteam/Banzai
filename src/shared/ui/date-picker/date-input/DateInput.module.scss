@@ -13,6 +13,7 @@
   border: 1px solid var(--dark-300);
   border-radius: 2px;
   background-color: var(--dark-500);
+  color: var(--light-100);
 
   &::placeholder {
     font-family: var(--font-family), sans-serif;
@@ -30,6 +31,7 @@
   }
 
   &:disabled {
+    cursor: not-allowed;
     &::placeholder {
       color: var(--light-900);
     }
@@ -50,6 +52,7 @@
   right: 12px;
   display: flex;
   pointer-events: none;
+  color: var(--light-100);
 }
 
 .icon-error svg {

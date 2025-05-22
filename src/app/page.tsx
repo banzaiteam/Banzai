@@ -1,6 +1,6 @@
 import colors from "tailwindcss/colors";
-import { Pagination, Textarea } from "@shared/ui";
-import {  Calendar  } from "@/assets/icons/components";
+import {Pagination, Textarea} from "@shared/ui";
+import {Calendar} from "@/assets/icons/components";
 
 export default function Page() {
   return (
