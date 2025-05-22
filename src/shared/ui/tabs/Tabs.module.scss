@@ -6,7 +6,7 @@
 .list {
   flex-shrink: 0;
   display: flex;
-  //border-bottom:1px solid var(--dark-100);
+  //border-bottom:2px solid var(--dark-100);
 }
 
 .trigger {
@@ -28,8 +28,9 @@
   transition: all 0.2s ease-in-out;
   border-bottom: 2px solid var(--dark-100);
 
+
   &:hover {
-    background-color: var(--primary-900);
+    background-color: rgba(35, 78, 153, 0.15);
   }
 
   &:focus {
@@ -42,16 +43,17 @@
     color: var(--dark-300);
   }
 
+
   &[data-state='active'] {
     position: relative;
     color: var(--primary-500);
 
     &:hover {
-      background-color: var(--primary-900);
+      background-color: rgba(35, 78, 153, 0.15);
     }
 
     &:disabled {
-      color: var(--primary-700);
+      color: var(--primary-900);
     }
   }
 
