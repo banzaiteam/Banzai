@@ -1,7 +1,19 @@
+import colors from "tailwindcss/colors";
+import {Pagination, Textarea} from "@shared/ui";
+import {Calendar} from "@/assets/icons/components";
+
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
+    <main>
       Banzai
+      <Textarea title={'Заголовок'} placeholder="Введите текст..."/>
+      <Textarea title={'Заголовок'} placeholder="Введите текст..." disabled/>
+      <Textarea title={'Заголовок'} errorMessage='Ошибка'/>
+      <Calendar/>
+      <div style={{padding: '40px'}}>
+        <Pagination/>
+      </div>
+
     </main>
   );
 }
