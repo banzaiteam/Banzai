@@ -36,7 +36,8 @@ export const Disabled: Story = {
         tabs: [
             {
                 value: 'tab-1',
-                title: 'Tab1'
+                title: 'Tab1',
+                disabled: true,
             },
             {
                 value: 'tab-2',
