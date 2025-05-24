@@ -1,0 +1,70 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  flex-shrink: 0;
+  display: flex;
+  //border-bottom:1px solid var(--dark-100);
+}
+
+.trigger {
+  all: unset;
+  font-family: inherit;
+  padding: 0 24px;
+  height: 36px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 600;
+  color:  var(--dark-100);
+  user-select: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 2px solid var(--dark-100);
+
+  &:hover {
+    background-color: var(--primary-900);
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-700);
+    border-radius: 2px;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    color: var(--dark-300);
+  }
+
+  &[data-state='active'] {
+    position: relative;
+    color: var(--primary-500);
+
+    &:hover {
+      background-color: var(--primary-900);
+    }
+
+    &:disabled {
+      color: var(--primary-700);
+    }
+  }
+
+  &[data-state='active']::after { /*Подчеркивание активной вкладки*/
+    content: '';
+
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: var(--primary-500);
+  }
+}

@@ -1,6 +1,8 @@
 import Page from "@/app/page";
-import "@shared/styles/global.css"; // Подключение глобальных стилей
-import "@radix-ui/themes/styles.css";
+import '@shared/styles/global.css' // Подключение глобальных стилей
+import '@radix-ui/themes/styles.css';
+import {Scroll} from "@shared/ui";
+
 
 export default function RootLayout({
   children,
@@ -9,10 +11,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <body>
-        <Page />
-      </body>
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <body>
+    <Scroll >
+      <Page/>
+    </Scroll>
+    </body>
     </html>
   );
 }
