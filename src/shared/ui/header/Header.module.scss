@@ -35,13 +35,18 @@
   }
 }
 
+@media (max-width: 800px) {
+  .header {
+    .registration {
+      display: none;
+    }
+  }
+}
+
 @media (max-width: 650px) {
   .header {
     &__inner {
       padding: 12px 12px;
-    }
-    .registration {
-      display: none;
     }
     .logo {
       font-size: 20px;
@@ -51,6 +56,11 @@
     }
     .more {
       display: flex;
+    }
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
   }
 }

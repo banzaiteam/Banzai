@@ -1,9 +1,11 @@
-'use client'
+"use client";
+import Header from "@/shared/ui/header/Header";
 
 export default function Page() {
   return (
-    <main >
-      Banzai
-    </main>
+    <>
+      <Header />
+      <main>Banzai</main>
+    </>
   );
 }

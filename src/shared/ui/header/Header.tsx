@@ -8,6 +8,7 @@ import {
   OutlineBell,
 } from "@/assets/icons/components";
 import { useState } from "react";
+import { Button } from "../button/Button";
 
 const languageOptions = [
   { label: "English", value: "en", flag: <FlagUnitedKingdom /> },
@@ -37,8 +38,8 @@ const Header: React.FC = () => {
             </button>
             {!isLoggedIn && (
               <div className={styles.registration}>
-                <div className="login">login</div>
-                <div className="signup">signup</div>
+                <Button variant="text-button">Log in</Button>
+                <Button variant="primary">Sign up</Button>
               </div>
             )}
           </div>
