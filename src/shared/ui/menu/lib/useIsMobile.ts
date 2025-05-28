@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {MOBILE_BREAKPOINT} from "@shared/ui/navMenu/lib/constans";
+import {MOBILE_BREAKPOINT} from "@shared/ui/menu/lib/constans";
 
 
 

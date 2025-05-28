@@ -1,5 +1,5 @@
 import React, { type ComponentPropsWithoutRef } from 'react'
-import s from './NavMenu.module.scss'
+import s from './Navigation.module.scss'
 import {clsx} from "clsx";
 import Link from "next/link";
 import {createPortal} from "react-dom";
@@ -9,7 +9,7 @@ type MenuItemProps = {path:string,label?:string,isActive?:boolean} & ComponentPr
 type MenuListProps = {} & ComponentPropsWithoutRef<'ul'>
 
 
-export const NavMenu = (props: MenuProps) => {
+export const Navigation = (props: MenuProps) => {
  const {className,...rest} = props
 
   return (
