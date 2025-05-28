@@ -5,12 +5,13 @@ import {Scroll} from "@shared/ui";
 
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <body>
     <Scroll >
       <Page/>
