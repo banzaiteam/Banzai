@@ -33,11 +33,6 @@
       background-color: rgb(5,57,163) !important;
     }
 
-    //style for выделения текста
-    /*&::-moz-selection {
-      background-color: var(--dark-300);
-    }*/
-
 
   }
 
@@ -62,11 +57,6 @@
 
   }
 
-  /*& input:not(:placeholder-shown) {
-    color: red;
-  }*/
-
-  ///
 
   & input:disabled {
     color: inherit;
