@@ -17,7 +17,7 @@ export type InputProps = {
 
 } & Omit<ComponentPropsWithoutRef<typeof TextField.Root>, 'type'>
 
-type InputSlotProps = ComponentPropsWithoutRef<'button'>
+type InputSlotProps = Omit<ComponentPropsWithoutRef<'button'>,'type'>
 
 export const Input = (props: InputProps) => {
 
@@ -72,6 +72,6 @@ export const Input = (props: InputProps) => {
 export const InputSlot =(props:InputSlotProps)=>{
 const {className,...rest} = props
 
-    return <button className={clsx(s.slot_button,className)} {...rest} />
+    return <button  className={clsx(s.slot_button,className)} type={'button'} {...rest} />
 
 };
