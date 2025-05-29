@@ -1,4 +1,3 @@
-import {PATHS} from "@shared/ui/navMenu/lib/constans";
 import type {ReactNode} from "react";
 import {
     Home,
@@ -8,6 +7,7 @@ import {
     PlusSquare,
     PlusSquareOutline, Search, SearchOutline
 } from "@/assets/icons/components";
+import {PATHS} from "@shared/ui/menu/lib/constans";
 
 type NavMenuItemData = {
     id: number | string;
@@ -17,7 +17,7 @@ type NavMenuItemData = {
     path:typeof PATHS[keyof typeof PATHS]; //union
 }
 // @ts-ignore
-export const navMenuItemsData:NavMenuItemData[] = [
+export const navigationItemsData:NavMenuItemData[] = [
     {
         id: 1,
         label: 'feed',
