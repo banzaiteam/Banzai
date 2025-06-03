@@ -1,0 +1,38 @@
+.page {
+
+  padding: 24px 80px 0;
+
+  .wrapper {
+    text-align: center;
+  }
+
+  .content {
+    padding: 0 80px;
+    font-size: 14px;
+  }
+
+  .link_to_back {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 12px;
+    color: inherit;
+    line-height: 1.71;
+    margin-bottom: 24px;
+    text-align: left;
+transition: 0.2s color;
+    span {
+      line-height: 0;
+    }
+    &:hover {
+      color: var(--primary-100);
+
+    }
+  }
+
+  .title {
+    font-weight: 700;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+}
+
