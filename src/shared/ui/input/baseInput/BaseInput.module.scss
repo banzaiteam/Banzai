@@ -147,6 +147,10 @@
       background-color: transparent;
     }
 
+    & input{
+      -webkit-text-fill-color:inherit;///переопределить чёрный цвет color для текста в radix когда input disabled
+    }
+
     & input:active {
       color: inherit;
     }
