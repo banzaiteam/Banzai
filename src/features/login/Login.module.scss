@@ -1,50 +1,56 @@
-.login{
+.login {
   display: flex;
   justify-content: center;
   margin-top: 24px;
 
 
-
-
-  .wrapper{
+  .wrapper {
     flex: 0 0 378px;
     padding: 24px;
     background-color: var(--dark-500);
     text-align: center;
   }
-  .title{
+
+  .title {
     font-weight: 700;
     font-size: 20px;
     line-height: 1.8;
     /* color:  var(--light-100);*/
     margin-bottom: 14px;
   }
-  .button_icon_group{
+
+  .button_icon_group {
     display: flex;
     justify-content: center;
     column-gap: 60px;
     margin-bottom: 44px;
-    button{
+
+    button {
       line-height: 0;
     }
   }
-  .input_group{
+
+  .input_group {
     margin-bottom: 20px;
-    & > *:not(:last-child){
+
+    & > *:not(:last-child) {
       margin-bottom: 44px;
     }
   }
-  .checkbox_wrapper{
+
+  .checkbox_wrapper {
 
     display: flex;
     align-items: center;
     column-gap: 8px;
     justify-content: center;
     margin-bottom: 18px;
-    span{
+
+    span {
       font-size: 12px;
       line-height: var(--line-height-snug);
-      a{
+
+      a {
         text-decoration: underline;
         text-decoration-skip-ink: none;
         color: var(--primary-300);
@@ -52,11 +58,20 @@
     }
   }
 
-  .button_wrapper{
+  .button_wrapper {
     margin-bottom: 16px;
+
+    & > div {
+      width: 100%;
+
+      button {
+        flex: 1;
+      }
+    }
   }
-  .question{
-    display: inline-block;
+
+  .question {
+    display: block;
     margin-bottom: 4px;
   }
 }
