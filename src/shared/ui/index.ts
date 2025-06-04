@@ -11,4 +11,5 @@ export {InputSlot,Input,type InputProps} from './input/Input'
 
 export {Navigation,NavMenuItem,NavMenuList} from './menu/Navigation'
 export {Menu} from "./menu/Menu";
+export {Button} from './button/Button'
 
