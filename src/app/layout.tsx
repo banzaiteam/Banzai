@@ -10,22 +10,22 @@ import { store } from './store';
 
 
 export default function RootLayout({
-                                     children,
+                                       children,
                                    }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-    <body>
-    <Provider store={store}>
-      <AppProviders>
-        <Scroll>
-          <Page/>
-        </Scroll>
-      </AppProviders>
-    </Provider>
-    </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+        <body>
+        <Provider store={store}>
+            <AppProviders>
+                <Scroll>
+                    <Page/>
+                </Scroll>
+            </AppProviders>
+        </Provider>
+        </body>
+        </html>
+    );
 }
