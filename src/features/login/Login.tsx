@@ -1,8 +1,7 @@
 'use client'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import s from './Login.module.scss'
-import {EyeOffOutline, EyeOutline, GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
-import {Card, Input, InputSlot, Typography} from "@shared/ui";
+import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
 import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
@@ -13,6 +12,7 @@ import {useSignUpMutation} from "@features/login/api/login.api";
 import {useDispatch} from "react-redux";
 import {login} from "@shared/store/slices/appSlice";
 import {useRouter} from "next/navigation";
+import {Card, Input, Typography} from "@shared/ui";
 
 export type LoginProps = {}
 type FormData = z.infer<typeof schema>
@@ -34,9 +34,6 @@ const schema = z.object({
 
 
 export const Login = (props: LoginProps) => {
-
-    const [isShowPassword, setIsShowPassword] = useState(false)
-    const [isShowPasswordConfirmation, setIsShowPasswordConfirmation] = useState(false)
 
     const [signUp, {isLoading}] = useSignUpMutation();
     const dispatch = useDispatch();
@@ -129,29 +126,16 @@ export const Login = (props: LoginProps) => {
 
 
                     <Input {...register('password')} disabled={isSubmitting} subTitle={'Password'}
-                           type={isShowPassword ? 'text' : 'password'} placeholder={'******************'}
+                           type={'password'} placeholder={'******************'}
                            aria-required="true" error={!!errors.password?.message}
-                           helperText={errors.password?.message}>
-                        <InputSlot onClick={() => {
-                            setIsShowPassword((prev) => !prev)
-                        }} aria-label={isShowPassword ? "Hide password" : "Show password"}>
-                            {isShowPassword ? <EyeOutline/> : <EyeOffOutline/>}
-                        </InputSlot>
-                    </Input>
+                           helperText={errors.password?.message} />
 
 
                     <Input {...register('confirmPassword')} disabled={isSubmitting} subTitle={'Password confirmation'}
-                           type={isShowPasswordConfirmation ? 'text' : 'password'}
+                           type={'password'}
                            placeholder={'******************'} aria-required="true"
                            error={!!errors.confirmPassword?.message || (password !== confirmPassword && !!confirmPassword)}
-                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}>
-                        <InputSlot onClick={() => {
-                            setIsShowPasswordConfirmation((prev) => !prev)
-                        }}
-                                   aria-label={isShowPasswordConfirmation ? "Hide password confirmation" : "Show password confirmation"}>
-                            {isShowPasswordConfirmation ? <EyeOutline/> : <EyeOffOutline/>}
-                        </InputSlot>
-                    </Input>
+                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)} />
                 </div>
                 <div className={s.checkbox_wrapper}>
                     <Controller
