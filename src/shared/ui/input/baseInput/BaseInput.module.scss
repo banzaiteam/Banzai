@@ -1,8 +1,10 @@
 
 .wrapper {
+  display: block !important;
   position: relative;
   transition: all .3s;
 
+  --text-field-border-width: 0px !important;
 
 
   &.left {
@@ -33,11 +35,6 @@
       background-color: rgb(5,57,163) !important;
     }
 
-    //style for выделения текста
-    /*&::-moz-selection {
-      background-color: var(--dark-300);
-    }*/
-
 
   }
 
@@ -62,11 +59,6 @@
 
   }
 
-  /*& input:not(:placeholder-shown) {
-    color: red;
-  }*/
-
-  ///
 
   & input:disabled {
     color: inherit;
@@ -130,12 +122,14 @@
 
  & .error_message {
     color: var(--danger-500);
-    position: absolute;
-    bottom: 0;
+   pointer-events: none;
+  /*  position: absolute;*/
+   /* bottom: 0;
     left: 2px;
-    transform: translateY(100%);
+    transform: translateY(90%);*/
+   display: inline-block;
     font-size: 14px;
-    line-height: var(--line-height-relaxed);
+    line-height: 1.71;
   }
 
 
@@ -151,6 +145,10 @@
     &:active {
 
       background-color: transparent;
+    }
+
+    & input{
+      -webkit-text-fill-color:inherit;///переопределить чёрный цвет color для текста в radix когда input disabled
     }
 
     & input:active {
@@ -190,8 +188,10 @@
   }
 }
 
-
 .slot_button {
   line-height: 0;
   color: inherit;
+  &:focus-visible{
+    outline: 2px solid var(--primary-500);
+  }
 }

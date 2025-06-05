@@ -1,31 +1,31 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {useState} from "react";
 import {fn} from "@storybook/test";
-import {Input, type InputProps, InputSlot} from "@shared/ui";
+import {BaseInput, type BaseInputProps, BaseInputSlot} from "@shared/ui";
 import {EyeOffOutline, EyeOutline, SearchOutline} from "@/assets/icons/components";
 
 
-const RenderPassword = ({onClick,...rest}:InputProps) => {
+const RenderPassword = ({onClick,...rest}:BaseInputProps) => {
     const [isShowPassword, setIsShowPassword] = useState(false);
 
    const  onClickHandler = () =>{
        setIsShowPassword(!isShowPassword);
    }
 
-    return  <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'} {...rest}>
+    return  <BaseInput placeholder={'password'} type={isShowPassword ? 'text' : 'password'} {...rest}>
 
-        <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={onClickHandler}>
+        <BaseInputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={onClickHandler}>
             {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
                 <EyeOutline stroke={'currentColor'}/>}
-        </InputSlot>
+        </BaseInputSlot>
 
-    </Input>
+    </BaseInput>
 }
 
 
-const meta: Meta<typeof Input> = {
-    title: 'Shared/Input',
-    component: Input,
+const meta: Meta<typeof BaseInput> = {
+    title: 'Shared/BaseInput',
+    component: BaseInput,
     tags: ['autodocs'],
     parameters: {
         layout: 'centered',
@@ -41,7 +41,7 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof BaseInput>;
 
 export const Default: Story = {
     args: {
@@ -95,9 +95,9 @@ export const Search: Story = {
         ...Default.args,
         subTitle:'Search',
         side:'left',
-        children: <InputSlot>
+        children: <BaseInputSlot>
             <SearchOutline  stroke='currentColor'/>
-        </InputSlot>
+        </BaseInputSlot>
     },
 };
 
