@@ -9,10 +9,10 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {useSignUpMutation} from "@features/login/api/login.api";
-import {useDispatch} from "react-redux";
-import {login} from "@shared/store/slices/appSlice";
+import {clearAppError, login} from "@shared/store/slices/appSlice";
 import {useRouter} from "next/navigation";
 import {Card, Input, Typography} from "@shared/ui";
+import {useAppDispatch} from "@shared/hooks/useAppDispatch";
 
 export type LoginProps = {}
 type FormData = z.infer<typeof schema>
@@ -36,7 +36,7 @@ const schema = z.object({
 export const Login = (props: LoginProps) => {
 
     const [signUp, {isLoading}] = useSignUpMutation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const {
         register,
@@ -82,19 +82,21 @@ export const Login = (props: LoginProps) => {
                 username,
                 email,
                 password,
+            }).unwrap().catch((error) => {
+                throw error;
             })
 
-            const token = response.data?.token || '123123'
+            const token = response?.token || '123123'
             if (token) {
                 localStorage.setItem('access_token', token);
                 dispatch(login());
+                dispatch(clearAppError())
                 router.push('/') // || router.back();
             }
 
-        } catch (error) {
-
-            alert(error)
-        } finally {
+        }
+        catch (error){}
+         finally {
             reset();
         }
 
@@ -150,8 +152,8 @@ export const Login = (props: LoginProps) => {
                             />
                         )}
                     />
-                    <span id="terms-label">I agree to the <Link href={"/terms-of-service"}
-                                                                aria-label="Terms of Service">
+                    <span id="terms-label">I agree to the <Link href={"/terms-of-service"} aria-label="Terms of Service">
+
                         Terms of Service
                     </Link> and <Link href={"/privacy-policy"} aria-label="Privacy Policy">
                         Privacy Policy
