@@ -102,8 +102,8 @@ export const Login = (props: LoginProps) => {
     };
 
     return <div className={s.login}>
-        <Card>
-            <form onSubmit={handleSubmit(onSubmitHandler)} className={s.wrapper} role="form"
+        <Card className={s.wrapper}>
+            <form onSubmit={handleSubmit(onSubmitHandler)} role="form"
                   aria-labelledby="signup-heading">
                 <Typography className={s.title} id="signup-heading" variant="h1" as={'h1'}>Sign Up</Typography>
                 <div className={s.button_icon_group} role="group" aria-label="Social sign up">
