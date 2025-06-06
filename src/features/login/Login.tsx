@@ -28,6 +28,7 @@ export const Login = (props: LoginProps) => {
         watch,
         control,
         trigger,
+        setError,
         reset,
         formState: {errors, isValid, isDirty, isSubmitting},
     } = useForm<FormDataSignUp>({
@@ -67,15 +68,30 @@ export const Login = (props: LoginProps) => {
                 email,
                 password,
             }).unwrap()
-
+            reset();
             router.push('/') // || router.back();
 
         }
-        catch (error) {}
+        catch (error:any) {
 
-        finally {
-            reset();
-        }
+                if(error.status===400){
+                    const errorBody = error.data.errorsMessages[0];
+                    console.log(errorBody.field)
+                    console.log(errorBody.message)
+
+                    setError(errorBody.field, {
+                        type: 'manual',
+                        message:errorBody.message,
+                    });
+                }
+                else if (error.status===409){
+                    setError('email', {
+                        type: 'manual',///ошибка клиента
+                        message:'Пользователь с таким email уже зарегистрирован',
+                    });
+
+                }
+            }
 
 
     };
