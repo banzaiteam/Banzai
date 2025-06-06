@@ -32,9 +32,10 @@ export const LoginForm = () => {
 
     try {
       const response = await login(data).unwrap();
+      console.log(response)
       localStorage.setItem('access_token', response.access_token);
       localStorage.setItem('refresh_token', response.refresh_token);
-      router.push('/dashboard');
+      router.push('/');
     } catch (err: any) {
       console.error('Login failed:', err);
       
