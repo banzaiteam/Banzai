@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://gate.yogram.ru/api',
+    baseUrl: 'https://gate.yogram.ru/api/v1',
     prepareHeaders: (headers) => {
       // Получаем токен из localStorage
       const token = localStorage.getItem('access_token');
