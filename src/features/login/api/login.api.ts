@@ -1,4 +1,5 @@
 import {baseApi} from "@shared/api/baseApi";
+import {clearAppError, login} from "@shared/store/slices/appSlice";
 
 
 type ResponseType = {
@@ -19,7 +20,17 @@ export const loginApi = baseApi.injectEndpoints({
                 url:'/v1/signup',
                 method:'POST',
                 body:data
-            })
+            }),
+           async onQueryStarted(arg, {dispatch,queryFulfilled}):Promise<void> {
+                try {
+
+              await queryFulfilled;
+                    dispatch(login());
+                    dispatch(clearAppError())
+                }
+                catch (error){}
+
+            }
         })
     }),
 });

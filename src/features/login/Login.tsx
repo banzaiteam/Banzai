@@ -9,10 +9,8 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {useSignUpMutation} from "@features/login/api/login.api";
-import {clearAppError, login} from "@shared/store/slices/appSlice";
 import {useRouter} from "next/navigation";
 import {Card, Input, Typography} from "@shared/ui";
-import {useAppDispatch} from "@shared/hooks/useAppDispatch";
 
 export type LoginProps = {}
 type FormData = z.infer<typeof schema>
@@ -36,7 +34,6 @@ const schema = z.object({
 export const Login = (props: LoginProps) => {
 
     const [signUp, {isLoading}] = useSignUpMutation();
-    const dispatch = useAppDispatch();
     const router = useRouter();
     const {
         register,
@@ -78,25 +75,18 @@ export const Login = (props: LoginProps) => {
     const onSubmitHandler: SubmitHandler<FormData> = async ({username, email, password}) => {
 
         try {
-            const response = await signUp({
+            await signUp({
                 username,
                 email,
                 password,
-            }).unwrap().catch((error) => {
-                throw error;
-            })
+            }).unwrap()
 
-            const token = response?.token || '123123'
-            if (token) {
-                localStorage.setItem('access_token', token);
-                dispatch(login());
-                dispatch(clearAppError())
-                router.push('/') // || router.back();
-            }
+            router.push('/') // || router.back();
 
         }
-        catch (error){}
-         finally {
+        catch (error) {}
+
+        finally {
             reset();
         }
 
@@ -130,14 +120,14 @@ export const Login = (props: LoginProps) => {
                     <Input {...register('password')} disabled={isSubmitting} subTitle={'Password'}
                            type={'password'} placeholder={'******************'}
                            aria-required="true" error={!!errors.password?.message}
-                           helperText={errors.password?.message} />
+                           helperText={errors.password?.message}/>
 
 
                     <Input {...register('confirmPassword')} disabled={isSubmitting} subTitle={'Password confirmation'}
                            type={'password'}
                            placeholder={'******************'} aria-required="true"
                            error={!!errors.confirmPassword?.message || (password !== confirmPassword && !!confirmPassword)}
-                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)} />
+                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}/>
                 </div>
                 <div className={s.checkbox_wrapper}>
                     <Controller
@@ -152,7 +142,8 @@ export const Login = (props: LoginProps) => {
                             />
                         )}
                     />
-                    <span id="terms-label">I agree to the <Link href={"/terms-of-service"} aria-label="Terms of Service">
+                    <span id="terms-label">I agree to the <Link href={"/terms-of-service"}
+                                                                aria-label="Terms of Service">
 
                         Terms of Service
                     </Link> and <Link href={"/privacy-policy"} aria-label="Privacy Policy">
