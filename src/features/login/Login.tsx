@@ -5,30 +5,17 @@ import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
 import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
-import {z} from "zod";
+
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {useSignUpMutation} from "@features/login/api/login.api";
 import {useRouter} from "next/navigation";
 import {Card, Input, Typography} from "@shared/ui";
+import {type FormDataSignUp, schemaSignUp} from "@features/login/model/loginSchema";
 
 export type LoginProps = {}
-type FormData = z.infer<typeof schema>
 
-const schema = z.object({
-    username: z.string().nonempty('Username is required').min(6, 'Minimum number of characters 6').max(30, 'Maximum number of characters 30'),
-    email: z.string().nonempty('Email is required').email('The email must match the format example@example.com'),
-    password: z.string().nonempty('Password is required').min(6, 'Minimum number of characters 6').max(30, 'Maximum number of characters 30').regex(/[!\"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/, {
-        message: "Must contain at least one special character: !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-    }),
-    confirmPassword: z.string().nonempty('Confirm Password is required'),
-    agreement: z.literal(true, {
-        errorMap: () => ({message: "You must accept the terms"}),
-    }),
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // Указываем, к какому полю привязать ошибку
-})
+
 
 
 export const Login = (props: LoginProps) => {
@@ -43,8 +30,8 @@ export const Login = (props: LoginProps) => {
         trigger,
         reset,
         formState: {errors, isValid, isDirty, isSubmitting},
-    } = useForm<FormData>({
-        resolver: zodResolver(schema),
+    } = useForm<FormDataSignUp>({
+        resolver: zodResolver(schemaSignUp),
         defaultValues: {
             username: '',
             email: '',
@@ -72,7 +59,7 @@ export const Login = (props: LoginProps) => {
     const onClickHandler = () => {
         alert('Нажмал')
     };
-    const onSubmitHandler: SubmitHandler<FormData> = async ({username, email, password}) => {
+    const onSubmitHandler: SubmitHandler<FormDataSignUp> = async ({username, email, password}) => {
 
         try {
             await signUp({
