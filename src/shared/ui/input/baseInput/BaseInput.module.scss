@@ -1,11 +1,13 @@
 
-.wrapper {
-  display: block !important;
-  position: relative;
-  transition: all .3s;
+.container {
 
-  --text-field-border-width: 0px !important;
+  .wrapper{
+    display: block !important;
+    position: relative;
+    transition: all .3s;
 
+    --text-field-border-width: 0px !important;
+  }
 
   &.left {
     input {
@@ -123,10 +125,7 @@
  & .error_message {
     color: var(--danger-500);
    pointer-events: none;
-  /*  position: absolute;*/
-   /* bottom: 0;
-    left: 2px;
-    transform: translateY(90%);*/
+
    display: inline-block;
     font-size: 14px;
     line-height: 1.71;
