@@ -21,7 +21,7 @@ export default function RootLayout({
         <Provider store={store}>
             <AppProviders>
                 <Scroll>
-                    <Page/>
+                    {children}
                 </Scroll>
             </AppProviders>
         </Provider>

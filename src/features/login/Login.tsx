@@ -1,45 +1,26 @@
 'use client'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import s from './Login.module.scss'
-import {EyeOffOutline, EyeOutline, GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
-import {Card, Input, InputSlot, Typography} from "@shared/ui";
+import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
 import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
-import {z} from "zod";
+
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {useSignUpMutation} from "@features/login/api/login.api";
-import {useDispatch} from "react-redux";
-import {login} from "@shared/store/slices/appSlice";
 import {useRouter} from "next/navigation";
+import {Card, Input, Typography} from "@shared/ui";
+import {type FormDataSignUp, schemaSignUp} from "@features/login/model/loginSchema";
 
 export type LoginProps = {}
-type FormData = z.infer<typeof schema>
 
-const schema = z.object({
-    username: z.string().nonempty('Username is required').min(6, 'Minimum number of characters 6').max(30, 'Maximum number of characters 30'),
-    email: z.string().nonempty('Email is required').email('The email must match the format example@example.com'),
-    password: z.string().nonempty('Password is required').min(6, 'Minimum number of characters 6').max(30, 'Maximum number of characters 30').regex(/[!\"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/, {
-        message: "Must contain at least one special character: !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-    }),
-    confirmPassword: z.string().nonempty('Confirm Password is required'),
-    agreement: z.literal(true, {
-        errorMap: () => ({message: "You must accept the terms"}),
-    }),
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // Указываем, к какому полю привязать ошибку
-})
+
 
 
 export const Login = (props: LoginProps) => {
 
-    const [isShowPassword, setIsShowPassword] = useState(false)
-    const [isShowPasswordConfirmation, setIsShowPasswordConfirmation] = useState(false)
-
     const [signUp, {isLoading}] = useSignUpMutation();
-    const dispatch = useDispatch();
     const router = useRouter();
     const {
         register,
@@ -47,10 +28,11 @@ export const Login = (props: LoginProps) => {
         watch,
         control,
         trigger,
+        setError,
         reset,
         formState: {errors, isValid, isDirty, isSubmitting},
-    } = useForm<FormData>({
-        resolver: zodResolver(schema),
+    } = useForm<FormDataSignUp>({
+        resolver: zodResolver(schemaSignUp),
         defaultValues: {
             username: '',
             email: '',
@@ -78,35 +60,45 @@ export const Login = (props: LoginProps) => {
     const onClickHandler = () => {
         alert('Нажмал')
     };
-    const onSubmitHandler: SubmitHandler<FormData> = async ({username, email, password}) => {
+    const onSubmitHandler: SubmitHandler<FormDataSignUp> = async ({username, email, password}) => {
 
         try {
-            const response = await signUp({
+            await signUp({
                 username,
                 email,
                 password,
-            })
-
-            const token = response.data?.token || '123123'
-            if (token) {
-                localStorage.setItem('access_token', token);
-                dispatch(login());
-                router.push('/') // || router.back();
-            }
-
-        } catch (error) {
-
-            alert(error)
-        } finally {
+            }).unwrap()
             reset();
+            router.push('/') // || router.back();
+
         }
+        catch (error:any) {
+
+                if(error.status===400){
+                    const errorBody = error.data.errorsMessages[0];
+                    console.log(errorBody.field)
+                    console.log(errorBody.message)
+
+                    setError(errorBody.field, {
+                        type: 'manual',
+                        message:errorBody.message,
+                    });
+                }
+                else if (error.status===409){
+                    setError('email', {
+                        type: 'manual',///ошибка клиента
+                        message:'Пользователь с таким email уже зарегистрирован',
+                    });
+
+                }
+            }
 
 
     };
 
     return <div className={s.login}>
-        <Card>
-            <form onSubmit={handleSubmit(onSubmitHandler)} className={s.wrapper} role="form"
+        <Card className={s.wrapper}>
+            <form onSubmit={handleSubmit(onSubmitHandler)} role="form"
                   aria-labelledby="signup-heading">
                 <Typography className={s.title} id="signup-heading" variant="h1" as={'h1'}>Sign Up</Typography>
                 <div className={s.button_icon_group} role="group" aria-label="Social sign up">
@@ -129,29 +121,16 @@ export const Login = (props: LoginProps) => {
 
 
                     <Input {...register('password')} disabled={isSubmitting} subTitle={'Password'}
-                           type={isShowPassword ? 'text' : 'password'} placeholder={'******************'}
+                           type={'password'} placeholder={'******************'}
                            aria-required="true" error={!!errors.password?.message}
-                           helperText={errors.password?.message}>
-                        <InputSlot onClick={() => {
-                            setIsShowPassword((prev) => !prev)
-                        }} aria-label={isShowPassword ? "Hide password" : "Show password"}>
-                            {isShowPassword ? <EyeOutline/> : <EyeOffOutline/>}
-                        </InputSlot>
-                    </Input>
+                           helperText={errors.password?.message}/>
 
 
                     <Input {...register('confirmPassword')} disabled={isSubmitting} subTitle={'Password confirmation'}
-                           type={isShowPasswordConfirmation ? 'text' : 'password'}
+                           type={'password'}
                            placeholder={'******************'} aria-required="true"
                            error={!!errors.confirmPassword?.message || (password !== confirmPassword && !!confirmPassword)}
-                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}>
-                        <InputSlot onClick={() => {
-                            setIsShowPasswordConfirmation((prev) => !prev)
-                        }}
-                                   aria-label={isShowPasswordConfirmation ? "Hide password confirmation" : "Show password confirmation"}>
-                            {isShowPasswordConfirmation ? <EyeOutline/> : <EyeOffOutline/>}
-                        </InputSlot>
-                    </Input>
+                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}/>
                 </div>
                 <div className={s.checkbox_wrapper}>
                     <Controller
@@ -168,6 +147,7 @@ export const Login = (props: LoginProps) => {
                     />
                     <span id="terms-label">I agree to the <Link href={"/terms-of-service"}
                                                                 aria-label="Terms of Service">
+
                         Terms of Service
                     </Link> and <Link href={"/privacy-policy"} aria-label="Privacy Policy">
                         Privacy Policy
