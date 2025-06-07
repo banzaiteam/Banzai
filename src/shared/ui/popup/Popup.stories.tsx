@@ -1,0 +1,21 @@
+
+import type { Meta, StoryObj } from '@storybook/react'
+import { Popup } from '@/shared/ui'
+
+
+const meta = {
+  title: 'Components/Popup',
+  component: Popup,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {},
+} satisfies Meta<typeof Popup>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+   args: {},
+}
