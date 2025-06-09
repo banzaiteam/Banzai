@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect} from 'react'
-import s from './Login.module.scss'
+import s from './SingUp.module.scss'
 import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
 import {Button} from "@shared/ui/button/Button";
@@ -18,7 +18,7 @@ export type LoginProps = {}
 
 
 
-export const Login = (props: LoginProps) => {
+export const SignUp = (props: LoginProps) => {
 
     const [signUp, {isLoading}] = useSignUpMutation();
     const router = useRouter();

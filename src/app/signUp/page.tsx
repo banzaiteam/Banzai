@@ -1,4 +1,4 @@
-import {Login} from "@/features";
+import {SignUp} from "@/features";
 import Header from "@shared/ui/header/Header";
 
 export default function Page() {
@@ -6,7 +6,7 @@ export default function Page() {
         <>
             <Header />
             <main>
-                <Login/>
+                <SignUp/>
             </main>
         </>
     );
