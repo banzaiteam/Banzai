@@ -10,8 +10,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),
 });
+
+if(typeof window !== 'undefined') {
 /*@ts-ignore*/
 window.getState = store.getState;
+}
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
