@@ -1,0 +1,56 @@
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--dark-900);
+    opacity: 0.5; // Прозрачность ТОЛЬКО для фона
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  background-color: var(--dark-100);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+transform: translate(-50%, -50%);
+  &.xs {
+    width: 378px;
+  }
+
+  &.sm {
+    width: 438px;
+  }
+
+  &.md {
+    width: 486px;
+  }
+
+  &.lg {
+    width: 644px;
+  }
+
+  &.xl {
+    width: 972px;
+  }
+
+}
+.popup_header{
+  padding: 24px 12px;
+}
+/*366 376 378
+438
+486
+492
+644
+972*/
