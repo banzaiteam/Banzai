@@ -10,14 +10,13 @@ type PopupSize = "xs" | "sm" | "md" | "lg" | "xl"
 export type PopupProps = Dialog.DialogProps & {
     width?: number,
     size?: PopupSize,
-    title?: string,
 }
 
 type PopupHeaderProps = ComponentPropsWithoutRef<'div'> & {}
 
 export const Popup = (props: PopupProps) => {
 
-    const {children, size = "md", title, width ,...rest} = props
+    const {children, size = "md", width ,...rest} = props
 
     return  <Dialog.Root {...rest}>
         <Dialog.Portal>
@@ -40,17 +39,9 @@ export const Popup = (props: PopupProps) => {
 export const PopupHeader = (props:PopupHeaderProps)=> {
     const {children, title, className, ...rest} = props
 
-
     return <>
     <div className={clsx(className, s.popup_header)} {...rest}>
         {children}
-
-        {/* <Dialog.Title>{title}</Dialog.Title>
-        <div className={s.closeWrapper}>
-            <button type={'button'} onClick={onClose}>
-                <Close stroke={'currentColor'} />
-            </button>
-        </div>*/}
     </div>
     <hr/>
 </>
