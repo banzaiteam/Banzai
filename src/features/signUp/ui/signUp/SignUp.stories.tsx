@@ -1,10 +1,10 @@
 
 import type { Meta, StoryObj } from '@storybook/react'
-import {SignUp} from "@features/login/ui/signUp/SignUp";
+import {SignUp} from "@features/signUp/ui/signUp/SignUp";
 
 
 const meta = {
-  title: 'Features/Login',
+  title: 'Features/SignUp',
   component: SignUp,
   parameters: {
     layout: 'centered',

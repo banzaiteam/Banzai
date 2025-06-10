@@ -1,5 +1,5 @@
 import type {ComponentPropsWithoutRef, ReactNode} from "react";
-import {defaultBodyLinkPage} from "@features/login/ui/linkPage/data";
+import {defaultBodyLinkPage} from "@features/signUp/ui/linkPage/model/data";
 import s from './LinkPage.module.scss'
 import {clsx} from "clsx";
 import Link from "next/link";

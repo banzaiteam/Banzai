@@ -1,9 +1,9 @@
 import {baseApi} from "@shared/api/baseApi";
-import type {DataSignUp, ResponseSignUp} from "@features/login/model/types";
+import type {DataSignUp, ResponseSignUp} from "@features/signUp/model/types";
 import {clearAppError} from "@shared/store/slices/appSlice";
 
 
-export const loginApi = baseApi.injectEndpoints({
+export const signUpApi = baseApi.injectEndpoints({
     endpoints: build => ({
         signUp: build.mutation<ResponseSignUp, DataSignUp>({
             query: (data) => ({
@@ -33,4 +33,4 @@ export const loginApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {useSignUpMutation, useSendVerifyEmailMutation} = loginApi;
+export const {useSignUpMutation, useSendVerifyEmailMutation} = signUpApi;
