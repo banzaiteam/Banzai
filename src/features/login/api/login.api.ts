@@ -1,28 +1,36 @@
 import {baseApi} from "@shared/api/baseApi";
-import {clearAppError, login} from "@shared/store/slices/appSlice";
 import type {DataSignUp, ResponseSignUp} from "@features/login/model/types";
+import {clearAppError} from "@shared/store/slices/appSlice";
 
 
 export const loginApi = baseApi.injectEndpoints({
-    endpoints:build => ({
-        signUp:build.mutation<ResponseSignUp,DataSignUp>({
-            query:(data) => ({
-                url:'/signup',
-                method:'POST',
-                body:data
+    endpoints: build => ({
+        signUp: build.mutation<ResponseSignUp, DataSignUp>({
+            query: (data) => ({
+                url: '/signup',
+                method: 'POST',
+                body: data
             }),
-           async onQueryStarted(arg, {dispatch,queryFulfilled}):Promise<void> {
+        }),
+        sendVerifyEmail: build.mutation<ResponseSignUp, Pick<DataSignUp, 'email'>>({
+            query: (data) => ({
+                url: '/signup/send-verify-email',
+                method: 'POST',
+                body: data
+            }),
+            async onQueryStarted(arg, {dispatch, queryFulfilled}): Promise<void> {
                 try {
 
-              await queryFulfilled;
-                    dispatch(login());
-                    dispatch(clearAppError())
-                }
-                catch (error){}
+                    const response = await queryFulfilled;
+                    if (response) {
+                        /*dispatch(login());*/
+                        dispatch(clearAppError())
+                    }
+                } catch (error) {}
 
             }
-        })
+        }),
     }),
 });
 
-export const {useSignUpMutation} = loginApi;
+export const {useSignUpMutation, useSendVerifyEmailMutation} = loginApi;
