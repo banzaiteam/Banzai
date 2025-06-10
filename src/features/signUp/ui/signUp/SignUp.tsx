@@ -5,7 +5,6 @@ import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
 import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
-
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {useSendVerifyEmailMutation, useSignUpMutation} from "@features/signUp/api/signUp.api";
@@ -16,19 +15,18 @@ import {EmailSentPopup} from "@features/signUp/ui/emailSentPopup/EmailSentPopup"
 export type LoginProps = {}
 
 
-
-
 export const SignUp = (props: LoginProps) => {
 
     const [signUp, {isLoading}] = useSignUpMutation();
     const [sendVerifyEmail] = useSendVerifyEmailMutation();
     const [isOpenPopup,setIsOpenPopup] = useState(false);
-
+    const [emailUser,setEmailUser] = useState('epam@epam.com');
     const {
         register,
         handleSubmit,
         watch,
         control,
+        getValues,
         trigger,
         setError,
         reset,
@@ -69,9 +67,7 @@ export const SignUp = (props: LoginProps) => {
                 username,
                 email,
                 password,
-            }).unwrap()
-            reset();
-
+            }).unwrap();
         }
         catch (error:any) {
            /*
@@ -111,12 +107,21 @@ export const SignUp = (props: LoginProps) => {
 
         try {
             await sendVerifyEmail({email}).unwrap();
+            setEmailUser(getValues('email'))
+            reset();
             setIsOpenPopup(true);
+
+
         }
         catch (error:any) {}
 
     };
-    /* router.push('/')*/ // || router.back();
+
+    const onCloseHandler = () => {
+        setIsOpenPopup(false);
+        setEmailUser('epam@epam.com');
+    };
+
     return <> <div className={s.login}>
         <Card className={s.wrapper}>
             <form onSubmit={handleSubmit(onSubmitHandler)} role="form"
@@ -184,8 +189,8 @@ export const SignUp = (props: LoginProps) => {
             </form>
         </Card>
     </div>
-        <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={() => setIsOpenPopup(false)}>
-            <p>We have sent a link to confirm your email to epam@epam.com</p>
+        <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={onCloseHandler}>
+            <p>We have sent a link to confirm your email to {emailUser}</p>
         </EmailSentPopup>
     </>
 }

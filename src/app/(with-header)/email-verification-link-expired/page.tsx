@@ -1,5 +1,5 @@
 "use client";
-import {PresentationPage} from "@features/login/ui/presentationPage/PresentationPage";
+import {PresentationPage} from "@features/signUp/ui/presentationPage/PresentationPage";
 import {Button, Input} from "@shared/ui";
 import s from "./Page.module.scss";
 import Image from "next/image";

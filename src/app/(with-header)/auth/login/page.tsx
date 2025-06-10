@@ -1,5 +1,5 @@
 "use client";
-import {PresentationPage} from "@features/login/ui/presentationPage/PresentationPage";
+import {PresentationPage} from "@features/signUp/ui/presentationPage/PresentationPage";
 import {Button} from "@shared/ui";
 import s from "./Page.module.scss";
 import Link from "next/link";
@@ -13,7 +13,7 @@ export default function Page() {
 
         <div className={s.button_wrapper}>
             <Button variant={'primary'} asChild width={'182px'}>
-                <Link href={'/signIn'}>Sign In</Link>
+                <Link href={'/auth/signIn'}>Sign In</Link>
             </Button>
         </div>
 
