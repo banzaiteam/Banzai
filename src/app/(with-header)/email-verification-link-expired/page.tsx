@@ -2,6 +2,8 @@
 import {PresentationPage} from "@features/login/ui/presentationPage/PresentationPage";
 import {Button, Input} from "@shared/ui";
 import s from "./Page.module.scss";
+import Image from "next/image";
+import ImageEmailVerification from "@/assets/auth/email_verification.webp";
 
 export default function Page() {
     return <PresentationPage title={'Email verification link expired'}
@@ -14,6 +16,6 @@ export default function Page() {
                 </Button>
             </div>
         </div>
-        {/*image*/}
+        <Image src={ImageEmailVerification} alt={'Email Verification Image'} />
     </PresentationPage>
 }
