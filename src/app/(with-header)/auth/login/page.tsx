@@ -7,7 +7,7 @@ import Image from "next/image";
 import ImageCongratulations from "@/assets/auth/congratulations.webp";
 
 
-
+//redirect from email
 export default function Page() {
     return <PresentationPage title={'Congratulations!'} subTitle={'Your email has been confirmed'}>
 

@@ -3,6 +3,7 @@
   width: 234px;
   display: inline-block;
   margin-bottom: 36px;
+  text-align: left;
 
   & > *:not(:last-child){
     margin-bottom: 24px;
@@ -10,5 +11,16 @@
 
 
 }
+.button_wrapper{
+ &> div{
+   width: 100%;
 
+  }
+ button{
+   width: 100%;
+ }
+}
+.popup_text{
+  margin-bottom: 18px;
+}
 
