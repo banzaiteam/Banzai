@@ -9,18 +9,30 @@ import {
   MoreHorizontal,
   OutlineBell,
 } from "@/assets/icons/components";
-import { useState } from "react";
-import { Button } from "../button/Button";
+import {useEffect, useState} from "react";
+import {Button} from "@shared/ui";
+import {useLoginOutMutation} from "@features/auth/login/api/loginApi";
+import {useSelector} from "react-redux";
+import {useAppSelector} from "@shared/hooks/useAppSelector";
+import {selectIsLoggedIn} from "@shared/store/slices/appSlice";
+import {useAppDispatch} from "@shared/hooks/useAppDispatch";
 
 const languageOptions = [
-  { label: "English", value: "en", flag: <FlagUnitedKingdom /> },
-  { label: "Russian", value: "ru", flag: <FlagRussia /> },
+  {label: "English", value: "en", flag: <FlagUnitedKingdom/>},
+  {label: "Russian", value: "ru", flag: <FlagRussia/>},
 ];
 
-const isLoggedIn = false; //temporary authentication state
 
 const Header: React.FC = () => {
   const [value, setValue] = useState(languageOptions[0].value);
+
+// Получаем текущее состояние
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+
+  }, []);
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -29,19 +41,19 @@ const Header: React.FC = () => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
-            {isLoggedIn && <OutlineBell className={styles.bell} />}
+            {isLoggedIn && <OutlineBell className={styles.bell}/>}
             <Select
               options={languageOptions}
               value={value}
               onValueChange={setValue}
             />
             <button className={styles.more}>
-              {isLoggedIn && <MoreHorizontal />}
+              {isLoggedIn && <MoreHorizontal/>}
             </button>
             {!isLoggedIn && (
               <div className={styles.registration}>
-                <Button variant="text-button">Log in</Button>
-                <Button variant="primary">Sign up</Button>
+                <Button variant="text-button">{'Log in'}</Button>
+                <Button variant="primary">isLoggedIn ? Sign up</Button>
               </div>
             )}
           </div>

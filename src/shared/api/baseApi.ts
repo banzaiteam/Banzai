@@ -1,17 +1,25 @@
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {handleError} from "@shared/utils/handleError";
 
 export const baseApi = createApi({
-  reducerPath: 'api',
+  reducerPath: 'authorization', // Название редьюсера
+
   baseQuery: async (args, api, extraOptions) => {
     const result = await fetchBaseQuery({
-      baseUrl: 'https://gate.yogram.ru/api/v1',
+      baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       prepareHeaders: (headers) => {
+
         // Получаем токен из localStorage
-        const token = localStorage.getItem('access_token');
+        const token = localStorage.getItem('accessToken');
         // Если токен есть, добавляем его в заголовки
         if (token) {
           headers.set('authorization', `Bearer ${token}`);
+
         }
         return headers;
       },
