@@ -1,0 +1,7 @@
+export {TermsOfServicePage} from './termsOfServicePage/TermsOfServicePage'
+export {PrivacyPolicyPage} from './privacyPolicyPage/PrivacyPolicyPage'
+export {EmailVerifyPage} from './emailVerifyPage/EmailVerifyPage'
+export {SignInPage} from './signInPage/signInPage'
+export {SignUpPage} from './signUpPage/SignUpPage'
+export {PostsPage} from './postsPage/PostsPage'
+export {LoginPage} from './loginPage/LoginPage'

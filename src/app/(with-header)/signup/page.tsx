@@ -1,5 +1,5 @@
-import {SignUp} from "@/features";
+import {SignUpPage} from "@/app/pages";
 
 export default function Page() {
-    return <SignUp/>
+    return <SignUpPage />
 }

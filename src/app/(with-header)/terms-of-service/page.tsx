@@ -1,11 +1,6 @@
 "use client";
-import {LinkPage} from "@/features";
-
+import {TermsOfServicePage} from "@/app/pages";
 
 export default function Page() {
-    return (
-        <>
-            <LinkPage title={'Terms of Service'} />
-        </>
-    );
+    return <TermsOfServicePage />
 }
