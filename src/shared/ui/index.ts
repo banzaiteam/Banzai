@@ -3,7 +3,7 @@ export { Alert } from "./alert/Alert";
 export {Textarea} from './textarea/Textarea'
 export {Pagination} from './pagination/Pagination'
 export {DatePicker} from './date-picker/DatePicker'
-export {Sidebar,SidebarGroup,SidebarItem,SidebarNavigation} from './sidebar/Sidebar'
+export {SidebarBase,SidebarBaseItem,SidebarBaseNavigation, type SidebarBaseProps} from '@shared/ui/sidebarBase/SidebarBase'
 export {Scroll} from './scroll/Scroll'
 export {Card} from './card/Card'
 export {Typography} from './typography/Typography'
