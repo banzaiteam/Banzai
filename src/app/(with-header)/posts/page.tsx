@@ -5,11 +5,7 @@ type Props = {
 
 };
  const Posts = (props: Props) => {
-  return (
-    <div>
-      <Typography variant={'h2'} as={'h2'}>Posts</Typography>
-    </div>
-  );
+  return <Typography variant={'h2'} as={'h2'}>Posts</Typography>
 };
 
  export default Posts;

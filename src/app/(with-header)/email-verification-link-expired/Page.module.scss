@@ -1,0 +1,14 @@
+
+.email_block{
+  width: 234px;
+  display: inline-block;
+  margin-bottom: 36px;
+
+  & > *:not(:last-child){
+    margin-bottom: 24px;
+  }
+
+
+}
+
+

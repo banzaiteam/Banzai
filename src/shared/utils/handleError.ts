@@ -16,13 +16,17 @@ export const handleError = (
         appError = result.error.error;
         break;
 
+
+
+      case 400:
+      case 401:{
+        appError='some error in the system';
+        break
+      }
       case 403:{
         appError = '403 Forbidden Error. Check API-KEY';
         break;
       }
-
-      case 400:
-      case 401:
       case 409:{
         appError='409 This email or username already exists in the system';
         break;
