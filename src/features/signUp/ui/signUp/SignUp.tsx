@@ -183,9 +183,8 @@ export const SignUp = (props: LoginProps) => {
                     <Button disabled={isDisabled || isLoading} type={'submit'}
                             aria-label="Sign up for a new account">{isLoading ? 'Logging in...' : 'Sign Up'}</Button>
                 </div>
-                <span className={s.question}>Do you have an account?</span>
-                <Button variant={'text-button'} onClick={onClickHandler} aria-label="Sign in to your account">Sign
-                    In</Button>
+                <Typography  className={s.question}>Do you have an account?</Typography>
+                <Button className={s.signin} variant={'text-button'} aria-label="Sign in to your account" asChild><Link href={'/auth/signIn'}>Sign In</Link></Button>
             </form>
         </Card>
     </div>
