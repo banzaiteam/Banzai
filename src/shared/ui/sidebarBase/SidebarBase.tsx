@@ -1,12 +1,11 @@
 import type {ComponentPropsWithoutRef, MouseEventHandler, ReactNode} from "react";
 import clsx from "clsx";
-import s from "./Sidebar.module.scss";
+import s from "./SidebarBase.module.scss";
 import Link from "next/link";
 
-export type SidebarProps = {} & ComponentPropsWithoutRef<'aside'>;
-type SidebarNavigationProps = {} & ComponentPropsWithoutRef<'nav'>
-type SidebarGroupProps = {} & ComponentPropsWithoutRef<'ul'>
-type SidebarItemProps = {
+export type SidebarBaseProps = {} & ComponentPropsWithoutRef<'aside'>;
+type SidebarBaseNavigationProps = {} & ComponentPropsWithoutRef<'nav'>
+type SidebarBaseItemProps = {
     /*asChild?:boolean,*/
     path?: string,
     icon?: ReactNode,
@@ -15,7 +14,7 @@ type SidebarItemProps = {
     disabled?: boolean;
 } & Omit<ComponentPropsWithoutRef<'li'>, 'onClick'>
 
-export const Sidebar = (props: SidebarProps) => {
+export const SidebarBase = (props: SidebarBaseProps) => {
     const {className, ...rest} = props
     const classNames = clsx(s.aside, className);
 
@@ -24,24 +23,19 @@ export const Sidebar = (props: SidebarProps) => {
     );
 };
 
-export const SidebarGroup = (props: SidebarGroupProps) => {
-    const {className, ...rest} = props
-    const classNames = clsx(s.list, className);
-    return <ul className={classNames} role="menu" {...rest} />
-}
 
-export const SidebarNavigation = (props: SidebarNavigationProps) => {
+export const SidebarBaseNavigation = (props: SidebarBaseNavigationProps) => {
     const {className, children, ...rest} = props
     const classNames = clsx(s.navigation, className);
 
     return <nav className={classNames} aria-label="Боковая панель навигации" {...rest}>
-
+        <ul className={s.list} role="menu" {...rest}>
         {children}
-
+        </ul>
     </nav>
 }
 
-export const SidebarItem = (props: SidebarItemProps) => {
+export const SidebarBaseItem = (props: SidebarBaseItemProps) => {
 
     const {
         className,
@@ -76,26 +70,6 @@ export const SidebarItem = (props: SidebarItemProps) => {
             <button aria-disabled={disabled} disabled={disabled} type={"button"} onClick={onClick} role="menuitem"
                     aria-pressed={isActive && "true"}>{content}</button>
         </div>
-
-
-/*
-*  {disabled ? (
-            <span
-                className={clsx(s.link, s.disabled)}
-                aria-disabled="true"
-                role="menuitem">
-                {content}
-             </span>
-        ) : (
-            <Link
-                href={path}
-                className={s.link}
-                role="menuitem">
-                {content}
-            </Link>
-        )}
-*
-* */
 
 
     }
