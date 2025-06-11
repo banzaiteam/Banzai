@@ -3,7 +3,6 @@
   justify-content: center;
   margin-top: 24px;
 
-
   .wrapper {
     flex: 0 0 378px;
     padding: 24px;
@@ -35,6 +34,9 @@
 
     & > *:not(:last-child) {
       margin-bottom: 44px;
+    }
+    & > div {
+      text-align: left;
     }
   }
 
@@ -69,7 +71,9 @@
       }
     }
   }
-
+.signin{
+  background-color: transparent;
+}
   .question {
     display: block;
     margin-bottom: 4px;
