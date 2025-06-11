@@ -9,6 +9,7 @@ export { Typography } from './typography/Typography'
 export { Recaptcha } from './recaptcha/Recaptcha'
 export { BaseInputSlot, BaseInput, type BaseInputProps } from './input/baseInput/BaseInput'
 export { Input } from './input/Input'
+export {Popup,PopupHeader} from './popup/Popup'
 
 export { Navigation, NavMenuItem, NavMenuList } from './menu/Navigation'
 export { Menu } from './menu/Menu'
