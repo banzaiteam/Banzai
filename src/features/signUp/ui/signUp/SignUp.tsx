@@ -7,20 +7,22 @@ import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
-import {useSendVerifyEmailMutation, useSignUpMutation} from "@features/signUp/api/signUp.api";
+import {useSignUpMutation} from "@features/signUp/api/signUp.api";
 import {Card, Input, Typography} from "@shared/ui";
 import {type FormDataSignUp, schemaSignUp} from "@features/signUp/model/signUpSchema";
-import {EmailSentPopup} from "@features/signUp/ui/emailSentPopup/EmailSentPopup";
+import {EmailSentPopup} from "@features/signUp/ui";
 
 export type LoginProps = {}
 
 
 export const SignUp = (props: LoginProps) => {
 
-    const [signUp, {isLoading}] = useSignUpMutation();
-    const [sendVerifyEmail] = useSendVerifyEmailMutation();
     const [isOpenPopup,setIsOpenPopup] = useState(false);
     const [emailUser,setEmailUser] = useState('epam@epam.com');
+
+    const [signUp, {isLoading}] = useSignUpMutation();
+
+
     const {
         register,
         handleSubmit,
@@ -68,21 +70,14 @@ export const SignUp = (props: LoginProps) => {
                 email,
                 password,
             }).unwrap();
+            setEmailUser(getValues('email'))
+            reset();
+            setIsOpenPopup(true);
         }
         catch (error:any) {
-           /*
-           if(error.status===400){
-                const errorBody = error.data.errorsMessages[0];
 
-                setError(errorBody.field, {
-                    type: 'manual',
-                    message:errorBody.message,
-                });
-            }
-                V.1
-            */
             if(error.status===400){
-                /*V.2*/
+
                 setError('password', {
                     type: 'manual',
                     message:'password too simple',
@@ -92,7 +87,7 @@ export const SignUp = (props: LoginProps) => {
             else if (error.status===409){
                 setError('email', {
                     type: 'manual',
-                    message:'Пользователь с таким email уже зарегистрирован',
+                    message:'User with this email is already registered',
                 });
             }
             else if (error.status===500){
@@ -104,16 +99,6 @@ export const SignUp = (props: LoginProps) => {
             }
             return;
         }
-
-        try {
-            await sendVerifyEmail({email}).unwrap();
-            setEmailUser(getValues('email'))
-            reset();
-            setIsOpenPopup(true);
-
-
-        }
-        catch (error:any) {}
 
     };
 
@@ -189,7 +174,7 @@ export const SignUp = (props: LoginProps) => {
         </Card>
     </div>
         <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={onCloseHandler}>
-            <p>We have sent a link to confirm your email to {emailUser}</p>
+            <p className={s.popup_text}>We have sent a link to confirm your email to {emailUser}</p>
         </EmailSentPopup>
     </>
 }

@@ -22,7 +22,7 @@
     display: flex;
     justify-content: center;
     column-gap: 60px;
-    margin-bottom: 44px;
+    margin-bottom: 20px;
 
     button {
       line-height: 0;
@@ -33,7 +33,7 @@
     margin-bottom: 20px;
 
     & > *:not(:last-child) {
-      margin-bottom: 44px;
+      margin-bottom: 20px;
     }
     & > div {
       text-align: left;
@@ -78,4 +78,7 @@
     display: block;
     margin-bottom: 4px;
   }
+}
+.popup_text{
+  margin-bottom: 18px;
 }

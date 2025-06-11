@@ -1,11 +1,6 @@
 'use client';
-import {Typography} from "@shared/ui";
+import {PostsPage} from "@/app/pages";
 
-type Props = {
-
+export default function Page(){
+  return <PostsPage />
 };
- const Posts = (props: Props) => {
-  return <Typography variant={'h2'} as={'h2'}>Posts</Typography>
-};
-
- export default Posts;
