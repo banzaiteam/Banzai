@@ -52,8 +52,8 @@ const Header: React.FC = () => {
             </button>
             {!isLoggedIn && (
               <div className={styles.registration}>
-                <Button variant="text-button">{'Log in'}</Button>
-                <Button variant="primary">isLoggedIn ? Sign up</Button>
+                <Button variant="text-button">{isLoggedIn ? 'Log out' : 'Log in'}</Button>
+                <Button variant="primary">Sign up</Button>
               </div>
             )}
           </div>

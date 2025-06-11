@@ -13,10 +13,16 @@ import {Card, Input, Button, Typography} from '@/shared/ui';
 import styles from './LoginForm.module.scss';
 import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {type AuthError, isApiError} from "@features/auth/login/model/types";
+import {useAppDispatch} from "@shared/hooks/useAppDispatch";
+import { login as loginAction } from '@shared/store/slices/appSlice'
+
+
 
 export const LoginForm = () => {
   const router = useRouter();
   const [retryDelay, setRetryDelay] = useState(0);
+  const dispatch = useAppDispatch()
+
 
   const [login, { isLoading}] = useLoginInMutation();
   const {
@@ -36,7 +42,10 @@ export const LoginForm = () => {
       // console.log(response);
       localStorage.setItem('accessToken', response.accessToken);
       // reset();
-      router.push('/');
+      router.push('/posts');
+
+      dispatch(loginAction());
+
     } catch (error) {
 
       let errorMessage = 'Login failed. Please try again.';
