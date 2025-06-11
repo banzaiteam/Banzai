@@ -50,6 +50,7 @@ export const BaseInput = (props: BaseInputProps) => {
         [s.right]: side === 'right',
     }
     return <div className={clsx(s.container,className, {...stateClassClsx},children && {...sideClassClsx})}>
+        {subTitle && <label id={labelId} className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
         <TextField.Root className={s.wrapper} type={type} id={idCurrent} disabled={disabled}
                         aria-label={ariaLabel}
                         aria-labelledby={subTitle && labelId}
@@ -62,7 +63,7 @@ export const BaseInput = (props: BaseInputProps) => {
                 {children}
             </TextField.Slot>}
 
-            {subTitle && <label id={labelId} className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
+
 
         </TextField.Root>
 
