@@ -75,19 +75,9 @@ export const SignUp = (props: LoginProps) => {
             setIsOpenPopup(true);
         }
         catch (error:any) {
-           /*
-           if(error.status===400){
-                const errorBody = error.data.errorsMessages[0];
 
-                setError(errorBody.field, {
-                    type: 'manual',
-                    message:errorBody.message,
-                });
-            }
-                V.1
-            */
             if(error.status===400){
-                /*V.2*/
+
                 setError('password', {
                     type: 'manual',
                     message:'password too simple',
@@ -110,16 +100,6 @@ export const SignUp = (props: LoginProps) => {
             return;
         }
 
-       /* try {
-            await sendVerifyEmail({email}).unwrap();
-
-
-
-            setEmailUser(getValues('email'))
-            reset();
-            setIsOpenPopup(true);
-        }
-        catch (error:any) {}*/
 
     };
 
