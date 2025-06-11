@@ -20,7 +20,7 @@ export const LinkPage = (props:Props) => {
 
     return (
         <div {...rest} className={clsx(s.page,className)}>
-            <Link href={'/signUp'} className={s.link_to_back}>
+            <Link href={'/signup'} className={s.link_to_back}>
                 <span><ArrowBackOutline /></span>Back to Sign Up</Link>
 
             <div className={s.wrapper}>
