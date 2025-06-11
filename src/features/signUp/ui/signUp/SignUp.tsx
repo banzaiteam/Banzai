@@ -10,7 +10,7 @@ import Link from "next/link";
 import {useSignUpMutation} from "@features/signUp/api/signUp.api";
 import {Card, Input, Typography} from "@shared/ui";
 import {type FormDataSignUp, schemaSignUp} from "@features/signUp/model/signUpSchema";
-import {EmailSentPopup} from "@features/signUp/ui/emailSentPopup/EmailSentPopup";
+import {EmailSentPopup} from "@features/signUp/ui";
 
 export type LoginProps = {}
 
@@ -99,7 +99,6 @@ export const SignUp = (props: LoginProps) => {
             }
             return;
         }
-
 
     };
 

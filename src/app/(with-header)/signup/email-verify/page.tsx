@@ -1,5 +1,4 @@
 "use client";
-import {PresentationPage} from "@features/signUp/ui/presentationPage/PresentationPage";
 import {Button, Input} from "@shared/ui";
 import s from "./Page.module.scss";
 import Image from "next/image";
@@ -11,6 +10,7 @@ import React, {useState} from "react";
 import {useSendVerifyEmailMutation} from "@features/signUp/api/signUp.api";
 import {z} from "zod";
 import {EmailSentPopup} from "@features/signUp/ui/emailSentPopup/EmailSentPopup";
+import {PresentationPage} from "@/features";
 
 /*https://yogram.ru/signup/email-verify*/
 
