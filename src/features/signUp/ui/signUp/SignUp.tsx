@@ -1,56 +1,38 @@
 'use client'
 import React, {useEffect, useState} from 'react'
-import s from './Login.module.scss'
-import {EyeOffOutline, EyeOutline, GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
-import {Card, Input, InputSlot, Typography} from "@shared/ui";
+import s from './SingUp.module.scss'
+import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
 import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
-import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
-import {useSignUpMutation} from "@features/login/api/login.api";
-import {useDispatch} from "react-redux";
-import {login} from "@shared/store/slices/appSlice";
-import {useRouter} from "next/navigation";
+import {useSendVerifyEmailMutation, useSignUpMutation} from "@features/signUp/api/signUp.api";
+import {Card, Input, Typography} from "@shared/ui";
+import {type FormDataSignUp, schemaSignUp} from "@features/signUp/model/signUpSchema";
+import {EmailSentPopup} from "@features/signUp/ui/emailSentPopup/EmailSentPopup";
 
 export type LoginProps = {}
-type FormData = z.infer<typeof schema>
-
-const schema = z.object({
-    username: z.string().nonempty('Username is required').min(6, 'Minimum number of characters 6').max(30, 'Maximum number of characters 30'),
-    email: z.string().nonempty('Email is required').email('The email must match the format example@example.com'),
-    password: z.string().nonempty('Password is required').min(6, 'Minimum number of characters 6').max(30, 'Maximum number of characters 30').regex(/[!\"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/, {
-        message: "Must contain at least one special character: !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-    }),
-    confirmPassword: z.string().nonempty('Confirm Password is required'),
-    agreement: z.literal(true, {
-        errorMap: () => ({message: "You must accept the terms"}),
-    }),
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // Указываем, к какому полю привязать ошибку
-})
 
 
-export const Login = (props: LoginProps) => {
-
-    const [isShowPassword, setIsShowPassword] = useState(false)
-    const [isShowPasswordConfirmation, setIsShowPasswordConfirmation] = useState(false)
+export const SignUp = (props: LoginProps) => {
 
     const [signUp, {isLoading}] = useSignUpMutation();
-    const dispatch = useDispatch();
-    const router = useRouter();
+    const [sendVerifyEmail] = useSendVerifyEmailMutation();
+    const [isOpenPopup,setIsOpenPopup] = useState(false);
+    const [emailUser,setEmailUser] = useState('epam@epam.com');
     const {
         register,
         handleSubmit,
         watch,
         control,
+        getValues,
         trigger,
+        setError,
         reset,
         formState: {errors, isValid, isDirty, isSubmitting},
-    } = useForm<FormData>({
-        resolver: zodResolver(schema),
+    } = useForm<FormDataSignUp>({
+        resolver: zodResolver(schemaSignUp),
         defaultValues: {
             username: '',
             email: '',
@@ -78,35 +60,71 @@ export const Login = (props: LoginProps) => {
     const onClickHandler = () => {
         alert('Нажмал')
     };
-    const onSubmitHandler: SubmitHandler<FormData> = async ({username, email, password}) => {
+    const onSubmitHandler: SubmitHandler<FormDataSignUp> = async ({username, email, password}) => {
 
         try {
-            const response = await signUp({
+            await signUp({
                 username,
                 email,
                 password,
-            })
+            }).unwrap();
+        }
+        catch (error:any) {
+           /*
+           if(error.status===400){
+                const errorBody = error.data.errorsMessages[0];
 
-            const token = response.data?.token || '123123'
-            if (token) {
-                localStorage.setItem('access_token', token);
-                dispatch(login());
-                router.push('/') // || router.back();
+                setError(errorBody.field, {
+                    type: 'manual',
+                    message:errorBody.message,
+                });
             }
+                V.1
+            */
+            if(error.status===400){
+                /*V.2*/
+                setError('password', {
+                    type: 'manual',
+                    message:'password too simple',
+                });
 
-        } catch (error) {
+            }
+            else if (error.status===409){
+                setError('email', {
+                    type: 'manual',
+                    message:'Пользователь с таким email уже зарегистрирован',
+                });
+            }
+            else if (error.status===500){
+                setError('username', {
+                    type: 'manual',
+                    message:'Такой пользователь зарегистрирован',
+                });
 
-            alert(error)
-        } finally {
-            reset();
+            }
+            return;
         }
 
+        try {
+            await sendVerifyEmail({email}).unwrap();
+            setEmailUser(getValues('email'))
+            reset();
+            setIsOpenPopup(true);
+
+
+        }
+        catch (error:any) {}
 
     };
 
-    return <div className={s.login}>
-        <Card>
-            <form onSubmit={handleSubmit(onSubmitHandler)} className={s.wrapper} role="form"
+    const onCloseHandler = () => {
+        setIsOpenPopup(false);
+        setEmailUser('epam@epam.com');
+    };
+
+    return <> <div className={s.login}>
+        <Card className={s.wrapper}>
+            <form onSubmit={handleSubmit(onSubmitHandler)} role="form"
                   aria-labelledby="signup-heading">
                 <Typography className={s.title} id="signup-heading" variant="h1" as={'h1'}>Sign Up</Typography>
                 <div className={s.button_icon_group} role="group" aria-label="Social sign up">
@@ -129,29 +147,16 @@ export const Login = (props: LoginProps) => {
 
 
                     <Input {...register('password')} disabled={isSubmitting} subTitle={'Password'}
-                           type={isShowPassword ? 'text' : 'password'} placeholder={'******************'}
+                           type={'password'} placeholder={'******************'}
                            aria-required="true" error={!!errors.password?.message}
-                           helperText={errors.password?.message}>
-                        <InputSlot onClick={() => {
-                            setIsShowPassword((prev) => !prev)
-                        }} aria-label={isShowPassword ? "Hide password" : "Show password"}>
-                            {isShowPassword ? <EyeOutline/> : <EyeOffOutline/>}
-                        </InputSlot>
-                    </Input>
+                           helperText={errors.password?.message}/>
 
 
                     <Input {...register('confirmPassword')} disabled={isSubmitting} subTitle={'Password confirmation'}
-                           type={isShowPasswordConfirmation ? 'text' : 'password'}
+                           type={'password'}
                            placeholder={'******************'} aria-required="true"
                            error={!!errors.confirmPassword?.message || (password !== confirmPassword && !!confirmPassword)}
-                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}>
-                        <InputSlot onClick={() => {
-                            setIsShowPasswordConfirmation((prev) => !prev)
-                        }}
-                                   aria-label={isShowPasswordConfirmation ? "Hide password confirmation" : "Show password confirmation"}>
-                            {isShowPasswordConfirmation ? <EyeOutline/> : <EyeOffOutline/>}
-                        </InputSlot>
-                    </Input>
+                           helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}/>
                 </div>
                 <div className={s.checkbox_wrapper}>
                     <Controller
@@ -166,8 +171,8 @@ export const Login = (props: LoginProps) => {
                             />
                         )}
                     />
-                    <span id="terms-label">I agree to the <Link href={"/terms-of-service"}
-                                                                aria-label="Terms of Service">
+                    <span id="terms-label">I agree to the <Link href={"/terms-of-service"} aria-label="Terms of Service">
+
                         Terms of Service
                     </Link> and <Link href={"/privacy-policy"} aria-label="Privacy Policy">
                         Privacy Policy
@@ -178,10 +183,13 @@ export const Login = (props: LoginProps) => {
                     <Button disabled={isDisabled || isLoading} type={'submit'}
                             aria-label="Sign up for a new account">{isLoading ? 'Logging in...' : 'Sign Up'}</Button>
                 </div>
-                <span className={s.question}>Do you have an account?</span>
-                <Button variant={'text-button'} onClick={onClickHandler} aria-label="Sign in to your account">Sign
-                    In</Button>
+                <Typography  className={s.question}>Do you have an account?</Typography>
+                <Button className={s.signin} variant={'text-button'} aria-label="Sign in to your account" asChild><Link href={'/auth/signIn'}>Sign In</Link></Button>
             </form>
         </Card>
     </div>
+        <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={onCloseHandler}>
+            <p>We have sent a link to confirm your email to {emailUser}</p>
+        </EmailSentPopup>
+    </>
 }

@@ -49,8 +49,9 @@ export const BaseInput = (props: BaseInputProps) => {
         [s.left]: side === 'left',
         [s.right]: side === 'right',
     }
-    return <>
-        <TextField.Root className={clsx(s.wrapper,className, {...stateClassClsx},children && {...sideClassClsx})} type={type} id={idCurrent} disabled={disabled}
+    return <div className={clsx(s.container,className, {...stateClassClsx},children && {...sideClassClsx})}>
+        {subTitle && <label id={labelId} className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
+        <TextField.Root className={s.wrapper} type={type} id={idCurrent} disabled={disabled}
                         aria-label={ariaLabel}
                         aria-labelledby={subTitle && labelId}
                         aria-describedby={helperText && helperTextId}
@@ -58,15 +59,16 @@ export const BaseInput = (props: BaseInputProps) => {
                         aria-disabled={disabled}
                         {...rest} >
 
-            {children && <TextField.Slot className={clsx(s.children_wrapper, sideClassClsx)}>
+    {children && <TextField.Slot className={clsx(s.children_wrapper, sideClassClsx)}>
                 {children}
-
             </TextField.Slot>}
-            {subTitle && <label id={labelId} className={s.sub_title} htmlFor={idCurrent}>{subTitle}</label>}
-            {helperText && <span id={helperTextId} className={s.error_message}>{helperText}</span>}
+
+
+
         </TextField.Root>
 
-    </>
+        {helperText && <span id={helperTextId} className={s.error_message}>{helperText}</span>}
+    </div>
 }
 
 export const BaseInputSlot =(props:InputSlotProps)=>{
