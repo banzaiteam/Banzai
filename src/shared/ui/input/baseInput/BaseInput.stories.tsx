@@ -48,6 +48,7 @@ export const Default: Story = {
         onChange:fn(),
 
         placeholder: 'Введите текст...',
+        disabled: false,
         size: '3', // Размер из Radix (1-3)
     },
 };
