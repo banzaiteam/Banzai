@@ -1,7 +1,7 @@
 import React from 'react';
-import {BaseInput, type BaseInputProps} from "@shared/ui";
+import {Input, type InputProps} from "@shared/ui";
 
-export const InputEmail = (props:BaseInputProps) => {
-    return <BaseInput type={'email'} {...props} />
+export const InputEmail = (props:InputProps) => {
+    return <Input type={'email'} {...props} />
 };
 

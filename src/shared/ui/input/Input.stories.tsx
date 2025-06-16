@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {useState} from "react";
 import {fn} from "@storybook/test";
-import {BaseInput, type BaseInputProps, BaseInputSlot} from "@shared/ui";
+import {Input, type BaseInputProps, BaseInputSlot} from "@shared/ui";
 import {EyeOffOutline, EyeOutline, SearchOutline} from "@/assets/icons/components";
 
 
@@ -12,20 +12,20 @@ const RenderPassword = ({onClick,...rest}:BaseInputProps) => {
        setIsShowPassword(!isShowPassword);
    }
 
-    return  <BaseInput placeholder={'password'} type={isShowPassword ? 'text' : 'password'} {...rest}>
+    return  <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'} {...rest}>
 
         <BaseInputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={onClickHandler}>
             {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
                 <EyeOutline stroke={'currentColor'}/>}
         </BaseInputSlot>
 
-    </BaseInput>
+    </Input>
 }
 
 
-const meta: Meta<typeof BaseInput> = {
+const meta: Meta<typeof Input> = {
     title: 'Shared/BaseInput',
-    component: BaseInput,
+    component: Input,
     tags: ['autodocs'],
     parameters: {
         layout: 'centered',
@@ -41,7 +41,7 @@ const meta: Meta<typeof BaseInput> = {
 
 export default meta;
 
-type Story = StoryObj<typeof BaseInput>;
+type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
     args: {
