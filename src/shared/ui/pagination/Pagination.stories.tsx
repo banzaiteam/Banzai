@@ -1,38 +1,52 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {Theme} from '@radix-ui/themes'; // Импортируем Theme провайдер
-import {Pagination} from "@shared/ui";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Pagination } from './Pagination';
+import { useState } from 'react';
 
 const meta: Meta<typeof Pagination> = {
-  title: 'Shared/Pagination',
+  title: 'Components/Pagination',
   component: Pagination,
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <Theme>
-        <Story />
-      </Theme>
-    ),
-  ],
   argTypes: {
-    // ... ваши argTypes
+    currentPage: {
+      control: { type: 'number', min: 1 }
+    },
+    totalPages: {
+      control: { type: 'number', min: 1 }
+    },
+    onPageChange: { action: 'pageChanged' }
   },
 };
 
 export default meta;
-
 type Story = StoryObj<typeof Pagination>;
 
-export const Primary: Story = {
-  args: {
-    error: true,
-    errorMessage: 'error'
-  },
+
+
+// Компонент-обёртка для интерактивных историй
+const PaginationWithState = ({ totalPages = 10 }: { totalPages?: number }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  return (
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={(page)=>setCurrentPage(page)}
+    />
+  );
 };
 
-export const WithError: Story = {
-  args: {
-    ...Primary.args,
-    error: true,
-    errorMessage: 'Обязательное поле',
-  },
+export const Default: Story = {
+  render: () => <PaginationWithState />,
 };
+
+export const FewPages: Story = {
+  render: () => <PaginationWithState totalPages={5} />,
+};
+
+export const ManyPages: Story = {
+  render: () => <PaginationWithState totalPages={20} />,
+};
+
+export const ThreePages: Story = {
+  render: () => <PaginationWithState totalPages={3} />,
+};
+

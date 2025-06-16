@@ -1,6 +1,7 @@
-import colors from "tailwindcss/colors";
+'use client'
 import {Pagination, Textarea} from "@shared/ui";
 import { Calendar } from "@/assets/icons/components";
+import {useState} from "react";
 
 export default function Page() {
   return (

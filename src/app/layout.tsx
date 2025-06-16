@@ -1,6 +1,7 @@
 import Page from "@/app/page";
 import '@shared/styles/global.css' // Подключение глобальных стилей
 import '@radix-ui/themes/styles.css';
+import {Scroll} from "@shared/ui";
 
 
 export default function RootLayout({
@@ -10,7 +11,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <body><Page/></body>
+    <body>
+    <Scroll >
+      <Page/>
+    </Scroll>
+    </body>
     </html>
   );
 }

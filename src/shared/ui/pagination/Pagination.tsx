@@ -1,24 +1,57 @@
 import styles from './Pagination.module.scss';
-import {Bullet} from "@shared/ui/pagination/bullet/Bullet";
+import {PaginationItem} from "@shared/ui/pagination/paginationItem/PaginationItem";
 import {ArrowIosBack, ArrowIosForward} from "@/assets/icons/components";
+import {getPages} from "@shared/lib/pagination/getPages";
+import {log} from "next/dist/server/typescript/utils";
+import {number} from "zod";
 
 type Props = {
-  error?: boolean;
-  errorMessage?: string;
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 };
 
-export const Pagination: React.FC<Props> = ({
-                                                 ...rest
-                                               }) => {
+export const Pagination: React.FC<Props> = ({currentPage, totalPages, onPageChange}) => {
+
+  const pages = getPages(currentPage, totalPages)
+
+
+
   return (
     <div className={styles.wrapper}>
-      <Bullet><ArrowIosBack /></Bullet>
-      <Bullet >{1}</Bullet>
-      <Bullet >{2}</Bullet>
-      <Bullet >{3}</Bullet>
-      <Bullet >{'...'}</Bullet>
-      <Bullet >{6}</Bullet>
-      <Bullet><ArrowIosForward/></Bullet>
+      <PaginationItem
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        ariaLabel="Previous page"
+        tabIndex={currentPage === 1 ? -1 : 0}
+      >
+        <ArrowIosBack/>
+      </PaginationItem>
+      {
+        pages.map((page, i) => (
+          <PaginationItem
+            key={i}
+            active={page === currentPage}
+            onClick={() => typeof page === 'number' && onPageChange(page)}
+            ariaLabel={`Page: ${page}`}
+            tabIndex={typeof page === 'string' ? -1 : 0}
+          >
+            {page}
+          </PaginationItem>
+        ))
+      }
+
+      <PaginationItem
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        ariaLabel="Next page"
+        tabIndex={currentPage === totalPages ? -1 : 0}
+      ><ArrowIosForward/></PaginationItem>
+      <div className={styles.show}>
+        <p>Show</p>
+        <button>100</button>
+        <p>on page</p>
+      </div>
     </div>
   );
 };

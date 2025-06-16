@@ -1,19 +1,21 @@
 .wrapper {
   position: relative;
   width: 100%;
-  background-color: var(--dark-500);
+  //background-color: var(--dark-500);
 
   & .title {
     font-size: 14px;
     line-height: 171%;
     color: var(--light-900);
-    &.disabled{
+
+    &.disabled {
       color: var(--dark-100);
     }
   }
 
   & .textareaWrapper {
     outline: none;
+
     textarea {
       width: 100%;
       min-height: 84px;
@@ -27,7 +29,7 @@
       border: 1px solid var(--dark-100);
       outline: none;
       resize: none;
-      transition: all .2s;
+      transition: all .3s;
 
       &::placeholder {
         color: var(--light-900);
@@ -39,7 +41,9 @@
       }
 
       &:focus {
-        border: 2px solid var(--primary-700);
+        border: 1px solid var(--primary-700);
+        outline: 1px solid var(--primary-700);
+
         color: var(--light-100);
       }
 
@@ -56,17 +60,53 @@
         opacity: 1;
       }
 
+      scrollbar-width: thin; /* Firefox */
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+
+      &::-webkit-scrollbar-button:single-button {
+        display: none !important;
+        width: 0;
+        height: 0;
+        background: transparent;
+      }
+
+      /* Для Firefox */
+      scrollbar-width: thin;
+      scrollbar-color: var(--dark-300) var(--scrollbar-track);
+
+      /* WebKit-стилизация (Chrome, Safari, Edge) */
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--dark-300);
+        border-radius: 4px;
+        &:hover {
+          background: var(--light-900);
+        }
+      }
     }
-    &.error{
+
+    &.error {
       textarea {
         border: 1px solid var(--danger-500) !important;
         outline: none !important;
       }
     }
+
+
   }
 
   .errorMessage {
     color: red;
+
     textarea {
       font-size: 14px;
       line-height: 171%;
@@ -74,5 +114,3 @@
     }
   }
 }
-
-
