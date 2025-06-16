@@ -19,9 +19,7 @@ export const SignUp = (props: LoginProps) => {
 
     const [isOpenPopup,setIsOpenPopup] = useState(false);
     const [emailUser,setEmailUser] = useState('epam@epam.com');
-
     const [signUp, {isLoading}] = useSignUpMutation();
-
 
     const {
         register,
@@ -97,7 +95,7 @@ export const SignUp = (props: LoginProps) => {
                 });
 
             }*/
-            return;
+
         }
 
     };
