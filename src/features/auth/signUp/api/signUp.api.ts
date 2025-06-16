@@ -1,6 +1,6 @@
 import {baseApi} from "@shared/api/baseApi";
-import type {DataSignUp, ResponseSignUp} from "@features/signUp/model/types";
 import {clearAppError} from "@shared/store/slices/appSlice";
+import type {DataSignUp, ResponseSignUp} from "@features/auth/signUp/model/types";
 
 
 export const signUpApi = baseApi.injectEndpoints({
@@ -21,11 +21,11 @@ export const signUpApi = baseApi.injectEndpoints({
                     }
                 } catch (error:any) {
 
-                   if(error.error.status===500){
+                  /* if(error.error.status===500){
                        setTimeout(()=>{
                        dispatch(signUpApi.endpoints.signUp.initiate(arg))
                        },3000)
-                   }
+                   }*/
                 }
 
             }

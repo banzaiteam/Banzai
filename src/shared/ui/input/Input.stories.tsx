@@ -1,11 +1,11 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {useState} from "react";
 import {fn} from "@storybook/test";
-import {Input, type BaseInputProps, BaseInputSlot} from "@shared/ui";
 import {EyeOffOutline, EyeOutline, SearchOutline} from "@/assets/icons/components";
+import {Input, type InputProps, InputSlot} from "@shared/ui";
 
 
-const RenderPassword = ({onClick,...rest}:BaseInputProps) => {
+const RenderPassword = ({onClick,...rest}:InputProps) => {
     const [isShowPassword, setIsShowPassword] = useState(false);
 
    const  onClickHandler = () =>{
@@ -14,17 +14,17 @@ const RenderPassword = ({onClick,...rest}:BaseInputProps) => {
 
     return  <Input placeholder={'password'} type={isShowPassword ? 'text' : 'password'} {...rest}>
 
-        <BaseInputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={onClickHandler}>
+        <InputSlot aria-label={isShowPassword ? 'Показывать' : 'Не показывать'} onClick={onClickHandler}>
             {isShowPassword ? <EyeOffOutline stroke={'currentColor'}/> :
                 <EyeOutline stroke={'currentColor'}/>}
-        </BaseInputSlot>
+        </InputSlot>
 
     </Input>
 }
 
 
 const meta: Meta<typeof Input> = {
-    title: 'Shared/BaseInput',
+    title: 'Shared/Input',
     component: Input,
     tags: ['autodocs'],
     parameters: {
@@ -95,9 +95,9 @@ export const Search: Story = {
         ...Default.args,
         subTitle:'Search',
         side:'left',
-        children: <BaseInputSlot>
+        children: <InputSlot>
             <SearchOutline  stroke='currentColor'/>
-        </BaseInputSlot>
+        </InputSlot>
     },
 };
 

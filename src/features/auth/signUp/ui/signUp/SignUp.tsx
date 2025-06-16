@@ -10,7 +10,7 @@ import Link from "next/link";
 import {useSignUpMutation} from "@features/auth/signUp/api/signUp.api";
 import {Card, Input, Typography} from "@shared/ui";
 import {type FormDataSignUp, schemaSignUp} from "@features/auth/signUp/model/signUpSchema";
-import {EmailSentPopup} from "@features/auth/signUp/ui";
+import {EmailSentPopup, InputEmail, InputPassword, InputUserName} from "@features/auth/components";
 
 export type LoginProps = {}
 
@@ -122,24 +122,18 @@ export const SignUp = (props: LoginProps) => {
                 </div>
                 <div className={s.input_group}>
 
-                    <Input {...register('username')} disabled={isSubmitting} subTitle={'Username'} placeholder={'Epam'}
-                           aria-required="true" error={!!errors.username?.message}
+                    <InputUserName {...register('username')} disabled={isSubmitting}
+                            error={!!errors.username?.message}
                            helperText={errors.username?.message}/>
 
-                    <Input {...register('email')} disabled={isSubmitting} subTitle={'Email'} type={'email'}
-                           placeholder={'Epam@epam.com'} aria-required="true" error={!!errors.email?.message}
+                    <InputEmail {...register('email')} disabled={isSubmitting}  error={!!errors.email?.message}
                            helperText={errors.email?.message}/>
 
 
-                    <Input {...register('password')} disabled={isSubmitting} subTitle={'Password'}
-                           type={'password'} placeholder={'******************'}
-                           aria-required="true" error={!!errors.password?.message}
-                           helperText={errors.password?.message}/>
+                    <InputPassword {...register('password')} disabled={isSubmitting}  error={!!errors.password?.message} helperText={errors.password?.message}/>
 
 
-                    <Input {...register('confirmPassword')} disabled={isSubmitting} subTitle={'Password confirmation'}
-                           type={'password'}
-                           placeholder={'******************'} aria-required="true"
+                    <InputPassword {...register('confirmPassword')} disabled={isSubmitting} subTitle={'Password confirmation'}
                            error={!!errors.confirmPassword?.message || (password !== confirmPassword && !!confirmPassword)}
                            helperText={errors.confirmPassword?.message || (password !== confirmPassword ? "Passwords don't match" : undefined)}/>
                 </div>

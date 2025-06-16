@@ -9,8 +9,8 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import React, {useState} from "react";
 import {useSendVerifyEmailMutation} from "@features/auth/signUp/api/signUp.api";
 import {z} from "zod";
-import {EmailSentPopup} from "@features/auth/signUp/ui";
 import {PresentationPage} from "@/features";
+import {EmailSentPopup} from "@features/auth/components";
 
 
 

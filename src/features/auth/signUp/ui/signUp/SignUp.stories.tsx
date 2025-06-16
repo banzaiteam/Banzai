@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react'
-import {SignUp} from "@features/auth/signUp/ui";
+import {SignUp} from "@/features";
 
 
 const meta = {

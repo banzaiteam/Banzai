@@ -1,9 +1,10 @@
 import type {ComponentPropsWithoutRef, ReactNode} from "react";
-import {defaultBodyLinkPage} from "@features/auth/signUp/ui/linkPage/model/data";
+
 import s from './LinkPage.module.scss'
 import {clsx} from "clsx";
 import Link from "next/link";
 import {ArrowBackOutline} from "@/assets/icons/components";
+import {defaultBodyLinkPage} from "./model/data";
 
 type Props = {
     title: string;

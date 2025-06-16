@@ -1,3 +1,4 @@
+'use client'
 import React, {useState} from 'react';
 import {Input, type InputProps, InputSlot} from "@shared/ui";
 import {EyeOffOutline, EyeOutline} from "@/assets/icons/components";
@@ -10,10 +11,12 @@ export const InputPassword = (props:InputProps) => {
         setIsShowPassword((prev) => !prev)
     }
 
-    return <Input type={isShowPassword ? 'text' : 'password'} placeholder={'******************'} aria-required="true" {...props}>
+    return <Input type={isShowPassword ? 'text' : 'password'} subTitle={'Password'} placeholder={'******************'} aria-required="true" {...props}>
         <InputSlot onClick={onClickHandler} aria-label={isShowPassword ? "Hide password" : "Show password"}>
             {isShowPassword ? <EyeOutline/> : <EyeOffOutline/>}
         </InputSlot>
     </Input>
 };
+
+
 
