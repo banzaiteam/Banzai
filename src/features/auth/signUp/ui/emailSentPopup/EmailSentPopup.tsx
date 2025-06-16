@@ -17,7 +17,7 @@ export const EmailSentPopup = (props:EmailSentPopupProps) => {
 
     const {isOpenValue,children,title='Email sent',onClose} = props
 
-    const onCloseHandler = () => onClose?.(false);
+    const onCloseHandler = () => onClose(false);
 
 
     return  <Popup open={isOpenValue} onOpenChange={onClose}>

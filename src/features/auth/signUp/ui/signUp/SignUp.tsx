@@ -7,10 +7,10 @@ import {Button} from "@shared/ui/button/Button";
 import {Controller, type SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
-import {useSignUpMutation} from "@features/signUp/api/signUp.api";
+import {useSignUpMutation} from "@features/auth/signUp/api/signUp.api";
 import {Card, Input, Typography} from "@shared/ui";
-import {type FormDataSignUp, schemaSignUp} from "@features/signUp/model/signUpSchema";
-import {EmailSentPopup} from "@features/signUp/ui";
+import {type FormDataSignUp, schemaSignUp} from "@features/auth/signUp/model/signUpSchema";
+import {EmailSentPopup} from "@features/auth/signUp/ui";
 
 export type LoginProps = {}
 
@@ -90,13 +90,13 @@ export const SignUp = (props: LoginProps) => {
                     message:'User with this email is already registered',
                 });
             }
-            else if (error.status===500){
+            /*else if (error.status===500){
                 setError('username', {
                     type: 'manual',
-                    message:'Такой пользователь зарегистрирован',
+                    message:'Такой пользователь зарегистрирован',   ///////похожий username и пароль?
                 });
 
-            }
+            }*/
             return;
         }
 

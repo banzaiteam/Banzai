@@ -11,6 +11,24 @@ export const signUpApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: data
             }),
+            async onQueryStarted(arg, {dispatch, queryFulfilled}): Promise<void> {
+                try {
+
+                    const response = await queryFulfilled;
+                    if (response) {
+                        /*dispatch(login());*/
+                        dispatch(clearAppError())
+                    }
+                } catch (error:any) {
+
+                   if(error.error.status===500){
+                       setTimeout(()=>{
+                       dispatch(signUpApi.endpoints.signUp.initiate(arg))
+                       },3000)
+                   }
+                }
+
+            }
         }),
         sendVerifyEmail: build.mutation<ResponseSignUp, Pick<DataSignUp, 'email'>>({
             query: (data) => ({
@@ -31,6 +49,7 @@ export const signUpApi = baseApi.injectEndpoints({
             }
         }),
     }),
+    overrideExisting: true,
 });
 
 export const {useSignUpMutation, useSendVerifyEmailMutation} = signUpApi;
