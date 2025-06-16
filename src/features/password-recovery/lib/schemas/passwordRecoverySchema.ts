@@ -5,4 +5,4 @@ export const passwordRecoverySchema = z.object({
         .string()
         .min(1, { message: 'Email is required' })
         .email({ message: 'Incorrect email address' }),
-})
+}) 
