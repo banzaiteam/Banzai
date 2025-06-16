@@ -8,7 +8,7 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {loginSchema, LoginFormValues} from '../model/loginSchema';
 import {useLoginMutation} from '../api/loginApi';
 
-import {Card, Input, Button, Typography} from '@/shared/ui';
+import {Card, Button, Typography} from '@/shared/ui';
 
 import styles from './LoginForm.module.scss';
 import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";

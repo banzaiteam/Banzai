@@ -8,7 +8,7 @@ import {Controller, type SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
 import {useSignUpMutation} from "@features/auth/signUp/api/signUp.api";
-import {Card, Input, Typography} from "@shared/ui";
+import {Card, Typography} from "@shared/ui";
 import {type FormDataSignUp, schemaSignUp} from "@features/auth/signUp/model/signUpSchema";
 import {EmailSentPopup, InputEmail, InputPassword, InputUserName} from "@features/auth/components";
 
