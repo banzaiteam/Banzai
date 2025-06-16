@@ -12,6 +12,7 @@ import {Card, Input, Button, Typography} from '@/shared/ui';
 
 import styles from './LoginForm.module.scss';
 import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
+import {InputEmail, InputPassword} from "@features/auth/components";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -32,12 +33,12 @@ export const LoginForm = () => {
 
     try {
       const response = await login(data).unwrap();
-      console.log(response)
+
       localStorage.setItem('access_token', response.access_token);
       localStorage.setItem('refresh_token', response.refresh_token);
       router.push('/');
     } catch (err: any) {
-      console.error('Login failed:', err);
+
       
       if (err.data?.message) {
         setError('root', { message: err.data.message });
@@ -66,18 +67,14 @@ export const LoginForm = () => {
           </button>
         </div>
         <form className={styles.block} onSubmit={handleSubmit(onSubmit)} noValidate>
-          <Input
-            type="email"
-            subTitle="Email"
+          <InputEmail
             placeholder="Enter your email"
             {...register('email')}
             helperText={errors.email?.message}
             error={!!errors.email?.message}
           />
 
-          <Input
-            type="password"
-            subTitle="Password"
+          <InputPassword
             placeholder="Enter your password"
             {...register('password')}
             helperText={errors.password?.message}
