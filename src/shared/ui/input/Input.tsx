@@ -24,7 +24,7 @@ export const Input = (props: Props) => {
     return <>
         {(type === 'text'||type === 'email') && <BaseInput type={type} {...rest} />}
 
-        {type === 'password' && <BaseInput type={isShowPassword ? 'text' : 'password'} {...rest} subTitle={'Password confirmation'}  placeholder={'******************'} aria-required="true">
+        {type === 'password' && <BaseInput type={isShowPassword ? 'text' : 'password'} {...rest} placeholder={'******************'} aria-required="true">
             <BaseInputSlot onClick={() => {
                 setIsShowPassword((prev) => !prev)
             }} aria-label={isShowPassword ? "Hide password" : "Show password"}>

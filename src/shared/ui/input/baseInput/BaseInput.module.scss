@@ -62,20 +62,7 @@
   }
 
 
-  & input:disabled {
-    color: inherit;
-    cursor: not-allowed;
-    border-color: var(--dark-100);
 
-    &:active {
-      background-color: transparent;
-    }
-
-    &::placeholder {
-      color: inherit;
-      -webkit-text-fill-color: var(--light-900); //radix placeholder чёрный
-    }
-  }
 
   & input:focus {
     outline: 1px solid var(--primary-500);
@@ -129,7 +116,6 @@
     line-height: 1.71;
   }
 
-
   &.disabled {
     cursor: not-allowed;
     color: var(--dark-100);
@@ -177,6 +163,22 @@
 
         outline: 1px solid var(--primary-500);
       }
+    }
+  }
+
+  & input:disabled {
+    color: var(--dark-100);
+    cursor: not-allowed;
+    border-color: var(--dark-100);
+
+    &:active {
+      color: var(--dark-100);
+      background-color: transparent;
+    }
+
+    &::placeholder {
+      color: inherit;
+      -webkit-text-fill-color: var(--light-900); //radix placeholder чёрный
     }
   }
 
