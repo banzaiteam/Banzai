@@ -5,6 +5,7 @@
     display: block !important;
     position: relative;
     transition: all .3s;
+    padding: 0 1px;
 
     --text-field-border-width: 0px !important;
   }
@@ -37,7 +38,15 @@
       background-color: rgb(5,57,163) !important;
     }
 
-
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active{
+      color: var(--light-100) ;
+      caret-color: var(--light-100);
+      -webkit-text-fill-color: var(--light-100) ;
+      transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s !important; /*убираем резкое моргание (обходной путь для Chrome)*/
+    }
   }
 
   & input:hover {
