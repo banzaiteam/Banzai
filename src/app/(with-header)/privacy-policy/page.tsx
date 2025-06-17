@@ -1,6 +1,7 @@
 "use client";
-import {LinkPage} from "@/features";
+
+import {PrivacyPolicyPage} from "@/app/pages";
 
 export default function Page() {
-    return <LinkPage title={'Privacy Policy'} />
+    return <PrivacyPolicyPage />
 }

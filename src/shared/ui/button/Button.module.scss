@@ -17,6 +17,10 @@
     }
   }
 
+  & .button.secondary-multiple {
+    padding: 6px 10px;
+  }
+
   & .primary {
     background-color: var(--primary-500);
 
@@ -39,8 +43,7 @@
     }
   }
 
-  & .secondary,
-  & .with-icons {
+  & .secondary {
     background-color: var(--dark-300);
 
     &:hover {
@@ -63,7 +66,6 @@
 
   & .outline {
     border: 1px solid var(--primary-500);
-    background-color: var(--dark-700);
     color: var(--primary-500);
 
     &:focus {
@@ -90,7 +92,6 @@
 
     & .text-button {
     color: var(--primary-500);
-    background-color: var(--dark-700);
     min-width: 100px;
 
     &:hover {
