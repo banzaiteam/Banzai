@@ -1,10 +1,6 @@
 "use client";
-import {LoginForm} from "@features/auth/login/ui/LoginForm";
+import {SignInPage} from "@/app/pages";
 
 export default function Page() {
-  return (
-    <>
-      <LoginForm />
-    </>
-  );
+  return <SignInPage />
 }
