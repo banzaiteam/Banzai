@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState} from 'react'
+import  {useEffect, useState} from 'react'
 import s from './SingUp.module.scss'
 import {GithubSvgrepoCom31, GoogleSvgrepoCom1} from "@/assets/icons/components";
 import {Checkbox} from "@shared/ui/checkbox/Checkbox";
