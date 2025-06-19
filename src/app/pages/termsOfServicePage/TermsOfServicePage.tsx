@@ -1,4 +1,3 @@
-"use client";
 
 import {LinkPage} from "@/features";
 

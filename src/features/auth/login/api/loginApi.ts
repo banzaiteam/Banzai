@@ -1,20 +1,24 @@
-import { baseApi } from '@/shared/api/baseApi';
-import type { LoginResponse, LoginRequest } from '../model/types';
+import {baseApi} from '@/shared/api/baseApi';
+import type {LoginResponse, LoginRequest, LoginOutRequest} from '../model/types';
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    login: build.mutation<LoginResponse, LoginRequest>({
+    loginIn: build.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
         url: 'auth/login',
         method: 'POST',
         body: credentials,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
+      }),
+    }),
+
+    loginOut: build.mutation<any, LoginOutRequest>({
+      query: (credentials) => ({
+        url: 'auth/logout',
+        method: 'POST',
+        body: credentials,
       }),
     }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const {useLoginInMutation, useLoginOutMutation} = authApi;

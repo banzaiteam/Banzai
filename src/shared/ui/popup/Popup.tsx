@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import s from './Popup.module.scss'
 import {Card} from "@shared/ui";
 import {clsx} from "clsx";
+import {DialogDescription} from "@radix-ui/react-dialog";
 
 
 type PopupSize = "xs" | "sm" | "md" | "lg" | "xl"
@@ -21,7 +22,10 @@ export const Popup = (props: PopupProps) => {
     return <Dialog.Root {...rest}>
         <Dialog.Portal>
             <Dialog.Overlay className={s.overlay}/>
-            <Dialog.Content style={{width}} className={clsx(s.content, s[size])} aria-describedby={'Модальное окно'}>
+            <Dialog.Content style={{width}} className={clsx(s.content, s[size])}>
+                <DialogDescription className={s.description}>
+                    модальное окно
+                </DialogDescription >
                 <Card className={s.card}>{children}</Card>
             </Dialog.Content>
         </Dialog.Portal>
