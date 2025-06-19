@@ -1,5 +1,5 @@
 import { baseApi } from '@shared/api/baseApi'
-import type { AuthResponse } from '../model/types'
+import type { AuthResponse } from '../model/types/types'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
