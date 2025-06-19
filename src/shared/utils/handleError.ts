@@ -1,49 +1,52 @@
-import { BaseQueryApi, FetchBaseQueryError, FetchBaseQueryMeta, QueryReturnValue } from '@reduxjs/toolkit/query/react';
-import { isErrorWithMessage } from './isErrorWithMessage';
-import {setAppError} from "@shared/store/slices/appSlice";
+import {
+  BaseQueryApi,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  QueryReturnValue,
+} from '@reduxjs/toolkit/query/react'
+import { isErrorWithMessage } from './isErrorWithMessage'
+import { setAppError } from '@shared/store/slices/appSlice'
 
 export const handleError = (
   api: BaseQueryApi,
-  result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>,
+  result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>
 ) => {
-  let appError = 'Some error occurred';
+  let appError = 'Some error occurred'
 
   if (result.error) {
     switch (result.error.status) {
       case 'FETCH_ERROR':
       case 'PARSING_ERROR':
       case 'CUSTOM_ERROR':
-        appError = result.error.error;
-        break;
+        appError = result.error.error
+        break
 
-
-
-      case 400:
-      case 401:{
-        appError='some error in the system';
+      case 403: {
+        appError = '403 Forbidden Error. Check API-KEY'
         break
       }
-      case 403:{
-        appError = '403 Forbidden Error. Check API-KEY';
-        break;
+
+      case 409: {
+        appError = '409 This email or username already exists in the system'
+        break
       }
-      case 409:{
-        appError='409 This email or username already exists in the system';
-        break;
-      }
-      case 500:{
+
+      case 400:
+      case 401:
+      case 500: {
         if (isErrorWithMessage(result.error.data)) {
-          appError = result.error.data.message;
+          appError = result.error.data.message
         } else {
-          appError = JSON.stringify(result.error.data);
+          appError = JSON.stringify(result.error.data)
         }
-        break;
+        break
       }
+
       default:
-        appError = JSON.stringify(result.error);
-        break;
+        appError = JSON.stringify(result.error)
+        break
     }
-    api.dispatch(setAppError({ appError }));
+    api.dispatch(setAppError({ appError }))
   }
 
   /*switch ((result.data as { resultCode: ResultCodeStatus }).resultCode) {
@@ -62,4 +65,4 @@ export const handleError = (
   }*/
 
   ///можно писать as если мы точно уверенны, (документация или разговор с беком)
-};
+}
