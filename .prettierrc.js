@@ -1,4 +1,9 @@
-module.exports = {
-  ...require('@it-incubator/prettier-config'),
-  /*можно переписывать на свои*/
-}
+// .prettierrc.js
+const baseConfig = require("@it-incubator/prettier-config");
+
+module.exports =
+  {
+    ...baseConfig,
+
+     // Ваше переопределение
+  };

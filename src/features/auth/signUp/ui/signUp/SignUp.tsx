@@ -85,11 +85,11 @@ export const SignUp = (props: LoginProps) => {
             else if (error.status===409){
                 setError('username', {
                     type: 'manual',
-                    message:'User with this email is already registered',
+                    message:error.data.message,
                 });
                 setError('email', {
                     type: 'manual',
-                    message:'User with this email is already registered',
+                    message:error.data.message,
                 });
             }
             /*else if (error.status===500){
