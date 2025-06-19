@@ -1,10 +1,15 @@
 import { baseApi } from './baseApi'
 
+type Profile = {
+  id: string
+  username: string
+}
+
 type User = {
   id: string
   email: string
-  name: string
-  // Добавь нужные поля
+  verified: boolean
+  profile: Profile
 }
 
 export const userApi = baseApi.injectEndpoints({
