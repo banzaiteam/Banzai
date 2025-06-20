@@ -1,37 +1,22 @@
+import { z } from 'zod';
+import { newPasswordSchema } from './newPasswordSchema';
+
 export type PasswordResetRequest = {
   email: string;
   password: string;
 };
 
-export type PasswordResetSuccessResponse = {
-  success: true;
-  message: string; // Например: "Password updated successfully"
+export type NewPasswordFormValues = z.infer<typeof newPasswordSchema>;
+
+type SuccessResponse = {
+  status: 'success';
+  message?: string;
 };
 
-export type PasswordResetErrorResponse = {
-  success: false;
-  error: {
-    status: 404 | 500;
-    message: string;
-  };
+type ErrorResponse = {
+  status: 'error';
+  error: string;
+  message?: string;
 };
 
-export type PasswordResetResponse = PasswordResetSuccessResponse | PasswordResetErrorResponse;
-
-
-
-// export type LoginRequest = {
-//   email: string;
-//   password: string;
-// };
-
-// export type LoginResponse = {
-//   access_token: string;
-//   refresh_token: string;
-//   token_type: string;
-// };
-
-// export type AuthError = {
-//   status: number;
-//   message: string;
-// };
+export type ResetPasswordResponse = SuccessResponse | ErrorResponse;

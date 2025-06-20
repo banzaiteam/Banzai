@@ -1,12 +1,12 @@
 import { baseApi } from '@/shared/api/baseApi';
 import type { 
-  PasswordResetResponse, 
-  PasswordResetRequest 
+  PasswordResetRequest, 
+  ResetPasswordResponse
 } from '../model/types';
 
 export const newPasswordApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    resetPassword: build.mutation<PasswordResetResponse, PasswordResetRequest>({
+    resetPassword: build.mutation<ResetPasswordResponse, PasswordResetRequest>({
       query: (credentials) => ({
         url: 'auth/reset-password',
         method: 'PATCH',
