@@ -43,12 +43,17 @@
   &.xl {
     width: 972px;
   }
-  .card{
+  & .card{
     background-color: var(--dark-300);
     border: 1px solid var(--dark-100);
 
     min-height: auto;
   }
+ & .description{
+   opacity: 0;
+   visibility: hidden;
+   position: absolute;
+ }
 }
 
 .popup_header{
