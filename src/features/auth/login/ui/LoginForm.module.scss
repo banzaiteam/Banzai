@@ -41,12 +41,19 @@
   .bntMiddle{
     color: var(--light-100);
     background: transparent;
+    a{
+      color: var(--light-100);
+      background: transparent;
+    }
 
 
   }
   .btnBottom{
     margin-top: -18px;
     background: transparent;
+    a{
+      color: inherit;
+    }
 
   }
 }

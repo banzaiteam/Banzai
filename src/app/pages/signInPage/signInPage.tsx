@@ -1,6 +1,5 @@
-import {LoginForm} from "@features/auth/login/ui/LoginForm";
+import LoginForm from '@features/auth/login/ui/LoginForm'
 
-export const  SignInPage = () => {
-    return <LoginForm />
+export const SignInPage = () => {
+  return <LoginForm />
 }
-
