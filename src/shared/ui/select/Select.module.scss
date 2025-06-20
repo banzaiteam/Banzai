@@ -1,0 +1,140 @@
+.select {
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 210px;
+    padding: 6px 12px;
+    border: 1px solid var(--dark-100);
+    border-radius: 2px;
+    background-color: transparent;
+    color: var(--light-100);
+    line-height: 24px;
+    position: relative;
+    transition: all 0.5s;
+    &.small {
+      width: 60px;
+      padding: 2px 8px;
+      font-size: 14px;
+      .arrow__icon {
+        display: block;
+      }
+      svg {
+        width: 18px;
+        height: 16px;
+      }
+    }
+    &:hover {
+      background-color: transparent;
+      border: 1px solid var(--dark-100);
+      color: var(--dark-100);
+      svg {
+        filter: brightness(0.5);
+      }
+    }
+    &:hover .arrow__icon {
+      color: var(--light-100);
+    }
+    &:focus {
+      border: 1px solid var(--primary-500);
+      color: var(--light-900);
+    }
+    &:focus .arrow__icon {
+      color: var(--light-100);
+    }
+    &:focus-visible {
+      outline: none;
+    }
+    &:active {
+      color: var(--light-100);
+      border: 1px solid var(--light-100);
+    }
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    &[data-state="open"] {
+      border-color: var(--light-100);
+    }
+  }
+  &__dropdown {
+    background-color: var(--dark-500);
+    width: 210px;
+    position: absolute;
+    top: 35px;
+    left: -2px;
+    border: 1px solid var(--dark-100);
+    transition: all 0.5s;
+    &.small {
+      width: 60px;
+      left: 2px;
+      transition: all 0.5s;
+    }
+    &:hover {
+      border: 1px solid var(--light-100);
+      color: var(--dark-100);
+    }
+    &:hover .select__box {
+      border: 1px solid var(--light-100);
+    }
+    &[data-state="open"] {
+      border-color: var(--light-100);
+    }
+  }
+}
+
+.arrow__icon {
+  display: flex;
+}
+
+.Viewport {
+  padding: 0px;
+}
+
+.Item {
+  padding: 6px 10px;
+  cursor: pointer;
+  &:focus-visible {
+    outline: none;
+  }
+  &:hover {
+    background-color: var(--dark-300);
+    color: var(--primary-500);
+    outline: none;
+  }
+}
+
+.item__text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.item__label {
+  display: inline;
+}
+
+@media (max-width: 500px) {
+  .select {
+    &__box {
+      width: 48px;
+      justify-content: start;
+      align-items: center;
+      padding: 0px;
+      display: flex;
+      position: relative;
+      border: none;
+      &:hover {
+        border: none;
+      }
+      .item__label {
+        display: none;
+      }
+      &:active {
+        color: var(--light-100);
+        border: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,205 @@
+
+.container {
+
+  .wrapper{
+    display: block !important;
+    position: relative;
+    transition: all .3s;
+    padding: 0 1px;
+
+    --text-field-border-width: 0px !important;
+  }
+
+  &.left {
+    input {
+      padding-left: 48px;
+    }
+
+  }
+
+  &.right {
+    input {
+      padding-right: 48px;
+    }
+  }
+
+  & input {
+
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid var(--dark-100);
+    outline: 1px solid transparent;
+    transition: inherit;
+    color: var(--light-100);
+    padding: 6px 12px;
+
+
+    &::selection {
+      background-color: rgb(5,57,163) !important;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active{
+      color: var(--light-100) ;
+      caret-color: var(--light-100);
+      -webkit-text-fill-color: var(--light-100) ;
+      transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s !important; /*убираем резкое моргание (обходной путь для Chrome)*/
+    }
+  }
+
+  & input:hover {
+    border-color: var(--light-900);
+  }
+
+  & input:active {
+    color: var(--light-100);
+    border-color: var(--light-100);
+    outline-color: transparent;
+    background-color: var(--dark-500);
+
+    &::placeholder {
+      color: var(--light-100);
+    }
+  }
+
+  & input::placeholder {
+    color: var(--light-900);
+    transition: inherit;
+
+  }
+
+
+
+
+  & input:focus {
+    outline: 1px solid var(--primary-500);
+    border-color: var(--primary-500);
+
+    &:active {
+      outline-color: transparent;
+      border-color: var(--light-100);
+    }
+  }
+
+  & input:focus + div {
+    color: var(--light-100);
+  }
+
+
+
+
+
+  & .children_wrapper {
+    color: var(--light-900);
+    cursor: pointer;
+    position: absolute;
+    line-height: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  & .left {
+    left: 12px;
+  }
+
+  & .right {
+    right: 12px;
+  }
+
+ & .sub_title {
+    color: var(--light-900);
+
+    transform: translateY(-100%);
+    font-size: 14px;
+    line-height: 171%;
+  }
+
+ & .error_message {
+    color: var(--danger-500);
+   pointer-events: none;
+
+   display: inline-block;
+    font-size: 14px;
+    line-height: 1.71;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    color: var(--dark-100);
+
+
+    &:hover {
+      border-color: var(--dark-100);
+    }
+
+    &:active {
+
+      background-color: transparent;
+    }
+
+    & input{
+      -webkit-text-fill-color:inherit;///переопределить чёрный цвет color для текста в radix когда input disabled
+    }
+
+    & input:active {
+      color: inherit;
+    }
+
+    & > .sub_title {
+      cursor: not-allowed;
+    }
+
+    svg {
+      cursor: not-allowed;
+      color: var(--dark-100);
+    }
+
+    .sub_title {
+      color: inherit;
+    }
+  }
+
+  &.error{
+    input {
+      &, &:hover, &:active {
+        border-color: var(--danger-500);
+      }
+
+      &:not(:active):focus {
+        border-color: var(--primary-500);
+
+        outline: 1px solid var(--primary-500);
+      }
+    }
+  }
+
+  & input:disabled {
+    color: var(--dark-100);
+    cursor: not-allowed;
+    border-color: var(--dark-100);
+
+    &:active {
+      color: var(--dark-100);
+      background-color: transparent;
+    }
+
+    &::placeholder {
+      color: inherit;
+      -webkit-text-fill-color: var(--light-900); //radix placeholder чёрный
+    }
+  }
+
+  svg {
+    transition: all .3s;
+  }
+}
+
+.slot_button {
+  line-height: 0;
+  color: inherit;
+  &:focus-visible{
+    outline: 2px solid var(--primary-500);
+  }
+}
