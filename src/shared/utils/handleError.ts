@@ -15,9 +15,6 @@ export const handleError = (
       case 'CUSTOM_ERROR':
         appError = result.error.error;
         break;
-
-
-
       case 400:
       case 401:{
         appError='some error in the system';
@@ -45,21 +42,4 @@ export const handleError = (
     }
     api.dispatch(setAppError({ appError }));
   }
-
-  /*switch ((result.data as { resultCode: ResultCodeStatus }).resultCode) {
-    case ResultCodeStatus.fail: {
-      const messages = (result.data as { messages: string[] }).messages;
-      appError = messages.length ? messages[0] : appError;
-      api.dispatch(setAppError({ appError }));
-      break;
-    }
-    case ResultCodeStatus.captcha: {
-      api.dispatch(setAppError({ error: `neeed captcha` }));
-      break;
-    }
-    default: {
-    }
-  }*/
-
-  ///можно писать as если мы точно уверенны, (документация или разговор с беком)
 };
