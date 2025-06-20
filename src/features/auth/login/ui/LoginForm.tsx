@@ -91,7 +91,12 @@ const LoginForm = () => {
             helperText={errors.password?.message}
             error={!!errors.password?.message}
           />
-          <Button className={styles.forgotPassword} type={'button'} variant={'text-button'}>
+          <Button
+            className={styles.forgotPassword}
+            type={'button'}
+            variant={'text-button'}
+            onClick={() => router.push('/auth/forgot-password')}
+          >
             Forgot password
           </Button>
 

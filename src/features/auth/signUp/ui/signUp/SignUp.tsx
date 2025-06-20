@@ -12,6 +12,7 @@ import { Card, Typography } from '@shared/ui'
 import { type FormDataSignUp, schemaSignUp } from '@features/auth/signUp/model/signUpSchema'
 import { EmailSentPopup, InputEmail, InputPassword, InputUserName } from '@features/auth/components'
 import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
+import { useRouter } from 'next/navigation'
 
 export type LoginProps = {}
 
@@ -44,6 +45,7 @@ const SignUp = (props: LoginProps) => {
   const password = watch('password')
   const confirmPassword = watch('confirmPassword')
   const agreement = watch('agreement')
+  const router = useRouter()
 
   useEffect(() => {
     trigger('agreement')
@@ -189,7 +191,15 @@ const SignUp = (props: LoginProps) => {
                 {isLoading ? 'Logging in...' : 'Sign Up'}
               </Button>
             </div>
-            <Typography className={s.question}>Do you have an account?</Typography>
+            <Button
+              className={s.white}
+              variant={'text-button'}
+              aria-label="Do you have an account?"
+              role={'button'}
+              onClick={() => router.push('/auth/signIn')}
+            >
+              <Typography className={s.question}>Do you have an account?</Typography>
+            </Button>
             <Button
               className={s.signin}
               variant={'text-button'}
