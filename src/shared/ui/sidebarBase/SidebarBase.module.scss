@@ -7,6 +7,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: calc(100vh - 64px);
+  position: fixed;
+  top: 64px;
+  left: 0;
+  @media (max-width: 500px) {
+    height: calc(100vh - 55px);
+  }
 }
 
 .navigation {
@@ -18,12 +25,13 @@
 
 .list {
   padding: 4px;
-  height: 600px;
   overflow-y: auto;
+
   li:not(:last-child) {
     margin-bottom: 24px;
   }
-  li:nth-child(5n){
+
+  li:nth-child(5n) {
     margin-bottom: 60px;
   }
 }
@@ -36,7 +44,7 @@
   cursor: pointer;
 
 
- & > a,button,span {
+  & > a, button, span {
     cursor: inherit;
     padding: 0 5px 0 2px;
     outline: 2px solid transparent;
@@ -47,7 +55,8 @@
     font-weight: 500;
     font-size: 14px;
     color: inherit;
-    &:focus-visible{
+
+    &:focus-visible {
       outline: 2px solid var(--primary-700);
     }
   }
@@ -64,7 +73,7 @@
 
     color: var(--dark-100);
 
-    a,button,span {
+    a, button, span {
       outline: 2px solid transparent;
     }
   }
@@ -75,4 +84,9 @@
   }
 
 
+}
+
+.logOut {
+  padding: 4px;
+  margin-top: 10px;
 }

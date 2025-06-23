@@ -11,8 +11,9 @@ import {
   ForgotPasswordSchema,
   ForgotPasswordValues,
 } from '@features/auth/forgotPassword/model/forgotPasswordSchema'
+import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
 
-export const ForgotPassword = () => {
+const ForgotPassword = () => {
   const [recoveryPassword, { isSuccess }] = useRecoveryPasswordMutation()
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false)
@@ -134,3 +135,4 @@ export const ForgotPassword = () => {
     </>
   )
 }
+export default withGuestOnly(ForgotPassword)

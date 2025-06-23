@@ -48,6 +48,7 @@ export const handleError = (
     }
     api.dispatch(setAppError({ appError }))
   }
+};
 
   /*switch ((result.data as { resultCode: ResultCodeStatus }).resultCode) {
     case ResultCodeStatus.fail: {
@@ -65,4 +66,3 @@ export const handleError = (
   }*/
 
   ///можно писать as если мы точно уверенны, (документация или разговор с беком)
-}

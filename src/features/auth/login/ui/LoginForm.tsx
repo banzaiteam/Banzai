@@ -5,19 +5,21 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { loginSchema, LoginFormValues } from '../model/loginSchema'
+import { LoginFormValues, loginSchema } from '../model/loginSchema'
 import { useLoginInMutation } from '../api/loginApi'
 
-import { Card, Button, Typography } from '@/shared/ui'
+import { Button, Card, Typography } from '@/shared/ui'
 
 import styles from './LoginForm.module.scss'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/assets/icons/components'
 import { InputEmail, InputPassword } from '@features/auth/components'
-import { type AuthError, isApiError } from '@features/auth/login/model/types'
+import { isApiError } from '@features/auth/login/model/types'
 import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { login as loginAction } from '@shared/store/slices/appSlice'
+import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
+import Link from 'next/link'
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const router = useRouter()
   const [retryDelay, setRetryDelay] = useState(0)
   const dispatch = useAppDispatch()
@@ -37,9 +39,9 @@ export const LoginForm = () => {
 
     try {
       const response = await login(data).unwrap()
-      // console.log(response);
+      // console.log(response)
       localStorage.setItem('accessToken', response.accessToken)
-      // reset();
+      reset()
       router.push('/')
 
       dispatch(loginAction())
@@ -89,7 +91,12 @@ export const LoginForm = () => {
             helperText={errors.password?.message}
             error={!!errors.password?.message}
           />
-          <Button className={styles.forgotPassword} type={'button'} variant={'text-button'}>
+          <Button
+            className={styles.forgotPassword}
+            type={'button'}
+            variant={'text-button'}
+            onClick={() => router.push('/auth/forgot-password')}
+          >
             Forgot password
           </Button>
 
@@ -110,17 +117,20 @@ export const LoginForm = () => {
             variant={'text-button'}
             type="button"
           >
-            Don't have an account?
+            <Link href={'/signup'}>Don't have an account?</Link>
           </Button>
           <Button
             className={`${styles.w100} ${styles.btnBottom}`}
             variant={'text-button'}
             type="button"
+            onClick={() => router.push('/signup')}
           >
-            Sign Up
+            <Link href={'/signup'}>Sign Up</Link>
           </Button>
         </form>
       </div>
     </Card>
   )
 }
+
+export default withGuestOnly(LoginForm)
