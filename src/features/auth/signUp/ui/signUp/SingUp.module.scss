@@ -87,17 +87,3 @@
 .popup_text {
   margin-bottom: 18px;
 }
-.white{
-  color: var(--light-100) !important;
-  &:hover{
-    p {
-      color: var(--primary-100) !important;
-    }
-  }
-
-  p{
-    color: var(--light-100) !important;
-    transition: all 0.3s;
-
-  };
-}

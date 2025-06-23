@@ -102,7 +102,6 @@ const SignUp = (props: LoginProps) => {
 
   return (
     <>
-      {' '}
       <div className={s.login}>
         <Card className={s.wrapper}>
           <form
