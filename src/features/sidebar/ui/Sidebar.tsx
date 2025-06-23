@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react'
+'use client'
+
+import { useMemo } from 'react'
 import {
   SidebarBase,
   SidebarBaseItem,
@@ -6,7 +8,7 @@ import {
   type SidebarBaseProps,
 } from '@shared/ui'
 import { linksData } from '@features/sidebar/model/linksData'
-import { LogOutOutline } from '@/assets/icons/components'
+import LogOutOutline from '@/assets/icons/components/LogOutOutline'
 
 type SidebarProps = SidebarBaseProps & { isDisabled?: boolean; onClick?: () => void }
 
