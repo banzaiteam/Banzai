@@ -1,7 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import s from './SingUp.module.scss'
-import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/assets/icons/components'
+import { GithubSvgrepoCom31 } from '@/assets/icons/components'
 import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 import { Button } from '@shared/ui/button/Button'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
@@ -10,13 +10,17 @@ import Link from 'next/link'
 import { useSignUpMutation } from '@features/auth/signUp/api/signUp.api'
 import { Card, Typography } from '@shared/ui'
 import { type FormDataSignUp, schemaSignUp } from '@features/auth/signUp/model/signUpSchema'
-import { EmailSentPopup, InputEmail, InputPassword, InputUserName } from '@features/auth/components'
-import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
-import { useRouter } from 'next/navigation'
+import {
+  EmailSentPopup,
+  GoogleButton,
+  InputEmail,
+  InputPassword,
+  InputUserName,
+} from '@features/auth/components'
 
 export type LoginProps = {}
 
-const SignUp = (props: LoginProps) => {
+export const SignUp = (props: LoginProps) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const [emailUser, setEmailUser] = useState('epam@epam.com')
   const [signUp, { isLoading }] = useSignUpMutation()
@@ -45,7 +49,6 @@ const SignUp = (props: LoginProps) => {
   const password = watch('password')
   const confirmPassword = watch('confirmPassword')
   const agreement = watch('agreement')
-  const router = useRouter()
 
   useEffect(() => {
     trigger('agreement')
@@ -57,9 +60,11 @@ const SignUp = (props: LoginProps) => {
   }, [password, trigger, confirmPassword]) //для проверки схожести пароля и его confirmation
 
   const isDisabled = !isDirty || !isValid
+
   const onClickHandler = () => {
     alert('Нажмал')
   }
+
   const onSubmitHandler: SubmitHandler<FormDataSignUp> = async ({ username, email, password }) => {
     try {
       await signUp({
@@ -115,9 +120,7 @@ const SignUp = (props: LoginProps) => {
               Sign Up
             </Typography>
             <div className={s.button_icon_group} role="group" aria-label="Social sign up">
-              <button onClick={onClickHandler} aria-label="Sign up with Google">
-                <GoogleSvgrepoCom1 width={36} height={36} viewBox="0 0 24 24" />
-              </button>
+              <GoogleButton />
               <button onClick={onClickHandler} aria-label="Sign up with GitHub">
                 <GithubSvgrepoCom31 width={36} height={36} viewBox="0 0 24 24" />
               </button>
@@ -191,15 +194,7 @@ const SignUp = (props: LoginProps) => {
                 {isLoading ? 'Logging in...' : 'Sign Up'}
               </Button>
             </div>
-            <Button
-              className={s.white}
-              variant={'text-button'}
-              aria-label="Do you have an account?"
-              role={'button'}
-              onClick={() => router.push('/auth/signIn')}
-            >
-              <Typography className={s.question}>Do you have an account?</Typography>
-            </Button>
+            <Typography className={s.question}>Do you have an account?</Typography>
             <Button
               className={s.signin}
               variant={'text-button'}
@@ -217,5 +212,3 @@ const SignUp = (props: LoginProps) => {
     </>
   )
 }
-
-export default withGuestOnly(SignUp)
