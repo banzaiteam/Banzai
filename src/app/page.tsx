@@ -1,16 +1,13 @@
-'use client' ///Event handlers cannot be passed to Client Component props
+'use client'
 import { Sidebar } from '@features/sidebar/ui/Sidebar'
-import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
+import Header from '@shared/ui/header/Header'
 
 export default function Page() {
   return (
-    <>
-      <Sidebar
-        onClick={() => {
-          console.log(321)
-        }}
-      />
+    <div className={'wrapper'}>
+      <Header />
+      <Sidebar onClick={() => {}}></Sidebar>
       <main>Banzai</main>
-    </>
+    </div>
   )
 }

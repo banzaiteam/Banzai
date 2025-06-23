@@ -9,6 +9,8 @@ import {
 } from '@shared/ui'
 import { linksData } from '@features/sidebar/model/linksData'
 import LogOutOutline from '@/assets/icons/components/LogOutOutline'
+import { useLoginOutMutation } from '@features/auth/login/api/loginApi'
+import { useRouter } from 'next/navigation'
 
 type SidebarProps = SidebarBaseProps & { isDisabled?: boolean; onClick?: () => void }
 
@@ -33,6 +35,14 @@ export const Sidebar = (props: SidebarProps) => {
     })
   }, [])
 
+  const router = useRouter()
+  const [loginOut] = useLoginOutMutation()
+  const handlerLogOut = () => {
+    loginOut([{ tokens: ['string'] }])
+    localStorage.setItem('accessToken', '')
+    router.push('auth/signIn')
+  }
+
   return (
     <SidebarBase {...rest}>
       <SidebarBaseNavigation>{sidebarItemsMapped}</SidebarBaseNavigation>
@@ -41,7 +51,7 @@ export const Sidebar = (props: SidebarProps) => {
           isActive={isDisabled}
           disabled={isDisabled}
           icon={<LogOutOutline stroke={'currentColor'} />}
-          onClick={onClick}
+          onClick={handlerLogOut}
         >
           Log Out
         </SidebarBaseItem>

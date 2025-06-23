@@ -4,7 +4,7 @@ import { Mutex } from 'async-mutex'
 const mutex = new Mutex()
 
 const rawBaseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_BASE_URL, // замени на нужный url
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   credentials: 'include', // обязательно! чтобы отправлялись cookies (если там сессия)
   prepareHeaders: headers => {
     const token = localStorage.getItem('accessToken')
@@ -19,6 +19,7 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
   await mutex.waitForUnlock()
 
   let result = await rawBaseQuery(args, api, extraOptions)
+  console.log(result)
 
   // Если access token протух — пробуем обновить
   if (result.error?.status === 401) {
@@ -31,6 +32,7 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
           api,
           extraOptions
         )
+        // console.log(refreshResult)
 
         if (refreshResult.data) {
           const newAccessToken = (refreshResult.data as any).accessToken

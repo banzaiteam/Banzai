@@ -80,7 +80,7 @@ export const SidebarBaseItem = (props: SidebarBaseItemProps) => {
           )}
         </li>
       ) : (
-        <div className={classNames}>
+        <div className={`${classNames} ${s.logOut}`}>
           <button
             aria-disabled={disabled}
             disabled={disabled}
