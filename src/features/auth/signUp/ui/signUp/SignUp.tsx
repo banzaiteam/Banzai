@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useEffect, useState } from 'react'
 import s from './SingUp.module.scss'
 import { GithubSvgrepoCom31 } from '@/assets/icons/components'
@@ -91,13 +92,6 @@ const SignUp = (props: LoginProps) => {
           message: error.data.message,
         })
       }
-      /*else if (error.status===500){
-                setError('username', {
-                    type: 'manual',
-                    message:'Такой пользователь зарегистрирован',   ///////похожий username и пароль?
-                });
-
-            }*/
     }
   }
 
