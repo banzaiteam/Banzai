@@ -20,7 +20,7 @@ import {
 
 export type LoginProps = {}
 
-export const SignUp = (props: LoginProps) => {
+const SignUp = (props: LoginProps) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const [emailUser, setEmailUser] = useState('epam@epam.com')
   const [signUp, { isLoading }] = useSignUpMutation()
@@ -212,3 +212,4 @@ export const SignUp = (props: LoginProps) => {
     </>
   )
 }
+export default SignUp
