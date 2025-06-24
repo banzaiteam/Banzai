@@ -1,10 +1,10 @@
 'use client'
-import { Button, Card, Input, Recaptcha, Typography } from '@shared/ui'
+import { Button, Card, Recaptcha, Typography } from '@shared/ui'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import s from './ForgotPassword.module.scss'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useMemo, useState } from 'react'
-import { EmailSentPopup } from '@features/auth/components'
+import React, { useMemo, useRef, useState } from 'react'
+import { EmailSentPopup, InputEmail } from '@features/auth/components'
 import Link from 'next/link'
 import { useRecoveryPasswordMutation } from '@features/auth/forgotPassword/api/forgotPasswordApi'
 import {
@@ -12,13 +12,15 @@ import {
   ForgotPasswordValues,
 } from '@features/auth/forgotPassword/model/forgotPasswordSchema'
 import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
+import { RecaptchaRef } from '@shared/ui/recaptcha/Recaptcha'
 
 const ForgotPassword = () => {
   const [recoveryPassword, { isSuccess }] = useRecoveryPasswordMutation()
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false)
   const [emailUser, setEmailUser] = useState('epam@epam.com')
-  const [recaptchaKey, setRecaptchaKey] = useState(0)
+
+  const recaptchaComponentRef = useRef<RecaptchaRef>(null)
 
   const {
     register,
@@ -35,7 +37,6 @@ const ForgotPassword = () => {
 
   const onSubmit: SubmitHandler<ForgotPasswordValues> = async data => {
     if (!recaptchaToken) return
-    console.log(recaptchaToken)
 
     try {
       await recoveryPassword({
@@ -47,6 +48,7 @@ const ForgotPassword = () => {
       setIsOpenPopup(true)
       reset()
       setRecaptchaToken(null)
+      recaptchaComponentRef.current?.resetCaptcha()
     } catch (error: any) {
       if (error.status === 404) {
         setError('email', {
@@ -55,7 +57,7 @@ const ForgotPassword = () => {
           //message: error.data.message,
         })
         setRecaptchaToken(null)
-        setRecaptchaKey(prev => prev + 1) // перерисовываем Recaptcha
+        recaptchaComponentRef.current?.resetCaptcha()
       } else {
         console.log('Something went wrong. Please try again.')
       }
@@ -75,15 +77,8 @@ const ForgotPassword = () => {
 
     reset()
     setRecaptchaToken(null)
+    recaptchaComponentRef.current?.resetCaptcha()
   }
-
-  const memorizedRecaptcha = useMemo(() => {
-    if (isSuccess) return null
-
-    return (
-      <Recaptcha key={recaptchaKey} onVerifyAction={setRecaptchaToken} className={s.recaptcha} />
-    )
-  }, [isSuccess, recaptchaKey])
 
   return (
     <>
@@ -92,13 +87,11 @@ const ForgotPassword = () => {
           Forgot Password
         </Typography>
         <form className={s.container} onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            type={'email'}
-            subTitle={'Email'}
+          <InputEmail
+            {...register('email')}
             error={!!errors.email?.message}
             helperText={errors.email?.message}
-            {...register('email')}
-          ></Input>
+          />
           <Typography variant={'regular_text_14'} className={s.formDescription}>
             Enter your email address and we will send you further instructions
           </Typography>
@@ -117,17 +110,28 @@ const ForgotPassword = () => {
                 {'If you don’t receive an email, send the link again'}
               </Typography>
               <Button variant={'primary'} className={s.buttonPrimary} onClick={handleResendLink}>
-                {'Send Link Again'}
+                Send Link Again
               </Button>
             </div>
           )}
         </form>
         <div className={s.buttonWrapper}>
-          <Button variant={'text-button'} className={s.buttonText} aria-label={'Back to Sign in'}>
+          <Button
+            variant={'text-button'}
+            className={s.buttonText}
+            aria-label={'Back to Sign in'}
+            asChild
+          >
             <Link href={'/auth/signIn'}>Back to Sign in</Link>
           </Button>
         </div>
-        {memorizedRecaptcha}
+        {!isSuccess && (
+          <Recaptcha
+            ref={recaptchaComponentRef}
+            onVerifyAction={setRecaptchaToken}
+            className={s.recaptcha}
+          />
+        )}
       </Card>
       <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={onCloseHandler}>
         <p>We have sent a link to confirm your email to {emailUser}</p>
