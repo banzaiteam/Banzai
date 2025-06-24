@@ -22,6 +22,32 @@ const ForgotPassword = () => {
 
   const recaptchaComponentRef = useRef<RecaptchaRef>(null)
 
+  const handleRecoveryFlow = async (email: string) => {
+    try {
+      await recoveryPassword({
+        email,
+        recaptchaToken: recaptchaToken as string,
+      }).unwrap()
+
+      setEmailUser(email)
+      setIsOpenPopup(true)
+      reset()
+      setRecaptchaToken(null)
+      recaptchaComponentRef.current?.resetCaptcha()
+    } catch (error: any) {
+      if (error.status === 404) {
+        setError('email', {
+          type: 'manual',
+          message: `User with this email doesn't exist`,
+        })
+      } else {
+        console.error('Something went wrong. Please try again.')
+      }
+      setRecaptchaToken(null)
+      recaptchaComponentRef.current?.resetCaptcha()
+    }
+  }
+
   const {
     register,
     handleSubmit,
@@ -37,31 +63,7 @@ const ForgotPassword = () => {
 
   const onSubmit: SubmitHandler<ForgotPasswordValues> = async data => {
     if (!recaptchaToken) return
-
-    try {
-      await recoveryPassword({
-        email: data.email, // Передаем только email в тело запроса
-        recaptchaToken, // reCAPTCHA-токен передается в headers, но в теле запроса НЕ нужен
-      }).unwrap()
-
-      setEmailUser(getValues('email'))
-      setIsOpenPopup(true)
-      reset()
-      setRecaptchaToken(null)
-      recaptchaComponentRef.current?.resetCaptcha()
-    } catch (error: any) {
-      if (error.status === 404) {
-        setError('email', {
-          type: 'manual',
-          message: `User with this email doesn't exist`,
-          //message: error.data.message,
-        })
-        setRecaptchaToken(null)
-        recaptchaComponentRef.current?.resetCaptcha()
-      } else {
-        console.log('Something went wrong. Please try again.')
-      }
-    }
+    await handleRecoveryFlow(data.email)
   }
 
   const onCloseHandler = () => {
@@ -70,14 +72,8 @@ const ForgotPassword = () => {
   }
 
   const handleResendLink = async () => {
-    await recoveryPassword({
-      email: emailUser,
-      recaptchaToken: recaptchaToken as string,
-    }).unwrap()
-
-    reset()
-    setRecaptchaToken(null)
-    recaptchaComponentRef.current?.resetCaptcha()
+    const currentEmail = getValues('email') || emailUser
+    await handleRecoveryFlow(currentEmail)
   }
 
   return (
@@ -109,7 +105,12 @@ const ForgotPassword = () => {
                 {'The link has been sent by email.'} <br />
                 {'If you don’t receive an email, send the link again'}
               </Typography>
-              <Button variant={'primary'} className={s.buttonPrimary} onClick={handleResendLink}>
+              <Button
+                variant={'primary'}
+                className={s.buttonPrimary}
+                onClick={handleResendLink}
+                disabled={!isValid || !recaptchaToken}
+              >
                 Send Link Again
               </Button>
             </div>
@@ -125,13 +126,11 @@ const ForgotPassword = () => {
             <Link href={'/auth/signIn'}>Back to Sign in</Link>
           </Button>
         </div>
-        {!isSuccess && (
-          <Recaptcha
-            ref={recaptchaComponentRef}
-            onVerifyAction={setRecaptchaToken}
-            className={s.recaptcha}
-          />
-        )}
+        <Recaptcha
+          ref={recaptchaComponentRef}
+          onVerifyAction={setRecaptchaToken}
+          className={s.recaptcha}
+        />
       </Card>
       <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={onCloseHandler}>
         <p>We have sent a link to confirm your email to {emailUser}</p>
