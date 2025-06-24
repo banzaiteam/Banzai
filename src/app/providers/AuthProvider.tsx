@@ -18,7 +18,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         pathname === '/auth/signIn' ||
         pathname === '/signup' ||
         pathname === '/auth/forgot-password' ||
-        pathname === '/auth/restore-password'
+        pathname === '/auth/restore-password' ||
+        pathname === '/email-verify'
 
       if ((status === 401 || status === 403) && !isAuthPage) {
         router.replace('/auth/signIn')
