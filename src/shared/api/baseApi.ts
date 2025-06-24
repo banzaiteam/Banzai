@@ -19,7 +19,7 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
   await mutex.waitForUnlock()
 
   let result = await rawBaseQuery(args, api, extraOptions)
-  console.log(result)
+  // console.log(result)
 
   // Если access token протух — пробуем обновить
   if (result.error?.status === 401) {
