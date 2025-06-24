@@ -18,10 +18,11 @@ import {
   InputPassword,
   InputUserName,
 } from '@features/auth/components'
+import type { DataSignUp } from '../../model/types'
 
 export type LoginProps = {}
 
-const SignUp = (props: LoginProps) => {
+const SignUp = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const [emailUser, setEmailUser] = useState('epam@epam.com')
   const [signUp, { isLoading }] = useSignUpMutation()
@@ -67,12 +68,15 @@ const SignUp = (props: LoginProps) => {
   }
 
   const onSubmitHandler: SubmitHandler<FormDataSignUp> = async ({ username, email, password }) => {
+    const formData = new FormData() as DataSignUp
+    const data = { email, username, password }
+
+    for (const key in data) {
+      formData.append(key, data[key as keyof typeof data])
+    }
+
     try {
-      await signUp({
-        username,
-        email,
-        password,
-      }).unwrap()
+      await signUp(formData).unwrap()
       setEmailUser(getValues('email'))
       reset()
       setIsOpenPopup(true)
@@ -164,6 +168,7 @@ const SignUp = (props: LoginProps) => {
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     aria-labelledby="terms-label"
+                    disabled={isSubmitting}
                   />
                 )}
               />
