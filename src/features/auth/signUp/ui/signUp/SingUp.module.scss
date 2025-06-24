@@ -3,6 +3,10 @@
   justify-content: center;
   margin-top: 24px;
 
+  button {
+    cursor: pointer;
+  }
+
   & .wrapper {
     flex: 0 0 378px;
     padding: 24px;
