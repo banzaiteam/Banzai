@@ -1,16 +1,15 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import s from './SingUp.module.scss'
+import React, { useState } from 'react'
+import s from './SignUp.module.scss'
 import { GithubSvgrepoCom31 } from '@/assets/icons/components'
 import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 import { Button } from '@shared/ui/button/Button'
-import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Controller, type SubmitHandler } from 'react-hook-form'
 import Link from 'next/link'
 import { useSignUpMutation } from '@features/auth/signUp/api/signUp.api'
 import { Card, Typography } from '@shared/ui'
-import { type FormDataSignUp, schemaSignUp } from '@features/auth/signUp/model/signUpSchema'
+import { type FormDataSignUp } from '@features/auth/signUp/model/schemas/signUpSchema'
 import {
   EmailSentPopup,
   GoogleButton,
@@ -18,7 +17,8 @@ import {
   InputPassword,
   InputUserName,
 } from '@features/auth/components'
-import type { DataSignUp } from '../../model/types'
+import type { DataSignUp } from '../../model/types/types'
+import { useSignUpForm } from '@features/auth'
 
 const SignUp = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
@@ -26,39 +26,19 @@ const SignUp = () => {
   const [signUp, { isLoading }] = useSignUpMutation()
 
   const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    getValues,
-    trigger,
-    setError,
-    reset,
-    formState: { errors, isValid, isDirty, isSubmitting },
-  } = useForm<FormDataSignUp>({
-    resolver: zodResolver(schemaSignUp),
-    defaultValues: {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      agreement: true,
+    signUpForm: {
+      register,
+      handleSubmit,
+      control,
+      getValues,
+      setError,
+      reset,
+      formState: { errors, isSubmitting },
     },
-    mode: 'onBlur',
-  })
-  const isDisabled = !isDirty || !isValid
-  const password = watch('password')
-  const confirmPassword = watch('confirmPassword')
-  const agreement = watch('agreement')
-
-  useEffect(() => {
-    trigger('agreement')
-  }, [agreement, trigger]) // для disabled button correctly
-  useEffect(() => {
-    if (confirmPassword) {
-      trigger('confirmPassword')
-    }
-  }, [password, trigger, confirmPassword]) //для проверки схожести пароля и его confirmation
+    isDisabled,
+    password,
+    confirmPassword,
+  } = useSignUpForm()
 
   const onClickHandler = () => {
     alert('Нажмал')
