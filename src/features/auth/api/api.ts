@@ -16,5 +16,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-// @ts-ignore
 export const { useLazyGoogleQuery } = authApi
