@@ -7,6 +7,7 @@ export default function Page() {
     <div className={'wrapper'}>
       <Header />
       <Sidebar onClick={() => {}}></Sidebar>
+
       <main>Banzai</main>
     </div>
   )
