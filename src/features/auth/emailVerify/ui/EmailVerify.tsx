@@ -50,7 +50,7 @@ export const EmailVerify = () => {
       reset()
     } catch (error: any) {
       console.log(error)
-      if (error.status === 401) {
+      if (error.status === 400) {
         setError('email', {
           type: 'manual',
           message: error.data.message,
