@@ -6,7 +6,11 @@ const mutex = new Mutex()
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   credentials: 'include', // обязательно! чтобы отправлялись cookies (если там сессия)
-  prepareHeaders: headers => {
+
+  prepareHeaders: (headers, { endpoint, extra }) => {
+    // получаем путь запроса из extra
+    if ((extra as any)?.isRefresh) return headers
+
     const token = localStorage.getItem('accessToken')
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
@@ -15,24 +19,27 @@ const rawBaseQuery = fetchBaseQuery({
   },
 })
 
+const baseQueryNoAuth = fetchBaseQuery({
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+  credentials: 'include', // важно для передачи refreshToken
+})
+
 const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOptions) => {
   await mutex.waitForUnlock()
 
   let result = await rawBaseQuery(args, api, extraOptions)
-  // console.log(result)
 
   // Если access token протух — пробуем обновить
   if (result.error?.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
-
       try {
-        const refreshResult = await rawBaseQuery(
-          { url: 'auth/refresh', method: 'GET' },
+        // refresh-запрос делаем через базовый fetch без Authorization
+        const refreshResult = await baseQueryNoAuth(
+          { url: '/auth/refresh', method: 'GET' },
           api,
           extraOptions
         )
-        // console.log(refreshResult)
 
         if (refreshResult.data) {
           const newAccessToken = (refreshResult.data as any).accessToken
