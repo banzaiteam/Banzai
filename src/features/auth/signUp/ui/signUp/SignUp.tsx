@@ -20,8 +20,6 @@ import {
 } from '@features/auth/components'
 import type { DataSignUp } from '../../model/types'
 
-export type LoginProps = {}
-
 const SignUp = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const [emailUser, setEmailUser] = useState('epam@epam.com')
@@ -48,6 +46,7 @@ const SignUp = () => {
     },
     mode: 'onBlur',
   })
+  const isDisabled = !isDirty || !isValid
   const password = watch('password')
   const confirmPassword = watch('confirmPassword')
   const agreement = watch('agreement')
@@ -60,8 +59,6 @@ const SignUp = () => {
       trigger('confirmPassword')
     }
   }, [password, trigger, confirmPassword]) //для проверки схожести пароля и его confirmation
-
-  const isDisabled = !isDirty || !isValid
 
   const onClickHandler = () => {
     alert('Нажмал')
