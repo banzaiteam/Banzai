@@ -39,8 +39,9 @@ const LoginForm = () => {
 
     try {
       const response = await login(data).unwrap()
-      // console.log(response)
+      console.log(response)
       localStorage.setItem('accessToken', response.accessToken)
+
       reset()
       router.push('/')
 
