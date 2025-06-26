@@ -40,7 +40,7 @@ export const EmailVerify = () => {
     defaultValues: {
       email: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   })
   const isDisabled = !isDirty || !isValid
   const onSubmitHandler: SubmitHandler<Pick<FormDataSignUp, 'email'>> = async ({ email }) => {
@@ -50,7 +50,7 @@ export const EmailVerify = () => {
       reset()
     } catch (error: any) {
       console.log(error)
-      if (error.status === 400) {
+      if (error.status === 400 || error.status === 401) {
         setError('email', {
           type: 'manual',
           message: error.data.message,
