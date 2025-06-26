@@ -26,13 +26,10 @@ export const handleError = (
         break
       }
 
-      case 409: {
-        appError = '409 This email or username already exists in the system'
-        break
-      }
-
       case 400:
       case 401:
+      case 404:
+      case 409:
       case 500: {
         if (isErrorWithMessage(result.error.data)) {
           appError = result.error.data.message
