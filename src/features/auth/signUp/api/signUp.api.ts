@@ -1,6 +1,6 @@
 import { baseApi } from '@shared/api/baseApi'
 import { clearAppError } from '@shared/store/slices/appSlice'
-import type { DataSignUp, ResponseSignUp } from '@features/auth/signUp/model/types'
+import type { DataSignUp, ResponseSignUp } from '@features/auth/signUp/model/types/types'
 import type { VerifyEmailData } from '@features/auth/emailVerify/model/types/type'
 
 export const signUpApi = baseApi.injectEndpoints({

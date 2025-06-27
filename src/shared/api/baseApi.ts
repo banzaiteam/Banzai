@@ -1,5 +1,6 @@
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
+import { handleError } from '@shared/utils/handleError'
 
 const mutex = new Mutex()
 
@@ -60,7 +61,7 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
       result = await rawBaseQuery(args, api, extraOptions)
     }
   }
-
+  handleError(api, result)
   return result
 }
 
