@@ -14,7 +14,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Provider store={store}>
           <AppProviders>
-            <Scroll>{children}</Scroll>
+            {/*<Scroll>{children}</Scroll>*/}
+            {children}
           </AppProviders>
         </Provider>
       </body>

@@ -2,29 +2,31 @@
 
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '@shared/ui/header/Header'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
+import { AUTH_PAGES } from '@/app/providers/publicPages'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const { data, isLoading, isError, error } = useGetMeQuery()
+  const [shouldRender, setShouldRender] = useState(false)
+
+  const isPublicPage = AUTH_PAGES.includes(pathname)
 
   useEffect(() => {
-    if (!isLoading && isError) {
-      const status = (error as any)?.status
-      const isAuthPage =
-        pathname === '/auth/signIn' ||
-        pathname === '/signup' ||
-        pathname === '/auth/forgot-password' ||
-        pathname === '/auth/restore-password' ||
-        pathname === '/signup/email-verify' ||
-        pathname === '/auth/login'
+    if (isLoading) return
 
-      if ((status === 401 || status === 403) && !isAuthPage) {
-        router.replace('/auth/signIn')
-      }
+    const status = (error as any)?.status
+    const isAuthError = status === 401 || status === 403
+
+    // Если страница защищена и пользователь не авторизован
+    if (!isPublicPage && isAuthError) {
+      router.replace('/auth/signIn')
+    } else {
+      // Разрешаем рендер только когда проверка завершена
+      setShouldRender(true)
     }
   }, [isError, isLoading, error, router])
 
@@ -47,5 +49,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
   }
 
-  return <>{children}</>
+  return shouldRender ? <>{children}</> : null
 }

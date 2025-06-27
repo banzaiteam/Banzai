@@ -1,8 +1,10 @@
-
-import {SignInPage} from "@/app/pages";
+'use client'
+import { SignInPage } from '@/app/pages'
 
 export default function Page() {
-  return <div>
-    <SignInPage />
-  </div>
+  return (
+    <div>
+      <SignInPage />
+    </div>
+  )
 }
