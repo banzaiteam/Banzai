@@ -1,7 +1,5 @@
-"use client";
-
-import { NewPasswordForm } from "@/features/auth/new-password-form/ui/NewPasswordForm";
+import { RestorePasswordPage } from "@/app/pages";
 
 export default function Page() {
-    return <NewPasswordForm />
+    return <RestorePasswordPage />
 }

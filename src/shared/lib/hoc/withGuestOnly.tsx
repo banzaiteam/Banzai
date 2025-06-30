@@ -2,7 +2,7 @@
 
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { useRouter } from 'next/navigation'
-import { JSX, useEffect } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
 
 export function withGuestOnly<T extends JSX.IntrinsicAttributes>(
@@ -11,13 +11,17 @@ export function withGuestOnly<T extends JSX.IntrinsicAttributes>(
   return function GuestOnlyWrapper(props: T) {
     const { data, isLoading } = useGetMeQuery()
     const router = useRouter()
+    const [shouldRender, setShouldRender] = useState(false)
 
     useEffect(() => {
-      if (!isLoading && data) {
-        // Если уже авторизован — редиректим
+      if (isLoading) return
+
+      if (data) {
         router.replace('/')
+      } else {
+        setShouldRender(true)
       }
-    }, [data, isLoading, router])
+    }, [data, isLoading])
 
     if (isLoading)
       return (
@@ -36,6 +40,6 @@ export function withGuestOnly<T extends JSX.IntrinsicAttributes>(
 
     if (data) return null // можно заменить на Skeleton
 
-    return <Component {...props} />
+    return shouldRender ? <Component {...props} /> : null
   }
 }

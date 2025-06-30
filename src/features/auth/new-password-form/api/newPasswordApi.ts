@@ -8,7 +8,7 @@ export const newPasswordApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     resetPassword: build.mutation<ResetPasswordResponse, PasswordResetRequest>({
       query: (credentials) => ({
-        url: 'auth/reset-password',
+        url: 'auth/restore-password',
         method: 'PATCH',
         body: credentials,
         headers: {
