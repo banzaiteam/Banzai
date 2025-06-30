@@ -3,9 +3,9 @@
 import '@shared/styles/global.css' // Подключение глобальных стилей
 import '@radix-ui/themes/styles.css'
 import { Scroll } from '@shared/ui'
-import { AppProviders } from '@/app/providers'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import { AuthProvider } from '@/app/providers/AuthProvider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,10 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <body>
         <Provider store={store}>
-          <AppProviders>
-            {/*<Scroll>{children}</Scroll>*/}
-            {children}
-          </AppProviders>
+          <AuthProvider>
+            <Scroll>{children}</Scroll>
+          </AuthProvider>
         </Provider>
       </body>
     </html>

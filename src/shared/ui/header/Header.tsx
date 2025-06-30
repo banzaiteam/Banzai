@@ -9,27 +9,22 @@ import {
   MoreHorizontal,
   OutlineBell,
 } from '@/assets/icons/components'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@shared/ui'
-import { useAppSelector } from '@shared/hooks/useAppSelector'
-import { selectIsLoggedIn } from '@shared/store/slices/appSlice'
-import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { useRouter } from 'next/navigation'
+import { useGetMeQuery } from '@shared/api/userApi'
 
 const languageOptions = [
   { label: 'English', value: 'en', flag: <FlagUnitedKingdom /> },
   { label: 'Russian', value: 'ru', flag: <FlagRussia /> },
 ]
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const [value, setValue] = useState(languageOptions[0].value)
-
-  // Получаем текущее состояние
-  const isLoggedIn = useAppSelector(selectIsLoggedIn)
-  const dispatch = useAppDispatch()
+  const { isSuccess } = useGetMeQuery()
 
   const router = useRouter()
-  useEffect(() => {}, [])
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -38,10 +33,10 @@ const Header: React.FC = () => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
-            {isLoggedIn && <OutlineBell className={styles.bell} />}
+            +{isSuccess && <OutlineBell className={styles.bell} />}
             <Select options={languageOptions} value={value} onValueChange={setValue} />
-            <button className={styles.more}>{isLoggedIn && <MoreHorizontal />}</button>
-            {!isLoggedIn && (
+            <button className={styles.more}>{isSuccess && <MoreHorizontal />}</button>
+            {!isSuccess && (
               <div className={styles.registration}>
                 <Button
                   onClick={() => {
@@ -49,7 +44,7 @@ const Header: React.FC = () => {
                   }}
                   variant="text-button"
                 >
-                  {isLoggedIn ? 'Log out' : 'Log in'}
+                  {isSuccess ? 'Log out' : 'Log in'}
                 </Button>
                 <Button
                   onClick={() => {
@@ -67,4 +62,3 @@ const Header: React.FC = () => {
     </header>
   )
 }
-export default Header
