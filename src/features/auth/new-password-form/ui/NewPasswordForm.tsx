@@ -1,19 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Card, Button, Typography } from '@/shared/ui'
 import styles from './NewPasswordForm.module.scss'
 import { InputPassword } from '@/features/auth/components'
 import { useResetPasswordMutation } from '../api/newPasswordApi'
-import { NewPasswordFormValues, PasswordResetRequest } from '../model/types'
+import { NewPasswordFormValues } from '../model/types'
 import { newPasswordSchema } from '../model/newPasswordSchema'
+import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
 
-export const NewPasswordForm = () => {
+const NewPasswordForm = ({ email }: { email: string }) => {
   const router = useRouter()
-  const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [resetPassword] = useResetPasswordMutation()
@@ -27,34 +27,18 @@ export const NewPasswordForm = () => {
     resolver: zodResolver(newPasswordSchema),
   })
 
-  // Функция для извлечения email из пути
-  const getEmailFromPath = () => {
-    if (pathname?.startsWith('/auth/restore-password/')) {
-      const parts = pathname.split('/')
-      const emailPart = parts[parts.length - 1]
-      try {
-        return decodeURIComponent(emailPart)
-      } catch {
-        return null
-      }
-    }
-    return null
-  }
-
   const onSubmit = async (data: NewPasswordFormValues) => {
     setIsSubmitting(true)
 
     try {
-      // Получаем email из пути URL https://yogram.ru/auth/restore-password/{email}
-      const email = getEmailFromPath()
       if (!email) {
         throw new Error('Email not found in URL')
       }
-      // Отправляем запрос
+
       await resetPassword({
         email,
         password: data.password,
-      }).unwrap()
+      })
 
       setSuccessMessage('Password has been successfully changed!')
 
@@ -109,3 +93,4 @@ export const NewPasswordForm = () => {
     </Card>
   )
 }
+export default withGuestOnly(NewPasswordForm)
