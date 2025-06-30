@@ -3,7 +3,7 @@
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Header from '@shared/ui/header/Header'
+import { Header } from '@shared/ui/header/Header'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
 import { AUTH_PAGES } from '@/app/providers/publicPages'
 
