@@ -6,6 +6,7 @@ import { Scroll } from '@shared/ui'
 import { Provider } from 'react-redux'
 import { store } from './store'
 import { AuthProvider } from '@/app/providers/AuthProvider'
+import { AlertError } from '@features/alertError/ui/AlertError'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <body>
         <Provider store={store}>
+          <AlertError />
           <AuthProvider>
             <Scroll>{children}</Scroll>
           </AuthProvider>
