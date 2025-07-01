@@ -17,7 +17,7 @@ export function withGuestOnly<T extends JSX.IntrinsicAttributes>(
       if (isLoading) return
 
       if (data) {
-        router.replace('/')
+        // router.replace('/')
       } else {
         setShouldRender(true)
       }
