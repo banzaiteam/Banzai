@@ -5,9 +5,8 @@ import { useRouter } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
 
-export function withGuestOnly<T extends JSX.IntrinsicAttributes>(
-  Component: React.ComponentType<T>
-) {
+//export function withGuestOnly<T extends JSX.IntrinsicAttributes>(
+export function withGuestOnly<T extends object>(Component: React.ComponentType<T>) {
   return function GuestOnlyWrapper(props: T) {
     const { data, isLoading } = useGetMeQuery()
     const router = useRouter()

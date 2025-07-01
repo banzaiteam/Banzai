@@ -13,7 +13,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data, isLoading, isError, error } = useGetMeQuery()
   const [shouldRender, setShouldRender] = useState(false)
 
-  const isPublicPage = AUTH_PAGES.includes(pathname)
+  //const isPublicPage = AUTH_PAGES.includes(pathname)
+
+  const isPublicPage =
+    AUTH_PAGES.some(page => pathname === page) || pathname?.startsWith('/auth/restore-password/')
 
   useEffect(() => {
     if (isLoading) return
