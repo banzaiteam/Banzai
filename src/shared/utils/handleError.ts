@@ -26,13 +26,10 @@ export const handleError = (
         break
       }
 
-      case 409: {
-        appError = '409 This email or username already exists in the system'
-        break
-      }
-
       case 400:
       case 401:
+      case 404:
+      case 409:
       case 500: {
         if (isErrorWithMessage(result.error.data)) {
           appError = result.error.data.message
@@ -48,21 +45,4 @@ export const handleError = (
     }
     api.dispatch(setAppError({ appError }))
   }
-};
-
-  /*switch ((result.data as { resultCode: ResultCodeStatus }).resultCode) {
-    case ResultCodeStatus.fail: {
-      const messages = (result.data as { messages: string[] }).messages;
-      appError = messages.length ? messages[0] : appError;
-      api.dispatch(setAppError({ appError }));
-      break;
-    }
-    case ResultCodeStatus.captcha: {
-      api.dispatch(setAppError({ error: `neeed captcha` }));
-      break;
-    }
-    default: {
-    }
-  }*/
-
-  ///можно писать as если мы точно уверенны, (документация или разговор с беком)
+}

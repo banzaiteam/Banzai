@@ -7,10 +7,10 @@ import {
   SidebarBaseNavigation,
   type SidebarBaseProps,
 } from '@shared/ui'
-import { linksData } from '@features/sidebar/model/linksData'
 import LogOutOutline from '@/assets/icons/components/LogOutOutline'
 import { useLoginOut2Mutation, useLoginOutMutation } from '@features/auth/login/api/loginApi'
 import { useRouter } from 'next/navigation'
+import { linksData } from '@widgets/sidebar/model/linksData'
 
 type SidebarProps = SidebarBaseProps & { isDisabled?: boolean; onClick?: () => void }
 
