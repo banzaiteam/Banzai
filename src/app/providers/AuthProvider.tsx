@@ -16,7 +16,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   //const isPublicPage = AUTH_PAGES.includes(pathname)
 
   const isPublicPage =
-    AUTH_PAGES.some(page => pathname === page) || pathname?.startsWith('/auth/restore-password/')
+    AUTH_PAGES.some(page => pathname === page) ||
+    pathname?.startsWith('/auth/restore-password/') ||
+    pathname?.startsWith('/auth/email-verify-recovery-password/')
 
   useEffect(() => {
     if (isLoading) return
