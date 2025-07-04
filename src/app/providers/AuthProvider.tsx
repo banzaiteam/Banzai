@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetMeQuery } from '@/shared/api/userApi'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation'
 import { useEffect, useState } from 'react'
 import { Header } from '@shared/ui/header/Header'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
