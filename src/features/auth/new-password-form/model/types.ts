@@ -1,22 +1,30 @@
-import { z } from 'zod';
-import { newPasswordSchema } from './newPasswordSchema';
+import { z } from 'zod'
+import { newPasswordSchema } from './newPasswordSchema'
 
 export type PasswordResetRequest = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
-export type NewPasswordFormValues = z.infer<typeof newPasswordSchema>;
+export type NewPasswordFormValues = z.infer<typeof newPasswordSchema>
 
 type SuccessResponse = {
-  status: 'success';
-  message?: string;
-};
+  status: 'success'
+  message?: string
+}
 
 type ErrorResponse = {
-  status: 'error';
-  error: string;
-  message?: string;
-};
+  status: 'error'
+  error: string
+  message?: string
+}
 
-export type ResetPasswordResponse = SuccessResponse | ErrorResponse;
+type RedirectResponse = {
+  status: 'redirect'
+  redirectUrl: string
+  message?: string
+}
+
+//export type ResetPasswordResponse = SuccessResponse | ErrorResponse | RedirectResponse
+
+export type ResetPasswordResponse = void
