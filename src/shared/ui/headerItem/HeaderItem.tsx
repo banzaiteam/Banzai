@@ -1,31 +1,34 @@
-// @flow
-import * as React from 'react'
-import styles from '@shared/ui/header/Header.module.scss'
+'use client'
+
 import Link from 'next/link'
+import styles from './Header.module.scss'
+import Select from '../select/Select'
 import {
   FlagRussia,
   FlagUnitedKingdom,
   MoreHorizontal,
   OutlineBell,
 } from '@/assets/icons/components'
-import Select from '@shared/ui/select/Select'
+import { useEffect, useState } from 'react'
 import { Button } from '@shared/ui'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useGetMeQuery } from '@shared/api/userApi'
 
-type Props = {
-  isLoggedIn: boolean
-  profile?: React.ReactNode
-}
-export const Layout = ({ isLoggedIn, profile }: Props) => {
-  const router = useRouter()
+const languageOptions = [
+  { label: 'English', value: 'en', flag: <FlagUnitedKingdom /> },
+  { label: 'Russian', value: 'ru', flag: <FlagRussia /> },
+]
 
-  const languageOptions = [
-    { label: 'English', value: 'en', flag: <FlagUnitedKingdom /> },
-    { label: 'Russian', value: 'ru', flag: <FlagRussia /> },
-  ]
-
+export const HeaderItem: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false)
   const [value, setValue] = useState(languageOptions[0].value)
+  const { isSuccess } = useGetMeQuery()
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const router = useRouter()
 
   return (
     <header className={styles.header}>
@@ -35,10 +38,10 @@ export const Layout = ({ isLoggedIn, profile }: Props) => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
-            {isLoggedIn && <OutlineBell className={styles.bell} />}
+            +{isSuccess && <OutlineBell className={styles.bell} />}
             <Select options={languageOptions} value={value} onValueChange={setValue} />
-            <button className={styles.more}>{isLoggedIn && <MoreHorizontal />}</button>
-            {!isLoggedIn && (
+            <button className={styles.more}>{isSuccess && <MoreHorizontal />}</button>
+            {isMounted && !isSuccess && (
               <div className={styles.registration}>
                 <Button
                   onClick={() => {
@@ -46,7 +49,7 @@ export const Layout = ({ isLoggedIn, profile }: Props) => {
                   }}
                   variant="text-button"
                 >
-                  {isLoggedIn ? 'Log out' : 'Log in'}
+                  {isSuccess ? 'Log out' : 'Log in'}
                 </Button>
                 <Button
                   onClick={() => {
@@ -58,7 +61,6 @@ export const Layout = ({ isLoggedIn, profile }: Props) => {
                 </Button>
               </div>
             )}
-            {profile}
           </div>
         </div>
       </div>

@@ -1,14 +1,12 @@
-'use client'
-import { Header } from '@shared/ui/header/Header'
 import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export default function Page() {
   return (
-    <div className={'wrapper'}>
-      <Header />
-      <Sidebar onClick={() => {}}></Sidebar>
-
+    <>
+      <Sidebar></Sidebar>
       <main>Banzai</main>
-    </div>
+    </>
   )
 }

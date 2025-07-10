@@ -1,11 +1,11 @@
 import { baseApi } from './baseApi'
 
-type Profile = {
+export type Profile = {
   id: string
   username: string
 }
 
-type User = {
+export type User = {
   id: string
   email: string
   verified: boolean

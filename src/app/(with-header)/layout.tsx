@@ -1,12 +1,11 @@
 'use client'
 import '@radix-ui/themes/styles.css'
-import { Header } from '@shared/ui/header/Header'
+import { HeaderItem } from '@shared/ui/headerItem/HeaderItem'
 
 export default function WithHeaderLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Header />
-      <main>{children}</main>
+      <>{children}</>
     </>
   )
 }
