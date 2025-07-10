@@ -14,7 +14,7 @@ import styles from './LoginForm.module.scss'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/assets/icons/components'
 import { InputEmail, InputPassword } from '@features/auth/components'
 import { isApiError } from '@features/auth/login/model/types'
-import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
+import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
 import Link from 'next/link'
 
 const LoginForm = () => {
@@ -127,4 +127,4 @@ const LoginForm = () => {
   )
 }
 
-export default withGuestOnly(LoginForm)
+export default LoginForm

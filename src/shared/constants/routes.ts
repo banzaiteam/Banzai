@@ -14,7 +14,7 @@ export const ROUTES = {
   signUp: '/signup' as const,
 
   // 👤 Профили
-  myProfile: '/profile/me' as const,
+  myProfile: '/posts/me' as const,
   profile: (id: string) => `/profile/${id}` as const,
 
   // 📝 Посты

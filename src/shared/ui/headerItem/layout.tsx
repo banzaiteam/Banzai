@@ -1,29 +1,31 @@
-'use client'
-
+// @flow
+import * as React from 'react'
+import styles from '@shared/ui/headerItem/Header.module.scss'
 import Link from 'next/link'
-import styles from './Header.module.scss'
-import Select from '../select/Select'
 import {
   FlagRussia,
   FlagUnitedKingdom,
   MoreHorizontal,
   OutlineBell,
 } from '@/assets/icons/components'
-import { useState } from 'react'
+import Select from '@shared/ui/select/Select'
 import { Button } from '@shared/ui'
 import { useRouter } from 'next/navigation'
-import { useGetMeQuery } from '@shared/api/userApi'
+import { useEffect, useState } from 'react'
 
-const languageOptions = [
-  { label: 'English', value: 'en', flag: <FlagUnitedKingdom /> },
-  { label: 'Russian', value: 'ru', flag: <FlagRussia /> },
-]
-
-export const Header: React.FC = () => {
-  const [value, setValue] = useState(languageOptions[0].value)
-  const { isSuccess } = useGetMeQuery()
-
+type Props = {
+  isLoggedIn: boolean
+  profile?: React.ReactNode
+}
+export const Layout = ({ isLoggedIn, profile }: Props) => {
   const router = useRouter()
+
+  const languageOptions = [
+    { label: 'English', value: 'en', flag: <FlagUnitedKingdom /> },
+    { label: 'Russian', value: 'ru', flag: <FlagRussia /> },
+  ]
+
+  const [value, setValue] = useState(languageOptions[0].value)
 
   return (
     <header className={styles.header}>
@@ -33,10 +35,10 @@ export const Header: React.FC = () => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
-            +{isSuccess && <OutlineBell className={styles.bell} />}
+            {isLoggedIn && <OutlineBell className={styles.bell} />}
             <Select options={languageOptions} value={value} onValueChange={setValue} />
-            <button className={styles.more}>{isSuccess && <MoreHorizontal />}</button>
-            {!isSuccess && (
+            <button className={styles.more}>{isLoggedIn && <MoreHorizontal />}</button>
+            {!isLoggedIn && (
               <div className={styles.registration}>
                 <Button
                   onClick={() => {
@@ -44,7 +46,7 @@ export const Header: React.FC = () => {
                   }}
                   variant="text-button"
                 >
-                  {isSuccess ? 'Log out' : 'Log in'}
+                  {isLoggedIn ? 'Log out' : 'Log in'}
                 </Button>
                 <Button
                   onClick={() => {
@@ -56,6 +58,7 @@ export const Header: React.FC = () => {
                 </Button>
               </div>
             )}
+            {profile}
           </div>
         </div>
       </div>

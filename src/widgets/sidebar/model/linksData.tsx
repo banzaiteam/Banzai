@@ -33,7 +33,7 @@ export const linksData = [
   {
     id: 3,
     title: 'Profile',
-    path: '/profile',
+    path: '/posts',
     icon: <PersonOutline stroke={'currentColor'} />,
     iconActive: <Person stroke={'currentColor'} />,
   },

@@ -3,7 +3,6 @@
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Header } from '@shared/ui/header/Header'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
 import { isPublicRoute, ROUTES } from '@shared/constants/routes'
 
@@ -20,11 +19,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const status = (error as any)?.status
     const isAuthError = status === 401 || status === 403
-
-    // Если страница защищена и пользователь не авторизован
-    // console.log(!isPublicPage, isAuthError)
-    // console.log('Current path:', pathname)
-    // console.log('Is public:', isPublicRoute(pathname))
+    console.log(isPublicPage, isAuthError)
 
     if (!isPublicPage && isAuthError) {
       // router.replace(ROUTES.signIn)
@@ -37,7 +32,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   if (isLoading) {
     return (
       <>
-        <Header />
         <div style={{ padding: '16px', maxWidth: '100%' }}>
           <Skeleton width="100%" height="500px" borderRadius="8px">
             <div style={{ display: 'flex', gap: '12px', padding: '12px' }}>
