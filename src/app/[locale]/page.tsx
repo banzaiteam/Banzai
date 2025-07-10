@@ -1,12 +1,12 @@
 import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 export default function Page() {
+  const t = useTranslations('IndexPage')
   return (
     <>
       <Sidebar></Sidebar>
-      <main>Banzai</main>
+      <main>Banzai {t('title')}</main>
     </>
   )
 }

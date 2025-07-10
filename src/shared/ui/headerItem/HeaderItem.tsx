@@ -1,27 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import styles from './Header.module.scss'
-import Select from '../select/Select'
-import {
-  FlagRussia,
-  FlagUnitedKingdom,
-  MoreHorizontal,
-  OutlineBell,
-} from '@/assets/icons/components'
 import { useEffect, useState } from 'react'
+import styles from './Header.module.scss'
+import { MoreHorizontal, OutlineBell } from '@/assets/icons/components'
 import { Button } from '@shared/ui'
 import { useRouter } from 'next/navigation'
 import { useGetMeQuery } from '@shared/api/userApi'
-
-const languageOptions = [
-  { label: 'English', value: 'en', flag: <FlagUnitedKingdom /> },
-  { label: 'Russian', value: 'ru', flag: <FlagRussia /> },
-]
+import { LocaleSwitcher } from '@/widgets'
 
 export const HeaderItem: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false)
-  const [value, setValue] = useState(languageOptions[0].value)
+
   const { isSuccess } = useGetMeQuery()
 
   useEffect(() => {
@@ -39,7 +29,7 @@ export const HeaderItem: React.FC = () => {
           </Link>
           <div className={styles.header__actions}>
             +{isSuccess && <OutlineBell className={styles.bell} />}
-            <Select options={languageOptions} value={value} onValueChange={setValue} />
+            <LocaleSwitcher />
             <button className={styles.more}>{isSuccess && <MoreHorizontal />}</button>
             {isMounted && !isSuccess && (
               <div className={styles.registration}>
