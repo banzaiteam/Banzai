@@ -9,17 +9,9 @@ import { Header } from '@widgets/header/ui/Header'
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/*<link rel="icon" type="image/svg+xml" href="/favicon.svg" />*/}
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <body>
-        <StoreProvider>
-          <div className={'wrapper'}>
-            <Header />
-            {/*<AuthProvider>*/}
-            {children}
-            {/*</AuthProvider>*/}
-          </div>
-          <AlertError />
-        </StoreProvider>
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   )

@@ -10,6 +10,7 @@ import { AuthProvider } from '@/app/providers/AuthProvider'
 import { use } from 'react'
 import enMessages from '@/messages/en.json'
 import ruMessages from '@/messages/ru.json'
+import { Header } from '@widgets/header/ui/Header'
 
 // 1. Define supported locales as a union type
 export type Locale = 'en' | 'ru' // Add all supported locales
@@ -45,12 +46,14 @@ export default function LocaleLayout({
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <body>
         <NextIntlClientProvider locale={locale} messages={messages[locale]}>
-          <Provider store={store}>
-            <AlertError />
-            <AuthProvider>
-              <Scroll>{children}</Scroll>
-            </AuthProvider>
-          </Provider>
+          <AlertError />
+          <div className={'wrapper'}>
+            <Header />
+            {/*<AuthProvider>*/}
+            {children}
+            {/*</AuthProvider>*/}
+          </div>
+          <AlertError />
         </NextIntlClientProvider>
       </body>
     </html>
