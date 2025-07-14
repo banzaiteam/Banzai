@@ -1,12 +1,8 @@
 'use client'
 import '@shared/styles/global.css' // Подключение глобальных стилей
 import '@radix-ui/themes/styles.css'
-import { Scroll } from '@shared/ui'
-import { Provider } from 'react-redux'
-import { store } from '../store'
 import { AlertError } from '@widgets/alertError/ui/AlertError'
 import { NextIntlClientProvider } from 'next-intl'
-import { AuthProvider } from '@/app/providers/AuthProvider'
 import { use } from 'react'
 import enMessages from '@/messages/en.json'
 import ruMessages from '@/messages/ru.json'
