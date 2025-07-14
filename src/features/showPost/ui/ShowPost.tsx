@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import { Button, Popup, Typography } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
