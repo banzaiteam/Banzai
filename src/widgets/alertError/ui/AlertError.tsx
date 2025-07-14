@@ -3,7 +3,7 @@
 import React from 'react'
 import { Alert } from '@shared/ui'
 import s from './AlertError.module.scss'
-import { useAlertError } from '@features/alertError/model/hooks/useAlertError'
+import { useAlertError } from '@widgets/alertError/model/hooks/useAlertError'
 import clsx from 'clsx'
 
 export const AlertError = () => {
