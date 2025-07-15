@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Card, Button, Typography } from '@/shared/ui';
-import styles from './NewPasswordForm.module.scss';
-import { InputPassword } from '@/features/auth/components';
-import { useResetPasswordMutation } from '../api/newPasswordApi';
-import { NewPasswordFormValues, PasswordResetRequest } from '../model/types';
-import { newPasswordSchema } from '../model/newPasswordSchema';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Card, Button, Typography } from '@/shared/ui'
+import styles from './NewPasswordForm.module.scss'
+import { InputPassword } from '@/features/auth/components'
+import { useResetPasswordMutation } from '../api/newPasswordApi'
+import { NewPasswordFormValues } from '../model/types'
+import { newPasswordSchema } from '../model/newPasswordSchema'
+import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
 
-export const NewPasswordForm = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [resetPassword] = useResetPasswordMutation();
+const NewPasswordForm = ({ email }: { email: string }) => {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [successMessage, setSuccessMessage] = useState('')
+  const [resetPassword] = useResetPasswordMutation()
 
   const {
     register,
@@ -25,36 +25,34 @@ export const NewPasswordForm = () => {
     setError,
   } = useForm<NewPasswordFormValues>({
     resolver: zodResolver(newPasswordSchema),
-  });
+  })
 
   const onSubmit = async (data: NewPasswordFormValues) => {
-    setIsSubmitting(true);
-    console.log(errors)
-    
+    setIsSubmitting(true)
+
     try {
-      // Получаем email из параметров URL
-      const email = searchParams.get('email') || '';
-      
-      // Отправляем запрос
+      if (!email) {
+        throw new Error('Email not found in URL')
+      }
+
       await resetPassword({
         email,
-        password: data.password
-      }).unwrap();
+        password: data.password,
+      })
 
-      setSuccessMessage('Password has been successfully changed!');
-      
-      router.push('/auth/signIn');
+      setSuccessMessage('Password has been successfully changed!')
 
+      router.push('/auth/signIn')
     } catch (err: any) {
       if (err.data?.message) {
-        setError('root', { message: err.data.message });
+        setError('root', { message: err.data.message })
       } else {
-        setError('root', { message: 'Failed to reset password. Please try again.' });
+        setError('root', { message: 'Failed to reset password. Please try again.' })
       }
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
     <Card className={styles.newPassword}>
@@ -73,7 +71,7 @@ export const NewPasswordForm = () => {
 
           <div>
             <InputPassword
-              subTitle='Password confirmation'
+              subTitle="Password confirmation"
               {...register('confirmPassword')}
               helperText={errors.confirmPassword?.message}
               error={!!errors.confirmPassword?.message}
@@ -81,11 +79,11 @@ export const NewPasswordForm = () => {
             <span className={styles.text}>Your password must be between 6 and 20 characters</span>
           </div>
 
-          <Button 
-            width='100%'
-            variant="primary" 
-            className={styles.submitButton} 
-            type="submit" 
+          <Button
+            width="100%"
+            variant="primary"
+            className={styles.submitButton}
+            type="submit"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Updating...' : 'Create New Password'}
@@ -93,5 +91,6 @@ export const NewPasswordForm = () => {
         </form>
       </div>
     </Card>
-  );
-};
+  )
+}
+export default withGuestOnly(NewPasswordForm)

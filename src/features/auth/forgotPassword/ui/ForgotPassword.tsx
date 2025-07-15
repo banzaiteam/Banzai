@@ -11,7 +11,7 @@ import {
   ForgotPasswordSchema,
   ForgotPasswordValues,
 } from '@features/auth/forgotPassword/model/forgotPasswordSchema'
-import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
+import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
 import { RecaptchaRef } from '@shared/ui/recaptcha/Recaptcha'
 
 const ForgotPassword = () => {
@@ -138,4 +138,4 @@ const ForgotPassword = () => {
     </>
   )
 }
-export default withGuestOnly(ForgotPassword)
+export default ForgotPassword

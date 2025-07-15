@@ -1,11 +1,11 @@
 import { baseApi } from './baseApi'
 
-type Profile = {
+export type Profile = {
   id: string
   username: string
 }
 
-type User = {
+export type User = {
   id: string
   email: string
   verified: boolean
@@ -16,6 +16,7 @@ export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getMe: build.query<User, void>({
       query: () => 'auth/me',
+
       providesTags: ['User'],
     }),
   }),

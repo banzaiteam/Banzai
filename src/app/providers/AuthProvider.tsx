@@ -1,36 +1,37 @@
 'use client'
 
 import { useGetMeQuery } from '@/shared/api/userApi'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import Header from '@shared/ui/header/Header'
+import { usePathname, useRouter } from '@/i18n/navigation'
+import { useEffect, useState } from 'react'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
+import { isPublicRoute, ROUTES } from '@shared/constants/routes'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const { data, isLoading, isError, error } = useGetMeQuery()
+  const [shouldRender, setShouldRender] = useState(false)
+
+  const isPublicPage = isPublicRoute(pathname)
 
   useEffect(() => {
-    if (!isLoading && isError) {
-      const status = (error as any)?.status
-      const isAuthPage =
-        pathname === '/auth/signIn' ||
-        pathname === '/signup' ||
-        pathname === '/auth/forgot-password' ||
-        pathname === '/auth/restore-password' ||
-        pathname === '/signup/email-verify'
+    if (isLoading) return
 
-      if ((status === 401 || status === 403) && !isAuthPage) {
-        router.replace('/auth/signIn')
-      }
+    const status = (error as any)?.status
+    const isAuthError = status === 401 || status === 403
+    console.log(isPublicPage, isAuthError)
+
+    if (!isPublicPage && isAuthError) {
+      // router.replace(ROUTES.signIn)
+    } else {
+      // Разрешаем рендер только когда проверка завершена
+      setShouldRender(true)
     }
-  }, [isError, isLoading, error, router])
+  }, [isError, isLoading, error, router, pathname, isPublicPage])
 
   if (isLoading) {
     return (
       <>
-        <Header />
         <div style={{ padding: '16px', maxWidth: '100%' }}>
           <Skeleton width="100%" height="500px" borderRadius="8px">
             <div style={{ display: 'flex', gap: '12px', padding: '12px' }}>
@@ -46,5 +47,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
   }
 
-  return <>{children}</>
+  return shouldRender ? <>{children}</> : null
 }

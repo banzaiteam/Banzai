@@ -14,15 +14,12 @@ import styles from './LoginForm.module.scss'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/assets/icons/components'
 import { InputEmail, InputPassword } from '@features/auth/components'
 import { isApiError } from '@features/auth/login/model/types'
-import { useAppDispatch } from '@shared/hooks/useAppDispatch'
-import { login as loginAction } from '@shared/store/slices/appSlice'
-import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
+import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
 import Link from 'next/link'
 
 const LoginForm = () => {
   const router = useRouter()
   const [retryDelay, setRetryDelay] = useState(0)
-  const dispatch = useAppDispatch()
 
   const [login, { isLoading }] = useLoginInMutation()
   const {
@@ -39,13 +36,10 @@ const LoginForm = () => {
 
     try {
       const response = await login(data).unwrap()
-      console.log(response)
       localStorage.setItem('accessToken', response.accessToken)
 
       reset()
       router.push('/')
-
-      dispatch(loginAction())
     } catch (error) {
       let errorMessage = 'Login failed. Please try again.'
       console.error('Login failed:', error)
@@ -124,7 +118,6 @@ const LoginForm = () => {
             className={`${styles.w100} ${styles.btnBottom}`}
             variant={'text-button'}
             type="button"
-            onClick={() => router.push('/signup')}
           >
             <Link href={'/signup'}>Sign Up</Link>
           </Button>
@@ -134,4 +127,4 @@ const LoginForm = () => {
   )
 }
 
-export default withGuestOnly(LoginForm)
+export default LoginForm
