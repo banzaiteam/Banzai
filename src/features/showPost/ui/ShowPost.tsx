@@ -16,6 +16,8 @@ import user from '@/assets/images/User.png'
 import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import Link from 'next/link'
 import Palm from '@/assets/images/Palm.png'
+import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
+import { MyPostItems } from '@features/showPost/model/constans'
 
 type ShowPostProps = {
   open: boolean
@@ -54,7 +56,7 @@ export const ShowPost = (props: ShowPostProps) => {
               </CircleImage>
               <Typography variant={'h3'}>URLProfiele</Typography>
             </div>
-            <button type={'button'}>* * *</button>
+            <MeatballsMenu items={MyPostItems} />
           </div>
           <div className={s.comments}>
             <Comment
