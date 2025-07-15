@@ -3,7 +3,7 @@ import elon2 from '../../assets/profile/2.jpg'
 import elon3 from '../../assets/profile/3.webp'
 import elon4 from '../../assets/profile/4.jpeg'
 import elon5 from '../../assets/profile/5.jpg'
-import elon6 from '../../assets/profile/6.avif'
+import elon6 from '../../assets/profile/6.jpeg'
 import elon7 from '../../assets/profile/7.jpeg'
 import elon8 from '../../assets/profile/8.webp'
 

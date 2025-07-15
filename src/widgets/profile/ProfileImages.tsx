@@ -11,9 +11,10 @@ export const ProfileImages = () => {
             key={item.id}
             src={item.img}
             alt={`Profile ${item.id}`}
-            width={100}
-            height={100}
+            width={234}
+            height={228}
             className={styles.image}
+            loading="lazy"
           />
         ))}
       </div>
