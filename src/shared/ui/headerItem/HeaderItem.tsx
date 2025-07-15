@@ -28,7 +28,7 @@ export const HeaderItem: React.FC = () => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
-            +{isSuccess && <OutlineBell className={styles.bell} />}
+            {isSuccess && <OutlineBell className={styles.bell} />}
             <LocaleSwitcher />
             <button className={styles.more}>{isSuccess && <MoreHorizontal />}</button>
             {isMounted && !isSuccess && (

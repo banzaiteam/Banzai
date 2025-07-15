@@ -1,6 +1,6 @@
 .header {
   .container {
-    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -13,7 +13,7 @@
   }
 
   &__inner {
-    padding: 12px 60px;
+    padding: 12px 65px;
     display: flex;
     justify-content: space-between;
     align-items: center;
