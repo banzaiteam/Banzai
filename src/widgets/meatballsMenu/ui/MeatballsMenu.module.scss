@@ -1,0 +1,41 @@
+.wrapper {
+  line-height: 0;
+  position: relative;
+
+  & .button {
+    line-height: 0;
+    padding: 5px;
+    margin: -5px;
+    & .open {
+      color: var(--primary-500);
+    }
+  }
+
+  & .menu {
+    background-color: var(--dark-500);
+    border: 1px solid var(--dark-100);
+    border-radius: 2px;
+    min-width: 144px;
+    min-height: 85px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1;
+    padding: 12px;
+    & > li {
+      display: flex;
+      align-items: center;
+      & > button {
+        display: flex;
+        align-items: center;
+        column-gap: 12px;
+        &:focus-visible {
+          color: var(--primary-500);
+        }
+      }
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
