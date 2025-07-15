@@ -1,7 +1,19 @@
 import { Edit2Outline, TrashOutline } from '@/assets/icons/components'
-import type { MeatballsMenuItem } from '@/widgets'
+import type { MeatballsMenuItemData } from '@/widgets'
 
-export const MyPostItems: MeatballsMenuItem[] = [
-  { title: 'Edit Post', icon: <Edit2Outline />, onClick: () => {} },
-  { title: 'Delete Post', icon: <TrashOutline />, onClick: () => {} },
+export const MyPostItems: MeatballsMenuItemData[] = [
+  {
+    title: 'Edit Post',
+    icon: <Edit2Outline />,
+    onClick: () => {
+      console.log(111)
+    },
+  },
+  {
+    title: 'Delete Post',
+    icon: <TrashOutline />,
+    onClick: () => {
+      console.log(222)
+    },
+  },
 ]
