@@ -6,8 +6,15 @@
     line-height: 0;
     padding: 5px;
     margin: -5px;
-    & .open {
+    transition: 0.15s linear color;
+    &.open {
       color: var(--primary-500);
+    }
+    &:focus-visible,
+    &:hover {
+      transition: 0.15s linear color;
+
+      color: var(--primary-100);
     }
   }
 
@@ -22,24 +29,5 @@
     right: 0;
     z-index: 1;
     padding: 12px;
-    & > li {
-      display: flex;
-      align-items: center;
-      transition: 0.1s ease-in-out color;
-      &:hover {
-        color: var(--primary-500);
-      }
-      & > button {
-        display: flex;
-        align-items: center;
-        column-gap: 12px;
-        &:focus-visible {
-          color: var(--primary-500);
-        }
-      }
-      &:not(:last-child) {
-        margin-bottom: 12px;
-      }
-    }
   }
 }
