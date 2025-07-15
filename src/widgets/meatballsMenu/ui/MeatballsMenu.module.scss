@@ -25,6 +25,10 @@
     & > li {
       display: flex;
       align-items: center;
+      transition: 0.1s ease-in-out color;
+      &:hover {
+        color: var(--primary-500);
+      }
       & > button {
         display: flex;
         align-items: center;
