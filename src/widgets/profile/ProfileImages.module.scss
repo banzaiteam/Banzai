@@ -1,0 +1,17 @@
+.container {
+  max-width: 970px;
+  margin: 36px 0 48px 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.image {
+  width: 234px;
+  height: 228px;
+  border-radius: 3px;
+  object-fit: cover;
+}
