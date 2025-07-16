@@ -7,7 +7,7 @@ export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
     deletePost: build.mutation<AuthResponse, { id: string }>({
       query: ({ id }: { id: string }) => ({
-        url: `posts/login/${id}`,
+        url: `/posts/${id}`,
         method: 'DELETE',
       }),
     }),
