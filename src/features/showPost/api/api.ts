@@ -5,14 +5,13 @@ type AuthResponse = {}
 
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    deletePost: build.mutation<AuthResponse, { email: string; password: string }>({
-      query: credentials => ({
-        url: 'auth/login',
-        method: 'POST',
-        body: credentials,
+    deletePost: build.mutation<AuthResponse, { id: string }>({
+      query: ({ id }: { id: string }) => ({
+        url: `posts/login/${id}`,
+        method: 'DELETE',
       }),
     }),
   }),
 })
 /*TODO*/
-export const {} = showPostApi
+export const { useDeletePostMutation } = showPostApi

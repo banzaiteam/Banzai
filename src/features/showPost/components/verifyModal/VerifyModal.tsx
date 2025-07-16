@@ -3,6 +3,8 @@ import { Button, Popup, PopupHeader } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { Close } from '@/assets/icons/components'
 import s from './VerifyModal.module.scss'
+import { useDeletePostMutation } from '@/features'
+
 type Props = {
   title?: string
   isOpenValue: boolean
@@ -13,6 +15,11 @@ type Props = {
 export const VerifyModal = (props: Props) => {
   const { isOpenValue, children, title = 'Email sent', onClose } = props
   const onCloseHandler = () => onClose(false)
+  const [deletePost, { isLoading, data }] = useDeletePostMutation()
+  const onClickYesHandler = () => {
+    deletePost({ id: '1' })
+  }
+
   return (
     <Popup open={isOpenValue} onOpenChange={onClose} size={'xs'}>
       <PopupHeader>
@@ -24,7 +31,7 @@ export const VerifyModal = (props: Props) => {
       <div className={s.wrapper}>
         {children}
         <div className={s.wrapper_buttons}>
-          <Button variant="outline" onClick={onCloseHandler}>
+          <Button variant="outline" onClick={onClickYesHandler}>
             Yes
           </Button>
           <Button onClick={onCloseHandler}>No</Button>
