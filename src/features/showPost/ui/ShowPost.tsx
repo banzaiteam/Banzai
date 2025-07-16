@@ -5,9 +5,11 @@ import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import {
   BookmarkOutline,
   Close,
+  Edit2Outline,
   Heart,
   HeartOutline,
   PaperPlaneOutline,
+  TrashOutline,
 } from '@/assets/icons/components'
 import s from './ShowPost.module.scss'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
@@ -17,7 +19,8 @@ import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import Link from 'next/link'
 import Palm from '@/assets/images/Palm.png'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
-import { MyPostItems } from '@features/showPost/model/constans'
+import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
+import type { MeatballsMenuItemData } from '@/widgets'
 
 type ShowPostProps = {
   open: boolean
@@ -34,114 +37,149 @@ export const ShowPost = (props: ShowPostProps) => {
   const { onClose, ...rest } = props
   const [inputValue, setInputValue] = useState('')
   const onCloseHandler = () => onClose(false)
+  const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
+  const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
+
+  const MyPostItems: MeatballsMenuItemData[] = [
+    {
+      title: 'Edit Post',
+      icon: <Edit2Outline />,
+      onClick: () => {
+        console.log(111)
+      },
+    },
+    {
+      title: 'Delete Post',
+      icon: <TrashOutline />,
+      onClick: () => {
+        setOpenVerifyDeleteModal(true)
+        setOpenMeatballsMenu(false)
+      },
+    },
+  ]
 
   return (
-    <Popup {...rest} onOpenChange={onClose} size={'xl'}>
-      <DialogClose className={s.close} onClick={onCloseHandler}>
-        <Close />
-      </DialogClose>
-      <VisuallyHidden asChild>
-        <DialogTitle className={s.hidden_title}>show post</DialogTitle>
-      </VisuallyHidden>
+    <>
+      <Popup {...rest} onOpenChange={onClose} size={'xl'}>
+        <DialogClose className={s.close} onClick={onCloseHandler}>
+          <Close />
+        </DialogClose>
+        <VisuallyHidden asChild>
+          <DialogTitle className={s.hidden_title}>show post</DialogTitle>
+        </VisuallyHidden>
 
-      <div className={s.wrapper}>
-        <div className={s.image_wrapper}>
-          <Image src={Palm} alt={'main-image post'} />
-        </div>
-        <div className={s.comments_block}>
-          <div className={s.header}>
-            <div className={s.user}>
-              <CircleImage>
-                <Image src={user} alt={'user'} />
-              </CircleImage>
-              <Typography variant={'h3'}>URLProfiele</Typography>
-            </div>
-            <MeatballsMenu items={MyPostItems} />
+        <div className={s.wrapper}>
+          <div className={s.image_wrapper}>
+            <Image src={Palm} alt={'main-image post'} />
           </div>
-          <div className={s.comments}>
-            <Comment
-              text={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              }
-              title={'UrlProfile'}
-              image={user}
-            />
-            <Comment
-              text={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              }
-              title={'UrlProfile'}
-              image={user}
-              like={false}
-            />
-            <Comment
-              text={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              }
-              title={'UrlProfile'}
-              image={user}
-              like={true}
-            />
-          </div>
-          <div className={s.engagement_info}>
-            <div className={s.icons_wrapper}>
-              <div className={s.icons_group}>
-                <button type={'button'}>
-                  <HeartOutline />
-                </button>
-                <button type={'button'}>
-                  <PaperPlaneOutline />
-                </button>
-              </div>
-              <div className={s.icons_group}>
-                <button type={'button'}>
-                  <BookmarkOutline />
-                </button>
-              </div>
-            </div>
-            <div className={s.social_activity}>
-              <div className={s.last_likes}>
-                <CircleImage size={'size-24'}>
+          <div className={s.comments_block}>
+            <div className={s.header}>
+              <div className={s.user}>
+                <CircleImage>
                   <Image src={user} alt={'user'} />
                 </CircleImage>
-                <CircleImage size={'size-24'}>
-                  <Image src={user} alt={'user'} />
-                </CircleImage>
-                <CircleImage size={'size-24'}>
-                  <Image src={user} alt={'user'} />
-                </CircleImage>
+                <Typography variant={'h3'}>UserName</Typography>
               </div>
-              <span>
-                <Typography variant={'regular_text_14'} as={'span'}>
-                  <span>2 243 </span>
-                </Typography>
-                <Typography variant={'bold_text_14'} as={'span'}>
-                  <span>&quot;Like&quot;</span>
-                </Typography>
-              </span>
-            </div>
-            <Typography variant={'small_text'} className={s.date}>
-              July 3, 2021
-            </Typography>
-          </div>
-          <div className={s.add_comment}>
-            <div className={s.add_comment_wrapper}>
-              <input
-                value={inputValue}
-                onChange={e => {
-                  setInputValue(e.currentTarget.value)
-                }}
-                type="text"
-                placeholder={'Add a Comment...'}
+              <MeatballsMenu
+                items={MyPostItems}
+                isOpen={isOpenMeatballsMenu}
+                toggleOpen={setOpenMeatballsMenu}
               />
-              <Button variant={'text-button'} type={'button'}>
-                Publish
-              </Button>
+            </div>
+            <div className={s.comments}>
+              <Comment
+                text={
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                }
+                title={'UrlProfile'}
+                image={user}
+              />
+              <Comment
+                text={
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                }
+                title={'UrlProfile'}
+                image={user}
+                like={false}
+              />
+              <Comment
+                text={
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                }
+                title={'UrlProfile'}
+                image={user}
+                like={true}
+              />
+            </div>
+            <div className={s.engagement_info}>
+              <div className={s.icons_wrapper}>
+                <div className={s.icons_group}>
+                  <button type={'button'}>
+                    <HeartOutline />
+                  </button>
+                  <button type={'button'}>
+                    <PaperPlaneOutline />
+                  </button>
+                </div>
+                <div className={s.icons_group}>
+                  <button type={'button'}>
+                    <BookmarkOutline />
+                  </button>
+                </div>
+              </div>
+              <div className={s.social_activity}>
+                <div className={s.last_likes}>
+                  <CircleImage size={'size-24'}>
+                    <Image src={user} alt={'user'} />
+                  </CircleImage>
+                  <CircleImage size={'size-24'}>
+                    <Image src={user} alt={'user'} />
+                  </CircleImage>
+                  <CircleImage size={'size-24'}>
+                    <Image src={user} alt={'user'} />
+                  </CircleImage>
+                </div>
+                <span>
+                  <Typography variant={'regular_text_14'} as={'span'}>
+                    <span>2 243 </span>
+                  </Typography>
+                  <Typography variant={'bold_text_14'} as={'span'}>
+                    <span>&quot;Like&quot;</span>
+                  </Typography>
+                </span>
+              </div>
+              <Typography variant={'small_text'} className={s.date}>
+                July 3, 2021
+              </Typography>
+            </div>
+            <div className={s.add_comment}>
+              <div className={s.add_comment_wrapper}>
+                <input
+                  value={inputValue}
+                  onChange={e => {
+                    setInputValue(e.currentTarget.value)
+                  }}
+                  type="text"
+                  placeholder={'Add a Comment...'}
+                />
+                <Button variant={'text-button'} type={'button'}>
+                  Publish
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Popup>
+      </Popup>
+      <VerifyModal
+        title={'Delete Post'}
+        isOpenValue={isOpenVerifyDeleteModal}
+        onClose={setOpenVerifyDeleteModal}
+      >
+        <Typography variant={'regular_text_16'} className={s.verify_text}>
+          Are you sure you want to delete this post?
+        </Typography>
+      </VerifyModal>
+    </>
   )
 }
 
