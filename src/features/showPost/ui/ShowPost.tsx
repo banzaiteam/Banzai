@@ -209,9 +209,11 @@ const Comment = (props: CommentProps) => {
                 <Typography variant={'semi_bold_small_text'}>Like: 1</Typography>
               </span>
             )}
-            <span>
-              <Typography variant={'semi_bold_small_text'}>Answer</Typography>
-            </span>
+            {like !== undefined && (
+              <span>
+                <Typography variant={'semi_bold_small_text'}>Answer</Typography>
+              </span>
+            )}
           </div>
         </div>
       </div>
