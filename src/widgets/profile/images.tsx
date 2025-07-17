@@ -1,10 +1,10 @@
 import elon1 from '../../assets/profile/1.jpg'
 import elon2 from '../../assets/profile/2.jpg'
-import elon3 from '../../assets/profile/3.webp'
-import elon4 from '../../assets/profile/4.jpeg'
+import elon3 from '../../assets/profile/3.jpg'
+import elon4 from '../../assets/profile/4.jpg'
 import elon5 from '../../assets/profile/5.jpg'
-import elon6 from '../../assets/profile/6.jpeg'
-import elon7 from '../../assets/profile/7.jpeg'
+import elon6 from '../../assets/profile/6.jpg'
+import elon7 from '../../assets/profile/7.jpg'
 import elon8 from '../../assets/profile/8.webp'
 
 const images = [

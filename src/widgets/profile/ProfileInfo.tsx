@@ -1,5 +1,5 @@
 import styles from './ProfileInfo.module.scss'
-import elon from '../../assets/profile/ellon.png'
+import elon from '../../assets/profile/ellon.jpg'
 import Image from 'next/image'
 import Link from 'next/link'
 

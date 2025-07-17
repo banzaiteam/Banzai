@@ -2,6 +2,7 @@
 
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { ProfileImages } from '@/widgets/profile/ProfileImages'
+import { ProfileTest } from '@/widgets/profile/ProfileTest'
 import { ProfileInfo } from '@/widgets/profile/ProfileInfo'
 import { Sidebar } from '@/widgets/sidebar/ui/Sidebar'
 import { useEffect, useState } from 'react'
@@ -20,6 +21,7 @@ const ProfilePage = () => {
       <main>
         <ProfileInfo />
         <ProfileImages />
+        <ProfileTest />
       </main>
     </>
   )
