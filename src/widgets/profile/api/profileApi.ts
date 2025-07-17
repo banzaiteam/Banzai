@@ -1,6 +1,6 @@
 import { baseApi } from '@/shared/api/baseApi'
 
-export const userApi = baseApi.injectEndpoints({
+export const profileApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getUserProfile: build.query<any, string>({
       query: id => ({
@@ -11,4 +11,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetUserProfileQuery } = userApi
+export const { useGetUserProfileQuery } = profileApi
