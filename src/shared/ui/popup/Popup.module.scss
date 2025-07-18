@@ -1,3 +1,4 @@
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -47,11 +48,17 @@
     border: 1px solid var(--dark-100);
 
     min-height: auto;
+    //
+    contain: none;
+    overflow: visible;
+    //
   }
   & .description {
     opacity: 0;
     visibility: hidden;
     position: absolute;
+    width: 0;
+    height: 0;
   }
 }
 
