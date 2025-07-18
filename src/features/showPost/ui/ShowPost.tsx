@@ -21,10 +21,12 @@ import Palm from '@/assets/images/Palm.png'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
 import type { MeatballsMenuItemData } from '@/widgets'
+import { useGetPostDataQuery } from '@features/showPost/api/api'
 
 type ShowPostProps = {
   open: boolean
   onClose: (value: boolean) => void
+  id: string
 }
 type CommentProps = {
   title: string
@@ -34,19 +36,17 @@ type CommentProps = {
 }
 
 export const ShowPost = (props: ShowPostProps) => {
-  const { onClose, ...rest } = props
+  const { onClose, id, ...rest } = props
   const [inputValue, setInputValue] = useState('')
-  const onCloseHandler = () => onClose(false)
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
+  const { data } = useGetPostDataQuery(id)
 
   const MyPostItems: MeatballsMenuItemData[] = [
     {
       title: 'Edit Post',
       icon: <Edit2Outline />,
-      onClick: () => {
-        console.log(111)
-      },
+      onClick: () => {},
     },
     {
       title: 'Delete Post',
@@ -57,7 +57,7 @@ export const ShowPost = (props: ShowPostProps) => {
       },
     },
   ]
-
+  const onCloseHandler = () => onClose(false)
   return (
     <>
       <Popup {...rest} onOpenChange={onClose} size={'xl'}>
@@ -70,7 +70,12 @@ export const ShowPost = (props: ShowPostProps) => {
 
         <div className={s.wrapper}>
           <div className={s.image_wrapper}>
-            <Image src={Palm} alt={'main-image post'} />
+            <Image
+              src={data?.items[0].files[0].url || Palm}
+              width={485}
+              height={562}
+              alt={'main-image post'}
+            />
           </div>
           <div className={s.comments_block}>
             <div className={s.header}>
