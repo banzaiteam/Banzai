@@ -10,7 +10,7 @@ export const PostsPage = () => {
       <Typography variant={'h2'} as={'h2'}>
         Posts
       </Typography>
-      <ShowPost id={'1718761e-fb9e-4d07-b1a6-5147516bce99'} open={isOpen} onClose={setOpen} />
+      <ShowPost id={'1c2ebde9-2001-46b0-b65d-35ea0f741bf9'} open={isOpen} onClose={setOpen} />
     </>
   )
 }
