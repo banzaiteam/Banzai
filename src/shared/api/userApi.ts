@@ -2,6 +2,7 @@ import { baseApi } from './baseApi'
 
 export type Profile = {
   id: string
+  aboutMe?: string
   username: string
 }
 

@@ -1,0 +1,12 @@
+.wrapper {
+  padding: 30px 24px 36px;
+  .wrapper_buttons {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 24px;
+    & button {
+      min-width: 96px;
+      height: 36px;
+    }
+  }
+}

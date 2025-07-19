@@ -43,28 +43,36 @@
   &.xl {
     width: 972px;
   }
-  & .card{
+  & .card {
     background-color: var(--dark-300);
     border: 1px solid var(--dark-100);
 
     min-height: auto;
+    //
+    contain: none;
+    overflow: visible;
+    //
   }
- & .description{
-   opacity: 0;
-   visibility: hidden;
-   position: absolute;
- }
+  & .description {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
 }
 
-.popup_header{
-  padding:  12px 24px;
+.popup_header {
+  padding: 12px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
- & + hr{
+  & + hr {
     height: 1px;
     width: 100%;
     background-color: var(--dark-100);
   }
+  & button {
+    line-height: 0;
+  }
 }
-

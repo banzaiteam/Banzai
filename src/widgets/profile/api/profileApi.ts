@@ -4,7 +4,7 @@ export const profileApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getUserProfile: build.query<any, string>({
       query: id => ({
-        url: `/users/${id}/profile/posts`,
+        url: `/users/${id}/profile`,
         method: 'GET',
       }),
     }),
