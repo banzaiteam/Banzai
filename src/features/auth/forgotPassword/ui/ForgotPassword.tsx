@@ -10,8 +10,7 @@ import { useRecoveryPasswordMutation } from '@features/auth/forgotPassword/api/f
 import {
   ForgotPasswordSchema,
   ForgotPasswordValues,
-} from '@features/auth/forgotPassword/model/forgotPasswordSchema'
-import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
+} from '@features/auth/forgotPassword/model/schemas/forgotPasswordSchema'
 import { RecaptchaRef } from '@shared/ui/recaptcha/Recaptcha'
 
 const ForgotPassword = () => {
