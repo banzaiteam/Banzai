@@ -48,6 +48,7 @@ export const MeatballsMenu = (props: Props) => {
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-controls="meatballs-menu"
+        data-id={'meatballs-menu-btn'}
       >
         <MoreHorizontalOutline />
       </button>
@@ -57,6 +58,7 @@ export const MeatballsMenu = (props: Props) => {
           className={s.menu}
           id="meatballs-menu"
           role="menu"
+          data-id={'meatballs-menu-list'}
           aria-orientation="vertical"
         >
           {itemsMapped}
