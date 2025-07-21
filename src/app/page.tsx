@@ -1,3 +1,4 @@
+import { AddPost } from '@/features/add-post/ui/AddPost'
 import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -6,7 +7,10 @@ export default function Page() {
   return (
     <>
       <Sidebar></Sidebar>
-      <main>Banzai</main>
+      <main>
+        {/* <AddPost title="Add a Profile Photo" buttonText="Select from Gallery" isOpenDraft={false}/> */}
+        <AddPost />
+      </main>
     </>
   )
 }
