@@ -10,7 +10,7 @@ describe('signUp tests', () => {
     // Выбрать чекбокс
     cy.get('[data-id="agreement"]').click().click()
     cy.get('[data-id="signup-btn"]').click()
-
+    cy.wait(500)
     cy.get('[data-id="email-sent-popup-ok-btn"]').click()
 
     cy.get('[data-id="username-field"]').should('be.empty')
