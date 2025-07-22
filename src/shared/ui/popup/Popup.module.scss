@@ -47,6 +47,8 @@
     border: 1px solid var(--dark-100);
 
     min-height: auto;
+    overflow: visible !important;
+    contain: none !important;
   }
   & .description {
     opacity: 0;
