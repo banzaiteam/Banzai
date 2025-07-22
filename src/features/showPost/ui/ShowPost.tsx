@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { Button, Popup, Typography } from '@shared/ui'
+import { Button, Popup, Scroll, Typography } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import {
   BookmarkOutline,
@@ -91,31 +91,40 @@ export const ShowPost = (props: ShowPostProps) => {
                 toggleOpen={setOpenMeatballsMenu}
               />
             </div>
-            <div className={s.comments}>
-              <Comment
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-                title={'UrlProfile'}
-                image={user}
-              />
-              <Comment
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-                title={'UrlProfile'}
-                image={user}
-                like={false}
-              />
-              <Comment
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-                title={'UrlProfile'}
-                image={user}
-                like={true}
-              />
-            </div>
+            <Scroll className={s.scroll}>
+              <div className={s.comments}>
+                <Comment
+                  text={
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                  }
+                  title={'UrlProfile'}
+                  image={user}
+                />
+                <Comment
+                  text={
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                  }
+                  title={'UrlProfile'}
+                  image={user}
+                />
+                <Comment
+                  text={
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                  }
+                  title={'UrlProfile'}
+                  image={user}
+                  like={false}
+                />
+                <Comment
+                  text={
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                  }
+                  title={'UrlProfile'}
+                  image={user}
+                  like={true}
+                />
+              </div>
+            </Scroll>
             <div className={s.engagement_info}>
               <div className={s.icons_wrapper}>
                 <div className={s.icons_group}>

@@ -60,13 +60,18 @@
         column-gap: 12px;
       }
     }
-    & .comments {
-      padding-top: 20px;
+    & .scroll {
       padding-bottom: 8px;
-      & > div:not(:last-of-type) {
-        margin-bottom: 15px;
+      & .comments {
+        height: 335px;
+        padding-top: 20px;
+
+        & > div:not(:last-of-type) {
+          margin-bottom: 15px;
+        }
       }
     }
+
     & .engagement_info {
       padding-top: 12px;
       padding-bottom: 7px;
