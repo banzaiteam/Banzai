@@ -19,6 +19,7 @@ import {
 } from '@features/auth/components'
 import type { DataSignUp } from '../../model/types/types'
 import { useSignUpForm } from '@features/auth'
+import { useTranslations } from 'next-intl'
 
 const SignUp = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
@@ -40,6 +41,7 @@ const SignUp = () => {
     confirmPassword,
   } = useSignUpForm()
 
+  const t = useTranslations('SignUp')
   const onClickHandler = () => {
     alert('Нажмал')
   }
@@ -91,7 +93,7 @@ const SignUp = () => {
             aria-labelledby="signup-heading"
           >
             <Typography className={s.title} id="signup-heading" variant="h1" as={'h1'}>
-              Sign Up
+              {t('title')}
             </Typography>
             <div className={s.button_icon_group} role="group" aria-label="Social sign up">
               <GoogleButton />

@@ -19,7 +19,7 @@ export const EmailSentPopup = (props: EmailSentPopupProps) => {
   const onCloseHandler = () => onClose(false)
 
   return (
-    <Popup size={'xs'} open={!isOpenValue} onOpenChange={onClose}>
+    <Popup size={'xs'} open={isOpenValue} onOpenChange={onClose}>
       <PopupHeader>
         <DialogTitle>{title}</DialogTitle>
         <DialogClose onClick={onCloseHandler}>
