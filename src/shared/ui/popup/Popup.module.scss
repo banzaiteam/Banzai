@@ -23,24 +23,27 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  &.xs {
-    width: 378px;
-  }
 
-  &.sm {
-    width: 438px;
-  }
+  @media screen and (min-width: 769px) {
+    &.xs {
+      width: 378px;
+    }
 
-  &.md {
-    width: 486px;
-  }
+    &.sm {
+      width: 438px;
+    }
 
-  &.lg {
-    width: 644px;
-  }
+    &.md {
+      width: 486px;
+    }
 
-  &.xl {
-    width: 972px;
+    &.lg {
+      width: 644px;
+    }
+
+    &.xl {
+      width: 972px;
+    }
   }
   & .card {
     background-color: var(--dark-300);

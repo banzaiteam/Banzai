@@ -12,9 +12,20 @@
 }
 
 .wrapper {
+  height: 562px;
+
   display: flex;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 82vw;
+    height: 90vh;
+  }
   & > div > div {
     padding: 0 24px;
+    @media screen and (max-width: 768px) {
+      padding: 0 12px;
+    }
   }
   & .image_wrapper {
     flex: 50% 0 0;
@@ -28,6 +39,14 @@
       height: 100%;
       object-fit: cover;
     }
+    /* @media screen and (max-width: 768px) {
+      margin: 0 auto;
+      flex: 0 0 0;
+      padding-bottom: 0;
+      width: 300px;
+      height: 300px;
+      position: static;
+    }*/
   }
   & .comments_block {
     flex: 50% 1 1;
@@ -115,11 +134,19 @@
     & .add_comment {
       padding-top: 5px;
       padding-bottom: 5px;
+      @media screen and (max-width: 768px) {
+        padding: 5px;
+      }
       & .add_comment_wrapper {
         display: flex;
         justify-content: space-between;
         column-gap: 8px;
-        input {
+        & > div > button {
+          padding: 0 8px;
+          font-size: 14px;
+        }
+        & > input {
+          width: 100%;
           flex-grow: 1;
         }
       }
@@ -134,8 +161,11 @@
 .comment {
   display: flex;
   column-gap: 24px;
-  justify-content: space-between;
 
+  justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    column-gap: 12px;
+  }
   .section {
     display: flex;
     column-gap: 12px;
@@ -155,7 +185,13 @@
       display: flex;
       column-gap: 12px;
       color: var(--light-900);
+
       padding-top: 5px;
+      @media screen and (max-width: 350px) {
+        & span p {
+          font-size: 11px;
+        }
+      }
     }
   }
   .heart_wrapper {
