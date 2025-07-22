@@ -10,4 +10,20 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig; 
+const createNextIntlPlugin = require('next-intl/plugin');
+const withNextIntl = createNextIntlPlugin();
+
+module.exports = withNextIntl({
+  ...nextConfig,
+  images:{
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'yogram-files.s3.eu-north-1.amazonaws.com',
+        pathname: '/posts/**',
+      },
+    ],
+  },
+
+});
