@@ -106,13 +106,6 @@ export const ShowPost = (props: ShowPostProps) => {
                     }
                     title={'UrlProfile'}
                     image={user}
-                  />
-                  <Comment
-                    text={
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    }
-                    title={'UrlProfile'}
-                    image={user}
                     like={false}
                   />
                   <Comment
@@ -122,6 +115,14 @@ export const ShowPost = (props: ShowPostProps) => {
                     title={'UrlProfile'}
                     image={user}
                     like={true}
+                  />
+                  <Comment
+                    text={
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    }
+                    title={'UrlProfile'}
+                    image={user}
+                    like={false}
                   />
                 </div>
               </Scroll>
