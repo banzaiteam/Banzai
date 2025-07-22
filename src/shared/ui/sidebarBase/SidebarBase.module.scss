@@ -17,7 +17,6 @@
 }
 
 .navigation {
-
   display: flex;
   flex-direction: column;
   row-gap: 60px;
@@ -37,14 +36,14 @@
 }
 
 .item {
-
   align-items: center;
   line-height: 171%;
   display: flex;
   cursor: pointer;
 
-
-  & > a, button, span {
+  & > a,
+  button,
+  span {
     cursor: inherit;
     padding: 0 5px 0 2px;
     outline: 2px solid transparent;
@@ -73,7 +72,9 @@
 
     color: var(--dark-100);
 
-    a, button, span {
+    a,
+    button,
+    span {
       outline: 2px solid transparent;
     }
   }
@@ -82,8 +83,6 @@
     font-weight: 500;
     color: var(--primary-100);
   }
-
-
 }
 
 .logOut {
