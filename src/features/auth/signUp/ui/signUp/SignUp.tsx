@@ -107,6 +107,7 @@ const SignUp = () => {
                 disabled={isSubmitting}
                 error={!!errors.username?.message}
                 helperText={errors.username?.message}
+                data-id={'username-field'}
               />
 
               <InputEmail
@@ -114,6 +115,7 @@ const SignUp = () => {
                 disabled={isSubmitting}
                 error={!!errors.email?.message}
                 helperText={errors.email?.message}
+                data-id={'email-field'}
               />
 
               <InputPassword
@@ -121,6 +123,7 @@ const SignUp = () => {
                 disabled={isSubmitting}
                 error={!!errors.password?.message}
                 helperText={errors.password?.message}
+                data-id={'password-field'}
               />
 
               <InputPassword
@@ -135,6 +138,7 @@ const SignUp = () => {
                   errors.confirmPassword?.message ||
                   (password !== confirmPassword ? "Passwords don't match" : undefined)
                 }
+                data-id={'confirm-password-field'}
               />
             </div>
             <div className={s.checkbox_wrapper}>
@@ -145,6 +149,7 @@ const SignUp = () => {
                 render={({ field }) => (
                   <Checkbox
                     checked={field.value}
+                    data-id={'agreement'}
                     onCheckedChange={field.onChange}
                     aria-labelledby="terms-label"
                     disabled={isSubmitting}
@@ -167,6 +172,7 @@ const SignUp = () => {
                 disabled={isDisabled || isLoading}
                 type={'submit'}
                 aria-label="Sign up for a new account"
+                data-id={'signup-btn'}
               >
                 {isLoading ? 'Logging in...' : 'Sign Up'}
               </Button>
@@ -183,7 +189,12 @@ const SignUp = () => {
           </form>
         </Card>
       </div>
-      <EmailSentPopup title={'Email sent'} isOpenValue={isOpenPopup} onClose={onCloseHandler}>
+      <EmailSentPopup
+        title={'Email sent'}
+        isOpenValue={isOpenPopup}
+        onClose={onCloseHandler}
+        data-id={'email-sent-popup'}
+      >
         <p className={s.popup_text}>We have sent a link to confirm your email to {emailUser}</p>
       </EmailSentPopup>
     </>
