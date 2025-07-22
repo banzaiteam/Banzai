@@ -6,3 +6,5 @@ export { default as EmailVerifyRecoveryPassword } from './auth/email-verify-reco
 export { LinkPage } from './auth/components'
 export { PresentationPage } from './auth/components'
 export { useDeletePostMutation } from './showPost/api/api'
+export { AddPost } from './add-post/ui/AddPost'
+

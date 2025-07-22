@@ -73,7 +73,7 @@ importers:
         version: 5.0.0-beta.25(next@15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0))(react@19.0.0)
       next-intl:
         specifier: ^4.3.1
-        version: 4.3.1(next@15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0))(react@19.0.0)(typescript@5.7.3)
+        version: 4.3.4(next@15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0))(react@19.0.0)(typescript@5.7.3)
       postcss:
         specifier: 8.5.1
         version: 8.5.1
@@ -86,6 +86,9 @@ importers:
       react-dom:
         specifier: latest
         version: 19.0.0(react@19.0.0)
+      react-dropzone:
+        specifier: ^14.3.8
+        version: 14.3.8(react@19.0.0)
       react-google-recaptcha:
         specifier: ^3.1.0
         version: 3.1.0(react@19.0.0)
@@ -2852,6 +2855,10 @@ packages:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
 
+  attr-accept@2.2.5:
+    resolution: {integrity: sha512-0bDNnY/u6pPwHDMoF0FieU354oBi0a8rD9FcsLwzcGWbc8KS8KPIi7y+s13OlVY+gMWc/9xEMUgNE6Qm8ZllYQ==}
+    engines: {node: '>=4'}
+
   autoprefixer@10.4.20:
     resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
     engines: {node: ^10 || ^12 || >=14}
@@ -3261,8 +3268,8 @@ packages:
       supports-color:
         optional: true
 
-  decimal.js@10.5.0:
-    resolution: {integrity: sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw==}
+  decimal.js@10.6.0:
+    resolution: {integrity: sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==}
 
   deep-eql@5.0.2:
     resolution: {integrity: sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==}
@@ -3689,6 +3696,10 @@ packages:
   file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
+
+  file-selector@2.1.2:
+    resolution: {integrity: sha512-QgXo+mXTe8ljeqUFaX3QVHc5osSItJ/Km+xpocx0aSqWGMSCf6qYs/VnzZgS864Pjn5iceMRFigeAV7AfTlaig==}
+    engines: {node: '>= 12'}
 
   filesize@10.1.6:
     resolution: {integrity: sha512-sJslQKU2uM33qH5nqewAwVB2QgR6w1aMNsYUp3aN5rMRyXEwJGmZvaWzeJFNTOXWlHQyBFCWrdj3fV/fsTOX8w==}
@@ -4501,8 +4512,8 @@ packages:
       nodemailer:
         optional: true
 
-  next-intl@4.3.1:
-    resolution: {integrity: sha512-FylHpOoQw5MpOyJt4cw8pNEGba7r3jKDSqt112fmBqXVceGR5YncmqpxS5MvSHsWRwbjqpOV8OsZCIY/4f4HWg==}
+  next-intl@4.3.4:
+    resolution: {integrity: sha512-VWLIDlGbnL/o4LnveJTJD1NOYN8lh3ZAGTWw2krhfgg53as3VsS4jzUVnArJdqvwtlpU/2BIDbWTZ7V4o1jFEw==}
     peerDependencies:
       next: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
@@ -4927,6 +4938,12 @@ packages:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
       react: ^19.1.0
+
+  react-dropzone@14.3.8:
+    resolution: {integrity: sha512-sBgODnq+lcA4P296DY4wacOZz3JFpD99fp+hb//iBO2HHnyeZU3FwWyXJ6salNpqQdsZrgMrotuko/BdJMV8Ug==}
+    engines: {node: '>= 10.13'}
+    peerDependencies:
+      react: '>= 16.8 || 18.0.0'
 
   react-google-recaptcha@3.1.0:
     resolution: {integrity: sha512-cYW2/DWas8nEKZGD7SCu9BSuVz8iOcOLHChHyi7upUuVhkpkhYG/6N3KDiTQ3XAiZ2UAZkfvYKMfAHOzBOcGEg==}
@@ -5696,8 +5713,8 @@ packages:
     peerDependencies:
       react: '*'
 
-  use-intl@4.3.1:
-    resolution: {integrity: sha512-8Xn5RXzeHZhWqqZimi1wi2pKFqm0NxRUOB41k1QdjbPX+ysoeLW3Ey+fi603D/e5EGb0fYw8WzjgtUagJdlIvg==}
+  use-intl@4.3.4:
+    resolution: {integrity: sha512-sHfiU0QeJ1rirNWRxvCyvlSh9+NczcOzRnPyMeo2rtHXhVnBsvMRjE+UG4eh3lRhCxrvcqei/I0lBxsc59on1w==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
 
@@ -5983,7 +6000,7 @@ snapshots:
       '@babel/traverse': 7.27.1
       '@babel/types': 7.27.1
       convert-source-map: 2.0.0
-      debug: 4.4.0
+      debug: 4.4.1(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -6052,7 +6069,7 @@ snapshots:
       '@babel/parser': 7.27.2
       '@babel/template': 7.27.2
       '@babel/types': 7.27.1
-      debug: 4.4.0
+      debug: 4.4.1(supports-color@8.1.1)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -6284,7 +6301,7 @@ snapshots:
     dependencies:
       '@formatjs/fast-memoize': 2.2.7
       '@formatjs/intl-localematcher': 0.6.1
-      decimal.js: 10.5.0
+      decimal.js: 10.6.0
       tslib: 2.8.1
 
   '@formatjs/fast-memoize@2.2.7':
@@ -6567,7 +6584,7 @@ snapshots:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.6.3
+      semver: 7.7.2
       tar: 6.2.1
     transitivePeerDependencies:
       - encoding
@@ -8460,7 +8477,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.1(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8629,6 +8646,8 @@ snapshots:
   asynckit@0.4.0: {}
 
   at-least-node@1.0.0: {}
+
+  attr-accept@2.2.5: {}
 
   autoprefixer@10.4.20(postcss@8.5.1):
     dependencies:
@@ -9051,7 +9070,7 @@ snapshots:
     optionalDependencies:
       supports-color: 8.1.1
 
-  decimal.js@10.5.0: {}
+  decimal.js@10.6.0: {}
 
   deep-eql@5.0.2: {}
 
@@ -9268,7 +9287,7 @@ snapshots:
 
   esbuild-register@3.6.0(esbuild@0.25.4):
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.1(supports-color@8.1.1)
       esbuild: 0.25.4
     transitivePeerDependencies:
       - supports-color
@@ -9630,6 +9649,10 @@ snapshots:
     dependencies:
       flat-cache: 3.2.0
 
+  file-selector@2.1.2:
+    dependencies:
+      tslib: 2.8.1
+
   filesize@10.1.6: {}
 
   fill-range@7.1.1:
@@ -9886,7 +9909,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.4.1(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -10301,7 +10324,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.6.3
+      semver: 7.7.2
 
   map-or-similar@1.5.0: {}
 
@@ -10401,13 +10424,13 @@ snapshots:
       next: 15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0)
       react: 19.0.0
 
-  next-intl@4.3.1(next@15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0))(react@19.0.0)(typescript@5.7.3):
+  next-intl@4.3.4(next@15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0))(react@19.0.0)(typescript@5.7.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       negotiator: 1.0.0
       next: 15.3.3(@babel/core@7.27.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.88.0)
       react: 19.0.0
-      use-intl: 4.3.1(react@19.0.0)
+      use-intl: 4.3.4(react@19.0.0)
     optionalDependencies:
       typescript: 5.7.3
 
@@ -10857,6 +10880,13 @@ snapshots:
     dependencies:
       react: 19.1.0
       scheduler: 0.26.0
+
+  react-dropzone@14.3.8(react@19.0.0):
+    dependencies:
+      attr-accept: 2.2.5
+      file-selector: 2.1.2
+      prop-types: 15.8.1
+      react: 19.0.0
 
   react-google-recaptcha@3.1.0(react@19.0.0):
     dependencies:
@@ -11826,7 +11856,7 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  use-intl@4.3.1(react@19.0.0):
+  use-intl@4.3.4(react@19.0.0):
     dependencies:
       '@formatjs/fast-memoize': 2.2.7
       '@schummar/icu-type-parser': 1.21.5
@@ -11877,7 +11907,7 @@ snapshots:
   vite-node@3.1.3(@types/node@22.10.7)(jiti@1.21.7)(sass@1.88.0)(terser@5.39.0)(yaml@2.7.0):
     dependencies:
       cac: 6.7.14
-      debug: 4.4.0
+      debug: 4.4.1(supports-color@8.1.1)
       es-module-lexer: 1.7.0
       pathe: 2.0.3
       vite: 6.3.5(@types/node@22.10.7)(jiti@1.21.7)(sass@1.88.0)(terser@5.39.0)(yaml@2.7.0)
