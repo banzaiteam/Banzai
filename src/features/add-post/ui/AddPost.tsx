@@ -5,18 +5,22 @@ import { HeaderCard } from './components/header-card/HeaderCard'
 import { ImageDropzone } from './components/imageDrobzone/ImageDropzone'
 import { useEffect, useState } from 'react'
 import { FileRejection } from 'react-dropzone'
+import { useRouter } from 'next/navigation'
 
 type AddPostProps = {
   title?: string
   buttonText?: string
   isOpenDraft?: boolean
+  onClose?: () => void
 }
 
 export const AddPost = ({
   title = 'Add Photo',
   buttonText = 'Select from Computer',
   isOpenDraft = true,
+  onClose,
 }: AddPostProps) => {
+  const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [error, setError] = useState<string>('')
   const [isDesktop, setIsDesktop] = useState(false)
@@ -32,6 +36,14 @@ export const AddPost = ({
 
     return () => window.removeEventListener('resize', checkScreenSize)
   }, [])
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose()
+    } else {
+      router.push('/') // редирект на главную
+    }
+  }
 
   const handleDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {
     setError('')
@@ -55,7 +67,7 @@ export const AddPost = ({
     <div className={styles.container}>
       {files.length === 0 ? (
         <Card className={styles.modal}>
-          <HeaderCard title={title} />
+          <HeaderCard title={title} onClose={handleClose}/>
           <div className={styles.content}>
             <ImageDropzone onDrop={handleDrop} error={error} />
             <div className={styles.containerButton}>

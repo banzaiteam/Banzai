@@ -8,8 +8,6 @@ export default function Page() {
     <>
       <Sidebar></Sidebar>
       <main>
-        {/* <AddPost title="Add a Profile Photo" buttonText="Select from Gallery" isOpenDraft={false}/> */}
-        <AddPost />
       </main>
     </>
   )

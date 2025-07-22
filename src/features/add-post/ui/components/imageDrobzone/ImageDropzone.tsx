@@ -27,7 +27,7 @@ export const ImageDropzone = ({ onDrop, error }: ImageDropzoneProps) => {
       {error && <Alert status="error" message={error} />}
       <div className={styles.containerDropzone}>
         <div {...getRootProps()} className={styles.dropzone}>
-          <input {...getInputProps()} />
+          <input {...getInputProps()} id="hidden-file-input" />
           <ImageOutline width={48} height={48} />
         </div>
       </div>
