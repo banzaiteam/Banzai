@@ -1,7 +1,7 @@
 'use client'
 
-import EmailVerifyRecoveryPassword from '@features/auth/email-verify-recovery-password/ui/EmailVerifyRecoveryPassword'
+import { EmailVerifyRecoveryPassword } from '@/features'
 
-export const EmailVerifyRecoveryPasswordPage = ({ email }: { email: string }) => {
-  return <EmailVerifyRecoveryPassword email={email} />
+export const EmailVerifyRecoveryPasswordPage = () => {
+  return <EmailVerifyRecoveryPassword />
 }
