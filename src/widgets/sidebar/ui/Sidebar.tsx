@@ -1,14 +1,9 @@
 'use client'
 
-import { type ComponentPropsWithoutRef, useEffect, useMemo, useState } from 'react'
-import {
-  SidebarBase,
-  SidebarBaseItem,
-  SidebarBaseNavigation,
-  type SidebarBaseProps,
-} from '@shared/ui'
+import { type ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import { SidebarBase, SidebarBaseItem, SidebarBaseNavigation } from '@shared/ui'
 import LogOutOutline from '@/assets/icons/components/LogOutOutline'
-import { useLoginOut2Mutation, useLoginOutMutation } from '@features/auth/login/api/loginApi'
+import { useLoginOutMutation } from '@features/auth/login/api/loginApi'
 import { useRouter } from 'next/navigation'
 import { linksData } from '@widgets/sidebar/model/linksData'
 import { useGetMeQuery } from '@shared/api/userApi'
@@ -18,7 +13,6 @@ type SidebarProps = { isDisabled?: boolean } & ComponentPropsWithoutRef<'aside'>
 export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
   const router = useRouter()
   const [loginOut] = useLoginOutMutation()
-  const [loginOut2] = useLoginOut2Mutation()
   const { data: user } = useGetMeQuery()
   const [isMounted, setIsMounted] = useState(false)
 
@@ -30,7 +24,7 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
   const handlerLogOut = () => {
     // const token = localStorage.getItem('accessToken')
     // loginOut([{ tokens: [token] }])
-    loginOut2()
+    loginOut()
 
     if (typeof window !== 'undefined') {
       localStorage.removeItem('accessToken')
