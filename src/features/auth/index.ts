@@ -1,5 +1,8 @@
 export * from './signUp/ui/signUp/SignUp'
 export * from './emailVerify/ui/EmailVerify'
+export * from './forgotPassword/ui/ForgotPassword'
+export * from './new-password-form/ui/NewPasswordForm'
+export * from './email-verify-recovery-password/ui/EmailVerifyRecoveryPassword'
 
 export * from './model/schemas/passwordInputSchema'
 export * from './model/schemas/emailInputSchema'

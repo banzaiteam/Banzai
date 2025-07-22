@@ -4,7 +4,6 @@ import React, { type ReactNode } from 'react'
 import { Button, Popup, PopupHeader } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { Close } from '@/assets/icons/components'
-import s from './EmailSentPopup.module.scss'
 
 type EmailSentPopupProps = {
   title?: string
@@ -19,17 +18,17 @@ export const EmailSentPopup = (props: EmailSentPopupProps) => {
   const onCloseHandler = () => onClose(false)
 
   return (
-    <Popup size={'xs'} open={!isOpenValue} onOpenChange={onClose}>
+    <Popup open={isOpenValue} onOpenChange={onClose}>
       <PopupHeader>
         <DialogTitle>{title}</DialogTitle>
         <DialogClose onClick={onCloseHandler}>
           <Close />
         </DialogClose>
       </PopupHeader>
-      <div className={s.popup_body}>
+      <div style={{ padding: '1rem' }}>
         {children}
         <div style={{ textAlign: 'right' }}>
-          <Button variant="primary" onClick={onCloseHandler}>
+          <Button data-id={'email-sent-popup-ok-btn'} variant="primary" onClick={onCloseHandler}>
             OK
           </Button>
         </div>

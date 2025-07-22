@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { Button, Popup, Typography } from '@shared/ui'
+import { Button, Popup, Scroll, Typography } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import {
   BookmarkOutline,
@@ -67,114 +67,127 @@ export const ShowPost = (props: ShowPostProps) => {
         <VisuallyHidden asChild>
           <DialogTitle className={s.hidden_title}>show post</DialogTitle>
         </VisuallyHidden>
-
-        <div className={s.wrapper}>
-          <div className={s.image_wrapper}>
-            <Image
-              src={data?.items[0].files[0].url || Palm}
-              width={485}
-              height={562}
-              alt={'main-image post'}
-            />
-          </div>
-          <div className={s.comments_block}>
-            <div className={s.header}>
-              <div className={s.user}>
-                <CircleImage>
-                  <Image src={user} alt={'user'} />
-                </CircleImage>
-                <Typography variant={'h3'}>UserName</Typography>
-              </div>
-              <MeatballsMenu
-                items={MyPostItems}
-                isOpen={isOpenMeatballsMenu}
-                toggleOpen={setOpenMeatballsMenu}
+        <Scroll>
+          <div className={s.wrapper}>
+            <div className={s.image_wrapper}>
+              <Image
+                src={data?.items[0].files[0].url || Palm}
+                width={485}
+                height={562}
+                alt={'main-image post'}
               />
             </div>
-            <div className={s.comments}>
-              <Comment
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-                title={'UrlProfile'}
-                image={user}
-              />
-              <Comment
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-                title={'UrlProfile'}
-                image={user}
-                like={false}
-              />
-              <Comment
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-                title={'UrlProfile'}
-                image={user}
-                like={true}
-              />
-            </div>
-            <div className={s.engagement_info}>
-              <div className={s.icons_wrapper}>
-                <div className={s.icons_group}>
-                  <button type={'button'}>
-                    <HeartOutline />
-                  </button>
-                  <button type={'button'}>
-                    <PaperPlaneOutline />
-                  </button>
-                </div>
-                <div className={s.icons_group}>
-                  <button type={'button'}>
-                    <BookmarkOutline />
-                  </button>
-                </div>
-              </div>
-              <div className={s.social_activity}>
-                <div className={s.last_likes}>
-                  <CircleImage size={'size-24'}>
+            <div className={s.comments_block}>
+              <div className={s.header}>
+                <div className={s.user}>
+                  <CircleImage>
                     <Image src={user} alt={'user'} />
                   </CircleImage>
-                  <CircleImage size={'size-24'}>
-                    <Image src={user} alt={'user'} />
-                  </CircleImage>
-                  <CircleImage size={'size-24'}>
-                    <Image src={user} alt={'user'} />
-                  </CircleImage>
+                  <Typography variant={'h3'}>UserName</Typography>
                 </div>
-                <span>
-                  <Typography variant={'regular_text_14'} as={'span'}>
-                    <span>2 243 </span>
-                  </Typography>
-                  <Typography variant={'bold_text_14'} as={'span'}>
-                    <span>&quot;Like&quot;</span>
-                  </Typography>
-                </span>
-              </div>
-              <Typography variant={'small_text'} className={s.date}>
-                July 3, 2021
-              </Typography>
-            </div>
-            <div className={s.add_comment}>
-              <div className={s.add_comment_wrapper}>
-                <input
-                  value={inputValue}
-                  onChange={e => {
-                    setInputValue(e.currentTarget.value)
-                  }}
-                  type="text"
-                  placeholder={'Add a Comment...'}
+                <MeatballsMenu
+                  items={MyPostItems}
+                  isOpen={isOpenMeatballsMenu}
+                  toggleOpen={setOpenMeatballsMenu}
                 />
-                <Button variant={'text-button'} type={'button'}>
-                  Publish
-                </Button>
+              </div>
+              <Scroll className={s.scroll}>
+                <div className={s.comments}>
+                  <Comment
+                    text={
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    }
+                    title={'UrlProfile'}
+                    image={user}
+                  />
+                  <Comment
+                    text={
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    }
+                    title={'UrlProfile'}
+                    image={user}
+                    like={false}
+                  />
+                  <Comment
+                    text={
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    }
+                    title={'UrlProfile'}
+                    image={user}
+                    like={true}
+                  />
+                  <Comment
+                    text={
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                    }
+                    title={'UrlProfile'}
+                    image={user}
+                    like={false}
+                  />
+                </div>
+              </Scroll>
+              <div className={s.engagement_info}>
+                <div className={s.icons_wrapper}>
+                  <div className={s.icons_group}>
+                    <button type={'button'}>
+                      <HeartOutline />
+                    </button>
+                    <button type={'button'}>
+                      <PaperPlaneOutline />
+                    </button>
+                  </div>
+                  <div className={s.icons_group}>
+                    <button type={'button'}>
+                      <BookmarkOutline />
+                    </button>
+                  </div>
+                </div>
+                <div className={s.social_activity}>
+                  <div className={s.last_likes}>
+                    <CircleImage size={'size-24'}>
+                      <Image src={user} alt={'user'} />
+                    </CircleImage>
+                    <CircleImage size={'size-24'}>
+                      <Image src={user} alt={'user'} />
+                    </CircleImage>
+                    <CircleImage size={'size-24'}>
+                      <Image src={user} alt={'user'} />
+                    </CircleImage>
+                  </div>
+                  <span>
+                    <Typography variant={'regular_text_14'} as={'span'}>
+                      <span>2 243 </span>
+                    </Typography>
+                    <Typography variant={'bold_text_14'} as={'span'}>
+                      <span>&quot;Like&quot;</span>
+                    </Typography>
+                  </span>
+                </div>
+                <Typography variant={'small_text'} className={s.date}>
+                  July 3, 2021
+                </Typography>
+              </div>
+              <div className={s.add_comment}>
+                <div className={s.add_comment_wrapper}>
+                  <input
+                    value={inputValue}
+                    onChange={e => {
+                      setInputValue(e.currentTarget.value)
+                    }}
+                    type="text"
+                    placeholder={'Add a Comment...'}
+                  />
+
+                  <Button variant={'text-button'} type={'button'}>
+                    Publish
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Scroll>
       </Popup>
+
       <VerifyModal
         title={'Delete Post'}
         isOpenValue={isOpenVerifyDeleteModal}
