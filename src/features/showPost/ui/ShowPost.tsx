@@ -22,10 +22,11 @@ import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
 import type { MeatballsMenuItemData } from '@/widgets'
 import { useGetPostDataQuery } from '@features/showPost/api/api'
+import { useRouter } from '@/i18n/navigation'
 
 type ShowPostProps = {
-  open: boolean
-  onClose: (value: boolean) => void
+  open?: boolean
+  onClose?: (value: boolean) => void
   id: string
 }
 type CommentProps = {
@@ -38,6 +39,9 @@ type CommentProps = {
 export const ShowPost = (props: ShowPostProps) => {
   const { onClose, id, ...rest } = props
   const [inputValue, setInputValue] = useState('')
+
+  const router = useRouter()
+
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const { data } = useGetPostDataQuery(id)
@@ -57,11 +61,18 @@ export const ShowPost = (props: ShowPostProps) => {
       },
     },
   ]
-  const onCloseHandler = () => onClose(false)
+  const onCloseHandler = () => {
+    onClose?.(false)
+    router.back()
+  }
+  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    onCloseHandler()
+    e.preventDefault()
+  }
   return (
     <>
-      <Popup {...rest} onOpenChange={onClose} size={'xl'}>
-        <DialogClose className={s.close} onClick={onCloseHandler}>
+      <Popup open={true} {...rest} onOpenChange={onCloseHandler} size={'xl'}>
+        <DialogClose className={s.close} onClick={onClickHandler}>
           <Close />
         </DialogClose>
         <VisuallyHidden asChild>
