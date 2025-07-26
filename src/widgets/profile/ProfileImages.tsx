@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { useGetUserProfileQuery } from './api/profileApi'
 import defaultImages from './images'
+import Link from 'next/link'
+import { ROUTES } from '@/shared/constants/routes'
 
 type File = {
   id: string
@@ -11,10 +13,12 @@ type File = {
 
 type Post = {
   files: File[]
+  id: string
 }
 
 type ImageItem = {
   id: string
+  postId?: string
   url?: string
   img: string
 }
@@ -35,6 +39,7 @@ export const ProfileImages = () => {
           ? {
               id: firstFile.id,
               url: firstFile.url,
+              postId: post.id,
             }
           : null
       })
@@ -48,15 +53,16 @@ export const ProfileImages = () => {
     <div className={styles.container}>
       <div className={styles.grid}>
         {imagesToShow.map((img: ImageItem) => (
-          <Image
-            key={img.id}
-            src={img.url ?? img.img}
-            alt={`Profile ${img.id}`}
-            width={234}
-            height={228}
-            className={styles.image}
-            loading="lazy"
-          />
+          <Link key={img.id} href={ROUTES.post(img.postId!)}>
+            <Image
+              src={img.url ?? img.img}
+              alt={`Profile ${img.id}`}
+              width={234}
+              height={228}
+              className={styles.image}
+              loading="lazy"
+            />
+          </Link>
         ))}
       </div>
     </div>
