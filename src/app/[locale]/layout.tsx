@@ -28,21 +28,23 @@ function isLocale(value: string): value is Locale {
 export default function LocaleLayout({
   children,
   params,
+  modal,
 }: {
   children: React.ReactNode
+  modal: React.ReactNode
   params: Promise<{ locale: string }>
 }) {
   const { locale } = use(params)
   if (!isLocale(locale)) {
     throw new Error(`Unsupported locale: ${locale}`)
   }
-
   return (
     <html lang={locale}>
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <body>
         <NextIntlClientProvider locale={locale} messages={messages[locale]}>
           <AlertError />
+          {modal}
           <div className={'wrapper'}>
             <Header />
             {/*<AuthProvider>*/}

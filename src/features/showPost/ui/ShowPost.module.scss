@@ -1,10 +1,16 @@
 .close {
   position: absolute;
-  top: -0px;
-  right: -0px;
+  top: 0;
+  right: 0;
   transform: translate(30px, -28px);
   line-height: 0;
   z-index: 10;
+  @media screen and (max-height: 450px) {
+    transform: translate(30px, -5px);
+  }
+  @media screen and (max-width: 380px) {
+    transform: translate(25px, -5px);
+  }
 }
 .hidden_title {
   width: 0;
