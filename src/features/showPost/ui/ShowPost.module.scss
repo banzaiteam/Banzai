@@ -157,63 +157,16 @@
       }
     }
   }
+
+  .skeleton_main_image {
+    position: absolute !important;
+    height: 100% !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .verify_text {
   margin-bottom: 30px;
-}
-
-.comment {
-  display: flex;
-  column-gap: 24px;
-
-  justify-content: space-between;
-  @media screen and (max-width: 768px) {
-    column-gap: 12px;
-  }
-  .section {
-    display: flex;
-    column-gap: 12px;
-    flex: 95% 1 1;
-  }
-  .avatar_wrapper {
-    padding: 5px 0;
-  }
-  .comment_text {
-    flex-grow: 1;
-    & .url {
-      font-weight: 700;
-      font-size: 14px;
-      color: inherit;
-    }
-    & .comment_information {
-      display: flex;
-      column-gap: 12px;
-      color: var(--light-900);
-
-      padding-top: 5px;
-      @media screen and (max-width: 350px) {
-        & span p {
-          font-size: 11px;
-        }
-      }
-    }
-  }
-  .heart_wrapper {
-    padding: 15px 0;
-    line-height: 0;
-    button {
-      line-height: 0;
-    }
-    .heart {
-      color: var(--danger-500);
-    }
-  }
-}
-.io {
-  position: absolute !important;
-  height: 100% !important;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }

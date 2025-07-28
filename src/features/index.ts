@@ -7,4 +7,4 @@ export { LinkPage } from './auth/components'
 export { PresentationPage } from './auth/components'
 export { useDeletePostMutation } from './showPost/api/api'
 export { AddPost } from './add-post/ui/AddPost'
-
+export * from './showPost/components/comment/Comment'

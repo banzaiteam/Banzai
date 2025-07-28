@@ -6,7 +6,6 @@ import {
   BookmarkOutline,
   Close,
   Edit2Outline,
-  Heart,
   HeartOutline,
   ImageOutline,
   PaperPlaneOutline,
@@ -14,10 +13,9 @@ import {
 } from '@/assets/icons/components'
 import s from './ShowPost.module.scss'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import Image, { type StaticImageData } from 'next/image'
+import Image from 'next/image'
 import user from '@/assets/images/User.png'
 import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
-import Link from 'next/link'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
 import type { MeatballsMenuItemData } from '@/widgets'
@@ -25,17 +23,12 @@ import { useGetPostDataQuery } from '@features/showPost/api/api'
 import { useRouter } from '@/i18n/navigation'
 import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 import { SkeletonComment } from '@features/showPost/components/skeletonComment/SkeletonComment'
+import { Comment } from '@/features'
 
 type ShowPostProps = {
   open?: boolean
   onClose?: (value: boolean) => void
   id: string
-}
-type CommentProps = {
-  title: string
-  text: string
-  image: string | StaticImageData
-  like?: boolean
 }
 
 export const ShowPost = (props: ShowPostProps) => {
@@ -84,7 +77,7 @@ export const ShowPost = (props: ShowPostProps) => {
           <div className={s.wrapper}>
             <div className={s.image_wrapper}>
               {isFetching ? (
-                <Skeleton className={s.io} />
+                <Skeleton className={s.skeleton_main_image} />
               ) : urlImage ? (
                 <Image src={urlImage} width={485} height={562} alt={'main-image post'} />
               ) : (
@@ -104,7 +97,7 @@ export const ShowPost = (props: ShowPostProps) => {
                     <SkeletonCircle size={36} />
                   ) : (
                     <CircleImage>
-                      <Image src={user} alt={'user'} />
+                      <Image src={user} alt={'user'} width={36} height={36} />
                     </CircleImage>
                   )}
 
@@ -118,12 +111,52 @@ export const ShowPost = (props: ShowPostProps) => {
                   items={MyPostItems}
                   isOpen={isOpenMeatballsMenu}
                   toggleOpen={setOpenMeatballsMenu}
+                  disabled={isFetching}
                 />
               </div>
               <Scroll className={s.scroll}>
                 <div className={s.comments}>
-                  <SkeletonComment />
-                  <SkeletonComment />
+                  {isFetching ? (
+                    <>
+                      <SkeletonComment />
+                      <SkeletonComment />
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                      />
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                        like={false}
+                      />
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                        like={true}
+                      />
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                        like={false}
+                      />{' '}
+                    </>
+                  )}
                 </div>
               </Scroll>
               <div className={s.engagement_info}>
@@ -152,7 +185,6 @@ export const ShowPost = (props: ShowPostProps) => {
                       </>
                     ) : (
                       <>
-                        {' '}
                         <CircleImage size={'size-24'}>
                           <Image src={user} alt={'user'} />
                         </CircleImage>
@@ -216,57 +248,5 @@ export const ShowPost = (props: ShowPostProps) => {
         </Typography>
       </VerifyModal>
     </>
-  )
-}
-
-const Comment = (props: CommentProps) => {
-  const { like, title, text, image } = props
-  return (
-    <div className={s.comment}>
-      <div className={s.section}>
-        <div className={s.avatar_wrapper}>
-          <CircleImage>
-            <Image src={image} alt={'user'} />
-          </CircleImage>
-        </div>
-        <div className={s.comment_text}>
-          <Typography variant={'regular_text_14'}>
-            <Link href={title} className={s.url}>
-              UrlProfile{' '}
-            </Link>
-            {text}
-          </Typography>
-          <div className={s.comment_information}>
-            <span>
-              <Typography variant={'small_text'}>2 Hours ago</Typography>
-            </span>
-            {like && (
-              <span>
-                <Typography variant={'semi_bold_small_text'}>Like: 1</Typography>
-              </span>
-            )}
-            {like !== undefined && (
-              <span>
-                <Typography variant={'semi_bold_small_text'}>Answer</Typography>
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-      {like !== undefined && (
-        <div className={s.heart_wrapper}>
-          {!like && (
-            <button type={'button'}>
-              <HeartOutline height={20} width={20} viewBox={'0 0 24 24'} />
-            </button>
-          )}
-          {like && (
-            <button type={'button'}>
-              <Heart className={s.heart} height={20} width={20} viewBox={'0 0 24 24'} />
-            </button>
-          )}
-        </div>
-      )}
-    </div>
   )
 }

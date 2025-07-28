@@ -1,5 +1,5 @@
 import React from 'react'
-import s from '@features/showPost/ui/ShowPost.module.scss'
+import s from './../comment/Comment.module.scss'
 import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 
 export const SkeletonComment = () => {
