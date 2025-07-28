@@ -36,7 +36,6 @@
   & .image_wrapper {
     flex: 50% 0 0;
     padding-bottom: 55.8%;
-    background: #2d3d0c;
     position: relative;
     img {
       position: absolute;
@@ -210,4 +209,11 @@
       color: var(--danger-500);
     }
   }
+}
+.io {
+  position: absolute !important;
+  height: 100% !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
