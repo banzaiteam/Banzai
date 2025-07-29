@@ -22,6 +22,7 @@ import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
 import type { MeatballsMenuItemData } from '@/widgets'
 import { useGetPostDataQuery } from '@features/showPost/api/api'
+import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
 
 type ShowPostProps = {
   open: boolean
@@ -41,12 +42,16 @@ export const ShowPost = (props: ShowPostProps) => {
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const { data } = useGetPostDataQuery(id)
+  const [isEditing, setIsEditing] = useState(false)
 
   const MyPostItems: MeatballsMenuItemData[] = [
     {
       title: 'Edit Post',
       icon: <Edit2Outline />,
-      onClick: () => {},
+      onClick: () => {
+        setIsEditing(true)
+        setOpenMeatballsMenu(false)
+      },
     },
     {
       title: 'Delete Post',
@@ -58,6 +63,8 @@ export const ShowPost = (props: ShowPostProps) => {
     },
   ]
   const onCloseHandler = () => onClose(false)
+  const handleCloseEditModal = () => setIsEditing(false)
+
   return (
     <>
       <Popup {...rest} onOpenChange={onClose} size={'xl'}>
@@ -187,6 +194,8 @@ export const ShowPost = (props: ShowPostProps) => {
           </div>
         </Scroll>
       </Popup>
+
+      {isEditing && <EditPostForm postId={id} open={true} onClose={handleCloseEditModal} />}
 
       <VerifyModal
         title={'Delete Post'}
