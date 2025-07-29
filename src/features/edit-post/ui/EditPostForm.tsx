@@ -1,5 +1,4 @@
 import { Button, Popup, Textarea, Typography } from '@shared/ui'
-import { DialogClose } from '@radix-ui/react-dialog'
 import { Close } from '@/assets/icons/components'
 import React, { useEffect, useState } from 'react'
 import s from './EditPostForm.module.scss'
@@ -10,6 +9,7 @@ import user from '@/assets/images/User.png'
 import { useGetMeQuery } from '@shared/api/userApi'
 import { useGetPostDataQuery } from '@features/showPost/api/api'
 import { useEditPostMutation } from '@features/edit-post/api/editPostApi'
+import { ClosePostModal } from '@features/edit-post/components/closePostModal/ClosePostModal'
 
 type EditPostForm = {
   open: boolean
@@ -18,8 +18,10 @@ type EditPostForm = {
 }
 
 export const EditPostForm = (props: EditPostForm) => {
-  const { onClose, postId, ...rest } = props
+  const { onClose, postId, open } = props
   const [description, setDescription] = useState('')
+  const [originalDescription, setOriginalDescription] = useState('')
+  const [showCloseModal, setShowCloseModal] = useState(false)
   const maxChars = 500
 
   const { data: userData } = useGetMeQuery()
@@ -27,23 +29,40 @@ export const EditPostForm = (props: EditPostForm) => {
 
   const { data: postData } = useGetPostDataQuery(postId)
   useEffect(() => {
-    if (postData?.items?.[0]?.description) {
-      setDescription(postData?.items?.[0]?.description)
-    }
+    const desc = postData?.items?.[0]?.description || ''
+    setDescription(desc)
+    setOriginalDescription(desc)
   }, [postData])
 
-  const [editPost] = useEditPostMutation()
-  const buttonHandler = () => {
-    editPost({ id: postId, description })
+  const hasChanges = description !== originalDescription
+  const handleRequestClose = () => {
+    if (hasChanges) {
+      setShowCloseModal(true)
+    } else {
+      onClose(false)
+    }
+  }
+
+  const [editPost, { isLoading }] = useEditPostMutation()
+  const buttonHandler = async () => {
+    try {
+      await editPost({ id: postId, description }).unwrap()
+      onClose(false)
+    } catch (error) {
+      console.error('Ошибка при редактировании поста:', error)
+    }
   }
 
   return (
-    <Popup onOpenChange={onClose} size={'xl'} {...rest}>
+    <Popup open={open} onOpenChange={handleRequestClose} size={'xl'}>
       <div className={s.title_wrapper}>
         <Typography variant={'h1'}>Edit Post</Typography>
-        <DialogClose>
+        {/*<DialogClose onClick={() => setShowCloseModal(true)}>*/}
+        {/*  <Close />*/}
+        {/*</DialogClose>*/}
+        <button onClick={() => setShowCloseModal(true)}>
           <Close />
-        </DialogClose>
+        </button>
       </div>
       <div className={s.separator} />
       <div className={s.main_wrapper}>
@@ -71,10 +90,20 @@ export const EditPostForm = (props: EditPostForm) => {
             </Typography>
           </div>
           <div className={s.button_wrapper}>
-            <Button onClick={buttonHandler}>Save Changes</Button>
+            <Button onClick={buttonHandler} disabled={isLoading}>
+              Save Changes
+            </Button>
           </div>
         </div>
       </div>
+
+      {showCloseModal && (
+        <ClosePostModal
+          isOpenValue={showCloseModal}
+          onClose={value => setShowCloseModal(value)}
+          onConfirm={() => onClose(false)} //выход из формы без сохранения
+        />
+      )}
     </Popup>
   )
 }
