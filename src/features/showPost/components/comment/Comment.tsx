@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
 
-type CommentProps = {
+export type CommentProps = {
   title: string
   text: string
   image: string | StaticImageData

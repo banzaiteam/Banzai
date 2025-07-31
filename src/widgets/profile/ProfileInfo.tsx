@@ -9,35 +9,33 @@ import { Button } from '@/shared/ui'
 export const ProfileInfo = () => {
   const { data: meData, isLoading: meIsLoading } = useGetMeQuery()
   const { data: profileData, isLoading: profileIsLoading } = useGetUserProfileQuery(
-    meData?.id as string,
+    { id: meData?.id as string },
     {
       skip: !meData?.id,
     }
   )
 
-  const username = profileData?.user?.username || 'Elon   Musk'
-  const avatar = profileData?.user?.url || elon
+  const username = profileData?.user?.username
+  const avatar = profileData?.user?.url
   const following = profileData?.user?.stats?.following || '1'
   const followers = profileData?.user?.stats?.followers || '255 M'
   const publications = profileData?.user?.stats?.posts || '502'
-  const about =
-    meData?.profile?.aboutMe ||
-    `CEO and product architect of Tesla · Founder, CEO, and chief engineer of SpaceX · 
-   Founder and CEO of xAI · Founder of the Boring Company and X Corp, Co-founder of 
-   PayPal · Grok AI Powered Chatbot`
-
-  const bio = about.length > 230 ? about.slice(0, 228) + '...' : about
+  const bio = meData?.profile?.aboutMe
 
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-        <Image src={avatar} alt={username} className={styles.avatar} width={204} height={204} />
+        {avatar && (
+          <Image src={avatar} alt="picture" className={styles.avatar} width={204} height={204} />
+        )}
         <div className={styles.info}>
           <div className={styles.top}>
             <h3 className={styles.username}>{username}</h3>
-            <Link className={styles.linkButton} href="#">
-              <Button className={styles.btn}>Profile Settings</Button>
-            </Link>
+            {meData && (
+              <Link className={styles.linkButton} href="#">
+                <Button className={styles.btn}> Profile Settings</Button>
+              </Link>
+            )}
           </div>
           <div className={styles.stats}>
             <ul className={styles.items}>
