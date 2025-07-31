@@ -1,10 +1,5 @@
-import { PostPage } from '@/app/pages/postPage/PostPage'
+import { PostPage, type PostPageProps } from '@/app/pages/postPage/PostPage'
 
-type Props = {
-  params: Promise<{
-    id: string
-  }>
-}
-export default async function PostModal({ params }: Props) {
+export default async function PostModal({ params }: PostPageProps) {
   return <PostPage params={params} />
 }

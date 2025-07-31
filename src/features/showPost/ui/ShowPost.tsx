@@ -33,7 +33,7 @@ export const ShowPost = (props: ShowPostProps) => {
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const { data, isFetching } = useGetPostDataQuery(id)
-  /*const urlImage = data?.items[0].files[0].url*/
+
   const urlImages = data?.items[0].files.map(file => file.url)
   const MyPostItems: MeatballsMenuItemData[] = [
     {
@@ -123,7 +123,6 @@ export const ShowPost = (props: ShowPostProps) => {
                     </>
                   ) : (
                     <>
-                      {' '}
                       <Comment
                         text={
                           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
@@ -154,7 +153,7 @@ export const ShowPost = (props: ShowPostProps) => {
                         title={'UrlProfile'}
                         image={user}
                         like={false}
-                      />{' '}
+                      />
                     </>
                   )}
                 </div>
