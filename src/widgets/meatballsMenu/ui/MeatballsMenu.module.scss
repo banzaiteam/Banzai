@@ -16,14 +16,6 @@
 
       color: var(--primary-100);
     }
-
-    &.disabled {
-      color: var(--dark-100);
-    }
-    &.disabled:focus-visible,
-    &.disabled:hover {
-      color: var(--dark-100);
-    }
   }
 
   & .menu {
