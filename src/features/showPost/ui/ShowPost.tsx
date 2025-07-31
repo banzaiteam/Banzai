@@ -6,34 +6,29 @@ import {
   BookmarkOutline,
   Close,
   Edit2Outline,
-  Heart,
   HeartOutline,
+  ImageOutline,
   PaperPlaneOutline,
   TrashOutline,
 } from '@/assets/icons/components'
 import s from './ShowPost.module.scss'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import Image, { type StaticImageData } from 'next/image'
+import Image from 'next/image'
 import user from '@/assets/images/User.png'
 import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
-import Link from 'next/link'
-import Palm from '@/assets/images/Palm.png'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
 import type { MeatballsMenuItemData } from '@/widgets'
 import { useGetPostDataQuery } from '@features/showPost/api/api'
 import { useRouter } from '@/i18n/navigation'
+import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
+import { SkeletonComment } from '@features/showPost/components/skeletonComment/SkeletonComment'
+import { Comment } from '@/features'
 
 type ShowPostProps = {
   open?: boolean
   onClose?: (value: boolean) => void
   id: string
-}
-type CommentProps = {
-  title: string
-  text: string
-  image: string | StaticImageData
-  like?: boolean
 }
 
 export const ShowPost = (props: ShowPostProps) => {
@@ -44,8 +39,8 @@ export const ShowPost = (props: ShowPostProps) => {
 
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
-  const { data } = useGetPostDataQuery(id)
-
+  const { data, isFetching } = useGetPostDataQuery(id)
+  const urlImage = data?.items[0].files[0].url
   const MyPostItems: MeatballsMenuItemData[] = [
     {
       title: 'Edit Post',
@@ -81,60 +76,87 @@ export const ShowPost = (props: ShowPostProps) => {
         <Scroll>
           <div className={s.wrapper}>
             <div className={s.image_wrapper}>
-              <Image
-                src={data?.items[0].files[0].url || Palm}
-                width={485}
-                height={562}
-                alt={'main-image post'}
-              />
+              {isFetching ? (
+                <Skeleton className={s.skeleton_main_image} />
+              ) : urlImage ? (
+                <Image src={urlImage} width={485} height={562} alt={'main-image post'} />
+              ) : (
+                <ImageOutline
+                  className={s.io}
+                  viewBox={'0 0 24 24'}
+                  width={'150px'}
+                  height={'150px'}
+                />
+              )}
             </div>
+
             <div className={s.comments_block}>
               <div className={s.header}>
                 <div className={s.user}>
-                  <CircleImage>
-                    <Image src={user} alt={'user'} />
-                  </CircleImage>
-                  <Typography variant={'h3'}>UserName</Typography>
+                  {isFetching ? (
+                    <SkeletonCircle size={36} />
+                  ) : (
+                    <CircleImage>
+                      <Image src={user} alt={'user'} width={36} height={36} />
+                    </CircleImage>
+                  )}
+
+                  {isFetching ? (
+                    <Skeleton width={'100px'} />
+                  ) : (
+                    <Typography variant={'h3'}>UserName</Typography>
+                  )}
                 </div>
                 <MeatballsMenu
                   items={MyPostItems}
                   isOpen={isOpenMeatballsMenu}
                   toggleOpen={setOpenMeatballsMenu}
+                  disabled={isFetching}
                 />
               </div>
               <Scroll className={s.scroll}>
                 <div className={s.comments}>
-                  <Comment
-                    text={
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    }
-                    title={'UrlProfile'}
-                    image={user}
-                  />
-                  <Comment
-                    text={
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    }
-                    title={'UrlProfile'}
-                    image={user}
-                    like={false}
-                  />
-                  <Comment
-                    text={
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    }
-                    title={'UrlProfile'}
-                    image={user}
-                    like={true}
-                  />
-                  <Comment
-                    text={
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    }
-                    title={'UrlProfile'}
-                    image={user}
-                    like={false}
-                  />
+                  {isFetching ? (
+                    <>
+                      <SkeletonComment />
+                      <SkeletonComment />
+                    </>
+                  ) : (
+                    <>
+                      {' '}
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                      />
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                        like={false}
+                      />
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                        like={true}
+                      />
+                      <Comment
+                        text={
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                        }
+                        title={'UrlProfile'}
+                        image={user}
+                        like={false}
+                      />{' '}
+                    </>
+                  )}
                 </div>
               </Scroll>
               <div className={s.engagement_info}>
@@ -155,23 +177,39 @@ export const ShowPost = (props: ShowPostProps) => {
                 </div>
                 <div className={s.social_activity}>
                   <div className={s.last_likes}>
-                    <CircleImage size={'size-24'}>
-                      <Image src={user} alt={'user'} />
-                    </CircleImage>
-                    <CircleImage size={'size-24'}>
-                      <Image src={user} alt={'user'} />
-                    </CircleImage>
-                    <CircleImage size={'size-24'}>
-                      <Image src={user} alt={'user'} />
-                    </CircleImage>
+                    {isFetching ? (
+                      <>
+                        <SkeletonCircle size={24} />
+                        <SkeletonCircle size={24} />
+                        <SkeletonCircle size={24} />
+                      </>
+                    ) : (
+                      <>
+                        <CircleImage size={'size-24'}>
+                          <Image src={user} alt={'user'} />
+                        </CircleImage>
+                        <CircleImage size={'size-24'}>
+                          <Image src={user} alt={'user'} />
+                        </CircleImage>
+                        <CircleImage size={'size-24'}>
+                          <Image src={user} alt={'user'} />
+                        </CircleImage>
+                      </>
+                    )}
                   </div>
                   <span>
-                    <Typography variant={'regular_text_14'} as={'span'}>
-                      <span>2 243 </span>
-                    </Typography>
-                    <Typography variant={'bold_text_14'} as={'span'}>
-                      <span>&quot;Like&quot;</span>
-                    </Typography>
+                    {isFetching ? (
+                      <Skeleton width={'100px'} />
+                    ) : (
+                      <>
+                        <Typography variant={'regular_text_14'} as={'span'}>
+                          <span>2 243 </span>
+                        </Typography>
+                        <Typography variant={'bold_text_14'} as={'span'}>
+                          <span>&quot;Like&quot;</span>
+                        </Typography>
+                      </>
+                    )}
                   </span>
                 </div>
                 <Typography variant={'small_text'} className={s.date}>
@@ -187,9 +225,10 @@ export const ShowPost = (props: ShowPostProps) => {
                     }}
                     type="text"
                     placeholder={'Add a Comment...'}
+                    disabled={isFetching}
                   />
 
-                  <Button variant={'text-button'} type={'button'}>
+                  <Button disabled={isFetching} variant={'text-button'} type={'button'}>
                     Publish
                   </Button>
                 </div>
@@ -209,57 +248,5 @@ export const ShowPost = (props: ShowPostProps) => {
         </Typography>
       </VerifyModal>
     </>
-  )
-}
-
-const Comment = (props: CommentProps) => {
-  const { like, title, text, image } = props
-  return (
-    <div className={s.comment}>
-      <div className={s.section}>
-        <div className={s.avatar_wrapper}>
-          <CircleImage>
-            <Image src={image} alt={'user'} />
-          </CircleImage>
-        </div>
-        <div className={s.comment_text}>
-          <Typography variant={'regular_text_14'}>
-            <Link href={title} className={s.url}>
-              UrlProfile{' '}
-            </Link>
-            {text}
-          </Typography>
-          <div className={s.comment_information}>
-            <span>
-              <Typography variant={'small_text'}>2 Hours ago</Typography>
-            </span>
-            {like && (
-              <span>
-                <Typography variant={'semi_bold_small_text'}>Like: 1</Typography>
-              </span>
-            )}
-            {like !== undefined && (
-              <span>
-                <Typography variant={'semi_bold_small_text'}>Answer</Typography>
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-      {like !== undefined && (
-        <div className={s.heart_wrapper}>
-          {!like && (
-            <button type={'button'}>
-              <HeartOutline height={20} width={20} viewBox={'0 0 24 24'} />
-            </button>
-          )}
-          {like && (
-            <button type={'button'}>
-              <Heart className={s.heart} height={20} width={20} viewBox={'0 0 24 24'} />
-            </button>
-          )}
-        </div>
-      )}
-    </div>
   )
 }

@@ -20,6 +20,7 @@ import {
 import type { DataSignUp } from '../../model/types/types'
 import { useSignUpForm } from '@features/auth'
 import { useTranslations } from 'next-intl'
+import { ROUTES } from '@shared/constants/routes'
 
 const SignUp = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
@@ -184,7 +185,7 @@ const SignUp = () => {
               aria-label="Sign in to your account"
               asChild
             >
-              <Link href={'/auth/signIn'}>Sign In</Link>
+              <Link href={ROUTES.signIn}>Sign In</Link>
             </Button>
           </form>
         </Card>
