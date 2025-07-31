@@ -6,8 +6,8 @@ import {
   BookmarkOutline,
   Close,
   Edit2Outline,
+  Heart,
   HeartOutline,
-  ImageOutline,
   PaperPlaneOutline,
   TrashOutline,
 } from '@/assets/icons/components'
@@ -22,9 +22,9 @@ import type { MeatballsMenuItemData } from '@/widgets'
 import { useGetPostDataQuery } from '@features/showPost/api/api'
 import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
 import { useRouter } from '@/i18n/navigation'
-import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
-import { SkeletonComment } from '@features/showPost/components/skeletonComment/SkeletonComment'
-import { Comment } from '@/features'
+import Link from 'next/link'
+import Palm from '@/assets/images/Palm.png'
+import type { CommentProps } from '@/features'
 
 type ShowPostProps = {
   open: boolean
@@ -42,7 +42,6 @@ export const ShowPost = (props: ShowPostProps) => {
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const { data, isFetching } = useGetPostDataQuery(id)
   const urlImage = data?.items[0].files[0].url
-  const { data } = useGetPostDataQuery(id)
   const [isEditing, setIsEditing] = useState(false)
 
   const MyPostItems: MeatballsMenuItemData[] = [
