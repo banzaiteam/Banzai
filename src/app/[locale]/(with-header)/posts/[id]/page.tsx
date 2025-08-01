@@ -1,15 +1,5 @@
-'use client'
-import { ShowPost } from '@features/showPost/ui/ShowPost'
-import React from 'react'
+import { PostPage, type PostPageProps } from '@/app/pages/postPage/PostPage'
 
-type Props = {
-  params: Promise<{
-    id: string
-  }>
-}
-
-export default function Page(props: Props) {
-  const { id } = React.use(props.params)
-
-  return <ShowPost id={id} />
+export default async function PostModal({ params }: PostPageProps) {
+  return <PostPage params={params} />
 }
