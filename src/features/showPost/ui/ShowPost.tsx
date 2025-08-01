@@ -18,6 +18,8 @@ import { SkeletonComment } from '@features/showPost/components/skeletonComment/S
 import { Comment, SwiperImagesPost } from '@/features'
 import { EngagementInfo } from '@features/showPost/components/engagementInfo/EngagementInfo'
 
+import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
+
 type ShowPostProps = {
   open?: boolean
   onClose?: (value: boolean) => void
@@ -32,6 +34,7 @@ export const ShowPost = (props: ShowPostProps) => {
 
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
   const { data, isFetching } = useGetPostDataQuery(id)
 
   const urlImages = data?.items[0].files.map(file => file.url)
@@ -39,7 +42,10 @@ export const ShowPost = (props: ShowPostProps) => {
     {
       title: 'Edit Post',
       icon: <Edit2Outline />,
-      onClick: () => {},
+      onClick: () => {
+        setIsEditing(true)
+        setOpenMeatballsMenu(false)
+      },
     },
     {
       title: 'Delete Post',
@@ -58,6 +64,8 @@ export const ShowPost = (props: ShowPostProps) => {
     onCloseHandler()
     e.preventDefault()
   }
+
+  const handleCloseEditModal = () => setIsEditing(false)
 
   return (
     <>
@@ -187,7 +195,7 @@ export const ShowPost = (props: ShowPostProps) => {
           </div>
         </Scroll>
       </Popup>
-
+      {isEditing && <EditPostForm postId={id} open={true} onClose={handleCloseEditModal} />}
       <VerifyModal
         title={'Delete Post'}
         isOpenValue={isOpenVerifyDeleteModal}
