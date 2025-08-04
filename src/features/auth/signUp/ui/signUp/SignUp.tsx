@@ -41,7 +41,6 @@ const SignUp = () => {
     password,
     confirmPassword,
   } = useSignUpForm()
-
   const t = useTranslations('SignUp')
   const onClickHandler = () => {
     alert('Нажмал')
@@ -61,19 +60,22 @@ const SignUp = () => {
       reset()
       setIsOpenPopup(true)
     } catch (error: any) {
+      const errorMessage = Array.isArray(error.data.message)
+        ? error.data.message[0].message
+        : error.data.message
       if (error.status === 400) {
         setError('password', {
           type: 'manual',
-          message: 'password too simple',
+          message: errorMessage /**/,
         })
       } else if (error.status === 409) {
         setError('username', {
           type: 'manual',
-          message: error.data.message,
+          message: errorMessage,
         })
         setError('email', {
           type: 'manual',
-          message: error.data.message,
+          message: errorMessage,
         })
       }
     }
