@@ -32,8 +32,8 @@ describe('signUp tests', () => {
   })
 
   it('passes', () => {
-    cy.get('[data-id="username-field"]').type('Andrew')
-    cy.get('[data-id="email-field"]').type('andrew@mail.ru')
+    cy.get('[data-id="username-field"]').type('Andrew123')
+    cy.get('[data-id="email-field"]').type('andrew321@mail.ru')
     cy.get('[data-id="password-field"]').type('asdasdA!1')
     cy.get('[data-id="confirm-password-field"]').type('asdasdA!1')
 
