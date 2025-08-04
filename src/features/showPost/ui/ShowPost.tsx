@@ -137,7 +137,7 @@ export const ShowPost = (props: ShowPostProps) => {
                     isOpen={isOpenMeatballsMenu}
                     toggleOpen={setOpenMeatballsMenu}
                     disabled={isFetching}
-                    aria-label="Post options"
+                    aria-label="Post-options"
                   />
                 )}
               </div>
@@ -220,6 +220,7 @@ export const ShowPost = (props: ShowPostProps) => {
         title={'Delete Post'}
         isOpenValue={isOpenVerifyDeleteModal}
         onClose={setOpenVerifyDeleteModal}
+        data-id={'verify-delete-modal'}
         aria-label="Confirm post deletion"
       >
         <Typography variant={'regular_text_16'} className={s.verify_text}>

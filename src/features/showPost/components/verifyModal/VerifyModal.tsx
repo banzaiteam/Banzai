@@ -33,13 +33,15 @@ export const VerifyModal = (props: Props) => {
           <Close />
         </DialogClose>
       </PopupHeader>
-      <div className={s.wrapper}>
+      <div className={s.wrapper} data-id={'meatballs-verify-modal-wrapper'}>
         {children}
         <div className={s.wrapper_buttons}>
           <Button disabled={isLoading} variant="outline" onClick={onClickYesHandler}>
             {isLoading ? <Loading /> : 'Yes'}
           </Button>
-          <Button onClick={onCloseHandler}>No</Button>
+          <Button onClick={onCloseHandler} data-id={'verify-delete-modal-no-btn'}>
+            No
+          </Button>
         </div>
       </div>
     </Popup>

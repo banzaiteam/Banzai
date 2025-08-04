@@ -23,6 +23,7 @@ export const MeatballsMenuItem = (props: Props) => {
       <button
         onClick={onClick}
         id={`menu-item-${title}`}
+        data-id={`meatballs-menu-${title}`}
         role="menuitem"
         onKeyDown={onKeyDownButtonHandler}
       >
