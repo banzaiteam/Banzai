@@ -13,6 +13,7 @@ type Props = {
 export const SwiperImagesPost = ({ postImages }: Props) => {
   const navigationPrevRef = useRef<HTMLButtonElement>(null)
   const navigationNextRef = useRef<HTMLButtonElement>(null)
+
   const isActive = postImages.length > 1
   const pagination = {
     clickable: true,
@@ -28,7 +29,7 @@ export const SwiperImagesPost = ({ postImages }: Props) => {
 
   const imageSlides = postImages.map((urlImage, index) => (
     <SwiperSlide
-      key={'url' + index}
+      key={urlImage + index}
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${postImages.length}`}

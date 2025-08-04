@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Popup, Scroll, Typography } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { Close, Edit2Outline, ImageOutline, TrashOutline } from '@/assets/icons/components'
@@ -11,7 +11,7 @@ import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { VerifyModal } from '@features/showPost/components/verifyModal/VerifyModal'
 import type { MeatballsMenuItemData } from '@/widgets'
-import { useGetPostDataQuery } from '@features/showPost/api/api'
+import { type PostDataResponse, showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
 import { useRouter } from '@/i18n/navigation'
 import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 import { SkeletonComment } from '@features/showPost/components/skeletonComment/SkeletonComment'
@@ -19,15 +19,23 @@ import { Comment, SwiperImagesPost } from '@/features'
 import { EngagementInfo } from '@features/showPost/components/engagementInfo/EngagementInfo'
 
 import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
+import { store } from '@/app/store'
 
 type ShowPostProps = {
-  open?: boolean
   onClose?: (value: boolean) => void
-  id: string
+  id?: string
+  postData?: PostDataResponse
 }
 
 export const ShowPost = (props: ShowPostProps) => {
-  const { onClose, id, ...rest } = props
+  const { onClose, id, postData, ...rest } = props
+
+  const postId = id || postData?.items[0].id
+
+  if (!postId) {
+    throw new Error('ID не найден')
+  }
+
   const [inputValue, setInputValue] = useState('')
 
   const router = useRouter()
@@ -35,9 +43,13 @@ export const ShowPost = (props: ShowPostProps) => {
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const { data, isFetching } = useGetPostDataQuery(id)
+  const { data, isFetching } = useGetPostDataQuery(id as string, { skip: !!postData })
 
-  const urlImages = data?.items[0].files.map(file => file.url)
+  const dataImages = postData || data
+  const urlImages = dataImages?.items[0].files.map(file => file.url)
+
+  // этот useEffect должен быть вызван перед useGetPokemonsQuery, чтобы эффект из useEffect был выполнен раньше чем тот, который внутри useQuery
+
   const MyPostItems: MeatballsMenuItemData[] = [
     {
       title: 'Edit Post',
@@ -64,8 +76,14 @@ export const ShowPost = (props: ShowPostProps) => {
     onCloseHandler()
     e.preventDefault()
   }
-
   const handleCloseEditModal = () => setIsEditing(false)
+
+  useEffect(() => {
+    if (postData)
+      store.dispatch(
+        showPostApi.util.upsertQueryData('getPostData', postData?.items[0].id, postData)
+      )
+  }, [postData])
 
   return (
     <>
@@ -166,7 +184,7 @@ export const ShowPost = (props: ShowPostProps) => {
                   )}
                 </div>
               </Scroll>
-              <EngagementInfo postId={id} />
+              <EngagementInfo postId={postId} postData={postData} />
               <div className={s.add_comment}>
                 <div className={s.add_comment_wrapper} aria-label="Add a comment">
                   <input
@@ -195,7 +213,7 @@ export const ShowPost = (props: ShowPostProps) => {
           </div>
         </Scroll>
       </Popup>
-      {isEditing && <EditPostForm postId={id} open={true} onClose={handleCloseEditModal} />}
+      {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
       <VerifyModal
         title={'Delete Post'}
         isOpenValue={isOpenVerifyDeleteModal}

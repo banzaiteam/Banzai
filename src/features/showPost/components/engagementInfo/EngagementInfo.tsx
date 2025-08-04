@@ -6,15 +6,16 @@ import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import Image from 'next/image'
 import user from '@/assets/images/User.png'
 import { Typography } from '@shared/ui'
-import { useGetPostDataQuery } from '@features/showPost/api/api'
+import { type PostDataResponse, useGetPostDataQuery } from '@features/showPost/api/api'
 
 type Props = {
   postId: string
+  postData?: PostDataResponse
 } & ComponentPropsWithoutRef<'div'>
 
 export const EngagementInfo = (props: Props) => {
-  const { postId, ...rest } = props
-  const { isFetching } = useGetPostDataQuery(postId)
+  const { postId, postData, ...rest } = props
+  const { isFetching } = useGetPostDataQuery(postId, { skip: !!postData })
   return (
     <div className={s.engagement_info} {...rest}>
       <div className={s.icons_wrapper}>

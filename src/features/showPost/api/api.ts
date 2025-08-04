@@ -19,9 +19,9 @@ type PostData = {
   createdAt: Date
   updatedAt: Date
   files: FileData[]
-  comments: object ///🤔
+  comments: Array<object> ///🤔
 }
-type PostDataResponse = {
+export type PostDataResponse = {
   items: PostData[]
   limit: number
   page: number
@@ -47,5 +47,5 @@ export const showPostApi = baseApi.injectEndpoints({
     }),
   }),
 })
-/*TODO*/
+
 export const { useDeletePostMutation, useGetPostDataQuery } = showPostApi
