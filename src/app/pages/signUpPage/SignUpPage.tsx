@@ -1,8 +1,5 @@
-'use client'
-import {SignUp} from "@/features";
+import { SignUp } from '@/features'
 
-
-export const SignUpPage = () => {
-    return <SignUp/>
-};
-
+export default function SignUpPage() {
+  return <SignUp />
+}
