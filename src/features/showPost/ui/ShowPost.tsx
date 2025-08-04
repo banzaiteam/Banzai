@@ -20,6 +20,7 @@ import { EngagementInfo } from '@features/showPost/components/engagementInfo/Eng
 
 import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
 import { store } from '@/app/store'
+import { useGetMeQuery } from '@shared/api/userApi'
 
 type ShowPostProps = {
   onClose?: (value: boolean) => void
@@ -44,11 +45,10 @@ export const ShowPost = (props: ShowPostProps) => {
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const { data, isFetching } = useGetPostDataQuery(id as string, { skip: !!postData })
+  const { data: meData } = useGetMeQuery()
 
   const dataImages = postData || data
   const urlImages = dataImages?.items[0].files.map(file => file.url)
-
-  // этот useEffect должен быть вызван перед useGetPokemonsQuery, чтобы эффект из useEffect был выполнен раньше чем тот, который внутри useQuery
 
   const MyPostItems: MeatballsMenuItemData[] = [
     {
@@ -131,13 +131,15 @@ export const ShowPost = (props: ShowPostProps) => {
                     </Typography>
                   )}
                 </div>
-                <MeatballsMenu
-                  items={MyPostItems}
-                  isOpen={isOpenMeatballsMenu}
-                  toggleOpen={setOpenMeatballsMenu}
-                  disabled={isFetching}
-                  aria-label="Post options"
-                />
+                {meData && (
+                  <MeatballsMenu
+                    items={MyPostItems}
+                    isOpen={isOpenMeatballsMenu}
+                    toggleOpen={setOpenMeatballsMenu}
+                    disabled={isFetching}
+                    aria-label="Post options"
+                  />
+                )}
               </div>
 
               <Scroll className={s.scroll} aria-label="Post comments">
