@@ -33,6 +33,7 @@ export const SwiperImagesPost = ({ postImages }: Props) => {
       role="group"
       aria-roledescription="slide"
       aria-label={`${index + 1} of ${postImages.length}`}
+      data-id={'swiper-slide-' + (index + 1)}
     >
       <Image src={urlImage} width={485} height={562} alt={'image post'} priority={index === 0} />
     </SwiperSlide>
@@ -60,14 +61,25 @@ export const SwiperImagesPost = ({ postImages }: Props) => {
       loop={true}
       modules={[Pagination, Navigation, Keyboard]}
       className={'swiper'}
+      data-id={'swiper-wrapper'}
     >
       {imageSlides}
       {isActive && (
         <>
-          <button type={'button'} ref={navigationPrevRef} className={'prev_arrow_button'}>
+          <button
+            type={'button'}
+            ref={navigationPrevRef}
+            data-id={'navigation-swiper-prev-button'}
+            className={'prev_arrow_button'}
+          >
             <ArrowIosBackOutline width={48} height={48} viewBox={'0 0 24 24'} />
           </button>
-          <button type={'button'} ref={navigationNextRef} className={'next_arrow_button'}>
+          <button
+            type={'button'}
+            ref={navigationNextRef}
+            data-id={'navigation-swiper-next-button'}
+            className={'next_arrow_button'}
+          >
             <ArrowIosForward width={48} height={48} viewBox={'0 0 24 24'} />
           </button>
         </>
