@@ -1,3 +1,4 @@
+'use client'
 import { store } from '@/app/store'
 import { useRouter } from '@/i18n/navigation'
 import React, { useEffect, useState } from 'react'
