@@ -2,7 +2,6 @@
 import React from 'react'
 import Image from 'next/image'
 import s from './ShowPost.module.scss'
-import user from '@/assets/images/User.png'
 import {
   Comment,
   EngagementInfo,
@@ -20,6 +19,8 @@ import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
 import { type PostDataResponse } from '@features/showPost/api/api'
 import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
+import { MOC_COMMENTS_DATA } from '@features/showPost/model/constans'
+import user from '@/assets/images/User.png'
 
 export type ShowPostProps = {
   onClose?: (value: boolean) => void
@@ -50,6 +51,9 @@ export const ShowPost = (props: ShowPostProps) => {
     handleCloseEditModal,
   } = usePostItems()
 
+  const commentsMapped = MOC_COMMENTS_DATA.map(({ title, textBody, like, image }, index) => {
+    return <Comment key={index} text={textBody} title={title} image={image} like={like} />
+  })
   return (
     <>
       <Popup open={true} {...rest} onOpenChange={onCloseHandler} size={'xl'}>
@@ -115,39 +119,7 @@ export const ShowPost = (props: ShowPostProps) => {
                       <SkeletonComment />
                     </>
                   ) : (
-                    <>
-                      <Comment
-                        text={
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                        }
-                        title={'UrlProfile'}
-                        image={user}
-                      />
-                      <Comment
-                        text={
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                        }
-                        title={'UrlProfile'}
-                        image={user}
-                        like={false}
-                      />
-                      <Comment
-                        text={
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                        }
-                        title={'UrlProfile'}
-                        image={user}
-                        like={true}
-                      />
-                      <Comment
-                        text={
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                        }
-                        title={'UrlProfile'}
-                        image={user}
-                        like={false}
-                      />
-                    </>
+                    <>{commentsMapped}</>
                   )}
                 </div>
               </Scroll>
