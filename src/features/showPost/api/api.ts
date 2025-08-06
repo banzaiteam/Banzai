@@ -30,8 +30,8 @@ export type PostDataResponse = {
 type DeletePostResponse = {}
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    deletePost: build.mutation<DeletePostResponse, { id: string }>({
-      query: ({ id }: { id: string }) => ({
+    deletePost: build.mutation<DeletePostResponse, string>({
+      query: id => ({
         url: `/posts/${id}`,
         method: 'DELETE',
       }),
