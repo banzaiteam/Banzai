@@ -5,7 +5,7 @@ import { Keyboard, Navigation, Pagination } from 'swiper/modules'
 import './SwiperImagesPost.scss'
 import Image from 'next/image'
 import { ArrowIosBackOutline, ArrowIosForward } from '@/assets/icons/components'
-
+import Palm from '../../../../assets/images/Palm.png'
 type Props = {
   postImages: string[]
 }
@@ -35,7 +35,13 @@ export const SwiperImagesPost = ({ postImages }: Props) => {
       aria-label={`${index + 1} of ${postImages.length}`}
       data-id={'swiper-slide-' + (index + 1)}
     >
-      <Image src={urlImage} width={485} height={562} alt={'image post'} priority={index === 0} />
+      <Image
+        src={urlImage || Palm}
+        width={485}
+        height={562}
+        alt={'image post'}
+        priority={index === 0}
+      />
     </SwiperSlide>
   ))
 
