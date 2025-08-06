@@ -9,7 +9,7 @@ import {
 } from '@/assets/icons/components'
 import type { MeatballsMenuItemData } from '@/widgets'
 
-export const usePostItems = () => {
+export const usePostItems = (isOwnerPost: boolean) => {
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
@@ -51,7 +51,7 @@ export const usePostItems = () => {
       },
     },
   ]
-  const postItems = myPostItems || notMyPostItems
+  const postItems = !isOwnerPost ? myPostItems : notMyPostItems /*НУЖНО БУДЕТ УБРАТЬ !*/
   const handleCloseEditModal = () => setIsEditing(false)
   return {
     postItems,

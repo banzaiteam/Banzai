@@ -6,8 +6,10 @@ import { Close } from '@/assets/icons/components'
 import s from './VerifyModal.module.scss'
 import { useDeletePostMutation } from '@/features'
 import { Loading } from '../loading/Loading'
+import { useRouter } from 'next/navigation'
 
 type Props = {
+  id: string
   title?: string
   isOpenValue: boolean
   onClose: (value: boolean) => void
@@ -15,14 +17,18 @@ type Props = {
 }
 
 export const VerifyModal = (props: Props) => {
-  const { isOpenValue, children, title = 'Email sent', onClose } = props
+  const { isOpenValue, children, id, title = 'Email sent', onClose } = props
   const onCloseHandler = () => onClose(false)
-
+  const router = useRouter()
   const [deletePost, { isLoading }] = useDeletePostMutation()
 
   const onClickYesHandler = async () => {
-    await deletePost({ id: '1' }).unwrap()
-    onCloseHandler()
+    try {
+      await deletePost(id).unwrap()
+      onCloseHandler()
+
+      router.back()
+    } catch (error: any) {}
   }
 
   return (
@@ -36,7 +42,12 @@ export const VerifyModal = (props: Props) => {
       <div className={s.wrapper} data-id={'meatballs-verify-modal-wrapper'}>
         {children}
         <div className={s.wrapper_buttons}>
-          <Button disabled={isLoading} variant="outline" onClick={onClickYesHandler}>
+          <Button
+            disabled={isLoading}
+            variant="outline"
+            onClick={onClickYesHandler}
+            data-id={'verify-delete-modal-yes-btn'}
+          >
             {isLoading ? <Loading /> : 'Yes'}
           </Button>
           <Button onClick={onCloseHandler} data-id={'verify-delete-modal-no-btn'}>

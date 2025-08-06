@@ -40,6 +40,7 @@ export const ShowPost = (props: ShowPostProps) => {
     postId,
     inputValue,
     setInputValue,
+    isOwnerPost,
   } = useShowPost({ onClose, id, postData })
   const {
     postItems,
@@ -49,7 +50,7 @@ export const ShowPost = (props: ShowPostProps) => {
     isOpenVerifyDeleteModal,
     setOpenVerifyDeleteModal,
     handleCloseEditModal,
-  } = usePostItems()
+  } = usePostItems(isOwnerPost)
 
   const commentsMapped = MOC_COMMENTS_DATA.map(({ title, textBody, like, image }, index) => {
     return <Comment key={index} text={textBody} title={title} image={image} like={like} />
@@ -154,6 +155,7 @@ export const ShowPost = (props: ShowPostProps) => {
       </Popup>
       {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
       <VerifyModal
+        id={postId}
         title={'Delete Post'}
         isOpenValue={isOpenVerifyDeleteModal}
         onClose={setOpenVerifyDeleteModal}
