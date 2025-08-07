@@ -1,5 +1,10 @@
 import { PostPage, type PostPageProps } from '@/app/pages'
+import { ClientWrapper } from '@/app/[locale]/(with-header)/posts/[id]/WrapperPage'
 
-export default async function ShowPostPage({ params }: PostPageProps) {
-  return <PostPage params={params} />
+export default function ShowPostPage({ params }: PostPageProps) {
+  return (
+    <ClientWrapper>
+      <PostPage params={params} />
+    </ClientWrapper>
+  )
 }
