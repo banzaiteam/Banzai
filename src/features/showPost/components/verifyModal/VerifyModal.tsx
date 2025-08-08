@@ -4,9 +4,8 @@ import { Button, Popup, PopupHeader } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { Close } from '@/assets/icons/components'
 import s from './VerifyModal.module.scss'
-import { useDeletePostMutation } from '@/features'
+import { useDeletePostMutation, usePreviousPath } from '@/features'
 import { Loading } from '../loading/Loading'
-import { useRouter } from 'next/navigation'
 
 type Props = {
   id: string
@@ -19,15 +18,14 @@ type Props = {
 export const VerifyModal = (props: Props) => {
   const { isOpenValue, children, id, title = 'Email sent', onClose } = props
   const onCloseHandler = () => onClose(false)
-  const router = useRouter()
   const [deletePost, { isLoading }] = useDeletePostMutation()
-
+  const routerBack = usePreviousPath('/profile')
   const onClickYesHandler = async () => {
     try {
       await deletePost(id).unwrap()
       onCloseHandler()
 
-      router.back() /*Заменить?*/
+      routerBack()
     } catch (error: any) {
     } finally {
       onCloseHandler()
