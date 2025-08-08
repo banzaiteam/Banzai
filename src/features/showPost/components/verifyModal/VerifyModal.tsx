@@ -27,8 +27,11 @@ export const VerifyModal = (props: Props) => {
       await deletePost(id).unwrap()
       onCloseHandler()
 
-      router.back()
-    } catch (error: any) {}
+      router.back() /*Заменить?*/
+    } catch (error: any) {
+    } finally {
+      onCloseHandler()
+    }
   }
 
   return (
