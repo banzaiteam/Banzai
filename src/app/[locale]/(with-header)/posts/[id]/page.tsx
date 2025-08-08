@@ -1,15 +1,10 @@
-'use client'
-import { ShowPost } from '@features/showPost/ui/ShowPost'
-import React from 'react'
+import { PostPage, type PostPageProps } from '@/app/pages'
+import { WrapperPage } from './WrapperPage'
 
-type Props = {
-  params: Promise<{
-    id: string
-  }>
-}
-
-export default function Page(props: Props) {
-  const { id } = React.use(props.params)
-
-  return <ShowPost id={id} />
+export default function ShowPostPage({ params }: PostPageProps) {
+  return (
+    <WrapperPage>
+      <PostPage params={params} />
+    </WrapperPage>
+  )
 }

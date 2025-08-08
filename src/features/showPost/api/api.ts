@@ -19,9 +19,9 @@ type PostData = {
   createdAt: Date
   updatedAt: Date
   files: FileData[]
-  comments: object ///🤔
+  comments: Array<object> ///🤔
 }
-type PostDataResponse = {
+export type PostDataResponse = {
   items: PostData[]
   limit: number
   page: number
@@ -30,8 +30,8 @@ type PostDataResponse = {
 type DeletePostResponse = {}
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    deletePost: build.mutation<DeletePostResponse, { id: string }>({
-      query: ({ id }: { id: string }) => ({
+    deletePost: build.mutation<DeletePostResponse, string>({
+      query: id => ({
         url: `/posts/${id}`,
         method: 'DELETE',
       }),
@@ -47,5 +47,5 @@ export const showPostApi = baseApi.injectEndpoints({
     }),
   }),
 })
-/*TODO*/
+
 export const { useDeletePostMutation, useGetPostDataQuery } = showPostApi
