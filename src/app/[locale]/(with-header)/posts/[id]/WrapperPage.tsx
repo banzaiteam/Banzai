@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 
-export function ClientWrapper({ children }: { children: React.ReactNode }) {
+export function WrapperPage({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const previousPath = sessionStorage.getItem('previous-path')
     if (previousPath) {

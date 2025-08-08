@@ -1,10 +1,10 @@
 import { PostPage, type PostPageProps } from '@/app/pages'
-import { ClientWrapper } from '@/app/[locale]/(with-header)/posts/[id]/WrapperPage'
+import { WrapperPage } from './WrapperPage'
 
 export default function ShowPostPage({ params }: PostPageProps) {
   return (
-    <ClientWrapper>
+    <WrapperPage>
       <PostPage params={params} />
-    </ClientWrapper>
+    </WrapperPage>
   )
 }
