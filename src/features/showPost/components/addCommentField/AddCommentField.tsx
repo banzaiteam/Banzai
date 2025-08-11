@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Button } from '@shared/ui'
 import s from './AddCommentField.module.scss'
