@@ -17,6 +17,7 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   }
 
   const dataImages = postData || data
+  const dataComments = (postData || data)?.items[0].comments
   const urlImages = dataImages?.items[0].files.map(file => file.url)
 
   const onCloseHandler = () => {
@@ -39,6 +40,7 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
     onClickHandler,
     isFetching,
     urlImages,
+    dataComments,
     meData,
     postId,
     isOwnerPost,
