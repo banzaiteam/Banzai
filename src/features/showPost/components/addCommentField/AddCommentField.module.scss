@@ -12,9 +12,13 @@
       padding: 0 8px;
       font-size: 14px;
     }
-    & > input {
+    & > .text_field_root {
       width: 100%;
       flex-grow: 1;
+      & input::selection {
+        background-color: #0078d7;
+        color: var(--light-100);
+      }
     }
   }
 }

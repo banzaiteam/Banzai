@@ -1,30 +1,27 @@
-import React, { type ComponentPropsWithoutRef, useState } from 'react'
+import React from 'react'
 import { Button } from '@shared/ui'
 import s from './AddCommentField.module.scss'
+import { TextField } from '@radix-ui/themes'
 
 type Props = {
   isFetching?: boolean
-} & ComponentPropsWithoutRef<'input'>
+} & Omit<TextField.RootProps, 'variant'>
 
 export const AddCommentField = (props: Props) => {
   const { isFetching = false, ...rest } = props
-  const [inputValue, setInputValue] = useState('')
   return (
     <div className={s.add_comment}>
       <div className={s.add_comment_wrapper} aria-label="Add a comment">
-        <input
+        <TextField.Root
           id="comment-input"
-          value={inputValue}
-          onChange={e => {
-            setInputValue(e.currentTarget.value)
-          }}
           type="text"
+          variant={'soft'}
           placeholder={'Add a Comment...'}
           disabled={isFetching}
           aria-required="true"
+          className={s.text_field_root}
           {...rest}
         />
-
         <Button
           disabled={isFetching}
           variant={'text-button'}
