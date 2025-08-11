@@ -11,7 +11,7 @@ import {
   useShowPost,
   VerifyModal,
 } from '@/features'
-import { Button, CircleImage, Popup, Scroll, Typography } from '@shared/ui'
+import { CircleImage, Popup, Scroll, Typography } from '@shared/ui'
 import { Close, ImageOutline } from '@/assets/icons/components'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
@@ -21,6 +21,7 @@ import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import { MOC_COMMENTS_DATA } from '@features/showPost/model/constans'
 import user from '@/assets/images/User.png'
+import { AddCommentField } from '@features/showPost/components/addCommentField/AddCommentField'
 
 export type ShowPostProps = {
   onClose?: (value: boolean) => void
@@ -31,17 +32,8 @@ export type ShowPostProps = {
 export const ShowPost = (props: ShowPostProps) => {
   const { onClose, id, postData, ...rest } = props
 
-  const {
-    onCloseHandler,
-    onClickHandler,
-    isFetching,
-    urlImages,
-    meData,
-    postId,
-    inputValue,
-    setInputValue,
-    isOwnerPost,
-  } = useShowPost({ onClose, id, postData })
+  const { onCloseHandler, onClickHandler, isFetching, urlImages, meData, postId, isOwnerPost } =
+    useShowPost({ onClose, id, postData })
   const {
     postItems,
     isOpenMeatballsMenu,
@@ -125,30 +117,7 @@ export const ShowPost = (props: ShowPostProps) => {
                 </div>
               </Scroll>
               <EngagementInfo postId={postId} postData={postData} />
-              <div className={s.add_comment}>
-                <div className={s.add_comment_wrapper} aria-label="Add a comment">
-                  <input
-                    id="comment-input"
-                    value={inputValue}
-                    onChange={e => {
-                      setInputValue(e.currentTarget.value)
-                    }}
-                    type="text"
-                    placeholder={'Add a Comment...'}
-                    disabled={isFetching}
-                    aria-required="true"
-                  />
-
-                  <Button
-                    disabled={isFetching}
-                    variant={'text-button'}
-                    type={'button'}
-                    aria-label="Publish comment"
-                  >
-                    Publish
-                  </Button>
-                </div>
-              </div>
+              <AddCommentField isFetching={isFetching} />
             </div>
           </div>
         </Scroll>

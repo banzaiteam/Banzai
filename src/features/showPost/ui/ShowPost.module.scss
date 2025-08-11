@@ -121,26 +121,6 @@
         color: var(--light-900);
       }
     }
-    & .add_comment {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      @media screen and (max-width: 768px) {
-        padding: 5px;
-      }
-      & .add_comment_wrapper {
-        display: flex;
-        justify-content: space-between;
-        column-gap: 8px;
-        & > div > button {
-          padding: 0 8px;
-          font-size: 14px;
-        }
-        & > input {
-          width: 100%;
-          flex-grow: 1;
-        }
-      }
-    }
   }
 
   .skeleton_main_image {

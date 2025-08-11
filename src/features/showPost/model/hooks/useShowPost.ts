@@ -1,13 +1,12 @@
 'use client'
 import { store } from '@/app/store'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useGetMeQuery } from '@shared/api/userApi'
 import type { ShowPostProps } from '@features/showPost/ui/ShowPost'
 import { showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
 import { usePreviousPath } from '@/features'
 
 export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
-  const [inputValue, setInputValue] = useState('')
   const { data: meData } = useGetMeQuery()
   const { data, isFetching } = useGetPostDataQuery(id as string, { skip: !!postData })
   const routerBack = usePreviousPath('/profile')
@@ -42,8 +41,6 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
     urlImages,
     meData,
     postId,
-    inputValue,
-    setInputValue,
     isOwnerPost,
   }
 }
