@@ -7,7 +7,7 @@ import {
   EngagementInfo,
   SkeletonComment,
   SwiperImagesPost,
-  usePostItems,
+  usePostMeatballsMenuItems,
   useShowPost,
   VerifyModal,
 } from '@/features'
@@ -35,14 +35,14 @@ export const ShowPost = (props: ShowPostProps) => {
   const { onCloseHandler, onClickHandler, isFetching, urlImages, meData, postId, isOwnerPost } =
     useShowPost({ onClose, id, postData })
   const {
-    postItems,
+    meatballsMenuItems,
     isOpenMeatballsMenu,
     setOpenMeatballsMenu,
     isEditing,
     isOpenVerifyDeleteModal,
     setOpenVerifyDeleteModal,
     handleCloseEditModal,
-  } = usePostItems(isOwnerPost)
+  } = usePostMeatballsMenuItems(isOwnerPost)
 
   const commentsMapped = MOC_COMMENTS_DATA.map(({ title, textBody, like, image }, index) => {
     return <Comment key={index} text={textBody} title={title} image={image} like={like} />
@@ -95,7 +95,7 @@ export const ShowPost = (props: ShowPostProps) => {
                 </div>
                 {meData && (
                   <MeatballsMenu
-                    items={postItems}
+                    items={meatballsMenuItems}
                     isOpen={isOpenMeatballsMenu}
                     toggleOpen={setOpenMeatballsMenu}
                     disabled={isFetching}

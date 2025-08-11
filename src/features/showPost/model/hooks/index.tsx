@@ -1,3 +1,3 @@
 export * from './useShowPost'
-export * from './usePostItems'
+export * from './usePostMeatballsMenuItems'
 export * from './usePreviousPath'

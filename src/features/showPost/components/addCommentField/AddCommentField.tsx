@@ -5,7 +5,7 @@ import { TextField } from '@radix-ui/themes'
 
 type Props = {
   isFetching?: boolean
-} & Omit<TextField.RootProps, 'variant'>
+} & Omit<TextField.RootProps, 'variant' | 'type'>
 
 export const AddCommentField = (props: Props) => {
   const { isFetching = false, ...rest } = props
@@ -20,6 +20,7 @@ export const AddCommentField = (props: Props) => {
           disabled={isFetching}
           aria-required="true"
           className={s.text_field_root}
+          autoComplete={'off'}
           {...rest}
         />
         <Button
