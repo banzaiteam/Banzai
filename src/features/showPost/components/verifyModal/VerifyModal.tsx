@@ -5,7 +5,7 @@ import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { Close } from '@/assets/icons/components'
 import s from './VerifyModal.module.scss'
 import { useDeletePostMutation } from '@/features'
-import { Loading } from '../loading/Loading'
+import { Loading } from '@/features'
 import { useRouter } from 'next/navigation'
 
 type Props = {
