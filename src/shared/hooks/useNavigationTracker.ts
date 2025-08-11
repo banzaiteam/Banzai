@@ -10,7 +10,7 @@ export function useNavigationTracker() {
   useEffect(() => {
     const handleBeforeUnload = () => {
       // Очищаем при полном уходе со страницы
-      sessionStorage.removeItem('previous-path')
+      /*sessionStorage.removeItem('previous-path') ???*/
     }
 
     const handlePopState = () => {
