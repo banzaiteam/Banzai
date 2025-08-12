@@ -8,6 +8,7 @@ import { Button } from '@shared/ui'
 import { useRouter } from 'next/navigation'
 import { useGetMeQuery } from '@shared/api/userApi'
 import { LocaleSwitcher } from '@/widgets'
+import { ROUTES } from '@shared/constants/routes'
 
 export const HeaderItem: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -24,7 +25,7 @@ export const HeaderItem: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.header__inner}>
-          <Link className={styles.logo} href="/">
+          <Link className={styles.logo} href={ROUTES.home}>
             Piksta
           </Link>
           <div className={styles.header__actions}>

@@ -14,8 +14,8 @@ import styles from './LoginForm.module.scss'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/assets/icons/components'
 import { InputEmail, InputPassword } from '@features/auth/components'
 import { isApiError } from '@features/auth/login/model/types'
-import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
 import Link from 'next/link'
+import { ROUTES } from '@shared/constants/routes'
 
 const LoginForm = () => {
   const router = useRouter()
@@ -112,14 +112,14 @@ const LoginForm = () => {
             variant={'text-button'}
             type="button"
           >
-            <Link href={'/signup'}>Don't have an account?</Link>
+            <Link href={ROUTES.signUp}>Don't have an account?</Link>
           </Button>
           <Button
             className={`${styles.w100} ${styles.btnBottom}`}
             variant={'text-button'}
             type="button"
           >
-            <Link href={'/signup'}>Sign Up</Link>
+            <Link href={ROUTES.signUp}>Sign Up</Link>
           </Button>
         </form>
       </div>

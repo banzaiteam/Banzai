@@ -10,7 +10,6 @@ import { InputPassword } from '@/features/auth/components'
 import { useResetPasswordMutation } from '../api/newPasswordApi'
 import { NewPasswordFormValues } from '../model/types'
 import { newPasswordSchema } from '../model/newPasswordSchema'
-import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
 
 const NewPasswordForm = ({ email }: { email: string }) => {
   const router = useRouter()
@@ -93,4 +92,4 @@ const NewPasswordForm = ({ email }: { email: string }) => {
     </Card>
   )
 }
-export default withGuestOnly(NewPasswordForm)
+export default NewPasswordForm

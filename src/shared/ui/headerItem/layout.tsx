@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react'
+import { useState } from 'react'
 import styles from '@shared/ui/headerItem/Header.module.scss'
 import Link from 'next/link'
 import {
@@ -11,7 +12,7 @@ import {
 import Select from '@shared/ui/select/Select'
 import { Button } from '@shared/ui'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { ROUTES } from '@shared/constants/routes'
 
 type Props = {
   isLoggedIn: boolean
@@ -31,7 +32,7 @@ export const Layout = ({ isLoggedIn, profile }: Props) => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.header__inner}>
-          <Link className={styles.logo} href="/">
+          <Link className={styles.logo} href={ROUTES.home}>
             Piksta
           </Link>
           <div className={styles.header__actions}>
