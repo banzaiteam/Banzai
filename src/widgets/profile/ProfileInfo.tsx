@@ -37,19 +37,21 @@ export const ProfileInfo = () => {
               </Link>
             )}
           </div>
-          <div className={styles.stats}>
-            <ul className={styles.items}>
-              <li className={styles.item}>
-                <span className={styles.accent}>{following}</span> Following
-              </li>
-              <li className={styles.item}>
-                <span className={styles.accent}>{followers}</span> Followers
-              </li>
-              <li className={styles.item}>
-                <span className={styles.accent}>{publications}</span> Publications
-              </li>
-            </ul>
-          </div>
+          {meData && (
+            <div className={styles.stats}>
+              <ul className={styles.items}>
+                <li className={styles.item}>
+                  <span className={styles.accent}>{following}</span> Following
+                </li>
+                <li className={styles.item}>
+                  <span className={styles.accent}>{followers}</span> Followers
+                </li>
+                <li className={styles.item}>
+                  <span className={styles.accent}>{publications}</span> Publications
+                </li>
+              </ul>
+            </div>
+          )}
           <div className={styles.bio}>
             <p className={styles.text}>{bio}</p>
           </div>
