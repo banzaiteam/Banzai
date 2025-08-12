@@ -5,6 +5,7 @@ import s from './ShowPost.module.scss'
 import {
   Comment,
   EngagementInfo,
+  type PostDataResponse,
   SkeletonComment,
   SwiperImagesPost,
   usePostMeatballsMenuItems,
@@ -16,10 +17,9 @@ import { Close, ImageOutline } from '@/assets/icons/components'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
-import { type PostDataResponse } from '@features/showPost/api/api'
 import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
-import { MOC_COMMENTS_DATA } from '@features/showPost/model/constans'
+
 import user from '@/assets/images/User.png'
 import { AddCommentField } from '@features/showPost/components/addCommentField/AddCommentField'
 
@@ -32,8 +32,17 @@ export type ShowPostProps = {
 export const ShowPost = (props: ShowPostProps) => {
   const { onClose, id, postData, ...rest } = props
 
-  const { onCloseHandler, onClickHandler, isFetching, urlImages, meData, postId, isOwnerPost } =
-    useShowPost({ onClose, id, postData })
+  const {
+    onCloseHandler,
+    onClickHandler,
+    isFetching,
+    isLoading,
+    urlImages,
+    dataComments,
+    meData,
+    postId,
+    isOwnerPost,
+  } = useShowPost({ onClose, id, postData })
   const {
     meatballsMenuItems,
     isOpenMeatballsMenu,
@@ -44,8 +53,9 @@ export const ShowPost = (props: ShowPostProps) => {
     handleCloseEditModal,
   } = usePostMeatballsMenuItems(isOwnerPost)
 
-  const commentsMapped = MOC_COMMENTS_DATA.map(({ title, textBody, like, image }, index) => {
-    return <Comment key={index} text={textBody} title={title} image={image} like={like} />
+  const commentsMapped = dataComments?.map(({ text, likes }, index) => {
+    const { like, image, title } = { title: 'userName', image: user, like: false }
+    return <Comment key={index} text={text} title={title} image={image} like={like} likes={likes} />
   })
   return (
     <>
@@ -59,7 +69,7 @@ export const ShowPost = (props: ShowPostProps) => {
         <Scroll>
           <div className={s.wrapper} aria-busy={isFetching}>
             <div className={s.image_wrapper}>
-              {isFetching ? (
+              {isLoading ? (
                 <Skeleton className={s.skeleton_main_image} aria-label="Loading post content" />
               ) : urlImages ? (
                 urlImages.length > 0 && <SwiperImagesPost postImages={urlImages} />
@@ -77,7 +87,7 @@ export const ShowPost = (props: ShowPostProps) => {
             <div className={s.comments_block}>
               <div className={s.header}>
                 <div className={s.user}>
-                  {isFetching ? (
+                  {isLoading ? (
                     <SkeletonCircle size={36} aria-label="Loading user avatar" />
                   ) : (
                     <CircleImage>
@@ -85,7 +95,7 @@ export const ShowPost = (props: ShowPostProps) => {
                     </CircleImage>
                   )}
 
-                  {isFetching ? (
+                  {isLoading ? (
                     <Skeleton width={'100px'} aria-label="Loading username" />
                   ) : (
                     <Typography variant={'h3'} id="post-username">
@@ -98,15 +108,17 @@ export const ShowPost = (props: ShowPostProps) => {
                     items={meatballsMenuItems}
                     isOpen={isOpenMeatballsMenu}
                     toggleOpen={setOpenMeatballsMenu}
-                    disabled={isFetching}
+                    disabled={isLoading}
                     aria-label="Post-options"
                   />
                 )}
               </div>
-
+              {/* fix не обновляются комментарии при нажатии стрелок навигации ssr прикол с кешированием страничек*/}
+              {/* fix не обновляются комментарии при нажатии стрелок навигации*/}
+              {/* fix не обновляются комментарии при нажатии стрелок навигации*/}
               <Scroll className={s.scroll} aria-label="Post comments">
                 <div className={s.comments}>
-                  {isFetching ? (
+                  {isLoading ? (
                     <>
                       <SkeletonComment />
                       <SkeletonComment />
@@ -117,7 +129,7 @@ export const ShowPost = (props: ShowPostProps) => {
                 </div>
               </Scroll>
               <EngagementInfo postId={postId} postData={postData} />
-              <AddCommentField isFetching={isFetching} />
+              <AddCommentField postId={postId} />
             </div>
           </div>
         </Scroll>
