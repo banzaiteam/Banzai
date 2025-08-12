@@ -1,23 +1,31 @@
 'use client'
-import { store } from '@/app/store'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetMeQuery } from '@shared/api/userApi'
 import type { ShowPostProps } from '@features/showPost/ui/ShowPost'
 import { showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
 import { usePreviousPath } from '@/features'
+import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 
 export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()
-  const { data, isFetching } = useGetPostDataQuery(id as string, { skip: !!postData })
-  const routerBack = usePreviousPath('/profile')
+
+  const [isNeedHydrate, setIsNeedHydrate] = useState(!!postData)
   const postId = id || postData?.items[0].id
+
+  const { data, isFetching, isLoading } = useGetPostDataQuery(postId as string, {
+    skip: isNeedHydrate,
+  })
+
+  const routerBack = usePreviousPath('/profile')
+
+  const dispatch = useAppDispatch()
   const isOwnerPost = meData?.id === postId
+
   if (!postId) {
     throw new Error('ID не найден')
   }
-
-  const dataImages = postData || data
-  const dataComments = (postData || data)?.items[0].comments
+  const dataImages = data || postData
+  const dataComments = (data || postData)?.items[0].comments
   const urlImages = dataImages?.items[0].files.map(file => file.url)
 
   const onCloseHandler = () => {
@@ -29,16 +37,19 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
     e.preventDefault()
   }
   useEffect(() => {
-    if (postData)
-      store.dispatch(
-        showPostApi.util.upsertQueryData('getPostData', postData?.items[0].id, postData)
-      )
-  }, [postData])
+    if (isNeedHydrate) {
+      if (postData) {
+        dispatch(showPostApi.util.upsertQueryData('getPostData', postId, postData))
+      }
+      setIsNeedHydrate(false)
+    }
+  }, [])
 
   return {
     onCloseHandler,
     onClickHandler,
     isFetching,
+    isLoading,
     urlImages,
     dataComments,
     meData,
