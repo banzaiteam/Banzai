@@ -10,5 +10,8 @@
     "textBody": "Вы уверенный что хотите удалить этот пост?",
     "YesButton": "Да",
     "NoButton": "Нет"
+  },
+  "Comment": {
+    "AnswerButton": "Ответить"
   }
 }

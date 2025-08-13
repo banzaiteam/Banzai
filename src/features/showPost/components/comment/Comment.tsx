@@ -5,6 +5,7 @@ import { Scroll, Typography } from '@shared/ui'
 import Link from 'next/link'
 import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
+import { useTranslations } from 'next-intl'
 
 export type CommentProps = {
   title: string
@@ -16,6 +17,7 @@ export type CommentProps = {
 
 export const Comment = (props: CommentProps) => {
   const { like, title, text, likes, image } = props
+  const t = useTranslations('Comment')
   return (
     <div className={s.comment}>
       <div className={s.section}>
@@ -44,7 +46,7 @@ export const Comment = (props: CommentProps) => {
             )}
             {like !== undefined && (
               <span>
-                <Typography variant={'semi_bold_small_text'}>Answer</Typography>
+                <Typography variant={'semi_bold_small_text'}>{t('AnswerButton')}</Typography>
               </span>
             )}
           </div>
