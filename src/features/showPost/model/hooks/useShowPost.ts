@@ -6,6 +6,7 @@ import { showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
 import { usePreviousPath } from '@/features'
 import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { notFound } from 'next/navigation'
+import { useAppSelector } from '@shared/hooks/useAppSelector'
 
 export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()
@@ -15,6 +16,9 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
     ) /*for update after request(add comment), to we`ll see +1 comment in the list-comments*/
 
   const postId = id || postData?.items[0].id
+  const dataFromCache = useAppSelector(
+    state => showPostApi.endpoints.getPostData.select(postId as string)(state).data
+  )
 
   const {
     data: postDataFromQuery,
@@ -25,7 +29,6 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   })
 
   const routerBack = usePreviousPath('/profile')
-
   const dispatch = useAppDispatch()
   const isOwnerPost = meData?.id === postId
 
@@ -50,7 +53,7 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   }
   useEffect(() => {
     if (isNeedHydrate) {
-      if (postData) {
+      if (postData && !dataFromCache) {
         dispatch(showPostApi.util.upsertQueryData('getPostData', postId, postData))
       }
       setIsNeedHydrate(false)

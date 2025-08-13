@@ -11,6 +11,7 @@ export const showPostApi = baseApi.injectEndpoints({
           filter: `id:eq:${postId}`,
         },
       }),
+      keepUnusedDataFor: 9999999,
       providesTags: (result, error, postId) => [{ type: 'Post', id: postId }],
     }),
     deletePost: build.mutation<DeletePostResponse, string>({
