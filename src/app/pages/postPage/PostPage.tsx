@@ -10,9 +10,9 @@ export type PostPageProps = {
 export const PostPage = async ({ params }: PostPageProps) => {
   const postId = (await params).id
 
-  const postData = await fetch(
+  const initialPostData = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/posts?filter=id:eq:${postId}`
   ).then(res => res.json())
 
-  return <ShowPost postData={postData} id={postId} />
+  return <ShowPost initialPostData={initialPostData} id={postId} />
 }

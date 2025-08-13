@@ -27,11 +27,11 @@ import { useTranslations } from 'next-intl'
 export type ShowPostProps = {
   onClose?: (value: boolean) => void
   id?: string
-  postData?: PostDataResponse
+  initialPostData?: PostDataResponse
 }
 
 export const ShowPost = (props: ShowPostProps) => {
-  const { onClose, id, postData, ...rest } = props
+  const { onClose, id, initialPostData, ...rest } = props
   const t = useTranslations('VerifyDeleteModal')
   const {
     onCloseHandler,
@@ -43,7 +43,7 @@ export const ShowPost = (props: ShowPostProps) => {
     meData,
     postId,
     isOwnerPost,
-  } = useShowPost({ onClose, id, postData })
+  } = useShowPost({ onClose, id, initialPostData })
   const {
     meatballsMenuItems,
     isOpenMeatballsMenu,
@@ -129,7 +129,7 @@ export const ShowPost = (props: ShowPostProps) => {
                   )}
                 </div>
               </Scroll>
-              <EngagementInfo postId={postId} postData={postData} />
+              <EngagementInfo postId={postId} postData={initialPostData} />
               <AddCommentField postId={postId} />
             </div>
           </div>

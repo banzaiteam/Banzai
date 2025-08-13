@@ -8,18 +8,18 @@ import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { notFound } from 'next/navigation'
 import { useAppSelector } from '@shared/hooks/useAppSelector'
 
-export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
+export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()
   const [isNeedHydrate, setIsNeedHydrate] =
     useState(
-      !!postData
+      !!initialPostData
     ) /*for update after request(add comment), to we`ll see +1 comment in the list-comments*/
 
-  const postId = id || postData?.items[0].id
+  const initialPost = initialPostData?.items[0]
+  const postId = id || initialPost?.id
   const dataFromCache = useAppSelector(
     state => showPostApi.endpoints.getPostData.select(postId as string)(state).data
   )
-
   const {
     data: postDataFromQuery,
     isFetching,
@@ -35,14 +35,14 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   if (!postId) {
     throw new Error('ID не найден')
   }
-  const data = postDataFromQuery || postData
-  if (!data) {
+  const post = postDataFromQuery?.items[0] || initialPost
+  if (!post) {
     notFound()
   }
-  const informationAboutPost = data?.items[0]
-  const comments = informationAboutPost?.comments
-  const urlImages = informationAboutPost?.files.map(file => file.url)
-
+  /*const informationAboutPost = data?.items[0]*/
+  const comments = post?.comments
+  const urlImages = post?.files.map(file => file.url)
+  console.log(comments)
   const onCloseHandler = () => {
     onClose?.(false)
     routerBack()
@@ -53,8 +53,8 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   }
   useEffect(() => {
     if (isNeedHydrate) {
-      if (postData && !dataFromCache) {
-        dispatch(showPostApi.util.upsertQueryData('getPostData', postId, postData))
+      if (initialPostData && !dataFromCache) {
+        dispatch(showPostApi.util.upsertQueryData('getPostData', postId, initialPostData))
       }
       setIsNeedHydrate(false)
     }

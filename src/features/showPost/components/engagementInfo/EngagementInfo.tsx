@@ -6,7 +6,8 @@ import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import Image from 'next/image'
 import user from '@/assets/images/User.png'
 import { Typography } from '@shared/ui'
-import { type PostDataResponse, useGetPostDataQuery } from '@features/showPost/api/api'
+import { useGetPostDataQuery } from '@features/showPost/api/api'
+import type { PostDataResponse } from '@/features'
 
 type Props = {
   postId: string
