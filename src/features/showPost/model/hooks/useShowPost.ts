@@ -5,10 +5,10 @@ import type { ShowPostProps } from '@features/showPost/ui/ShowPost'
 import { showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
 import { usePreviousPath } from '@/features'
 import { useAppDispatch } from '@shared/hooks/useAppDispatch'
+import { notFound } from 'next/navigation'
 
 export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()
-
   const [isNeedHydrate, setIsNeedHydrate] =
     useState(
       !!postData
@@ -16,7 +16,11 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
 
   const postId = id || postData?.items[0].id
 
-  const { data, isFetching, isLoading } = useGetPostDataQuery(postId as string, {
+  const {
+    data: postDataFromQuery,
+    isFetching,
+    isLoading,
+  } = useGetPostDataQuery(postId as string, {
     skip: isNeedHydrate,
   })
 
@@ -28,9 +32,13 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   if (!postId) {
     throw new Error('ID не найден')
   }
-  const dataImages = data || postData
-  const dataComments = (data || postData)?.items[0].comments
-  const urlImages = dataImages?.items[0].files.map(file => file.url)
+  const data = postDataFromQuery || postData
+  if (!data) {
+    notFound()
+  }
+  const informationAboutPost = data?.items[0]
+  const comments = informationAboutPost?.comments
+  const urlImages = informationAboutPost?.files.map(file => file.url)
 
   const onCloseHandler = () => {
     onClose?.(false)
@@ -55,7 +63,7 @@ export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
     isFetching,
     isLoading,
     urlImages,
-    dataComments,
+    comments,
     meData,
     postId,
     isOwnerPost,

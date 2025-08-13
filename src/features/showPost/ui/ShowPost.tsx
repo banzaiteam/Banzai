@@ -39,7 +39,7 @@ export const ShowPost = (props: ShowPostProps) => {
     isFetching,
     isLoading,
     urlImages,
-    dataComments,
+    comments,
     meData,
     postId,
     isOwnerPost,
@@ -54,7 +54,7 @@ export const ShowPost = (props: ShowPostProps) => {
     handleCloseEditModal,
   } = usePostMeatballsMenuItems(isOwnerPost)
 
-  const commentsMapped = dataComments?.map(({ text, likes }, index) => {
+  const commentsMapped = comments?.map(({ text, likes }, index) => {
     const { like, image, title } = { title: 'userName', image: user, like: false }
     return <Comment key={index} text={text} title={title} image={image} like={like} likes={likes} />
   })
