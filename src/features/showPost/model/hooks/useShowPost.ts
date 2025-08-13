@@ -9,7 +9,11 @@ import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 export const useShowPost = ({ onClose, id, postData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()
 
-  const [isNeedHydrate, setIsNeedHydrate] = useState(!!postData)
+  const [isNeedHydrate, setIsNeedHydrate] =
+    useState(
+      !!postData
+    ) /*for update after request(add comment), to we`ll see +1 comment in the list-comments*/
+
   const postId = id || postData?.items[0].id
 
   const { data, isFetching, isLoading } = useGetPostDataQuery(postId as string, {
