@@ -22,6 +22,7 @@ import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 
 import user from '@/assets/images/User.png'
 import { AddCommentField } from '@features/showPost/components/addCommentField/AddCommentField'
+import { useTranslations } from 'next-intl'
 
 export type ShowPostProps = {
   onClose?: (value: boolean) => void
@@ -31,6 +32,7 @@ export type ShowPostProps = {
 
 export const ShowPost = (props: ShowPostProps) => {
   const { onClose, id, postData, ...rest } = props
+  const t = useTranslations('VerifyDeleteModal')
   const {
     onCloseHandler,
     onClickHandler,
@@ -136,14 +138,14 @@ export const ShowPost = (props: ShowPostProps) => {
       {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
       <VerifyModal
         id={postId}
-        title={'Delete Post'}
+        title={t('title')}
         isOpenValue={isOpenVerifyDeleteModal}
         onClose={setOpenVerifyDeleteModal}
         data-id={'verify-delete-modal'}
         aria-label="Confirm post deletion"
       >
         <Typography variant={'regular_text_16'} className={s.verify_text}>
-          Are you sure you want to delete this post?
+          {t('textBody')}
         </Typography>
       </VerifyModal>
     </>

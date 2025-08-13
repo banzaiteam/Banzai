@@ -7,6 +7,7 @@ import s from './VerifyModal.module.scss'
 import { useDeletePostMutation } from '@/features'
 import { Loading } from '@/features'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   id: string
@@ -21,7 +22,7 @@ export const VerifyModal = (props: Props) => {
   const onCloseHandler = () => onClose(false)
   const router = useRouter()
   const [deletePost, { isLoading }] = useDeletePostMutation()
-
+  const t = useTranslations('VerifyDeleteModal')
   const onClickYesHandler = async () => {
     try {
       await deletePost(id).unwrap()
@@ -48,10 +49,10 @@ export const VerifyModal = (props: Props) => {
             onClick={onClickYesHandler}
             data-id={'verify-delete-modal-yes-btn'}
           >
-            {isLoading ? <Loading /> : 'Yes'}
+            {isLoading ? <Loading /> : t('YesButton')}
           </Button>
           <Button onClick={onCloseHandler} data-id={'verify-delete-modal-no-btn'}>
-            No
+            {t('NoButton')}
           </Button>
         </div>
       </div>
