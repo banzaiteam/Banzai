@@ -1,7 +1,7 @@
 import s from './Comment.module.scss'
 import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import Image, { type StaticImageData } from 'next/image'
-import { Typography } from '@shared/ui'
+import { Scroll, Typography } from '@shared/ui'
 import Link from 'next/link'
 import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
@@ -11,10 +11,11 @@ export type CommentProps = {
   text: string
   image: string | StaticImageData
   like?: boolean
+  likes: number
 }
 
 export const Comment = (props: CommentProps) => {
-  const { like, title, text, image } = props
+  const { like, title, text, likes, image } = props
   return (
     <div className={s.comment}>
       <div className={s.section}>
@@ -24,19 +25,21 @@ export const Comment = (props: CommentProps) => {
           </CircleImage>
         </div>
         <div className={s.comment_text}>
-          <Typography variant={'regular_text_14'}>
-            <Link href={title} className={s.url}>
-              UrlProfile{' '}
-            </Link>
-            {text}
-          </Typography>
+          <Scroll className={s.scroll}>
+            <Typography variant={'regular_text_14'}>
+              <Link href={title} className={s.url}>
+                UrlProfile
+              </Link>{' '}
+              {text}
+            </Typography>
+          </Scroll>
           <div className={s.comment_information}>
             <span>
               <Typography variant={'small_text'}>2 Hours ago</Typography>
             </span>
-            {like && (
+            {!!likes && (
               <span>
-                <Typography variant={'semi_bold_small_text'}>Like: 1</Typography>
+                <Typography variant={'semi_bold_small_text'}>Like: {likes}</Typography>
               </span>
             )}
             {like !== undefined && (

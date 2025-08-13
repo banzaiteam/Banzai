@@ -13,5 +13,5 @@ export const PostPage = async ({ params }: PostPageProps) => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/posts?filter=id:eq:${postId}`
   ).then(res => res.json())
 
-  return <ShowPost postData={postData} />
+  return <ShowPost postData={postData} id={postId} />
 }

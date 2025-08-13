@@ -9,12 +9,12 @@ import {
 } from '@/assets/icons/components'
 import type { MeatballsMenuItemData } from '@/widgets'
 
-export const usePostItems = (isOwnerPost: boolean) => {
+export const usePostMeatballsMenuItems = (isOwnerPost: boolean) => {
   const [isOpenVerifyDeleteModal, setOpenVerifyDeleteModal] = useState(false)
   const [isOpenMeatballsMenu, setOpenMeatballsMenu] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const isFollow = false
-  const myPostItems: MeatballsMenuItemData[] = [
+  const myPostMeatballsMenuItems: MeatballsMenuItemData[] = [
     {
       title: 'Edit Post',
       icon: <Edit2Outline />,
@@ -32,7 +32,7 @@ export const usePostItems = (isOwnerPost: boolean) => {
       },
     },
   ]
-  const notMyPostItems: MeatballsMenuItemData[] = [
+  const notMyPostMeatballsMenuItems: MeatballsMenuItemData[] = [
     {
       title: isFollow ? 'Unfollow' : 'Follow',
       icon: isFollow ? <PersonRemoveOutline /> : <PersonAddOutline />,
@@ -51,10 +51,12 @@ export const usePostItems = (isOwnerPost: boolean) => {
       },
     },
   ]
-  const postItems = !isOwnerPost ? myPostItems : notMyPostItems /*НУЖНО БУДЕТ УБРАТЬ !*/
+  const meatballsMenuItems = !isOwnerPost
+    ? myPostMeatballsMenuItems
+    : notMyPostMeatballsMenuItems /*НУЖНО БУДЕТ УБРАТЬ !*/
   const handleCloseEditModal = () => setIsEditing(false)
   return {
-    postItems,
+    meatballsMenuItems,
     isEditing,
     isOpenVerifyDeleteModal,
     isOpenMeatballsMenu,
