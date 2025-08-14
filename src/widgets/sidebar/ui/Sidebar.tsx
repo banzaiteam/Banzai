@@ -7,6 +7,7 @@ import { useLoginOutMutation } from '@features/auth/login/api/loginApi'
 import { usePathname, useRouter } from 'next/navigation'
 import { linksData } from '@widgets/sidebar/model/linksData'
 import { useGetMeQuery } from '@shared/api/userApi'
+import { ROUTES } from '@shared/constants/routes'
 
 type SidebarProps = { isDisabled?: boolean } & ComponentPropsWithoutRef<'aside'>
 
@@ -33,10 +34,10 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
     router.push('auth/signIn')
   }
 
-  const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }, index) => {
+  const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }) => {
     // const isActive = isDisabled ? false : index === 0 //для самой первой ссылки с иконкой
+    path = path === '/profile' && user?.id ? ROUTES.profile(user.id) : path
     const isActive = pathname === path
-
     return (
       <SidebarBaseItem
         disabled={isDisabled}
