@@ -1,4 +1,3 @@
-'use client'
 import { ShowPost } from '@features/showPost/ui/ShowPost'
 import React from 'react'
 
@@ -8,8 +7,12 @@ export type PostPageProps = {
   }>
 }
 
-export const PostPage = (props: PostPageProps) => {
-  const { id } = React.use(props.params)
+export const PostPage = async ({ params }: PostPageProps) => {
+  const postId = (await params).id
 
-  return <ShowPost id={id} />
+  const initialPostData = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/posts?filter=id:eq:${postId}`
+  ).then(res => res.json())
+
+  return <ShowPost initialPostData={initialPostData} id={postId} />
 }

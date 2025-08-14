@@ -1,19 +1,30 @@
-import { Edit2Outline, TrashOutline } from '@/assets/icons/components'
-import type { MeatballsMenuItemData } from '@/widgets'
+import user from '@/assets/images/User.png'
+import type { StaticImageData } from 'next/image'
 
-export const MyPostItems: MeatballsMenuItemData[] = [
+export type MocComment = { text: string; title: string; image: StaticImageData; like?: boolean }
+
+export const MOC_COMMENTS_DATA: MocComment[] = [
   {
-    title: 'Edit Post',
-    icon: <Edit2Outline />,
-    onClick: () => {
-      console.log(111)
-    },
+    title: 'UrlProfile',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    image: user,
   },
   {
-    title: 'Delete Post',
-    icon: <TrashOutline />,
-    onClick: () => {
-      console.log(222)
-    },
+    title: 'UrlProfile',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    image: user,
+    like: true,
+  },
+  {
+    title: 'UrlProfile',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    image: user,
+    like: false,
+  },
+  {
+    title: 'UrlProfile',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    image: user,
+    like: true,
   },
 ]

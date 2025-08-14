@@ -49,12 +49,12 @@ export const ProfileImages = () => {
         loader={<p>Loading more...</p>}
       >
         <div className={styles.grid}>
-          {allPosts.map((post: Post) => {
+          {allPosts.map((post: Post, index) => {
             const file = post.files?.[0]
             if (!file) return null
 
             return (
-              <Link key={file.id} href={ROUTES.post(post.id)}>
+              <Link key={file.id + index} href={ROUTES.post(post.id)}>
                 <Image
                   src={file.url}
                   alt={`Post ${post.id}`}
