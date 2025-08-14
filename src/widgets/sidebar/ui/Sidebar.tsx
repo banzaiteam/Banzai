@@ -33,10 +33,10 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
     router.push('auth/signIn')
   }
 
-  const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }, index) => {
+  const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }) => {
     // const isActive = isDisabled ? false : index === 0 //для самой первой ссылки с иконкой
+    path = path === '/profile' && user?.id ? `/profile/${user.id}` : path
     const isActive = pathname === path
-
     return (
       <SidebarBaseItem
         disabled={isDisabled}
