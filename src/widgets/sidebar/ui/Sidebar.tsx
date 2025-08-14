@@ -36,12 +36,13 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
   const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }, index) => {
     // const isActive = isDisabled ? false : index === 0 //для самой первой ссылки с иконкой
     const isActive = pathname === path
-
+    // condition if path is profile then grabbing id
+    const modifiedPath = id === 3 ? `${path}/${user?.id}` : path
     return (
       <SidebarBaseItem
         disabled={isDisabled}
         key={id}
-        path={path}
+        path={modifiedPath}
         icon={isActive ? iconActive : icon}
         isActive={isActive}
       >
