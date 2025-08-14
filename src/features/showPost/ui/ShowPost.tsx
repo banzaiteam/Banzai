@@ -40,7 +40,6 @@ export const ShowPost = (props: ShowPostProps) => {
     isLoading,
     urlImages,
     comments,
-    meData,
     postId,
     isOwnerPost,
   } = useShowPost({ onClose, id, initialPostData })
@@ -104,15 +103,13 @@ export const ShowPost = (props: ShowPostProps) => {
                     </Typography>
                   )}
                 </div>
-                {meData && (
-                  <MeatballsMenu
-                    items={meatballsMenuItems}
-                    isOpen={isOpenMeatballsMenu}
-                    toggleOpen={setOpenMeatballsMenu}
-                    disabled={isLoading}
-                    aria-label="Post-options"
-                  />
-                )}
+                <MeatballsMenu
+                  items={meatballsMenuItems}
+                  isOpen={isOpenMeatballsMenu}
+                  toggleOpen={setOpenMeatballsMenu}
+                  disabled={isLoading}
+                  aria-label="Post-options"
+                />
               </div>
               {/* fix не обновляются комментарии при нажатии стрелок навигации ssr прикол с кешированием страничек*/}
               {/* fix не обновляются комментарии при нажатии стрелок навигации*/}

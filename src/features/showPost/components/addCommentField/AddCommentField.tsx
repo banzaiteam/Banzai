@@ -5,9 +5,10 @@ import s from './AddCommentField.module.scss'
 import { TextField } from '@radix-ui/themes'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { type FormDataAddCommentField, Loading, schemaAddCommentFieldSchema } from '@/features'
+import { type FormDataAddCommentField, schemaAddCommentFieldSchema } from '@/features'
 import { useAddCommentMutation } from '@features/showPost/api/api'
 import { clsx } from 'clsx'
+import { useGetMeQuery } from '@shared/api/userApi'
 
 type Props = {
   postId: string
@@ -15,14 +16,16 @@ type Props = {
 
 export const AddCommentField = (props: Props) => {
   const { className, postId, ...rest } = props
-  const [addComment, { isLoading }] = useAddCommentMutation()
+  const { data } = useGetMeQuery()
+  const [addComment /* { isLoading }*/] = useAddCommentMutation()
   const { register, handleSubmit, reset } = useForm<FormDataAddCommentField>({
     resolver: zodResolver(schemaAddCommentFieldSchema),
     defaultValues: {
       comment: '',
     },
   })
-  const isDisabled = isLoading
+  /*const isDisabled = isLoading*/
+  const isDisabled = !data
   const textFieldRootStyles = clsx(s.text_field_root, className, {
     [s.disabled]: isDisabled,
   })
@@ -61,7 +64,7 @@ export const AddCommentField = (props: Props) => {
             type={'submit'}
             aria-label="Publish comment"
           >
-            {isDisabled ? <Loading /> : 'Publish'}
+            Publish
           </Button>
         </div>
       </form>

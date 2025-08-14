@@ -69,7 +69,6 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
     isLoading,
     urlImages,
     comments,
-    meData,
     postId,
     isOwnerPost,
   }

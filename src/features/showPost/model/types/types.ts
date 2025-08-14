@@ -3,9 +3,9 @@ import type { Nullable } from '@shared/types/nullable'
 export type Status = 'pending' | 'success'
 export type CommentPost = {
   id: string
-  createdAt: Nullable<Date>
-  updatedAt: Nullable<Date>
-  deletedAt: Nullable<Date>
+  createdAt: Nullable<string>
+  updatedAt: Nullable<string>
+  deletedAt: Nullable<string>
   userId: string
   text: string
   likes: number
