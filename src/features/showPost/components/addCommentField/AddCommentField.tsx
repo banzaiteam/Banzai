@@ -25,6 +25,7 @@ export const AddCommentField = (props: Props) => {
     },
   })
   /*const isDisabled = isLoading*/
+  /*ssr meData не доступна, поэтому input и button при SSR загружаются на клиенте*/
   const isDisabled = !data
   const textFieldRootStyles = clsx(s.text_field_root, className, {
     [s.disabled]: isDisabled,

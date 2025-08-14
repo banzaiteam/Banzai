@@ -111,9 +111,6 @@ export const ShowPost = (props: ShowPostProps) => {
                   aria-label="Post-options"
                 />
               </div>
-              {/* fix не обновляются комментарии при нажатии стрелок навигации ssr прикол с кешированием страничек*/}
-              {/* fix не обновляются комментарии при нажатии стрелок навигации*/}
-              {/* fix не обновляются комментарии при нажатии стрелок навигации*/}
               <Scroll className={s.scroll} aria-label="Post comments">
                 <div className={s.comments}>
                   {isLoading ? (
