@@ -23,7 +23,6 @@ export default async function ProfileID({ params }: { params: { id: string } }) 
   const res = await fetch(`https://gate.yogram.ru/api/v1/users/${id}/profile`, {
     cache: 'no-store',
   })
-  console.log(res)
 
   if (!res.ok) {
     throw new Error('Failed to fetch profile')
