@@ -17,7 +17,7 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
 
   const initialPost = initialPostData?.items[0]
   const postId = id || initialPost?.id
-  const dataFromCache = useAppSelector(
+  const postDataFromCache = useAppSelector(
     state => showPostApi.endpoints.getPostData.select(postId as string)(state).data
   )
   const {
@@ -28,7 +28,6 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
     skip: isNeedHydrate,
   })
 
-  const routerBack = usePreviousPath('/profile')
   const dispatch = useAppDispatch()
   const isOwnerPost = meData?.id === postId
 
@@ -39,10 +38,13 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
   if (!post) {
     notFound()
   }
-  /*const informationAboutPost = data?.items[0]*/
+  const routerBack = usePreviousPath('/profile')
+  /*       Раскоментировать когда будет profile->[id]->page.tsx     */
+  /*const routerBack = usePreviousPath(ROUTES.profile(post?.userId as string))*/
+  /* */
   const comments = post?.comments
   const urlImages = post?.files.map(file => file.url)
-  console.log(comments)
+
   const onCloseHandler = () => {
     onClose?.(false)
     routerBack()
@@ -53,7 +55,7 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
   }
   useEffect(() => {
     if (isNeedHydrate) {
-      if (initialPostData && !dataFromCache) {
+      if (initialPostData && !postDataFromCache) {
         dispatch(showPostApi.util.upsertQueryData('getPostData', postId, initialPostData))
       }
       setIsNeedHydrate(false)
