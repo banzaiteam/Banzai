@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button } from '@shared/ui'
 import s from './AddCommentField.module.scss'
 import { TextField } from '@radix-ui/themes'
@@ -16,6 +16,7 @@ type Props = {
 
 export const AddCommentField = (props: Props) => {
   const { className, postId, ...rest } = props
+  const isSendPermissionRef = useRef(true)
   const { data } = useGetMeQuery()
   const [addComment /* { isLoading }*/] = useAddCommentMutation()
   const { register, handleSubmit, reset } = useForm<FormDataAddCommentField>({
@@ -34,12 +35,16 @@ export const AddCommentField = (props: Props) => {
     [s.disabled]: isDisabled,
   })
   const onSubmitHandler: SubmitHandler<FormDataAddCommentField> = async ({ comment }) => {
-    try {
-      await addComment({ text: comment, postId }).unwrap()
-    } catch (error) {
-      console.error(error)
-    } finally {
-      reset()
+    if (isSendPermissionRef.current) {
+      isSendPermissionRef.current = false
+      try {
+        await addComment({ text: comment, postId }).unwrap()
+      } catch (error) {
+        console.error(error)
+      } finally {
+        isSendPermissionRef.current = true
+        reset()
+      }
     }
   }
   return (
