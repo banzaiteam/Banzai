@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useGetMeQuery } from '@shared/api/userApi'
 import type { ShowPostProps } from '@features/showPost/ui/ShowPost'
 import { showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
@@ -10,22 +10,21 @@ import { useAppSelector } from '@shared/hooks/useAppSelector'
 
 export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()
-  const [isNeedHydrate, setIsNeedHydrate] =
-    useState(
-      !!initialPostData
-    ) /*for update after request(add comment), to we`ll see +1 comment in the list-comments*/
-
   const initialPost = initialPostData?.items[0]
   const postId = id || initialPost?.id
   const postDataFromCache = useAppSelector(
     state => showPostApi.endpoints.getPostData.select(postId as string)(state).data
   )
+  const isNeedHydrateRef = useRef(
+    !!initialPostData?.items && !postDataFromCache?.items
+  ) /*for update after request(add comment), to we`ll see +1 comment in the list-comments*/
+
   const {
     data: postDataFromQuery,
     isFetching,
     isLoading,
   } = useGetPostDataQuery(postId as string, {
-    skip: isNeedHydrate,
+    skip: isNeedHydrateRef.current,
   })
 
   const dispatch = useAppDispatch()
@@ -54,11 +53,9 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
     e.preventDefault()
   }
   useEffect(() => {
-    if (isNeedHydrate) {
-      if (initialPostData && !postDataFromCache) {
-        dispatch(showPostApi.util.upsertQueryData('getPostData', postId, initialPostData))
-      }
-      setIsNeedHydrate(false)
+    if (isNeedHydrateRef.current && initialPostData) {
+      dispatch(showPostApi.util.upsertQueryData('getPostData', postId, initialPostData))
+      isNeedHydrateRef.current = false
     }
   }, [])
 
