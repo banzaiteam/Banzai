@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
 import { AnswerButton } from '@features/showPost/components/answerButton/AnswerButton'
+import { ROUTES } from '@shared/constants/routes'
 
 export type CommentProps = {
   title: string
@@ -13,10 +14,11 @@ export type CommentProps = {
   image: string | StaticImageData
   like?: boolean
   likes: number
+  userId: string
 }
 /*TODO ДОДЕЛАТЬ a8y*/
 export const Comment = (props: CommentProps) => {
-  const { like, title, text, likes, image } = props
+  const { like, title, text, likes, image, userId } = props
   const onClickLikeHandler = () => {
     alert('like')
   }
@@ -27,25 +29,31 @@ export const Comment = (props: CommentProps) => {
     <div className={s.comment} aria-labelledby="comment-title" aria-describedby="comment-content">
       <div className={s.section}>
         <div className={s.avatar_wrapper}>
-          <CircleImage>
-            <Image
-              src={image}
-              alt={`Аватар пользователя ${'userName'}`}
-              width={36}
-              height={36}
-              aria-hidden="true"
-            />
-          </CircleImage>
+          <Link
+            href={ROUTES.profile(userId)}
+            className={s.url}
+            aria-label={`Профиль пользователя ${'userName'}`}
+          >
+            <CircleImage>
+              <Image
+                src={image}
+                alt={`Аватар пользователя ${'userName'}`}
+                width={36}
+                height={36}
+                aria-hidden="true"
+              />
+            </CircleImage>
+          </Link>
         </div>
         <div className={s.comment_text}>
           <Scroll className={s.scroll} aria-label="Текст комментария">
             <Typography variant={'regular_text_14'} id="comment-content">
               <Link
-                href={title}
+                href={ROUTES.profile(userId)}
                 className={s.url}
                 aria-label={`Профиль пользователя ${'userName'}`}
               >
-                UrlProfile
+                {title}
               </Link>{' '}
               {text}
             </Typography>

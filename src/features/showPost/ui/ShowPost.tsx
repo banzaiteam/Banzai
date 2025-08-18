@@ -53,9 +53,19 @@ export const ShowPost = (props: ShowPostProps) => {
     handleCloseEditModal,
   } = usePostMeatballsMenuItems(isOwnerPost)
 
-  const commentsMapped = comments?.map(({ text, likes }, index) => {
+  const commentsMapped = comments?.map(({ text, likes, userId, id }) => {
     const { like, image, title } = { title: 'userName', image: user, like: false }
-    return <Comment key={index} text={text} title={title} image={image} like={like} likes={likes} />
+    return (
+      <Comment
+        key={id}
+        userId={userId}
+        text={text}
+        title={title}
+        image={image}
+        like={like}
+        likes={likes}
+      />
+    )
   })
   return (
     <>
