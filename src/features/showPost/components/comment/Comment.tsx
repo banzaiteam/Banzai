@@ -15,12 +15,10 @@ export type CommentProps = {
   like?: boolean
   likes: null | number /*fixik Nullable*/
   userId: string
-  isDescription?: boolean
 }
 /*TODO ДОДЕЛАТЬ a8y*/
 export const Comment = (props: CommentProps) => {
-  const { like, title, text, likes, image, userId, isDescription = false } = props
-  const isShowCommentInteractive = !isDescription
+  const { like, title, text, likes, image, userId } = props
   const onClickLikeHandler = () => {
     alert('like')
   }
@@ -53,10 +51,7 @@ export const Comment = (props: CommentProps) => {
           </Link>
         </div>
         <div className={s.comment_text}>
-          <Scroll
-            className={s.scroll}
-            aria-label={isDescription ? 'Текст описания' : 'Текст комментария'}
-          >
+          <Scroll className={s.scroll} aria-label={'Текст комментария'}>
             <Typography variant={'regular_text_14'} id="comment-content">
               <Link
                 href={ROUTES.profile(userId)}
@@ -72,41 +67,40 @@ export const Comment = (props: CommentProps) => {
             <time aria-label={`Опубликовано ${'timeAgo'}`}>
               <Typography variant={'small_text'}>2 Hours ago</Typography>
             </time>
-            {!!likes && isShowCommentInteractive && (
+            {!!likes && (
               <span aria-label={`Количество лайков: ${likes}`}>
                 <Typography variant={'semi_bold_small_text'}>Like: {likes}</Typography>
               </span>
             )}
-            {isShowCommentInteractive && <AnswerButton onClick={onClickAnswerHandler} />}
+            {<AnswerButton onClick={onClickAnswerHandler} />}
           </div>
         </div>
       </div>
-      {isShowCommentInteractive && (
-        <div className={s.heart_wrapper}>
-          {like ? (
-            <button type={'button'} aria-label="Убрать лайк">
-              <Heart
-                className={s.heart}
-                height={20}
-                width={20}
-                viewBox={'0 0 24 24'}
-                aria-hidden="true"
-                onClick={onClickLikeHandler}
-              />
-            </button>
-          ) : (
-            <button type={'button'} aria-label="Поставить лайк">
-              <HeartOutline
-                height={20}
-                width={20}
-                viewBox={'0 0 24 24'}
-                aria-hidden="true"
-                onClick={onClickLikeHandler}
-              />
-            </button>
-          )}
-        </div>
-      )}
+
+      <div className={s.heart_wrapper}>
+        {like ? (
+          <button type={'button'} aria-label="Убрать лайк">
+            <Heart
+              className={s.heart}
+              height={20}
+              width={20}
+              viewBox={'0 0 24 24'}
+              aria-hidden="true"
+              onClick={onClickLikeHandler}
+            />
+          </button>
+        ) : (
+          <button type={'button'} aria-label="Поставить лайк">
+            <HeartOutline
+              height={20}
+              width={20}
+              viewBox={'0 0 24 24'}
+              aria-hidden="true"
+              onClick={onClickLikeHandler}
+            />
+          </button>
+        )}
+      </div>
     </div>
   )
 }

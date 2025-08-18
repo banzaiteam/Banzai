@@ -23,6 +23,7 @@ import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
 import user from '@/assets/images/User.png'
 import { AddCommentField } from '@features/showPost/components/addCommentField/AddCommentField'
 import { useTranslations } from 'next-intl'
+import { DescriptionPost } from '@features/showPost/components/descriptionPost/DescriptionPost'
 
 export type ShowPostProps = {
   onClose?: (value: boolean) => void
@@ -132,13 +133,11 @@ export const ShowPost = (props: ShowPostProps) => {
                   ) : (
                     <>
                       {!!description && (
-                        <Comment
+                        <DescriptionPost
                           title={'userName'}
-                          text={description}
-                          likes={null}
+                          description={description}
                           image={user}
                           userId={userId}
-                          isDescription={true}
                         />
                       )}
                       {commentsMapped}
