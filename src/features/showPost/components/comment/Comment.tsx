@@ -5,7 +5,7 @@ import { Scroll, Typography } from '@shared/ui'
 import Link from 'next/link'
 import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
-import { useTranslations } from 'next-intl'
+import { AnswerButton } from '@features/showPost/components/answerButton/AnswerButton'
 
 export type CommentProps = {
   title: string
@@ -17,8 +17,12 @@ export type CommentProps = {
 /*TODO ДОДЕЛАТЬ a8y*/
 export const Comment = (props: CommentProps) => {
   const { like, title, text, likes, image } = props
-  const t = useTranslations('Comment')
-
+  const onClickLikeHandler = () => {
+    alert('like')
+  }
+  const onClickAnswerHandler = () => {
+    alert('answer')
+  }
   return (
     <div className={s.comment} aria-labelledby="comment-title" aria-describedby="comment-content">
       <div className={s.section}>
@@ -55,11 +59,7 @@ export const Comment = (props: CommentProps) => {
                 <Typography variant={'semi_bold_small_text'}>Like: {likes}</Typography>
               </span>
             )}
-            {like !== undefined && (
-              <span>
-                <Typography variant={'semi_bold_small_text'}>{t('AnswerButton')}</Typography>
-              </span>
-            )}
+            {like !== undefined && <AnswerButton onClick={onClickAnswerHandler} />}
           </div>
         </div>
       </div>
@@ -73,11 +73,18 @@ export const Comment = (props: CommentProps) => {
                 width={20}
                 viewBox={'0 0 24 24'}
                 aria-hidden="true"
+                onClick={onClickLikeHandler}
               />
             </button>
           ) : (
             <button type={'button'} aria-label="Поставить лайк">
-              <HeartOutline height={20} width={20} viewBox={'0 0 24 24'} aria-hidden="true" />
+              <HeartOutline
+                height={20}
+                width={20}
+                viewBox={'0 0 24 24'}
+                aria-hidden="true"
+                onClick={onClickLikeHandler}
+              />
             </button>
           )}
         </div>
