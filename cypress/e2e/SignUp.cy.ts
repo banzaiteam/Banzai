@@ -32,10 +32,10 @@ describe('signUp tests', () => {
   })
 
   it('passes', () => {
-    cy.get('[data-id="username-field"]').type('Andrew')
-    cy.get('[data-id="email-field"]').type('andrew@mail.ru')
-    cy.get('[data-id="password-field"]').type('asdasdA!1')
-    cy.get('[data-id="confirm-password-field"]').type('asdasdA!1')
+    cy.get('[data-id="username-field"]').type(Cypress.env('user').signUpUsername)
+    cy.get('[data-id="email-field"]').type(Cypress.env('user').signUpEmail)
+    cy.get('[data-id="password-field"]').type(Cypress.env('user').signUpPassword)
+    cy.get('[data-id="confirm-password-field"]').type(Cypress.env('user').signUpPassword)
 
     // Выбрать чекбокс
     cy.get('[data-id="agreement"]').click().click()

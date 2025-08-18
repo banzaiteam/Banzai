@@ -28,7 +28,12 @@ export const Comment = (props: CommentProps) => {
     alert('answer')
   }
   return (
-    <div className={s.comment} aria-labelledby="comment-title" aria-describedby="comment-content">
+    <div
+      data-id="post-comment-item"
+      className={s.comment}
+      aria-labelledby="comment-title"
+      aria-describedby="comment-content"
+    >
       <div className={s.section}>
         <div className={s.avatar_wrapper}>
           <Link

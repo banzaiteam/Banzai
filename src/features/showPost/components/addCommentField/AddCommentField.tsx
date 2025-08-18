@@ -52,7 +52,7 @@ export const AddCommentField = (props: Props) => {
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         <div className={s.add_comment_wrapper} aria-label="Add a comment">
           <TextField.Root
-            id="comment-input"
+            data-id="comment-input"
             type="text"
             variant={'soft'}
             placeholder={'Add a Comment...'}
@@ -65,6 +65,7 @@ export const AddCommentField = (props: Props) => {
           />
 
           <Button
+            data-id="publish-comment-btn"
             disabled={isDisabled}
             variant={'text-button'}
             type={'submit'}

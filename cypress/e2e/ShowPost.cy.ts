@@ -1,4 +1,4 @@
-const POST_ID = 'e2613bb6-7b6e-4e64-9c66-472c58b9b578'
+const POST_ID = Cypress.env('postId')
 const API_URL = `${Cypress.env('NEXT_PUBLIC_BASE_URL')}/posts`
 const USER_URL = `${Cypress.env('NEXT_PUBLIC_BASE_URL')}/auth/me`
 export const beforeEachFunction = () => {
@@ -37,7 +37,7 @@ describe('ShowPost Component E2E Tests', () => {
 
   it('1. Закрывает пост по клику на крестик', () => {
     // Используем force:true для скрытого элемента
-    cy.get('[aria-label="Close post dialog"]', { timeout: 10000 }).click({ force: true })
+    cy.get('[aria-label="Close post dialog"]').click({ force: true })
 
     // Проверяем, что вернулись на предыдущую страницу
     cy.url().should('not.include', `/posts/${POST_ID}`)
@@ -53,6 +53,6 @@ describe('ShowPost Component E2E Tests', () => {
     cy.visit(`/posts/${POST_ID}`)
 
     // Проверяем отсутствие меню
-    cy.get('[aria-label="Post options"]', { timeout: 10000 }).should('not.exist')
+    cy.get('[aria-label="Post options"]').should('not.exist')
   })
 })
