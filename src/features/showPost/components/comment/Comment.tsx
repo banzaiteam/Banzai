@@ -13,12 +13,14 @@ export type CommentProps = {
   text: string
   image: string | StaticImageData
   like?: boolean
-  likes: number
+  likes: null | number /*fixik Nullable*/
   userId: string
+  isDescription?: boolean
 }
 /*TODO ДОДЕЛАТЬ a8y*/
 export const Comment = (props: CommentProps) => {
-  const { like, title, text, likes, image, userId } = props
+  const { like, title, text, likes, image, userId, isDescription = false } = props
+  const isShowCommentInteractive = !isDescription
   const onClickLikeHandler = () => {
     alert('like')
   }
@@ -46,7 +48,10 @@ export const Comment = (props: CommentProps) => {
           </Link>
         </div>
         <div className={s.comment_text}>
-          <Scroll className={s.scroll} aria-label="Текст комментария">
+          <Scroll
+            className={s.scroll}
+            aria-label={isDescription ? 'Текст описания' : 'Текст комментария'}
+          >
             <Typography variant={'regular_text_14'} id="comment-content">
               <Link
                 href={ROUTES.profile(userId)}
@@ -62,16 +67,16 @@ export const Comment = (props: CommentProps) => {
             <time aria-label={`Опубликовано ${'timeAgo'}`}>
               <Typography variant={'small_text'}>2 Hours ago</Typography>
             </time>
-            {!!likes && (
+            {!!likes && isShowCommentInteractive && (
               <span aria-label={`Количество лайков: ${likes}`}>
                 <Typography variant={'semi_bold_small_text'}>Like: {likes}</Typography>
               </span>
             )}
-            {like !== undefined && <AnswerButton onClick={onClickAnswerHandler} />}
+            {isShowCommentInteractive && <AnswerButton onClick={onClickAnswerHandler} />}
           </div>
         </div>
       </div>
-      {like !== undefined && (
+      {isShowCommentInteractive && (
         <div className={s.heart_wrapper}>
           {like ? (
             <button type={'button'} aria-label="Убрать лайк">

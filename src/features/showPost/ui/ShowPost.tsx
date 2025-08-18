@@ -42,6 +42,7 @@ export const ShowPost = (props: ShowPostProps) => {
     comments,
     postId,
     isOwnerPost,
+    post: { description, userId },
   } = useShowPost({ onClose, id, initialPostData })
   const {
     meatballsMenuItems,
@@ -129,7 +130,19 @@ export const ShowPost = (props: ShowPostProps) => {
                       <SkeletonComment />
                     </>
                   ) : (
-                    <>{commentsMapped}</>
+                    <>
+                      {!!description && (
+                        <Comment
+                          title={'userName'}
+                          text={description}
+                          likes={null}
+                          image={user}
+                          userId={userId}
+                          isDescription={true}
+                        />
+                      )}
+                      {commentsMapped}
+                    </>
                   )}
                 </div>
               </Scroll>

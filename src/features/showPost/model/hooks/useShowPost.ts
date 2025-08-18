@@ -71,5 +71,6 @@ export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => 
     comments,
     postId,
     isOwnerPost,
+    post,
   }
 }
