@@ -15,7 +15,7 @@ export const beforeEachFunction = () => {
 describe('ShowPost Component E2E Tests', () => {
   beforeEach(beforeEachFunction)
 
-  it('1.', () => {
+  it('1. add comment', () => {
     let initialCount: number
 
     // 1. Получаем начальное количество
