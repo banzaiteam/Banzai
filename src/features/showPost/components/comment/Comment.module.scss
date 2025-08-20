@@ -6,10 +6,10 @@
   @media screen and (max-width: 768px) {
     column-gap: 12px;
   }
-  .section {
+  .body {
     display: flex;
     column-gap: 12px;
-    flex: 95% 1 1;
+    /*  flex: 95% 1 1;*/
   }
   .avatar_wrapper {
     padding: 5px 0;

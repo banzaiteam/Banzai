@@ -22,6 +22,7 @@ export type FileData = {
   postId: string
 }
 export type PostData = {
+  avatar: string
   id: string
   userId: string
   isPublished: boolean

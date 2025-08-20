@@ -43,7 +43,7 @@ export const ShowPost = (props: ShowPostProps) => {
     comments,
     postId,
     isOwnerPost,
-    post: { description, userId },
+    post: { description, userId, avatar },
   } = useShowPost({ onClose, id, initialPostData })
   const {
     meatballsMenuItems,
@@ -54,7 +54,6 @@ export const ShowPost = (props: ShowPostProps) => {
     setOpenVerifyDeleteModal,
     handleCloseEditModal,
   } = usePostMeatballsMenuItems(isOwnerPost)
-
   const commentsMapped = comments?.map(({ text, likes, userId, id }) => {
     const { like, image, title } = { title: 'userName', image: user, like: false }
     return (
@@ -103,7 +102,7 @@ export const ShowPost = (props: ShowPostProps) => {
                     <SkeletonCircle size={36} aria-label="Loading user avatar" />
                   ) : (
                     <CircleImage>
-                      <Image src={user} alt={'User profile picture'} width={36} height={36} />
+                      <Image src={avatar} alt={'User profile picture'} width={36} height={36} />
                     </CircleImage>
                   )}
 
@@ -136,7 +135,7 @@ export const ShowPost = (props: ShowPostProps) => {
                         <DescriptionPost
                           title={'userName'}
                           description={description}
-                          image={user}
+                          image={avatar}
                           userId={userId}
                         />
                       )}

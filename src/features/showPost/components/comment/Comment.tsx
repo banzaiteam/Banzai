@@ -32,7 +32,7 @@ export const Comment = (props: CommentProps) => {
       aria-labelledby="comment-title"
       aria-describedby="comment-content"
     >
-      <div className={s.section}>
+      <div className={s.body}>
         <div className={s.avatar_wrapper}>
           <Link
             href={ROUTES.profile(userId)}
