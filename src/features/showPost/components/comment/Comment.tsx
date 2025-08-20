@@ -7,13 +7,14 @@ import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
 import { AnswerButton } from '@features/showPost/components/answerButton/AnswerButton'
 import { ROUTES } from '@shared/constants/routes'
+import { Nullable } from '@/shared/types/nullable'
 
 export type CommentProps = {
   title: string
   text: string
   image: string | StaticImageData
   like?: boolean
-  likes: null | number /*fixik Nullable*/
+  likes: Nullable<number>
   userId: string
 }
 /*TODO ДОДЕЛАТЬ a8y*/

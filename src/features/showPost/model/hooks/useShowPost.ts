@@ -9,7 +9,9 @@ import { notFound } from 'next/navigation'
 import { useAppSelector } from '@shared/hooks/useAppSelector'
 import { ROUTES } from '@shared/constants/routes'
 
-export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => {
+type UseShowPostData = Omit<ShowPostProps, 'initialFindOneUserData'>
+
+export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) => {
   const { data: meData } = useGetMeQuery()
   const initialPost = initialPostData?.items[0]
   const postId = id || initialPost?.id

@@ -5,6 +5,7 @@ import s from './ShowPost.module.scss'
 import {
   Comment,
   EngagementInfo,
+  type FindOneUserDataResponse,
   type PostDataResponse,
   SkeletonComment,
   SwiperImagesPost,
@@ -26,13 +27,20 @@ import { useTranslations } from 'next-intl'
 import { DescriptionPost } from '@features/showPost/components/descriptionPost/DescriptionPost'
 
 export type ShowPostProps = {
-  onClose?: (value: boolean) => void
   id?: string
+  onClose?: (value: boolean) => void
   initialPostData?: PostDataResponse
+  initialFindOneUserData: FindOneUserDataResponse
 }
 
 export const ShowPost = (props: ShowPostProps) => {
-  const { onClose, id, initialPostData, ...rest } = props
+  const {
+    onClose,
+    id,
+    initialPostData,
+    initialFindOneUserData: { username, url: avatar },
+    ...rest
+  } = props
   const t = useTranslations('VerifyDeleteModal')
   const {
     onCloseHandler,
@@ -43,7 +51,7 @@ export const ShowPost = (props: ShowPostProps) => {
     comments,
     postId,
     isOwnerPost,
-    post: { description, userId, avatar },
+    post: { description, userId },
   } = useShowPost({ onClose, id, initialPostData })
   const {
     meatballsMenuItems,
@@ -110,7 +118,7 @@ export const ShowPost = (props: ShowPostProps) => {
                     <Skeleton width={'100px'} aria-label="Loading username" />
                   ) : (
                     <Typography variant={'h3'} id="post-username">
-                      UserName
+                      {username}
                     </Typography>
                   )}
                 </div>
@@ -133,7 +141,7 @@ export const ShowPost = (props: ShowPostProps) => {
                     <>
                       {!!description && (
                         <DescriptionPost
-                          title={'userName'}
+                          title={username}
                           description={description}
                           image={avatar}
                           userId={userId}

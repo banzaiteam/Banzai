@@ -38,5 +38,17 @@ export type PostDataResponse = {
   page: number
   totalItems: number
 }
+export type FindOneUserDataResponse = {
+  id: string
+  username: string
+  email: string
+  url: string
+  verified: boolean
+  profile: {
+    id: string
+    aboutMe: Nullable<string>
+    username: string
+  }
+}
 export type DeletePostResponse = {}
 export type AddCommentResponse = {}
