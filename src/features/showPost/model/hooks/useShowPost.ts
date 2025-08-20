@@ -7,6 +7,7 @@ import { usePreviousPath } from '@/features'
 import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { notFound } from 'next/navigation'
 import { useAppSelector } from '@shared/hooks/useAppSelector'
+import { ROUTES } from '@shared/constants/routes'
 
 export const useShowPost = ({ onClose, id, initialPostData }: ShowPostProps) => {
   const { data: meData } = useGetMeQuery()

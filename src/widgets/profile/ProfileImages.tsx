@@ -54,7 +54,7 @@ export const ProfileImages = () => {
             if (!file) return null
 
             return (
-              <Link key={file.id + index} href={ROUTES.post(post.id)}>
+              <Link key={file.id + index} href={`profile/${'id123'}/${ROUTES.post(post.id)}`}>
                 <Image
                   src={file.url}
                   alt={`Post ${post.id}`}
