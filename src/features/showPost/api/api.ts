@@ -5,13 +5,7 @@ import { userApi } from '@shared/api/userApi'
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPostData: build.query<PostDataResponse, string>({
-      query: postId => ({
-        url: `/posts`,
-        method: 'GET',
-        params: {
-          filter: `id:eq:${postId}`,
-        },
-      }),
+      query: postId => `/posts?filter=id:eq:${postId}`,
       keepUnusedDataFor: 9999999,
       providesTags: (result, error, postId) => [{ type: 'Post', id: postId }],
     }),
