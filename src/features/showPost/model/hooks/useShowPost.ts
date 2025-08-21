@@ -31,7 +31,6 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
   })
 
   const dispatch = useAppDispatch()
-  const isOwnerPost = meData?.id === postId
 
   if (!postId) {
     throw new Error('ID не найден')
@@ -40,6 +39,7 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
   if (!post) {
     notFound()
   }
+  const isOwnerPost = meData?.id === post.userId
   const routerBack = usePreviousPath('/profile')
   /*       Раскоментировать когда будет profile->[id]->page.tsx     */
   /*const routerBack = usePreviousPath(ROUTES.profile(post?.userId as string))*/

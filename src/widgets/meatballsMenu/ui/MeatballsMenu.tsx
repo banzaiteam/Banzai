@@ -14,11 +14,11 @@ type Props = {
 }
 
 export const MeatballsMenu = (props: Props) => {
-  const { items, isOpen, toggleOpen, disabled = false, menuLabel = 'Actions' } = props
+  const { items, isOpen, toggleOpen, menuLabel = 'Actions' } = props
 
   const styles = clsx(s.button, {
     [s.open]: isOpen,
-    [s.disabled]: disabled,
+    /* [s.disabled]: disabled,*/
   })
   const itemsMapped = items.map((item: MeatballsMenuItemData, index) => (
     <MeatballsMenuItem key={index} {...item} />
@@ -53,7 +53,7 @@ export const MeatballsMenu = (props: Props) => {
         aria-expanded={isOpen}
         aria-controls="meatballs-menu"
         data-id={'meatballs-menu-btn'}
-        disabled={disabled}
+        /*disabled={disabled}*/
       >
         <MoreHorizontalOutline />
       </button>

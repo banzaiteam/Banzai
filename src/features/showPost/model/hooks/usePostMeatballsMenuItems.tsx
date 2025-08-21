@@ -51,9 +51,7 @@ export const usePostMeatballsMenuItems = (isOwnerPost: boolean) => {
       },
     },
   ]
-  const meatballsMenuItems = !isOwnerPost
-    ? myPostMeatballsMenuItems
-    : notMyPostMeatballsMenuItems /*НУЖНО БУДЕТ УБРАТЬ !*/
+  const meatballsMenuItems = isOwnerPost ? myPostMeatballsMenuItems : notMyPostMeatballsMenuItems
   const handleCloseEditModal = () => setIsEditing(false)
   return {
     meatballsMenuItems,
