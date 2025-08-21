@@ -8,10 +8,10 @@ export type PostPageProps = {
 }
 
 export const PostPage = async ({ params }: PostPageProps) => {
-  const postId = (await params).id
+  const postIdFromParams = (await params).id
 
   const initialPostData = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/posts?filter=id:eq:${postId}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/posts?filter=id:eq:${postIdFromParams}`
   ).then(res => res.json())
   const initialFindOneUserData = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/users/findone?id=${initialPostData.items[0].userId}`
@@ -21,7 +21,7 @@ export const PostPage = async ({ params }: PostPageProps) => {
     <ShowPost
       initialFindOneUserData={initialFindOneUserData}
       initialPostData={initialPostData}
-      id={postId}
+      id={postIdFromParams}
     />
   )
 }
