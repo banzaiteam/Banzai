@@ -3,11 +3,9 @@ import React from 'react'
 import Image from 'next/image'
 import s from './ShowPost.module.scss'
 import {
-  Comment,
   EngagementInfo,
   type FindOneUserDataResponse,
   type PostDataResponse,
-  SkeletonComment,
   SwiperImagesPost,
   usePostMeatballsMenuItems,
   useShowPost,
@@ -20,11 +18,10 @@ import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
 import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
 import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
-
-import user from '@/assets/images/User.png'
 import { AddCommentField } from '@features/showPost/components/addCommentField/AddCommentField'
 import { useTranslations } from 'next-intl'
 import { DescriptionPost } from '@features/showPost/components/descriptionPost/DescriptionPost'
+import { Comments } from '@features/showPost/components/comments/Comments'
 
 export type ShowPostProps = {
   id?: string
@@ -62,20 +59,7 @@ export const ShowPost = (props: ShowPostProps) => {
     setOpenVerifyDeleteModal,
     handleCloseEditModal,
   } = usePostMeatballsMenuItems(isOwnerPost)
-  const commentsMapped = comments?.map(({ text, likes, userId, id }) => {
-    const { like, image, title } = { title: 'userName', image: user, like: false }
-    return (
-      <Comment
-        key={id}
-        userId={userId}
-        text={text}
-        title={title}
-        image={image}
-        like={like}
-        likes={likes}
-      />
-    )
-  })
+
   return (
     <>
       <Popup open={true} {...rest} onOpenChange={onCloseHandler} size={'xl'}>
@@ -130,28 +114,16 @@ export const ShowPost = (props: ShowPostProps) => {
                   aria-label="Post-options"
                 />
               </div>
-              <Scroll className={s.scroll} aria-label="Post comments">
-                <div className={s.comments}>
-                  {isLoading ? (
-                    <>
-                      <SkeletonComment />
-                      <SkeletonComment />
-                    </>
-                  ) : (
-                    <>
-                      {!!description && (
-                        <DescriptionPost
-                          title={username}
-                          description={description}
-                          image={avatar}
-                          userId={userId}
-                        />
-                      )}
-                      {commentsMapped}
-                    </>
-                  )}
-                </div>
-              </Scroll>
+              <Comments comments={comments}>
+                {!!description && (
+                  <DescriptionPost
+                    title={username}
+                    description={description}
+                    image={avatar}
+                    userId={userId}
+                  />
+                )}
+              </Comments>
               <EngagementInfo postId={postId} postData={initialPostData} />
               <AddCommentField postId={postId} />
             </div>

@@ -1,13 +1,12 @@
 import s from './Comment.module.scss'
-import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import Image, { type StaticImageData } from 'next/image'
-import { Scroll, Typography } from '@shared/ui'
+import { CircleImage, Scroll, Typography } from '@shared/ui'
 import Link from 'next/link'
 import { Heart, HeartOutline } from '@/assets/icons/components'
 import React from 'react'
-import { AnswerButton } from '@features/showPost/components/answerButton/AnswerButton'
 import { ROUTES } from '@shared/constants/routes'
-import { Nullable } from '@/shared/types/nullable'
+import { Nullable } from '@shared/types/nullable'
+import { AnswerButton } from '@/features'
 
 export type CommentProps = {
   title: string

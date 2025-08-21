@@ -1,5 +1,5 @@
 import React from 'react'
-import s from '../../components/comment/Comment.module.scss'
+import s from '@features/showPost/components/comments/comment/Comment.module.scss'
 import Link from 'next/link'
 import { ROUTES } from '@shared/constants/routes'
 import { CircleImage, Scroll, Typography } from '@shared/ui'
