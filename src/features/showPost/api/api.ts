@@ -1,14 +1,34 @@
 import { baseApi } from '@shared/api/baseApi'
-import type { AddCommentResponse, DeletePostResponse, PostDataResponse } from '@/features'
+import {
+  type AddCommentResponse,
+  type CommentPost,
+  type DeletePostResponse,
+  type GetPostDataResponse,
+  getPostDataSchema,
+} from '@/features'
 import { userApi } from '@shared/api/userApi'
+
+import { z } from 'zod'
 
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getPostData: build.query<PostDataResponse, string>({
+    getPostData: build.query<GetPostDataResponse, string>({
       query: postId => `/posts?filter=id:eq:${postId}`,
       keepUnusedDataFor: 9999999,
       providesTags: (result, error, postId) => [{ type: 'Post', id: postId }],
+      transformResponse: (response: GetPostDataResponse) => {
+        try {
+          getPostDataSchema.parse(response)
+        } catch (err) {
+          if (err instanceof z.ZodError) {
+            console.table(err.issues)
+          }
+        }
+        return response
+      },
+      /* extraOptions:{dataSchema:getPostDataSchema},*/
     }),
+
     deletePost: build.mutation<DeletePostResponse, string>({
       query: postId => ({
         url: `/posts/${postId}`,
@@ -28,7 +48,7 @@ export const showPostApi = baseApi.injectEndpoints({
             const comments = state.items[0].comments
             const nowDate = new Date().toISOString().split('T')[0]
             if (comments && cashMe) {
-              const comment = {
+              const comment: CommentPost = {
                 id: `client-${Date.now()}`,
                 createdAt: nowDate,
                 updatedAt: nowDate,
@@ -39,7 +59,6 @@ export const showPostApi = baseApi.injectEndpoints({
                 parentId: null,
               }
               comments.push(comment)
-              console.log(comments)
             }
           })
         )

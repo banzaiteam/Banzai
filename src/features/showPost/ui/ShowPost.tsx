@@ -5,7 +5,7 @@ import s from './ShowPost.module.scss'
 import {
   EngagementInfo,
   type FindOneUserDataResponse,
-  type PostDataResponse,
+  type GetPostDataResponse,
   SwiperImagesPost,
   usePostMeatballsMenuItems,
   useShowPost,
@@ -26,7 +26,7 @@ import { Comments } from '@features/showPost/components/comments/Comments'
 export type ShowPostProps = {
   id?: string
   onClose?: (value: boolean) => void
-  initialPostData?: PostDataResponse
+  initialPostData?: GetPostDataResponse
   initialFindOneUserData: FindOneUserDataResponse
 }
 

@@ -7,11 +7,11 @@ import Image from 'next/image'
 import user from '@/assets/images/User.png'
 import { Typography } from '@shared/ui'
 import { useGetPostDataQuery } from '@features/showPost/api/api'
-import type { PostDataResponse } from '@/features'
+import type { GetPostDataResponse } from '@/features'
 
 type Props = {
   postId: string
-  postData?: PostDataResponse
+  postData?: GetPostDataResponse
 } & ComponentPropsWithoutRef<'div'>
 
 export const EngagementInfo = (props: Props) => {
