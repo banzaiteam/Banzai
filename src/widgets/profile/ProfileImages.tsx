@@ -8,6 +8,7 @@ import Image from 'next/image'
 import styles from './ProfileImages.module.scss'
 
 type Post = {
+  userId: any
   id: string
   files: File[]
 }
@@ -54,7 +55,7 @@ export const ProfileImages = () => {
             if (!file) return null
 
             return (
-              <Link key={file.id + index} href={`profile/${'id123'}/${ROUTES.post(post.id)}`}>
+              <Link key={file.id + index} href={`/profile/${post.userId}/${ROUTES.post(post.id)}`}>
                 <Image
                   src={file.url}
                   alt={`Post ${post.id}`}
