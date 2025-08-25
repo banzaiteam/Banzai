@@ -7,6 +7,7 @@ import { use } from 'react'
 import enMessages from '@/messages/en.json'
 import ruMessages from '@/messages/ru.json'
 import { Header } from '@widgets/header/ui/Header'
+import { useNavigationTracker } from '@shared/hooks/useNavigationTracker'
 
 // 1. Define supported locales as a union type
 export type Locale = 'en' | 'ru' // Add all supported locales
@@ -35,6 +36,7 @@ export default function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = use(params)
+  useNavigationTracker() // Активируем трекинг
   if (!isLocale(locale)) {
     throw new Error(`Unsupported locale: ${locale}`)
   }

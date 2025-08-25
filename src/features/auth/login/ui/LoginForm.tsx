@@ -74,6 +74,7 @@ const LoginForm = () => {
         </div>
         <form className={styles.block} onSubmit={handleSubmit(onSubmit)} noValidate>
           <InputEmail
+            data-id="input-email-sign-in"
             placeholder="Enter your email"
             {...register('email')}
             helperText={errors.email?.message}
@@ -81,6 +82,7 @@ const LoginForm = () => {
           />
 
           <InputPassword
+            data-id="input-password-sign-in"
             placeholder="Enter your password"
             {...register('password')}
             helperText={errors.password?.message}
@@ -96,6 +98,7 @@ const LoginForm = () => {
           </Button>
 
           <Button
+            data-id="sign-in-button"
             variant={'primary'}
             className={styles.w100}
             type="submit"
@@ -112,7 +115,7 @@ const LoginForm = () => {
             variant={'text-button'}
             type="button"
           >
-            <Link href={ROUTES.signUp}>Don't have an account?</Link>
+            <Link href={ROUTES.signUp}>Don&#39;t have an account?</Link>
           </Button>
           <Button
             className={`${styles.w100} ${styles.btnBottom}`}

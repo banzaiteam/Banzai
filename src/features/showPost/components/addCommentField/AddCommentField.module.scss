@@ -1,0 +1,32 @@
+.add_comment {
+  &.disabled {
+    /* margin: 0 -10px;*/
+  }
+  & .add_comment_wrapper {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0 -5px;
+    @media screen and (max-width: 768px) {
+      padding: 5px;
+    }
+    & > div > button {
+      padding: 0 8px;
+      font-size: 14px;
+    }
+    & > .text_field_root {
+      width: 100%;
+      flex-grow: 1;
+
+      & input::selection {
+        background-color: #0078d7;
+        color: var(--light-100);
+      }
+      & input::placeholder {
+        padding-left: 5px;
+      }
+    }
+  }
+}

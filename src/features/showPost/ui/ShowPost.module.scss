@@ -37,21 +37,6 @@
     flex: 50% 0 0;
     padding-bottom: 55.8%;
     position: relative;
-    img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    /* @media screen and (max-width: 768px) {
-      margin: 0 auto;
-      flex: 0 0 0;
-      padding-bottom: 0;
-      width: 300px;
-      height: 300px;
-      position: static;
-    }*/
   }
   & .comments_block {
     flex: 50% 1 1;
@@ -82,17 +67,6 @@
         display: flex;
         align-items: center;
         column-gap: 12px;
-      }
-    }
-    & .scroll {
-      padding-bottom: 8px;
-      & .comments {
-        height: 335px;
-        padding-top: 20px;
-
-        & > div:not(:last-of-type) {
-          margin-bottom: 15px;
-        }
       }
     }
 
@@ -134,26 +108,6 @@
       }
       & .date {
         color: var(--light-900);
-      }
-    }
-    & .add_comment {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      @media screen and (max-width: 768px) {
-        padding: 5px;
-      }
-      & .add_comment_wrapper {
-        display: flex;
-        justify-content: space-between;
-        column-gap: 8px;
-        & > div > button {
-          padding: 0 8px;
-          font-size: 14px;
-        }
-        & > input {
-          width: 100%;
-          flex-grow: 1;
-        }
       }
     }
   }

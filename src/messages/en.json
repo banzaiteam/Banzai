@@ -4,5 +4,14 @@
   },
   "SignUp": {
     "title": "Sign Up"
+  },
+  "VerifyDeleteModal": {
+    "title": "Delete Post",
+    "textBody": "Are you sure you want to delete this post?",
+    "YesButton": "Yes",
+    "NoButton": "No"
+  },
+  "Comment": {
+    "AnswerButton": "Answer"
   }
 }

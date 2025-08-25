@@ -6,16 +6,19 @@
   @media screen and (max-width: 768px) {
     column-gap: 12px;
   }
-  .section {
+  .body {
     display: flex;
     column-gap: 12px;
-    flex: 95% 1 1;
+    /*  flex: 95% 1 1;*/
   }
   .avatar_wrapper {
     padding: 5px 0;
   }
   .comment_text {
-    flex-grow: 1;
+    flex: 1 1 100%;
+    & .scroll {
+      max-width: 345px;
+    }
     & .url {
       font-weight: 700;
       font-size: 14px;
@@ -27,15 +30,16 @@
       color: var(--light-900);
 
       padding-top: 5px;
-      @media screen and (max-width: 350px) {
+      /*@media screen and (max-width: 350px) {
         & span p {
-          font-size: 11px;
+          font-size: 116px;
         }
-      }
+      }*/
     }
   }
   .heart_wrapper {
     padding: 15px 0;
+    flex: 0 0 16px;
     line-height: 0;
     button {
       line-height: 0;
