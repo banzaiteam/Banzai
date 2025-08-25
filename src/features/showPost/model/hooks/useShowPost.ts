@@ -40,10 +40,10 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
     notFound()
   }
   const isOwnerPost = meData?.id === post.userId
-  const routerBack = usePreviousPath('/profile')
-  /*       Раскоментировать когда будет profile->[id]->page.tsx     */
-  /*const routerBack = usePreviousPath(ROUTES.profile(post?.userId as string))*/
-  /* */
+  /*const routerBack = usePreviousPath('/profile')*/
+  /*  Раскоментировать когда будет profile->[id]->page.tsx    */
+  const routerBack = usePreviousPath(ROUTES.profile(post?.userId as string))
+
   const comments = post?.comments
   const urlImages = post?.files.map(file => file.url)
 
