@@ -1,5 +1,5 @@
 import { baseApi } from '@/shared/api/baseApi'
-import type { LoginResponse, LoginRequest, LoginOutRequest } from '../model/types'
+import type { LoginRequest, LoginResponse } from '../model/types'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -11,17 +11,9 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    loginOut: build.mutation<any, LoginOutRequest>({
-      query: credentials => ({
-        url: 'auth/logout',
-        method: 'POST',
-        body: credentials,
-        credentials: 'include',
-      }),
-    }),
-    loginOut2: build.mutation<any, void>({
+    loginOut: build.mutation<any, void>({
       query: () => ({
-        url: 'auth/logout2',
+        url: 'auth/logout',
         method: 'GET',
         credentials: 'include',
       }),
@@ -29,4 +21,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useLoginInMutation, useLoginOutMutation, useLoginOut2Mutation } = authApi
+export const { useLoginInMutation, useLoginOutMutation } = authApi

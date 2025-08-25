@@ -1,0 +1,11 @@
+.scroll {
+  padding-bottom: 8px !important;
+  & .comments {
+    height: 335px;
+    padding-top: 20px;
+
+    & > div:not(:last-of-type) {
+      margin-bottom: 15px;
+    }
+  }
+}

@@ -1,7 +1,9 @@
-import {Typography} from "@shared/ui";
-
+import { Typography } from '@shared/ui'
 
 export const PostsPage = () => {
-    return <Typography variant={'h2'} as={'h2'}>Posts</Typography>
-};
-
+  return (
+    <Typography variant={'h2'} as={'h2'}>
+      Posts
+    </Typography>
+  )
+}
