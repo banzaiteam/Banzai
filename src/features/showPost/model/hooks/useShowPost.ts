@@ -72,5 +72,6 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
     postId,
     isOwnerPost,
     post,
+    meData,
   }
 }

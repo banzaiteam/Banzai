@@ -9,15 +9,16 @@
   .body {
     display: flex;
     column-gap: 12px;
+    /* flex-grow: 1;*/
     /*  flex: 95% 1 1;*/
   }
   .avatar_wrapper {
     padding: 5px 0;
   }
   .comment_text {
-    flex: 1 1 100%;
+    flex: 1 1 345px;
     & .scroll {
-      max-width: 345px;
+      /* max-width: 345px;*/
     }
     & .url {
       font-weight: 700;
