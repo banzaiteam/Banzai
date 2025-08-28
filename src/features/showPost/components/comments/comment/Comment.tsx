@@ -7,6 +7,7 @@ import React from 'react'
 import { ROUTES } from '@shared/constants/routes'
 import { Nullable } from '@shared/types/nullable'
 import { AnswerButton } from '@/features'
+import { useGetMeQuery } from '@shared/api/userApi'
 
 export type CommentProps = {
   title: string
@@ -19,6 +20,8 @@ export type CommentProps = {
 /*TODO ДОДЕЛАТЬ a8y*/
 export const Comment = (props: CommentProps) => {
   const { like, title, text, likes, image, userId } = props
+  const { data } = useGetMeQuery()
+  const isAuth = !!data
   const onClickLikeHandler = () => {
     alert('like')
   }
@@ -77,30 +80,32 @@ export const Comment = (props: CommentProps) => {
         </div>
       </div>
 
-      <div className={s.heart_wrapper}>
-        {like ? (
-          <button type={'button'} aria-label="Убрать лайк">
-            <Heart
-              className={s.heart}
-              height={20}
-              width={20}
-              viewBox={'0 0 24 24'}
-              aria-hidden="true"
-              onClick={onClickLikeHandler}
-            />
-          </button>
-        ) : (
-          <button type={'button'} aria-label="Поставить лайк">
-            <HeartOutline
-              height={20}
-              width={20}
-              viewBox={'0 0 24 24'}
-              aria-hidden="true"
-              onClick={onClickLikeHandler}
-            />
-          </button>
-        )}
-      </div>
+      {isAuth && (
+        <div className={s.heart_wrapper}>
+          {like ? (
+            <button type={'button'} aria-label="Убрать лайк">
+              <Heart
+                className={s.heart}
+                height={20}
+                width={20}
+                viewBox={'0 0 24 24'}
+                aria-hidden="true"
+                onClick={onClickLikeHandler}
+              />
+            </button>
+          ) : (
+            <button type={'button'} aria-label="Поставить лайк">
+              <HeartOutline
+                height={20}
+                width={20}
+                viewBox={'0 0 24 24'}
+                aria-hidden="true"
+                onClick={onClickLikeHandler}
+              />
+            </button>
+          )}
+        </div>
+      )}
     </div>
   )
 }

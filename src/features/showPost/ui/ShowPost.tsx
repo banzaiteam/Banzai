@@ -11,7 +11,7 @@ import {
   useShowPost,
   VerifyModal,
 } from '@/features'
-import { CircleImage, Popup, Scroll, Typography } from '@shared/ui'
+import { CircleImage, Popup, Typography } from '@shared/ui'
 import { Close, ImageOutline } from '@/assets/icons/components'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
@@ -48,8 +48,10 @@ export const ShowPost = (props: ShowPostProps) => {
     comments,
     postId,
     isOwnerPost,
+    meData,
     post: { description, userId },
   } = useShowPost({ onClose, id, initialPostData })
+  const isAuth = !!meData
   const {
     meatballsMenuItems,
     isOpenMeatballsMenu,
@@ -69,43 +71,44 @@ export const ShowPost = (props: ShowPostProps) => {
         <VisuallyHidden asChild>
           <DialogTitle className={s.hidden_title}>show post</DialogTitle>
         </VisuallyHidden>
-        <Scroll>
-          <div className={s.wrapper} aria-busy={isFetching}>
-            <div className={s.image_wrapper}>
-              {isLoading ? (
-                <Skeleton className={s.skeleton_main_image} aria-label="Loading post content" />
-              ) : urlImages ? (
-                urlImages.length > 0 && <SwiperImagesPost postImages={urlImages} />
-              ) : (
-                <ImageOutline
-                  className={s.io}
-                  viewBox={'0 0 24 24'}
-                  width={'150px'}
-                  height={'150px'}
-                  aria-hidden="true"
-                />
-              )}
-            </div>
+        {/*<Scroll>*/}
+        <div className={s.wrapper} aria-busy={isFetching}>
+          <div className={s.image_wrapper}>
+            {isLoading ? (
+              <Skeleton className={s.skeleton_main_image} aria-label="Loading post content" />
+            ) : urlImages ? (
+              urlImages.length > 0 && <SwiperImagesPost postImages={urlImages} />
+            ) : (
+              <ImageOutline
+                className={s.io}
+                viewBox={'0 0 24 24'}
+                width={'150px'}
+                height={'150px'}
+                aria-hidden="true"
+              />
+            )}
+          </div>
 
-            <div className={s.comments_block}>
-              <div className={s.header}>
-                <div className={s.user}>
-                  {isLoading ? (
-                    <SkeletonCircle size={36} aria-label="Loading user avatar" />
-                  ) : (
-                    <CircleImage>
-                      <Image src={avatar} alt={'User profile picture'} width={36} height={36} />
-                    </CircleImage>
-                  )}
+          <div className={s.comments_block}>
+            <div className={s.header}>
+              <div className={s.user}>
+                {isLoading ? (
+                  <SkeletonCircle size={36} aria-label="Loading user avatar" />
+                ) : (
+                  <CircleImage>
+                    <Image src={avatar} alt={'User profile picture'} width={36} height={36} />
+                  </CircleImage>
+                )}
 
-                  {isLoading ? (
-                    <Skeleton width={'100px'} aria-label="Loading username" />
-                  ) : (
-                    <Typography variant={'h3'} id="post-username">
-                      {username}
-                    </Typography>
-                  )}
-                </div>
+                {isLoading ? (
+                  <Skeleton width={'100px'} aria-label="Loading username" />
+                ) : (
+                  <Typography variant={'h3'} id="post-username">
+                    {username}
+                  </Typography>
+                )}
+              </div>
+              {isAuth && (
                 <MeatballsMenu
                   items={meatballsMenuItems}
                   isOpen={isOpenMeatballsMenu}
@@ -113,22 +116,23 @@ export const ShowPost = (props: ShowPostProps) => {
                   disabled={isLoading}
                   aria-label="Post-options"
                 />
-              </div>
-              <Comments comments={comments}>
-                {!!description && (
-                  <DescriptionPost
-                    title={username}
-                    description={description}
-                    image={avatar}
-                    userId={userId}
-                  />
-                )}
-              </Comments>
-              <EngagementInfo postId={postId} postData={initialPostData} />
-              <AddCommentField postId={postId} />
+              )}
             </div>
+            <Comments comments={comments}>
+              {!!description && (
+                <DescriptionPost
+                  title={username}
+                  description={description}
+                  image={avatar}
+                  userId={userId}
+                />
+              )}
+            </Comments>
+            <EngagementInfo postId={postId} postData={initialPostData} />
+            {isAuth && <AddCommentField postId={postId} />}
           </div>
-        </Scroll>
+        </div>
+        {/*</Scroll>*/}
       </Popup>
       {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
       <VerifyModal

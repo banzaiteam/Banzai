@@ -1,28 +1,19 @@
-'use client'
+import { ProfilePage } from '@/app/pages'
 
-import { useGetMeQuery } from '@shared/api/userApi'
-import { ProfileImages } from '@widgets/profile/ProfileImages'
-import { ProfileInfo } from '@widgets/profile/ProfileInfo'
-import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
-import { useEffect, useState } from 'react'
-
-const ProfilePage = () => {
-  const { isSuccess } = useGetMeQuery()
-  const [isLogIn, setIsLogIn] = useState(false)
-
-  useEffect(() => {
-    setIsLogIn(isSuccess)
-  }, [isSuccess])
-
-  return (
-    <>
-      {isLogIn && <Sidebar />}
-      <main>
-        <ProfileInfo />
-        <ProfileImages />
-      </main>
-    </>
-  )
+export type ProfilePageProps = {
+  params: Promise<{
+    profileId: string
+  }>
 }
 
-export default ProfilePage
+export default async function PageProfile({ params }: ProfilePageProps) {
+  const userIdParam = (await params).profileId
+  const initialProfileData = await fetch(
+    `https://gate.yogram.ru/api/v1/users/${userIdParam}/profile?page=1&limit=8`,
+    {
+      cache: 'no-store',
+    }
+  ).then(res => res.json())
+
+  return <ProfilePage initialProfileData={initialProfileData} userIdParam={userIdParam} />
+}
