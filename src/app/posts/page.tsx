@@ -1,8 +1,7 @@
 import { Scroll, Typography } from '@shared/ui'
 import { cookies } from 'next/headers'
 
-type Props = {}
-const Page = async ({}: Props) => {
+const Page = async () => {
   const cookieStore = await cookies()
   const cookieHeader = cookieStore.toString()
 
@@ -13,8 +12,6 @@ const Page = async ({}: Props) => {
     },
     cache: 'no-store', // всегда свежие данные
   })
-  console.log('response!!!&&&&&&&&&&&&&&&&&&&!!!!' + res)
-  console.log(cookieStore, cookieHeader)
   if (res.status === 401 || res.status === 403) {
     // редирект если не авторизован
     // redirect('/auth/signIn')
