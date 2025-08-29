@@ -1,10 +1,5 @@
-'use client'
-import { PostsPage } from '@/app/pages'
+import NotFound from '@/app/[locale]/not-found'
 
 export default function Page() {
-  return (
-    <main>
-      <PostsPage />
-    </main>
-  )
+  return <NotFound />
 }
