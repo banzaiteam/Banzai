@@ -69,7 +69,7 @@ export const ProfilePage = (props: Props) => {
   }, [])
 
   return (
-    <main className={styles.profile__main}>
+    <div className={styles.profile__main}>
       <div className={styles.container}>
         <div className={styles.inner}>
           {avatar && (
@@ -128,6 +128,6 @@ export const ProfilePage = (props: Props) => {
           </div>
         </InfiniteScroll>
       </div>
-    </main>
+    </div>
   )
 }

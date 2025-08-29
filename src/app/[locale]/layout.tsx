@@ -6,7 +6,6 @@ import { NextIntlClientProvider } from 'next-intl'
 import { use } from 'react'
 import enMessages from '@/messages/en.json'
 import ruMessages from '@/messages/ru.json'
-import { Header } from '@widgets/header/ui/Header'
 import { useNavigationTracker } from '@shared/hooks/useNavigationTracker'
 
 // 1. Define supported locales as a union type
@@ -42,17 +41,12 @@ export default function LocaleLayout({
   }
   return (
     <html lang={locale}>
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      {/*<link rel="icon" type="image/svg+xml" href="/favicon.svg" />*/}
       <body>
         <NextIntlClientProvider locale={locale} messages={messages[locale]}>
           <AlertError />
           {modal}
-          <div className={'wrapper'}>
-            <Header />
-            {/*<AuthProvider>*/}
-            {children}
-            {/*</AuthProvider>*/}
-          </div>
+          {children}
           <AlertError />
         </NextIntlClientProvider>
       </body>

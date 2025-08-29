@@ -1,6 +1,3 @@
-import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
-import { useTranslations } from 'next-intl'
-
 export const metadata = {
   title: 'P i k s t a',
   description: 'Piksta is a platform for discovering and supporting creators.',
@@ -10,11 +7,6 @@ export const metadata = {
 }
 
 export default function Page() {
-  const t = useTranslations('IndexPage')
-  return (
-    <>
-      <Sidebar></Sidebar>
-      <main>{/* Banzai {t('title')} */}</main>
-    </>
-  )
+  /*const t = useTranslations('IndexPage')*/
+  return <>home page</>
 }
