@@ -17,7 +17,7 @@ export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getMe: build.query<User, void>({
       query: () => 'auth/me',
-
+      keepUnusedDataFor: 0,
       providesTags: ['User'],
     }),
   }),
