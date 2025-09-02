@@ -41,6 +41,7 @@ const SignUp = () => {
     password,
     confirmPassword,
   } = useSignUpForm()
+
   const t = useTranslations('SignUp')
   const onClickHandler = () => {
     alert('Нажмал')
@@ -59,24 +60,19 @@ const SignUp = () => {
       setEmailUser(getValues('email'))
       reset()
       setIsOpenPopup(true)
-    } catch (error: any) {
-      const errorMessage = Array.isArray(error.data.message)
-        ? error.data.message[0].message
-        : error.data.message
-      if (error.status === 400) {
-        setError('password', {
-          type: 'manual',
-          message: errorMessage /**/,
-        })
-      } else if (error.status === 409) {
-        setError('username', {
-          type: 'manual',
-          message: errorMessage,
-        })
-        setError('email', {
-          type: 'manual',
-          message: errorMessage,
-        })
+    } catch (error: unknown) {
+      const errorApi = error as { status: number; data: { message: string } }
+
+      const errorData = {
+        type: 'manual',
+        message: errorApi.data.message,
+      }
+
+      if (errorApi.status === 400) {
+        setError('password', errorData)/*'password too simple'*/
+      } else if (errorApi.status === 409) {
+        setError('username', errorData)
+        setError('email', errorData)
       }
     }
   }

@@ -20,7 +20,7 @@ export function AuthProvider({
   children: ReactNode
   initialUser: User | null
 }) {
-  const { isSuccess } = useGetMeQuery()
+  useGetMeQuery()
   const [user, setUser] = useState<User | null>(initialUser)
 
   return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>

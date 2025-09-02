@@ -34,8 +34,9 @@ const ForgotPassword = () => {
       reset()
       setRecaptchaToken(null)
       recaptchaComponentRef.current?.resetCaptcha()
-    } catch (error: any) {
-      if (error.status === 404) {
+    } catch (error: unknown) {
+      const apiError = error as { status: number }
+      if (apiError.status === 404) {
         setError('email', {
           type: 'manual',
           message: `User with this email doesn't exist`,

@@ -18,7 +18,7 @@ export const signUpApi = baseApi.injectEndpoints({
             /*dispatch(login());*/
             dispatch(clearAppError())
           }
-        } catch (error: any) {}
+        } catch (error: unknown) {}
       },
     }),
     sendVerifyEmail: build.mutation<ResponseSignUp, VerifyEmailData>({

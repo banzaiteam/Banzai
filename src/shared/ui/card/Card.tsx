@@ -4,7 +4,6 @@ import { Card as RadixCard } from '@radix-ui/themes'
 import styles from './Card.module.scss'
 import { ReactNode } from 'react'
 import clsx from 'clsx'
-import { Scroll } from '@shared/ui'
 
 interface CardProps {
   children?: ReactNode

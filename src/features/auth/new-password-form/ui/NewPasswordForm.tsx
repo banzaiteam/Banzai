@@ -14,7 +14,7 @@ import { newPasswordSchema } from '../model/newPasswordSchema'
 const NewPasswordForm = ({ email }: { email: string }) => {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState('')
+  const setSuccessMessage = useState('')[1]
   const [resetPassword] = useResetPasswordMutation()
 
   const {
@@ -42,9 +42,10 @@ const NewPasswordForm = ({ email }: { email: string }) => {
       setSuccessMessage('Password has been successfully changed!')
 
       router.push('/auth/signIn')
-    } catch (err: any) {
-      if (err.data?.message) {
-        setError('root', { message: err.data.message })
+    } catch (err: unknown) {
+      const errApi = err as { data: { message: string } }
+      if (errApi.data?.message) {
+        setError('root', { message: errApi.data.message })
       } else {
         setError('root', { message: 'Failed to reset password. Please try again.' })
       }

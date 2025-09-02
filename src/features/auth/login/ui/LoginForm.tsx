@@ -41,11 +41,11 @@ const LoginForm = () => {
       reset()
       router.push('/')
     } catch (error) {
-      let errorMessage = 'Login failed. Please try again.'
+      /* let errorMessage = 'Login failed. Please try again.'*/
       console.error('Login failed:', error)
 
       if (isApiError(error)) {
-        errorMessage = error.data.message || `Error ${error.status}: ${error.data.statusCode}`
+        /*errorMessage = error.data.message || `Error ${error.status}: ${error.data.statusCode}`*/
       } else {
         setRetryDelay(5)
         const interval = setInterval(() => {

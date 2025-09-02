@@ -48,12 +48,13 @@ export const EmailVerify = () => {
       await sendVerifyEmail({ email }).unwrap()
       setEmailUser(getValues('email'))
       reset()
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error)
-      if (error.status === 400 || error.status === 401) {
+      const errorApi = error as { status: number; data: { message: string } }
+      if (errorApi.status === 400 || errorApi.status === 401) {
         setError('email', {
           type: 'manual',
-          message: error.data.message,
+          message: errorApi.data.message,
         })
       }
       return

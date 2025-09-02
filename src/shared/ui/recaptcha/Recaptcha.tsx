@@ -1,6 +1,6 @@
 'use client'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { useRef, forwardRef, useImperativeHandle } from 'react'
+import { forwardRef, useImperativeHandle, useRef } from 'react'
 import s from './Recaptcha.module.scss'
 import clsx from 'clsx'
 
@@ -38,3 +38,5 @@ export const Recaptcha = forwardRef<RecaptchaRef, Props>(
     )
   }
 )
+
+Recaptcha.displayName = 'Recaptcha'

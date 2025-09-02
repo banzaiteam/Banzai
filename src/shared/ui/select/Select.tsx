@@ -1,34 +1,34 @@
-import * as React from "react";
-import * as RadixSelect from "@radix-ui/react-select";
-import styles from "./Select.module.scss";
-import { ArrowIosDownOutline, ArrowIosUp } from "@/assets/icons/components";
+import * as React from 'react'
+import * as RadixSelect from '@radix-ui/react-select'
+import styles from './Select.module.scss'
+import { ArrowIosDownOutline, ArrowIosUp } from '@/assets/icons/components'
+import { forwardRef } from 'react'
 
 type Option = {
-  label: string;
-  value: string;
-  flag?: React.ReactNode;
-};
+  label: string
+  value: string
+  flag?: React.ReactNode
+}
 
 type SelectProps = {
-  options: Option[];
-  placeholder?: string;
-  onValueChange: (value: string) => void;
-  value: string;
-  disabled?: boolean;
-  size?: "default" | "small";
-};
+  options: Option[]
+  placeholder?: string
+  onValueChange: (value: string) => void
+  value: string
+  disabled?: boolean
+  size?: 'default' | 'small'
+}
 
 const Select: React.FC<SelectProps> = ({
   options,
-  placeholder,
   onValueChange,
   value,
   disabled = false,
-  size = "default",
+  size = 'default',
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
-  const findOption = options.find((o) => o.value === value);
+  const findOption = options.find(o => o.value === value)
 
   return (
     <div className="select">
@@ -42,11 +42,11 @@ const Select: React.FC<SelectProps> = ({
         {/* This is the clickable area (like a <button>). When the user clicks it, the dropdown opens. */}
         <RadixSelect.Trigger
           className={`${styles.select__box} ${
-            disabled ? styles.disabled : ""
-          } ${size === "small" ? styles.small : ""}`}
+            disabled ? styles.disabled : ''
+          } ${size === 'small' ? styles.small : ''}`}
           aria-label="Select Box"
           disabled={disabled}
-          data-state={open ? "open" : "closed"}
+          data-state={open ? 'open' : 'closed'}
         >
           {/* aria-label helps screen readers understand this is a selector */}
           <RadixSelect.Value>
@@ -68,23 +68,14 @@ const Select: React.FC<SelectProps> = ({
           <RadixSelect.Portal>
             {/* Content is the box that opens — the full dropdown. */}
             <RadixSelect.Content
-              className={`${styles.select__dropdown} ${
-                size === "small" ? styles.small : ""
-              }`}
+              className={`${styles.select__dropdown} ${size === 'small' ? styles.small : ''}`}
             >
               {/* Viewport — it's where options live */}
               <RadixSelect.Viewport
-                className={`${styles.Viewport} ${
-                  size === "small" ? styles.small : ""
-                }`}
+                className={`${styles.Viewport} ${size === 'small' ? styles.small : ''}`}
               >
-                {options.map((option) => (
-                  <SelectItem
-                    key={option.value}
-                    value={option.value}
-                    option={option}
-                    size={size}
-                  />
+                {options.map(option => (
+                  <SelectItem key={option.value} value={option.value} option={option} size={size} />
                 ))}
               </RadixSelect.Viewport>
             </RadixSelect.Content>
@@ -92,40 +83,34 @@ const Select: React.FC<SelectProps> = ({
         )}
       </RadixSelect.Root>
     </div>
-  );
-};
+  )
+}
 /** comments are description in storybook */
 //  below is .jsx we neet to make .tsx so we adding two types <
 //   React.ComponentRef<typeof RadixSelect.Item>,
 //   React.ComponentPropsWithoutRef<typeof RadixSelect.Item>
 // >
-const SelectItem = React.forwardRef<
+const SelectItem = forwardRef<
   React.ComponentRef<typeof RadixSelect.Item>,
   React.ComponentPropsWithoutRef<typeof RadixSelect.Item> & {
-    option: Option;
-    size?: "default" | "small";
+    option: Option
+    size?: 'default' | 'small'
   }
->(({ children, className, option, ...props }, forwardedRef) => {
+>(({ className, option, ...props }, forwardedRef) => {
   return (
-    <RadixSelect.Item
-      className={`${styles.Item} ${className ?? ""}`}
-      {...props}
-      ref={forwardedRef}
-    >
+    <RadixSelect.Item className={`${styles.Item} ${className ?? ''}`} {...props} ref={forwardedRef}>
       <RadixSelect.ItemText>
         <div className={styles.item__text}>
           {option.flag}
           {option.label}
         </div>
       </RadixSelect.ItemText>
-      <RadixSelect.ItemIndicator
-        className={styles.ItemIndicator}
-      ></RadixSelect.ItemIndicator>
+      <RadixSelect.ItemIndicator className={styles.ItemIndicator}></RadixSelect.ItemIndicator>
     </RadixSelect.Item>
-  );
-});
-
-export default Select;
+  )
+})
+SelectItem.displayName = 'SelectItem'
+export default Select
 
 // uncomment for testing for numbers select box and pass it for parent;
 // const [numberValue, setNumberValue] = useState("100");

@@ -11,7 +11,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    loginOut: build.mutation<any, void>({
+    loginOut: build.mutation<unknown, void>({
       query: () => ({
         url: 'auth/logout',
         method: 'GET',

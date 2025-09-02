@@ -7,7 +7,7 @@ type EditPostArgs = {
 
 export const editPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    editPost: build.mutation<any, EditPostArgs>({
+    editPost: build.mutation<unknown, EditPostArgs>({
       query: ({ id, description }) => ({
         url: `/posts/${id}`,
         method: 'PATCH',

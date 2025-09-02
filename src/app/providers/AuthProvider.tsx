@@ -17,7 +17,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isLoading) return
 
-    const status = (error as any)?.status
+    const status = (error as { status: number })?.status
     const isAuthError = status === 401 || status === 403
 
     if (!isPublicPage && isAuthError) {

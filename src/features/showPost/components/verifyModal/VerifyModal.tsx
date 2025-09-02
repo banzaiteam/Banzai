@@ -29,7 +29,7 @@ export const VerifyModal = (props: Props) => {
       onCloseHandler()
 
       router.back()
-    } catch (error: any) {}
+    } catch (error: unknown) {}
   }
 
   return (

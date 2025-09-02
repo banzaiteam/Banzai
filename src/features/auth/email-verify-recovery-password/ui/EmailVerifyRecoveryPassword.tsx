@@ -20,7 +20,7 @@ const EmailVerifyRecoveryPassword = () => {
     try {
       router.push('/auth/forgot-password')
       reset()
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error)
     }
   }
