@@ -4,6 +4,9 @@ export const metadata = {
   keywords: ['photo sharing app', 'photos', 'piksta'],
   authors: [{ name: 'Banzai Team', url: 'https://github.com/banzaiteam/Banzai' }],
   creator: 'Banzai Team',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function Page() {
