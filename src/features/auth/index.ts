@@ -3,10 +3,9 @@ export * from './emailVerify/ui/EmailVerify'
 export * from './forgotPassword/ui/ForgotPassword'
 export * from './new-password-form/ui/NewPasswordForm'
 export * from './email-verify-recovery-password/ui/EmailVerifyRecoveryPassword'
-
-export * from './model/schemas/passwordInputSchema'
+export * from './signUp/model/hooks/useSignUpForm'
+/*export * from './model/schemas/passwordInputSchema'
 export * from './model/schemas/emailInputSchema'
 export * from './model/schemas/usernameInputSchema'
 export * from './model/schemas/confirmPasswordInputSchema'
-export * from './model/schemas/agreementSchema'
-export * from './signUp/model/hooks/useSignUpForm'
+export * from './model/schemas/agreementSchema'*/

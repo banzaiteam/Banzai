@@ -11,7 +11,7 @@ import { useSendVerifyEmailMutation } from '@features/auth/signUp/api/signUp.api
 import { z } from 'zod'
 import { PresentationPage } from '@/features'
 import { EmailSentPopup } from '@features/auth/components'
-import { emailInputSchema } from '@features/auth'
+import { emailInputSchema } from '../../model/schemas/emailInputSchema'
 
 const schema = z.object({
   email: emailInputSchema,
