@@ -31,7 +31,7 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('accessToken')
     }
-    router.push('auth/signIn')
+    router.push(ROUTES.signIn)
   }
 
   const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }) => {
