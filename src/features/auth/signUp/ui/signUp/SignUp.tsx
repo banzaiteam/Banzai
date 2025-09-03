@@ -69,7 +69,7 @@ const SignUp = () => {
       }
 
       if (errorApi.status === 400) {
-        setError('password', errorData)/*'password too simple'*/
+        setError('password', errorData)
       } else if (errorApi.status === 409) {
         setError('username', errorData)
         setError('email', errorData)
@@ -84,7 +84,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className={s.login}>
+      <div className={s.sign_up}>
         <Card className={s.wrapper}>
           <form
             onSubmit={handleSubmit(onSubmitHandler)}
