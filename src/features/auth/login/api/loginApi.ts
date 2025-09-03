@@ -9,6 +9,7 @@ export const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: credentials,
       }),
+      invalidatesTags: ['User'],
     }),
 
     loginOut: build.mutation<unknown, void>({
@@ -17,6 +18,14 @@ export const authApi = baseApi.injectEndpoints({
         method: 'GET',
         credentials: 'include',
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled
+          dispatch(baseApi.util.resetApiState())
+        } catch (error) {
+          console.error(error)
+        }
+      },
     }),
   }),
 })
