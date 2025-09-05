@@ -71,7 +71,9 @@ export const ShowPost = (props: ShowPostProps) => {
         <VisuallyHidden asChild>
           <DialogTitle className={s.hidden_title}>show post</DialogTitle>
         </VisuallyHidden>
-        {/*<Scroll>*/}
+        {/*<Scroll className={s.scroll}>*/}
+        {/*<ScrollArea.Root style={{ height: '70vh' }}>
+          <ScrollArea.Viewport>*/}
         <div className={s.wrapper} aria-busy={isFetching}>
           <div className={s.image_wrapper}>
             {isLoading ? (
@@ -132,7 +134,9 @@ export const ShowPost = (props: ShowPostProps) => {
             {isAuth && <AddCommentField postId={postId} />}
           </div>
         </div>
-        {/*</Scroll>*/}
+        {/*  </ScrollArea.Viewport>
+        </ScrollArea.Root>*/}
+        {/* </Scroll>*/}
       </Popup>
       {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
       <VerifyModal
