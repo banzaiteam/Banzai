@@ -1,7 +1,5 @@
-'use client'
-
-import { AddPostsPage } from '@/app/pages/addPostsPage/AddPostsPage'
+import { CreatePostPage } from '@/app/pages/createPostPage/CreatePostPage'
 
 export default function Page() {
-  return <AddPostsPage />
+  return <CreatePostPage />
 }
