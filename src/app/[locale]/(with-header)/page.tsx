@@ -1,3 +1,5 @@
+import { HomePage } from '@/app/pages/homePage/HomePage'
+
 export const metadata = {
   title: 'P i k s t a',
   description: 'Piksta is a platform for discovering and supporting creators.',
@@ -11,5 +13,5 @@ export const metadata = {
 
 export default function Page() {
   /*const t = useTranslations('IndexPage')*/
-  return <>home page</>
+  return <HomePage />
 }

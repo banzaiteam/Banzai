@@ -43,11 +43,11 @@
 
   & .image_wrapper {
     flex: 0 0 50%;
-    padding-bottom: 55.8%;
-    position: relative;
+    /* padding-bottom: 55.8%;
+    position: relative;*/
     @media (max-width: 768px) {
       flex: 0 0 35%;
-      padding-bottom: 15.8%;
+      /* padding-bottom: 15.8%;*/
     }
   }
 

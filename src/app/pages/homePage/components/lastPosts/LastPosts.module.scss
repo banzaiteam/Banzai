@@ -1,0 +1,9 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(234px, 1fr));
+  grid-gap: 12px;
+
+  @media screen and (max-width: 748px) {
+    grid-gap: 24px;
+  }
+}

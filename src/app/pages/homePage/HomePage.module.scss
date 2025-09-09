@@ -1,0 +1,15 @@
+.wrapper {
+  padding: 24px;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: var(--font-sans), sans-serif;
+  &.not_auth {
+    max-width: 972px;
+    box-sizing: border-box;
+    padding: 24px 0;
+    margin: 0 auto;
+  }
+  & .counter_reg_users {
+    margin-bottom: 36px;
+  }
+}

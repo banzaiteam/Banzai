@@ -1,0 +1,35 @@
+.counter_wrapper {
+  min-height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  background: var(--dark-500);
+  & .counter_text {
+  }
+  & .counter {
+    min-height: 0;
+    padding: 10px;
+
+    background: var(--dark-700);
+    & .counter__list {
+      display: flex;
+      justify-content: space-around;
+      li {
+        position: relative;
+        padding: 0 10px;
+
+        &:not(:last-child):before {
+          content: '';
+          width: 1px;
+          height: 100%;
+          background-color: var(--dark-300);
+          right: 0;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
