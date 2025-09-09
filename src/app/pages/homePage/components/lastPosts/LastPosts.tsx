@@ -16,16 +16,20 @@ export const LastPosts = (props: Props) => {
       <LastPostsItem
         text={
           'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias  repudiandae.' +
-          'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae.'
+          'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae. +\n' +
+          "          'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae."
         }
       />
       <LastPostsItem
         text={
-          'loremLorem ipsum dolor sit amet, consectetur praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae.'
+          'loremLorem ipsum dolor sit amet, consectetur praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae. aspernatur esse ex, itaque laborum magnam, non, optio quia'
         }
       />
       <LastPostsItem
-        text={'loremLorem ipsum dolor sit amet, consectetur non, optio quia quod repudiandae.'}
+        text={
+          'loremL' +
+          'aspernatur aspernatur esse ex, itaque laborum magnam, non, optio quia esse ex, itaque laborum magnam, non, optio quiaorem ipsum dolor sit amet, consectetur non, optio quia quod repudiandae.'
+        }
       />
       <LastPostsItem text={'loremLorem .'} />
     </div>

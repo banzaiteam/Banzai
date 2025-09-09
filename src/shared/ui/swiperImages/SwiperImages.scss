@@ -96,6 +96,12 @@
     .prev_arrow_button {
       transform: translateY(-50%) scale(0.5);
     }
+    .prev_arrow_button {
+      left: -4px;
+    }
+    .next_arrow_button {
+      right: -4px;
+    }
     & > .swiper-pagination {
       height: 12px;
       column-gap: 8px;

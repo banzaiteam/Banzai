@@ -1,14 +1,16 @@
 'use client'
+import { MouseEvent } from 'react'
 import { type ComponentPropsWithoutRef, useState } from 'react'
 import s from './ShowMoreText.module.scss'
 
 type Props = {
   text: string
   maxLength?: number
-} & Omit<ComponentPropsWithoutRef<'p'>, 'children'>
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
+} & Omit<ComponentPropsWithoutRef<'p'>, 'children' & 'onClick'>
 
 export const ShowMoreText = (props: Props) => {
-  const { text, maxLength = 150, ...rest } = props
+  const { text, onClick, maxLength = 150, ...rest } = props
   const [isExpanded, setIsExpanded] = useState(false)
   const [maxLengthText, setMaxLengthText] = useState(maxLength)
 
@@ -17,13 +19,15 @@ export const ShowMoreText = (props: Props) => {
 
   const displayedText = `${text.slice(0, maxLengthText).trimEnd()}${text.length > maxLengthText ? (isExpanded ? '..' : '...') : ''} `
 
-  const onShowHandler = () => {
+  const onShowHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsExpanded(true)
     setMaxLengthText(maxLength + 500)
+    onClick?.(e)
   }
-  const onHideHandler = () => {
+  const onHideHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsExpanded(false)
     setMaxLengthText(maxLength)
+    onClick?.(e)
   }
 
   return (
