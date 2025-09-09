@@ -4,8 +4,8 @@ import clsx from 'clsx'
 import s from './SidebarBase.module.scss'
 import Link from 'next/link'
 
-export type SidebarBaseProps = {} & ComponentPropsWithoutRef<'aside'>
-type SidebarBaseNavigationProps = {} & ComponentPropsWithoutRef<'nav'>
+export type SidebarBaseProps = ComponentPropsWithoutRef<'aside'>
+type SidebarBaseNavigationProps = ComponentPropsWithoutRef<'nav'>
 type SidebarBaseItemProps = {
   /*asChild?:boolean,*/
   path?: string
@@ -81,6 +81,7 @@ export const SidebarBaseItem = (props: SidebarBaseItemProps) => {
         </li>
       ) : (
         <div className={`${classNames} ${s.logOut}`}>
+          {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props */}
           <button
             aria-disabled={disabled}
             disabled={disabled}

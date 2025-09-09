@@ -1,194 +1,156 @@
 'use client'
-import React, { useState } from 'react'
-import { Button, Popup, Typography } from '@shared/ui'
-import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
-import {
-  BookmarkOutline,
-  Close,
-  Heart,
-  HeartOutline,
-  PaperPlaneOutline,
-} from '@/assets/icons/components'
+import React from 'react'
+import Image from 'next/image'
 import s from './ShowPost.module.scss'
+import {
+  EngagementInfo,
+  type FindOneUserDataResponse,
+  type GetPostDataResponse,
+  SwiperImagesPost,
+  usePostMeatballsMenuItems,
+  useShowPost,
+  VerifyModal,
+} from '@/features'
+import { CircleImage, Popup, Typography } from '@shared/ui'
+import { Close, ImageOutline } from '@/assets/icons/components'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
-import Image, { type StaticImageData } from 'next/image'
-import user from '@/assets/images/User.png'
-import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
-import Link from 'next/link'
-import Palm from '@/assets/images/Palm.png'
+import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
+import { EditPostForm } from '@features/edit-post/ui/EditPostForm'
+import { Skeleton, SkeletonCircle } from '@shared/ui/skeleton/Skeleton'
+import { MeatballsMenu } from '@widgets/meatballsMenu/ui/MeatballsMenu'
+import { AddCommentField } from '@features/showPost/components/addCommentField/AddCommentField'
+import { useTranslations } from 'next-intl'
+import { DescriptionPost } from '@features/showPost/components/descriptionPost/DescriptionPost'
+import { Comments } from '@features/showPost/components/comments/Comments'
 
-type ShowPostProps = {
-  open: boolean
-  onClose: (value: boolean) => void
-}
-type CommentProps = {
-  title: string
-  text: string
-  image: string | StaticImageData
-  like?: boolean
+export type ShowPostProps = {
+  id?: string
+  onClose?: (value: boolean) => void
+  initialPostData?: GetPostDataResponse
+  initialFindOneUserData: FindOneUserDataResponse
 }
 
 export const ShowPost = (props: ShowPostProps) => {
-  const { onClose, ...rest } = props
-  const [inputValue, setInputValue] = useState('')
-  const onCloseHandler = () => onClose(false)
+  const {
+    onClose,
+    id,
+    initialPostData,
+    initialFindOneUserData: { username, url: avatar },
+    ...rest
+  } = props
+  const t = useTranslations('VerifyDeleteModal')
+  const {
+    onCloseHandler,
+    onClickHandler,
+    isFetching,
+    isLoading,
+    urlImages,
+    comments,
+    postId,
+    isOwnerPost,
+    meData,
+    post: { description, userId },
+  } = useShowPost({ onClose, id, initialPostData })
+  const isAuth = !!meData
+  const {
+    meatballsMenuItems,
+    isOpenMeatballsMenu,
+    setOpenMeatballsMenu,
+    isEditing,
+    isOpenVerifyDeleteModal,
+    setOpenVerifyDeleteModal,
+    handleCloseEditModal,
+  } = usePostMeatballsMenuItems(isOwnerPost)
 
   return (
-    <Popup {...rest} onOpenChange={onClose} size={'xl'}>
-      <DialogClose className={s.close} onClick={onCloseHandler}>
-        <Close />
-      </DialogClose>
-      <VisuallyHidden asChild>
-        <DialogTitle className={s.hidden_title}>show post</DialogTitle>
-      </VisuallyHidden>
-
-      <div className={s.wrapper}>
-        <div className={s.image_wrapper}>
-          <Image src={Palm} alt={'main-image post'} />
-        </div>
-        <div className={s.comments_block}>
-          <div className={s.header}>
-            <div className={s.user}>
-              <CircleImage>
-                <Image src={user} alt={'user'} />
-              </CircleImage>
-              <Typography variant={'h3'}>URLProfiele</Typography>
-            </div>
-            <button type={'button'}>* * *</button>
-          </div>
-          <div className={s.comments}>
-            <Comment
-              text={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              }
-              title={'UrlProfile'}
-              image={user}
-            />
-            <Comment
-              text={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              }
-              title={'UrlProfile'}
-              image={user}
-              like={false}
-            />
-            <Comment
-              text={
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              }
-              title={'UrlProfile'}
-              image={user}
-              like={true}
-            />
-          </div>
-          <div className={s.engagement_info}>
-            <div className={s.icons_wrapper}>
-              <div className={s.icons_group}>
-                <button type={'button'}>
-                  <HeartOutline />
-                </button>
-                <button type={'button'}>
-                  <PaperPlaneOutline />
-                </button>
-              </div>
-              <div className={s.icons_group}>
-                <button type={'button'}>
-                  <BookmarkOutline />
-                </button>
-              </div>
-            </div>
-            <div className={s.social_activity}>
-              <div className={s.last_likes}>
-                <CircleImage size={'size-24'}>
-                  <Image src={user} alt={'user'} />
-                </CircleImage>
-                <CircleImage size={'size-24'}>
-                  <Image src={user} alt={'user'} />
-                </CircleImage>
-                <CircleImage size={'size-24'}>
-                  <Image src={user} alt={'user'} />
-                </CircleImage>
-              </div>
-              <span>
-                <Typography variant={'regular_text_14'} as={'span'}>
-                  <span>2 243 </span>
-                </Typography>
-                <Typography variant={'bold_text_14'} as={'span'}>
-                  <span>&quot;Like&quot;</span>
-                </Typography>
-              </span>
-            </div>
-            <Typography variant={'small_text'} className={s.date}>
-              July 3, 2021
-            </Typography>
-          </div>
-          <div className={s.add_comment}>
-            <div className={s.add_comment_wrapper}>
-              <input
-                value={inputValue}
-                onChange={e => {
-                  setInputValue(e.currentTarget.value)
-                }}
-                type="text"
-                placeholder={'Add a Comment...'}
+    <>
+      <Popup open={true} {...rest} onOpenChange={onCloseHandler} size={'xl'}>
+        <DialogClose className={s.close} onClick={onClickHandler} aria-label="Close post dialog">
+          <Close />
+        </DialogClose>
+        <VisuallyHidden asChild>
+          <DialogTitle className={s.hidden_title}>show post</DialogTitle>
+        </VisuallyHidden>
+        {/*<Scroll className={s.scroll}>*/}
+        {/*<ScrollArea.Root style={{ height: '70vh' }}>
+          <ScrollArea.Viewport>*/}
+        <div className={s.wrapper} aria-busy={isFetching}>
+          <div className={s.image_wrapper}>
+            {isLoading ? (
+              <Skeleton className={s.skeleton_main_image} aria-label="Loading post content" />
+            ) : urlImages ? (
+              urlImages.length > 0 && <SwiperImagesPost postImages={urlImages} />
+            ) : (
+              <ImageOutline
+                className={s.io}
+                viewBox={'0 0 24 24'}
+                width={'150px'}
+                height={'150px'}
+                aria-hidden="true"
               />
-              <Button variant={'text-button'} type={'button'}>
-                Publish
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Popup>
-  )
-}
-
-const Comment = (props: CommentProps) => {
-  const { like, title, text, image } = props
-  return (
-    <div className={s.comment}>
-      <div className={s.section}>
-        <div className={s.avatar_wrapper}>
-          <CircleImage>
-            <Image src={image} alt={'user'} />
-          </CircleImage>
-        </div>
-        <div className={s.comment_text}>
-          <Typography variant={'regular_text_14'}>
-            <Link href={title} className={s.url}>
-              UrlProfile{' '}
-            </Link>
-            {text}
-          </Typography>
-          <div className={s.comment_information}>
-            <span>
-              <Typography variant={'small_text'}>2 Hours ago</Typography>
-            </span>
-            {like && (
-              <span>
-                <Typography variant={'semi_bold_small_text'}>Like: 1</Typography>
-              </span>
             )}
-            <span>
-              <Typography variant={'semi_bold_small_text'}>Answer</Typography>
-            </span>
+          </div>
+
+          <div className={s.comments_block}>
+            <div className={s.header}>
+              <div className={s.user}>
+                {isLoading ? (
+                  <SkeletonCircle size={36} aria-label="Loading user avatar" />
+                ) : (
+                  <CircleImage>
+                    <Image src={avatar} alt={'User profile picture'} width={36} height={36} />
+                  </CircleImage>
+                )}
+
+                {isLoading ? (
+                  <Skeleton width={'100px'} aria-label="Loading username" />
+                ) : (
+                  <Typography variant={'h3'} id="post-username">
+                    {username}
+                  </Typography>
+                )}
+              </div>
+              {isAuth && (
+                <MeatballsMenu
+                  items={meatballsMenuItems}
+                  isOpen={isOpenMeatballsMenu}
+                  toggleOpen={setOpenMeatballsMenu}
+                  disabled={isLoading}
+                  aria-label="Post-options"
+                />
+              )}
+            </div>
+            <Comments comments={comments}>
+              {!!description && (
+                <DescriptionPost
+                  title={username}
+                  description={description}
+                  image={avatar}
+                  userId={userId}
+                />
+              )}
+            </Comments>
+            <EngagementInfo postId={postId} postData={initialPostData} />
+            {isAuth && <AddCommentField postId={postId} />}
           </div>
         </div>
-      </div>
-      {like !== undefined && (
-        <div className={s.heart_wrapper}>
-          {!like && (
-            <button type={'button'}>
-              <HeartOutline height={20} width={20} viewBox={'0 0 24 24'} />
-            </button>
-          )}
-          {like && (
-            <button type={'button'}>
-              <Heart className={s.heart} height={20} width={20} viewBox={'0 0 24 24'} />
-            </button>
-          )}
-        </div>
-      )}
-    </div>
+        {/*  </ScrollArea.Viewport>
+        </ScrollArea.Root>*/}
+        {/* </Scroll>*/}
+      </Popup>
+      {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
+      <VerifyModal
+        id={postId}
+        title={t('title')}
+        isOpenValue={isOpenVerifyDeleteModal}
+        onClose={setOpenVerifyDeleteModal}
+        data-id={'verify-delete-modal'}
+        aria-label="Confirm post deletion"
+      >
+        <Typography variant={'regular_text_16'} className={s.verify_text}>
+          {t('textBody')}
+        </Typography>
+      </VerifyModal>
+    </>
   )
 }

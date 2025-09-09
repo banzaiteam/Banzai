@@ -10,9 +10,9 @@ import { useRecoveryPasswordMutation } from '@features/auth/forgotPassword/api/f
 import {
   ForgotPasswordSchema,
   ForgotPasswordValues,
-} from '@features/auth/forgotPassword/model/forgotPasswordSchema'
-import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
+} from '@features/auth/forgotPassword/model/schemas/forgotPasswordSchema'
 import { RecaptchaRef } from '@shared/ui/recaptcha/Recaptcha'
+import { ROUTES } from '@shared/constants/routes'
 
 const ForgotPassword = () => {
   const [recoveryPassword, { isSuccess }] = useRecoveryPasswordMutation()
@@ -34,8 +34,9 @@ const ForgotPassword = () => {
       reset()
       setRecaptchaToken(null)
       recaptchaComponentRef.current?.resetCaptcha()
-    } catch (error: any) {
-      if (error.status === 404) {
+    } catch (error: unknown) {
+      const apiError = error as { status: number }
+      if (apiError.status === 404) {
         setError('email', {
           type: 'manual',
           message: `User with this email doesn't exist`,
@@ -123,7 +124,7 @@ const ForgotPassword = () => {
             aria-label={'Back to Sign in'}
             asChild
           >
-            <Link href={'/auth/signIn'}>Back to Sign in</Link>
+            <Link href={ROUTES.signIn}>Back to Sign in</Link>
           </Button>
         </div>
         <Recaptcha

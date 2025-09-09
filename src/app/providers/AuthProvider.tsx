@@ -4,12 +4,12 @@ import { useGetMeQuery } from '@/shared/api/userApi'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { useEffect, useState } from 'react'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
-import { isPublicRoute, ROUTES } from '@shared/constants/routes'
+import { isPublicRoute } from '@shared/constants/routes'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
-  const { data, isLoading, isError, error } = useGetMeQuery()
+  const { isLoading, isError, error } = useGetMeQuery()
   const [shouldRender, setShouldRender] = useState(false)
 
   const isPublicPage = isPublicRoute(pathname)
@@ -17,9 +17,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isLoading) return
 
-    const status = (error as any)?.status
+    const status = (error as { status: number })?.status
     const isAuthError = status === 401 || status === 403
-    console.log(isPublicPage, isAuthError)
 
     if (!isPublicPage && isAuthError) {
       // router.replace(ROUTES.signIn)

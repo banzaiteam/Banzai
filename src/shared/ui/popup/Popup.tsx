@@ -12,7 +12,7 @@ export type PopupProps = Dialog.DialogProps & {
   size?: PopupSize
 }
 
-type PopupHeaderProps = ComponentPropsWithoutRef<'div'> & {}
+type PopupHeaderProps = ComponentPropsWithoutRef<'div'>
 
 export const Popup = (props: PopupProps) => {
   const { children, size = 'md', width, ...rest } = props

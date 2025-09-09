@@ -1,11 +1,8 @@
 import { GoogleSvgrepoCom1 } from '@/assets/icons/components'
 import React from 'react'
-import { useLazyGoogleQuery } from '@features/auth/api/api'
 import Link from 'next/link'
 
-type Props = {}
-
-export const GoogleButton = (props: Props) => {
+export const GoogleButton = () => {
   /*const [getGoogleAuth] = useLazyGoogleQuery()*/
 
   /* const onClickHandler = async () => {

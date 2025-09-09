@@ -1,26 +1,22 @@
 'use client'
 
-import { type ComponentPropsWithoutRef, useEffect, useMemo, useState } from 'react'
-import {
-  SidebarBase,
-  SidebarBaseItem,
-  SidebarBaseNavigation,
-  type SidebarBaseProps,
-} from '@shared/ui'
+import { type ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import { SidebarBase, SidebarBaseItem, SidebarBaseNavigation } from '@shared/ui'
 import LogOutOutline from '@/assets/icons/components/LogOutOutline'
-import { useLoginOut2Mutation, useLoginOutMutation } from '@features/auth/login/api/loginApi'
-import { useRouter } from 'next/navigation'
+import { useLoginOutMutation } from '@features/auth/login/api/loginApi'
+import { usePathname, useRouter } from 'next/navigation'
 import { linksData } from '@widgets/sidebar/model/linksData'
 import { useGetMeQuery } from '@shared/api/userApi'
+import { ROUTES } from '@shared/constants/routes'
 
 type SidebarProps = { isDisabled?: boolean } & ComponentPropsWithoutRef<'aside'>
 
 export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
   const router = useRouter()
   const [loginOut] = useLoginOutMutation()
-  const [loginOut2] = useLoginOut2Mutation()
   const { data: user } = useGetMeQuery()
   const [isMounted, setIsMounted] = useState(false)
+  const pathname = usePathname()
 
   // Фиксим проблему SSR -> клиент
   useEffect(() => {
@@ -30,17 +26,18 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
   const handlerLogOut = () => {
     // const token = localStorage.getItem('accessToken')
     // loginOut([{ tokens: [token] }])
-    loginOut2()
+    loginOut()
 
     if (typeof window !== 'undefined') {
       localStorage.removeItem('accessToken')
     }
-    router.push('auth/signIn')
+    router.push(ROUTES.signIn)
   }
 
-  const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }, index) => {
-    const isActive = isDisabled ? false : index === 0 //для самой первой ссылки с иконкой
-
+  const sidebarItemsMapped = linksData.map(({ id, title, path, icon, iconActive }) => {
+    // const isActive = isDisabled ? false : index === 0 //для самой первой ссылки с иконкой
+    path = path === '/profile' && user?.id ? ROUTES.profile(user.id) : path
+    const isActive = pathname === path
     return (
       <SidebarBaseItem
         disabled={isDisabled}
@@ -59,7 +56,7 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
       <SidebarBaseNavigation>{sidebarItemsMapped}</SidebarBaseNavigation>
       {isMounted && user && (
         <SidebarBaseItem
-          isActive={isDisabled}
+          isActive={false}
           disabled={isDisabled}
           icon={<LogOutOutline stroke={'currentColor'} />}
           onClick={handlerLogOut}

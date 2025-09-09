@@ -8,7 +8,7 @@ export type PasswordResetRequest = {
 
 export type NewPasswordFormValues = z.infer<typeof newPasswordSchema>
 
-type SuccessResponse = {
+/*type SuccessResponse = {
   status: 'success'
   message?: string
 }
@@ -23,7 +23,7 @@ type RedirectResponse = {
   status: 'redirect'
   redirectUrl: string
   message?: string
-}
+}*/
 
 //export type ResetPasswordResponse = SuccessResponse | ErrorResponse | RedirectResponse
 
