@@ -1,7 +1,7 @@
 .wrapper {
   height: 392px;
   display: grid;
-  transition: all 0.5s 0.5s;
+
   grid-template-rows: minmax(30.75%, 10.46fr) 0fr 0fr 3fr;
   @media screen and (min-width: 1600px) {
     height: 25vw;
@@ -13,7 +13,8 @@
     margin-bottom: 12px;
     /* padding-bottom: 102.6%;
     position: relative;*/
-    transition: all 0.5s 0.5s;
+    /* transition: all 0.2s 0.5s;*/
+    transition: height 0.2s 0.5s;
     /* flex-grow: 0;*/
 
     /*    flex: 0 1 100%;*/
