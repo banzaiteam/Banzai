@@ -13,5 +13,8 @@
   },
   "Comment": {
     "AnswerButton": "Answer"
+  },
+  "CounterRegUsers": {
+    "RegUsers": "Registered users:"
   }
 }

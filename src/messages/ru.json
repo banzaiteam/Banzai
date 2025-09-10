@@ -13,5 +13,8 @@
   },
   "Comment": {
     "AnswerButton": "Ответить"
+  },
+  "CounterRegUsers": {
+    "RegUsers": "Зарегистрированные пользователи:"
   }
 }
