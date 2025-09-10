@@ -47,7 +47,7 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
 
   const comments = post?.comments
   const urlImages = extractPropertyValues(post.files, 'url')
-  console.log(urlImages)
+
   const onCloseHandler = () => {
     onClose?.(false)
     routerBack()

@@ -130,7 +130,7 @@ export const ProfilePage = (props: Props) => {
             })}
           >
             {posts.map(post => {
-              const file = post.files?.[0]
+              const file = post?.files?.[0]
               if (!file) return null
 
               return (
