@@ -1,9 +1,9 @@
 import { baseApi } from '@/shared/api/baseApi'
-import type { getProfileResponse } from '@widgets/profile/model/types/types'
+import type { GetProfileResponse } from '@widgets/profile/model/types/types'
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getUserProfile: build.query<getProfileResponse, { id: string; page?: number; limit?: number }>({
+    getUserProfile: build.query<GetProfileResponse, { id: string; page?: number; limit?: number }>({
       query: ({ id, page, limit }) => ({
         url: `/users/${id}/profile`,
         method: 'GET',

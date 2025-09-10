@@ -3,35 +3,30 @@ import s from './LastPosts.module.scss'
 import type { ComponentPropsWithoutRef } from 'react'
 import clsx from 'clsx'
 import { LastPostsItem } from '@/app/pages/homePage/components/lastPosts/lastPostsItem/LastPostsItem'
+import { z } from 'zod'
+import { postDataSchema } from '@/features'
 
-type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'>
+type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & {
+  initialPostsData: z.infer<typeof postDataSchema>[]
+}
 
 export const LastPosts = (props: Props) => {
-  const { className } = props
-
+  const { className, initialPostsData } = props
+  console.log(initialPostsData)
   const styles = clsx(s.wrapper, className)
 
-  return (
-    <div className={styles}>
+  const initialPostsDataMapped = initialPostsData.map(
+    ({ id, createdAt, description, files, avatar }) => (
       <LastPostsItem
-        text={
-          'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias  repudiandae.' +
-          'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae. +\n' +
-          "          'loremLorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci aliquid corporis, cumque eligendi numquam odio praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae."
-        }
+        id={id}
+        createdAt={createdAt}
+        key={id}
+        description={description}
+        files={files}
+        avatar={avatar}
       />
-      <LastPostsItem
-        text={
-          'loremLorem ipsum dolor sit amet, consectetur praesentium? A adipisci animi aspernatur esse ex, itaque laborum magnam, non, optio quia quod repudiandae. aspernatur esse ex, itaque laborum magnam, non, optio quia'
-        }
-      />
-      <LastPostsItem
-        text={
-          'loremL' +
-          'aspernatur aspernatur esse ex, itaque laborum magnam, non, optio quia esse ex, itaque laborum magnam, non, optio quiaorem ipsum dolor sit amet, consectetur non, optio quia quod repudiandae.'
-        }
-      />
-      <LastPostsItem text={'loremLorem .'} />
-    </div>
+    )
   )
+
+  return <div className={styles}>{initialPostsDataMapped}</div>
 }

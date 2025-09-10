@@ -8,6 +8,7 @@ import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { notFound } from 'next/navigation'
 import { useAppSelector } from '@shared/hooks/useAppSelector'
 import { ROUTES } from '@shared/constants/routes'
+import { extractPropertyValues } from '@shared/utils/getArrayStrings'
 
 type UseShowPostData = Omit<ShowPostProps, 'initialFindOneUserData'>
 
@@ -45,8 +46,8 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
   const routerBack = usePreviousPath(ROUTES.profile(post?.userId as string))
 
   const comments = post?.comments
-  const urlImages = post?.files.map(file => file.url)
-
+  const urlImages = extractPropertyValues(post.files, 'url')
+  console.log(urlImages)
   const onCloseHandler = () => {
     onClose?.(false)
     routerBack()

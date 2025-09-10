@@ -11,7 +11,6 @@ export const metadata = {
   },
 }
 
-export default function Page() {
-  /*const t = useTranslations('IndexPage')*/
+export default async function Page() {
   return <HomePage />
 }

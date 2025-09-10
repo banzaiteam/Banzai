@@ -2,22 +2,27 @@
 import { MouseEvent } from 'react'
 import { type ComponentPropsWithoutRef, useState } from 'react'
 import s from './ShowMoreText.module.scss'
+import type { Nullable } from '@shared/types/nullable'
 
 type Props = {
-  text: string
+  description: Nullable<string>
   maxLength?: number
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 } & Omit<ComponentPropsWithoutRef<'p'>, 'children' & 'onClick'>
 
+const EMPTY_DESCRIPTION_LENGTH = 0
+
 export const ShowMoreText = (props: Props) => {
-  const { text, onClick, maxLength = 150, ...rest } = props
+  const { description, onClick, maxLength = 150, ...rest } = props
   const [isExpanded, setIsExpanded] = useState(false)
   const [maxLengthText, setMaxLengthText] = useState(maxLength)
-
+  const descriptionLength = !!description ? description.length : EMPTY_DESCRIPTION_LENGTH
   // Проверяем, нужно ли вообще добавлять show more
-  const needsTruncation = text.length > maxLength
+  const needsTruncation = descriptionLength > maxLength
 
-  const displayedText = `${text.slice(0, maxLengthText).trimEnd()}${text.length > maxLengthText ? (isExpanded ? '..' : '...') : ''} `
+  const displayedText = !!description
+    ? `${description.slice(0, maxLengthText).trimEnd()}${descriptionLength > maxLengthText ? (isExpanded ? '..' : '...') : ''} `
+    : ''
 
   const onShowHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsExpanded(true)
