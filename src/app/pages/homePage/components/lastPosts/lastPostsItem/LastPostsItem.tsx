@@ -12,14 +12,14 @@ type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & {
 export const LastPostsItem = (props: Props) => {
   const { className, text } = props
   const [isActive, setActive] = useState(false)
-  const styles = clsx(s.wrapper, className)
+  const styles = clsx(s.wrapper, { [s.active]: isActive }, className)
 
   const onClickHandler = () => {
     setActive(prev => !prev)
   }
   return (
     <div className={styles}>
-      <div className={clsx(s.image_wrapper, { [s.active]: isActive })}>
+      <div className={s.image_wrapper}>
         <SwiperImages images={[picture, picture]} size={'small'} />
       </div>
       <div className={s.user_info}>
@@ -30,7 +30,7 @@ export const LastPostsItem = (props: Props) => {
       </div>
       <div className={s.date}>22 min ago</div>
       <div className={s.text_body}>
-        <ShowMoreText onClick={onClickHandler} text={text} maxLength={90} />
+        <ShowMoreText onClick={onClickHandler} text={text} maxLength={85} />
       </div>
     </div>
   )
