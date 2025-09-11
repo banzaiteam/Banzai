@@ -7,8 +7,10 @@
 
 .wrapper {
   margin-top: 25px;
+  padding-bottom: 25px;
   display: flex;
   gap: 40px;
+  border-bottom: 1px solid #333;
 }
 
 .image {
@@ -18,12 +20,15 @@
 .img {
   width: 192px;
   height: 192px;
-  background-color: #333;
+  background-color: #171717;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 25px;
+  &__btn {
+    white-space: nowrap;
+  }
   &__icon {
     width: 48px;
     height: 48px;
@@ -49,11 +54,29 @@
 
 .selectors {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 25px;
 }
 
+.selector {
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+}
+
 .btn {
-  margin-top: 50px;
+  margin-top: 25px;
   text-align: right;
+}
+
+@media (max-width: 1000px) {
+  .wrapper {
+    display: block;
+  }
+  .image {
+    margin: 0 auto;
+  }
 }

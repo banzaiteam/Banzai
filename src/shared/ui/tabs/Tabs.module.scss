@@ -6,6 +6,7 @@
 .list {
   flex-shrink: 0;
   display: flex;
+  flex-wrap: wrap;
   //border-bottom:1px solid var(--dark-100);
 }
 
@@ -21,7 +22,7 @@
   font-size: 16px;
   line-height: 150%;
   font-weight: 600;
-  color:  var(--dark-100);
+  color: var(--dark-100);
   user-select: none;
   cursor: pointer;
   border: none;
@@ -55,7 +56,8 @@
     }
   }
 
-  &[data-state='active']::after { /*Подчеркивание активной вкладки*/
+  &[data-state='active']::after {
+    /*Подчеркивание активной вкладки*/
     content: '';
 
     position: absolute;
