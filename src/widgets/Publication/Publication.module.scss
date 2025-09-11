@@ -1,0 +1,116 @@
+.publication {
+  color: white;
+  .container {
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal {
+    max-width: 972px;
+    background-color: #333333;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    border: 1px solid #4c4c4c;
+  }
+
+  .arrow {
+    cursor: pointer;
+    &:hover {
+      color: rgb(171, 191, 208);
+      transition: all 0.7s;
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .modal {
+    &__inner {
+      display: flex;
+      gap: 25px;
+    }
+  }
+
+  .post {
+    width: 433px;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+    &__img {
+      margin-right: 12px;
+      height: 35px;
+      width: 35px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .descr {
+    padding-bottom: 35px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #4c4c4c;
+  }
+
+  .label {
+    font-size: 14px;
+    color: #8d9094;
+  }
+
+  .wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .icon {
+    position: absolute;
+    right: 10px;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .input input::placeholder {
+    color: white;
+  }
+
+  .city {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .place {
+    font-size: 12px;
+    margin-bottom: 15px;
+    color: #8d9094;
+  }
+}
+
+@media (max-width: 700px) {
+  .modal__inner {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .modal__img {
+    width: 100%;
+  }
+  .post {
+    margin: 0 auto;
+  }
+}
