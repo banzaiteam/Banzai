@@ -1,6 +1,7 @@
 'use client'
 import { MouseEvent } from 'react'
 import { type ComponentPropsWithoutRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import s from './ShowMoreText.module.scss'
 import type { Nullable } from '@shared/types/nullable'
 
@@ -8,48 +9,80 @@ type Props = {
   description: Nullable<string>
   maxLength?: number
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void
-} & Omit<ComponentPropsWithoutRef<'p'>, 'children' & 'onClick'>
+  animationDuration?: number
+} & Omit<ComponentPropsWithoutRef<'p'>, 'children' | 'onClick'>
 
 const EMPTY_DESCRIPTION_LENGTH = 0
 
 export const ShowMoreText = (props: Props) => {
-  const { description, onClick, maxLength = 150, ...rest } = props
+  const { description, onClick, maxLength = 150, animationDuration = 0.3, ...rest } = props
   const [isExpanded, setIsExpanded] = useState(false)
-  const [maxLengthText, setMaxLengthText] = useState(maxLength)
-  const descriptionLength = !!description ? description.length : EMPTY_DESCRIPTION_LENGTH
-  // Проверяем, нужно ли вообще добавлять show more
-  const needsTruncation = descriptionLength > maxLength
 
+  const descriptionLength = !!description ? description.length : EMPTY_DESCRIPTION_LENGTH
+  const needsTruncation = descriptionLength > maxLength
   const displayedText = !!description
-    ? `${description.slice(0, maxLengthText).trimEnd()}${descriptionLength > maxLengthText ? (isExpanded ? '..' : '...') : ''} `
+    ? isExpanded
+      ? description
+      : `${description.slice(0, maxLength).trimEnd()}${needsTruncation ? '... ' : ''}`
     : ''
 
   const onShowHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsExpanded(true)
-    setMaxLengthText(maxLength + 500)
     onClick?.(e)
   }
+
   const onHideHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsExpanded(false)
-    setMaxLengthText(maxLength)
     onClick?.(e)
+  }
+
+  // Исправленные настройки анимации для текста
+  const textVariants = {
+    hidden: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: animationDuration,
+        ease: 'easeInOut' as const,
+      },
+    },
+    visible: {
+      opacity: 1,
+      height: 'auto',
+      transition: {
+        duration: animationDuration,
+        ease: 'easeInOut' as const,
+      },
+    },
   }
 
   return (
     <div className={s.show_more_container}>
-      <p className={s.text_content} {...rest}>
-        {displayedText}
-      </p>
-      {needsTruncation &&
-        (isExpanded ? (
-          <button className={s.show_more_button} onClick={onHideHandler}>
-            Hide
-          </button>
-        ) : (
-          <button className={s.show_more_button} onClick={onShowHandler}>
-            Show More
-          </button>
-        ))}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isExpanded ? 'expanded' : 'collapsed'}
+          variants={textVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className={s.text_container}
+        >
+          <p className={s.text_content} {...rest}>
+            {displayedText}
+
+            {needsTruncation &&
+              (isExpanded ? (
+                <button className={s.show_more_button} onClick={onHideHandler}>
+                  Hide
+                </button>
+              ) : (
+                <button className={s.show_more_button} onClick={onShowHandler}>
+                  Show More
+                </button>
+              ))}
+          </p>
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }

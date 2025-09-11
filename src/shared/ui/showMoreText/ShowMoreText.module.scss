@@ -4,13 +4,12 @@
 
   & .text_content {
     display: inline;
+    & > div {
+      display: inline-block;
+    }
   }
-  // Обрезаем текст если необходимо
-  /* const displayedText = isExpanded || !needsTruncation
-    ? text
-    : `${text.substring(0, maxLength)}...`*/
+
   & .show_more_button {
-    display: inline-block;
     color: var(--primary-500);
     text-decoration: underline;
     transition: 0.3s;
