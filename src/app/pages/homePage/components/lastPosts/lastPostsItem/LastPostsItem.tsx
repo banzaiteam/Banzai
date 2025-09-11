@@ -7,23 +7,29 @@ import picture from '../../../../../../../public/picture.png'
 import { z } from 'zod'
 import { postDataSchema } from '@/features'
 import { extractPropertyValues } from '@shared/utils/getArrayStrings'
+import { usePostNavigation } from '@/app/pages/homePage/model/hooks/usePostNavigation'
 
 type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> &
-  Omit<z.infer<typeof postDataSchema>, 'isPublished' | 'userId' | 'updatedAt' | 'comments'>
+  Omit<z.infer<typeof postDataSchema>, 'isPublished' | 'updatedAt' | 'comments'>
 
 export const LastPostsItem = (props: Props) => {
-  const { className, description, avatar, files, createdAt } = props
+  const { className, id, description, avatar, files, createdAt, userId } = props
   const [isActive, setActive] = useState(false)
   const urlImages = extractPropertyValues(files, 'url')
   const styles = clsx(s.wrapper, { [s.active]: isActive }, className)
-
-  const onClickHandler = () => {
+  const { onClickPostHandler } = usePostNavigation()
+  const onClickShowMoreHandler = () => {
     setActive(prev => !prev)
+  }
+  const onClickHandler = () => {
+    onClickPostHandler(userId, id)
   }
   return (
     <div className={styles}>
-      <div className={s.image_wrapper}>
+      <div className={s.image_wrapper} onClick={onClickHandler}>
+        {/*<Link href={`${ROUTES.profile(userId)}/${ROUTES.post(id)}`}>*/}
         <SwiperImages images={urlImages} size={'small'} />
+        {/* </Link>*/}
       </div>
       <div className={s.user_info}>
         <CircleImage size={'size-36'}>
@@ -39,7 +45,7 @@ export const LastPostsItem = (props: Props) => {
       </div>
       <div className={s.date}>{createdAt}</div>
       <div className={s.text_body}>
-        <ShowMoreText onClick={onClickHandler} description={description} maxLength={85} />
+        <ShowMoreText onClick={onClickShowMoreHandler} description={description} maxLength={110} />
       </div>
     </div>
   )

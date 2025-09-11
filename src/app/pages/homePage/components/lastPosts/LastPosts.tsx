@@ -12,13 +12,14 @@ type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & {
 
 export const LastPosts = (props: Props) => {
   const { className, initialPostsData } = props
-  console.log(initialPostsData)
+
   const styles = clsx(s.wrapper, className)
 
   const initialPostsDataMapped = initialPostsData.map(
-    ({ id, createdAt, description, files, avatar }) => (
+    ({ id, createdAt, description, files, avatar, userId }) => (
       <LastPostsItem
         id={id}
+        userId={userId}
         createdAt={createdAt}
         key={id}
         description={description}
