@@ -18,7 +18,7 @@ export const CounterRegUsers = (props: Props) => {
   /*const arrayNumbers = useMemo(() => usersAmount.toString().split(''), [usersAmount])*/
 
   const countUsers = useMemo(() => {
-    const count = usersAmount.toString().padStart(DIGITS_COUNT, '0').split('')
+    const count = (usersAmount || 0).toString().padStart(DIGITS_COUNT, '0').split('')
 
     return count.map((num, index) => <li key={index}>{num}</li>)
   }, [usersAmount])
