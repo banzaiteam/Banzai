@@ -34,7 +34,7 @@ export const ProfilePage = (props: Props) => {
     page: initialProfileData.posts.page,
     limit: initialProfileData.posts.limit,
   }
-  const profileDataFromCache: GetProfileResponse = useAppSelector(
+  const profileDataFromCache = useAppSelector(
     state => profileApi.endpoints.getUserProfile.select(defaultInitialParams)(state).data
   )
   const currentData = profileDataFromCache || initialProfileData
