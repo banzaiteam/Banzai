@@ -1,65 +1,39 @@
 import { Button, Popup, Textarea, Typography } from '@shared/ui'
-import { Close } from '@/assets/icons/components'
-import React, { useEffect, useState } from 'react'
+import { Close, ImageOutline } from '@/assets/icons/components'
+import React from 'react'
 import s from './EditPostForm.module.scss'
 import Image from 'next/image'
-import Palm from '@/assets/images/Palm.png'
 import { CircleImage } from '@shared/ui/circleImage/ui/CircleImage'
 import user from '@/assets/images/User.png'
-import { useGetMeQuery } from '@shared/api/userApi'
-import { useGetPostDataQuery } from '@features/showPost/api/api'
-import { useEditPostMutation } from '@features/edit-post/api/editPostApi'
-import { ClosePostModal } from '@features/edit-post/components/closePostModal/ClosePostModal'
+import { Skeleton } from '@shared/ui/skeleton/Skeleton'
+import { SwiperImagesPost } from '@/features'
+import { useEditPost } from '@features/edit-post/model/hooks'
+import { ClosePostModal } from '@features/edit-post/components'
 
-type EditPostForm = {
+export type EditPostForm = {
   open: boolean
   onClose: (value: boolean) => void
   postId: string
 }
 
-export const EditPostForm = (props: EditPostForm) => {
-  const { onClose, postId, open } = props
-  const [description, setDescription] = useState('')
-  const [originalDescription, setOriginalDescription] = useState('')
-  const [showCloseModal, setShowCloseModal] = useState(false)
-  const maxChars = 500
-
-  const { data: userData } = useGetMeQuery()
-  const username = userData?.profile.username
-
-  const { data: postData } = useGetPostDataQuery(postId)
-  useEffect(() => {
-    const desc = postData?.items?.[0]?.description || ''
-    setDescription(desc)
-    setOriginalDescription(desc)
-  }, [postData])
-
-  const hasChanges = description !== originalDescription
-  const handleRequestClose = () => {
-    if (hasChanges) {
-      setShowCloseModal(true)
-    } else {
-      onClose(false)
-    }
-  }
-
-  const [editPost, { isLoading }] = useEditPostMutation()
-  const buttonHandler = async () => {
-    try {
-      await editPost({ id: postId, description }).unwrap()
-      onClose(false)
-    } catch (error) {
-      console.error('Ошибка при редактировании поста:', error)
-    }
-  }
+export const EditPostForm = ({ open, onClose, postId }: EditPostForm) => {
+  const {
+    description,
+    setDescription,
+    showCloseModal,
+    setShowCloseModal,
+    maxChars,
+    username,
+    urlImages,
+    isLoading,
+    handleRequestClose,
+    buttonHandler,
+  } = useEditPost({ postId, onClose })
 
   return (
     <Popup open={open} onOpenChange={handleRequestClose} size={'xl'}>
       <div className={s.title_wrapper}>
         <Typography variant={'h1'}>Edit Post</Typography>
-        {/*<DialogClose onClick={() => setShowCloseModal(true)}>*/}
-        {/*  <Close />*/}
-        {/*</DialogClose>*/}
         <button onClick={() => setShowCloseModal(true)}>
           <Close />
         </button>
@@ -67,7 +41,19 @@ export const EditPostForm = (props: EditPostForm) => {
       <div className={s.separator} />
       <div className={s.main_wrapper}>
         <div className={s.image_block}>
-          <Image src={Palm} width={500} height={500} alt={'main-image post'} />
+          {isLoading ? (
+            <Skeleton className={s.skeleton_main_image} aria-label="Loading post content" />
+          ) : urlImages ? (
+            urlImages.length > 0 && <SwiperImagesPost postImages={urlImages} />
+          ) : (
+            <ImageOutline
+              className={s.io}
+              viewBox={'0 0 24 24'}
+              width={'150px'}
+              height={'150px'}
+              aria-hidden="true"
+            />
+          )}
         </div>
         <div className={s.content_block}>
           <div className={s.user}>
