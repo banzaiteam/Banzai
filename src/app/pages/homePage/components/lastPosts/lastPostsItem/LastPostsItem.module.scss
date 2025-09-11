@@ -1,7 +1,7 @@
 .wrapper {
   height: 392px;
   display: grid;
-
+  font-weight: var(--font-weight-regular);
   grid-template-rows: minmax(30.75%, 10.46fr) 0fr 0fr 3fr;
   @media screen and (min-width: 1600px) {
     height: 25vw;
@@ -11,20 +11,12 @@
     min-width: 0;
     max-height: 100%;
     margin-bottom: 12px;
-    /* padding-bottom: 102.6%;
-    position: relative;*/
-    /* transition: all 0.2s 0.5s;*/
+
     transition: height 0.2s 0.5s;
     cursor: pointer;
-    /* flex-grow: 0;*/
 
-    /*    flex: 0 1 100%;*/
     &:active {
       cursor: grabbing;
-    }
-    & > div {
-      /*position: absolute;
-      inset: 0;*/
     }
   }
   & .user_info {
@@ -32,21 +24,19 @@
     column-gap: 12px;
     align-items: center;
     margin-bottom: 12px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.5;
+    font-weight: var(--font-weight-semi-bold);
+    font-size: var(--font-size-m);
+    line-height: var(--line-height-normal);
     font-family: 'Inter', sans-serif;
   }
   & .date {
-    font-weight: 400;
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--light-900);
     margin-bottom: 4px;
   }
   & .text_body {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: calc(24 / 14);
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-relaxed);
     display: inline;
     transition: 0.3s all;
   }
