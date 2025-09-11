@@ -49,15 +49,5 @@
     line-height: calc(24 / 14);
     display: inline;
     transition: 0.3s all;
-    /*flex: 1 0 72px;*/
-  }
-
-  &.active {
-    .image_wrapper {
-      /* min-height: 30.75%;*/
-      /* padding-bottom: 51.25%;*/
-      /* flex-grow: 1;*/
-      /* max-height: 1000px;*/
-    }
   }
 }
