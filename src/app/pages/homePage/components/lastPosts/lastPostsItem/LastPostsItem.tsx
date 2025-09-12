@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { postDataSchema } from '@/features'
 import { extractPropertyValues } from '@shared/utils/getArrayStrings'
 import { usePostNavigation } from '@/app/pages/homePage/model/hooks/usePostNavigation'
+import { motion } from 'framer-motion'
 
 type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> &
   Omit<z.infer<typeof postDataSchema>, 'isPublished' | 'updatedAt' | 'comments'>
@@ -25,11 +26,18 @@ export const LastPostsItem = (props: Props) => {
     onClickPostHandler(userId, id)
   }
   return (
-    <div className={styles}>
+    <motion.div
+      className={styles}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.3,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
       <div className={s.image_wrapper} onClick={onClickHandler}>
-        {/*<Link href={`${ROUTES.profile(userId)}/${ROUTES.post(id)}`}>*/}
         <SwiperImages images={urlImages} size={'small'} />
-        {/* </Link>*/}
       </div>
       <div className={s.user_info}>
         <CircleImage size={'size-36'}>
@@ -47,6 +55,6 @@ export const LastPostsItem = (props: Props) => {
       <div className={s.text_body}>
         <ShowMoreText onClick={onClickShowMoreHandler} description={description} maxLength={110} />
       </div>
-    </div>
+    </motion.div>
   )
 }
