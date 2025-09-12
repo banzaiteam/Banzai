@@ -60,10 +60,11 @@ export const ShowMoreText = (props: Props) => {
     <div className={s.show_more_container}>
       <AnimatePresence mode="wait">
         <motion.div
+          // для реанимации при изменении значения будет срабатывать повторная анимация
           key={isExpanded ? 'expanded' : 'collapsed'}
           variants={textVariants}
-          initial="hidden"
-          animate="visible"
+          initial="hidden" /*Параметр initial содержит состояние начала анимации*/
+          animate="visible" /* параметр animate - конца*/
           exit="hidden"
           className={s.text_container}
         >
