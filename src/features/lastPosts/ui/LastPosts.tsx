@@ -16,7 +16,7 @@ export const LastPosts = (props: Props) => {
   const styles = clsx(s.wrapper, className)
 
   const initialPostsDataMapped = initialPostsData.map(
-    ({ id, createdAt, description, files, avatar, userId }) => (
+    ({ id, createdAt, description, files, avatar, userId }, index) => (
       <LastPostsItem
         id={id}
         userId={userId}
@@ -25,9 +25,15 @@ export const LastPosts = (props: Props) => {
         description={description}
         files={files}
         avatar={avatar}
+        ariaPosInSet={index + 1}
+        ariaSetSize={initialPostsData.length}
       />
     )
   )
 
-  return <div className={styles}>{initialPostsDataMapped}</div>
+  return (
+    <section role="list" aria-label="Список последних публикаций" className={styles}>
+      {initialPostsDataMapped}
+    </section>
+  )
 }

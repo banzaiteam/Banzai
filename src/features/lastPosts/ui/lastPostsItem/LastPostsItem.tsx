@@ -1,7 +1,7 @@
 import s from './LastPostsItem.module.scss'
 import { CircleImage, ShowMoreText, SwiperImages } from '@shared/ui'
 import clsx from 'clsx'
-import { type ComponentPropsWithoutRef, useState } from 'react'
+import { type ComponentPropsWithoutRef, useRef, useState } from 'react'
 import Image from 'next/image'
 import picture from '../../../../../public/picture.png'
 import { z } from 'zod'
@@ -11,12 +11,29 @@ import { usePostNavigation } from '@features/lastPosts/model/hooks/usePostNaviga
 import { motion } from 'framer-motion'
 
 type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> &
-  Omit<z.infer<typeof postDataSchema>, 'isPublished' | 'updatedAt' | 'comments'>
+  Omit<z.infer<typeof postDataSchema>, 'isPublished' | 'updatedAt' | 'comments'> & {
+    ariaPosInSet?: number
+    ariaSetSize?: number
+  }
 
 export const LastPostsItem = (props: Props) => {
-  const { className, id, description, avatar, files, createdAt, userId } = props
+  const {
+    className,
+    id,
+    description,
+    avatar,
+    files,
+    createdAt,
+    userId,
+    ariaPosInSet,
+    ariaSetSize,
+  } = props
   const [isActive, setActive] = useState(false)
   const urlImages = extractPropertyValues(files, 'url')
+  /**/
+  const [isImageLoaded, setImageLoaded] = useState(false)
+  const articleRef = useRef<HTMLElement>(null)
+  /**/
   const styles = clsx(s.wrapper, { [s.active]: isActive }, className)
   const { onClickPostHandler } = usePostNavigation()
   const onClickShowMoreHandler = () => {
@@ -26,7 +43,8 @@ export const LastPostsItem = (props: Props) => {
     onClickPostHandler(userId, id)
   }
   return (
-    <motion.div
+    <motion.article
+      ref={articleRef}
       className={styles}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -35,8 +53,19 @@ export const LastPostsItem = (props: Props) => {
         delay: 0.3,
         ease: [0, 0.71, 0.2, 1.01],
       }}
+      role="listitem"
+      aria-posinset={ariaPosInSet}
+      aria-setsize={ariaSetSize}
+      aria-labelledby={`post-title-${id}`}
+      aria-describedby={`post-desc-${id} post-date-${id}`}
     >
-      <div className={s.image_wrapper} onClick={onClickHandler}>
+      <div
+        className={s.image_wrapper}
+        onClick={onClickHandler}
+        role="button"
+        tabIndex={0}
+        aria-label={`Посмотреть публикацию полностью. ${urlImages.length > 0 ? `Содержит ${urlImages.length} изображений` : ''}`}
+      >
         <SwiperImages images={urlImages} size={'small'} />
       </div>
       <div className={s.user_info}>
@@ -46,15 +75,25 @@ export const LastPostsItem = (props: Props) => {
             height={36}
             className={s.image}
             src={avatar || picture}
-            alt={'user avatar'}
+            alt={`Аватар пользователя`}
+            onLoadingComplete={() => setImageLoaded(true)}
+            aria-hidden={!isImageLoaded}
           />
         </CircleImage>
-        <span>UserName</span>
+        <span aria-hidden="true">UserName</span>
       </div>
-      <div className={s.date}>{createdAt}</div>
-      <div className={s.text_body}>
-        <ShowMoreText onClick={onClickShowMoreHandler} description={description} maxLength={110} />
+      <time className={s.date} dateTime={new Date(createdAt).toISOString()} id={`post-date-${id}`}>
+        {createdAt}
+      </time>
+      <div className={s.text_body} id={`post-desc-${id}`}>
+        <ShowMoreText
+          onClick={onClickShowMoreHandler}
+          description={description}
+          maxLength={110}
+          aria-controls={`post-desc-${id}`}
+          button-label={isActive ? 'Свернуть текст' : 'Развернуть текст'}
+        />
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
