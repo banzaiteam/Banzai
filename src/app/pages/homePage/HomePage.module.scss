@@ -11,6 +11,11 @@
     @media screen and (max-width: 768px) {
       padding: 24px 12px;
     }
+    @media screen and (max-width: 1280px) {
+      max-width: 972px;
+      margin: 0 auto;
+      box-sizing: unset;
+    }
   }
 
   & .counter_reg_users {

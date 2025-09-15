@@ -6,6 +6,12 @@
   @media screen and (min-width: 1600px) {
     height: 25vw;
   }
+  @media screen and (min-width: 1280px) {
+    grid-template-rows: minmax(30.75%, 10.82fr) 0fr 0fr 3fr;
+  }
+  /*  @media screen and (max-width: 1280px) {
+    grid-template-rows: minmax(30.75%, 240px) 0fr 0fr 3fr;
+  }*/
 
   & .image_wrapper {
     min-width: 0;
