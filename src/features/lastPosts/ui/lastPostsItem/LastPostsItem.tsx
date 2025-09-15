@@ -3,11 +3,11 @@ import { CircleImage, ShowMoreText, SwiperImages } from '@shared/ui'
 import clsx from 'clsx'
 import { type ComponentPropsWithoutRef, useState } from 'react'
 import Image from 'next/image'
-import picture from '../../../../../../../public/picture.png'
+import picture from '../../../../../public/picture.png'
 import { z } from 'zod'
 import { postDataSchema } from '@/features'
 import { extractPropertyValues } from '@shared/utils/getArrayStrings'
-import { usePostNavigation } from '@/app/pages/homePage/model/hooks/usePostNavigation'
+import { usePostNavigation } from '@features/lastPosts/model/hooks/usePostNavigation'
 import { motion } from 'framer-motion'
 
 type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> &

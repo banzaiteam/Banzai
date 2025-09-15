@@ -2,9 +2,9 @@
 import s from './LastPosts.module.scss'
 import type { ComponentPropsWithoutRef } from 'react'
 import clsx from 'clsx'
-import { LastPostsItem } from '@/app/pages/homePage/components/lastPosts/lastPostsItem/LastPostsItem'
 import { z } from 'zod'
 import { postDataSchema } from '@/features'
+import { LastPostsItem } from '@features/lastPosts/ui/lastPostsItem/LastPostsItem'
 
 type Props = Omit<ComponentPropsWithoutRef<'div'>, 'children'> & {
   initialPostsData: z.infer<typeof postDataSchema>[]

@@ -1,9 +1,8 @@
-import { CounterRegUsers } from '@/app/pages'
-import { LastPosts } from '@/app/pages/homePage/components/lastPosts/LastPosts'
 import s from './HomePage.module.scss'
 import { WrapperPage } from './WrapperPage'
 import { z } from 'zod'
-import { postDataSchema } from '@/features'
+import { LastPosts, postDataSchema } from '@/features'
+import { CounterRegUsers } from '@/widgets'
 
 export type ResponseData = {
   posts: z.infer<typeof postDataSchema>[]
