@@ -12,6 +12,7 @@ import { profileApi, useLazyGetUserProfileQuery } from '@widgets/profile/api/pro
 import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import clsx from 'clsx'
+import { Button } from '@shared/ui'
 
 type Props = {
   initialProfileData: getProfileResponse
@@ -24,6 +25,7 @@ export const ProfilePage = (props: Props) => {
   const [getProfilePosts, { isFetching }] = useLazyGetUserProfileQuery()
   const isAuth = !!meData
   const userId = userIdParam || initialProfileData.user.id
+  const isOwnerProfile = meData?.id === userId
 
   /*Интересный случай при подставление первых args достаёт последний кеш, даже есть args другие  */
   const defaultInitialParams = {
@@ -59,6 +61,10 @@ export const ProfilePage = (props: Props) => {
     }
   }
 
+  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(e)
+  }
+
   useEffect(() => {
     if (isNeedHydrateRef.current && initialProfileData) {
       dispatch(
@@ -78,6 +84,15 @@ export const ProfilePage = (props: Props) => {
           <div className={styles.info}>
             <div className={styles.top}>
               <h3 className={styles.username}>{username}</h3>
+              {isOwnerProfile && (
+                <Button
+                  onClick={onClickHandler}
+                  className={styles.settings_button}
+                  variant={'secondary'}
+                >
+                  Profile Settings
+                </Button>
+              )}
             </div>
             <div className={styles.stats}>
               <ul className={styles.items}>

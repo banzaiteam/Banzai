@@ -28,6 +28,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  & .settings_button {
+    line-height: 1.25;
+    padding: 0 22px;
+  }
 }
 
 .username {
