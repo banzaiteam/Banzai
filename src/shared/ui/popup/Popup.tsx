@@ -1,6 +1,6 @@
 import React, { type ComponentPropsWithoutRef } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { DialogDescription } from '@radix-ui/react-dialog'
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog'
 import s from './Popup.module.scss'
 import { Card } from '@shared/ui'
 import { clsx } from 'clsx'
@@ -31,11 +31,12 @@ export const Popup = (props: PopupProps) => {
 }
 
 export const PopupHeader = (props: PopupHeaderProps) => {
-  const { children, className, ...rest } = props
+  const { children, className, title, ...rest } = props
 
   return (
     <>
       <div className={clsx(className, s.popup_header)} {...rest}>
+        <DialogTitle>{title}</DialogTitle>
         {children}
       </div>
       <hr />

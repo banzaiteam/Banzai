@@ -1,3 +1,4 @@
+'use client'
 import { Button, Popup, Textarea, Typography } from '@shared/ui'
 import { Close } from '@/assets/icons/components'
 import React, { useEffect, useState } from 'react'

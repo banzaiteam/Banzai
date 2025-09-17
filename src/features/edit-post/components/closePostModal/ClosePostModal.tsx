@@ -1,7 +1,7 @@
 import { Button, Popup, PopupHeader, Typography } from '@shared/ui'
 import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
 import { Close } from '@/assets/icons/components'
-import s from '@features/showPost/components/verifyModal/VerifyModal.module.scss'
+import s from '@widgets/verifyPopup/VerifyPopup.module.scss'
 import React from 'react'
 
 type Props = {

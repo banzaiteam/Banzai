@@ -1,41 +1,44 @@
-'use client'
-import React, { type ReactNode } from 'react'
-import { Button, Popup, PopupHeader } from '@shared/ui'
-import { DialogClose, DialogTitle } from '@radix-ui/react-dialog'
-import { Close } from '@/assets/icons/components'
-import s from './VerifyModal.module.scss'
-import { useDeletePostMutation } from '@/features'
 import { Loading } from '@/features'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { Button, Popup, PopupHeader } from '@shared/ui'
+import { DialogClose } from '@radix-ui/react-dialog'
+import { Close } from '@/assets/icons/components'
+import s from './VerifyPopup.module.scss'
+import React, { type ReactNode } from 'react'
 
 type Props = {
-  id: string
+  /* id: string*/
   title?: string
-  isOpenValue: boolean
+  isOpenValue?: boolean
   onClose: (value: boolean) => void
   children: ReactNode
+  isLoading?: boolean
+  onClickYes: () => void
 }
 
-export const VerifyModal = (props: Props) => {
-  const { isOpenValue, children, id, title = 'Email sent', onClose } = props
-  const onCloseHandler = () => onClose(false)
-  const router = useRouter()
-  const [deletePost, { isLoading }] = useDeletePostMutation()
+export const VerifyPopup = (props: Props) => {
+  const {
+    isOpenValue = true,
+    children,
+    onClickYes,
+    title = 'Заголовок',
+    onClose,
+    isLoading = false,
+  } = props
+
+  const onCloseHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onClose(false)
+    e.stopPropagation()
+  }
+  /*const [deletePost, { isLoading }] = useDeletePostMutation()*/
   const t = useTranslations('VerifyDeleteModal')
   const onClickYesHandler = async () => {
-    try {
-      await deletePost(id).unwrap()
-      onCloseHandler()
-
-      router.back()
-    } catch (error: unknown) {}
+    onClickYes()
   }
 
   return (
     <Popup open={isOpenValue} onOpenChange={onClose} size={'xs'}>
-      <PopupHeader>
-        <DialogTitle>{title}</DialogTitle>
+      <PopupHeader title={title}>
         <DialogClose onClick={onCloseHandler}>
           <Close />
         </DialogClose>
