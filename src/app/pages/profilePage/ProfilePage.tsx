@@ -13,6 +13,7 @@ import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import clsx from 'clsx'
 import { Button } from '@shared/ui'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   initialProfileData: getProfileResponse
@@ -26,7 +27,7 @@ export const ProfilePage = (props: Props) => {
   const isAuth = !!meData
   const userId = userIdParam || initialProfileData.user.id
   const isOwnerProfile = meData?.id === userId
-
+  const router = useRouter()
   /*Интересный случай при подставление первых args достаёт последний кеш, даже есть args другие  */
   const defaultInitialParams = {
     id: userId,
@@ -64,7 +65,9 @@ export const ProfilePage = (props: Props) => {
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(e)
   }
-
+  const onClickFollowersHandler = () => {
+    router.replace(`${ROUTES.profile(userId)}/followers`)
+  }
   useEffect(() => {
     if (isNeedHydrateRef.current && initialProfileData) {
       dispatch(
@@ -100,7 +103,10 @@ export const ProfilePage = (props: Props) => {
                   <span className={styles.accent}>{following}</span> Following
                 </li>
                 <li className={styles.item}>
-                  <span className={styles.accent}>{followers}</span> Followers
+                  <span onClick={onClickFollowersHandler} className={styles.accent}>
+                    {followers}
+                  </span>
+                  Followers
                 </li>
                 <li className={styles.item}>
                   <span className={styles.accent}>{publications}</span> Publications
