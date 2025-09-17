@@ -1,13 +1,13 @@
 'use client'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGetMeQuery } from '@shared/api/userApi'
 import type { ShowPostProps } from '@features/showPost/ui/ShowPost'
 import { showPostApi, useGetPostDataQuery } from '@features/showPost/api/api'
-import { usePreviousPath } from '@/features'
 import { useAppDispatch } from '@shared/hooks/useAppDispatch'
 import { notFound } from 'next/navigation'
 import { useAppSelector } from '@shared/hooks/useAppSelector'
 import { ROUTES } from '@shared/constants/routes'
+import { usePopup } from '@shared/ui'
 import { extractPropertyValues } from '@shared/utils/getArrayStrings'
 
 type UseShowPostData = Omit<ShowPostProps, 'initialFindOneUserData'>
@@ -42,20 +42,15 @@ export const useShowPost = ({ onClose, id, initialPostData }: UseShowPostData) =
   }
   const isOwnerPost = meData?.id === post.userId
   /*const routerBack = usePreviousPath('/profile')*/
-  /*  Раскоментировать когда будет profile->[id]->page.tsx    */
-  const routerBack = usePreviousPath(ROUTES.profile(post?.userId as string))
+  /*  Раскоментировать когда будет profile->[id]->page.tsx */
+  const { onCloseHandler, onClickHandler } = usePopup({
+    onClose,
+    path: ROUTES.profile(post?.userId as string),
+  })
 
   const comments = post?.comments
   const urlImages = extractPropertyValues(post.files, 'url')
 
-  const onCloseHandler = () => {
-    onClose?.(false)
-    routerBack()
-  }
-  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onCloseHandler()
-    e.preventDefault()
-  }
   useEffect(() => {
     if (isNeedHydrateRef.current && initialPostData) {
       dispatch(showPostApi.util.upsertQueryData('getPostData', postId, initialPostData))

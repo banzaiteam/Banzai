@@ -7,9 +7,9 @@ import {
   type FindOneUserDataResponse,
   type GetPostDataResponse,
   SwiperImagesPost,
+  useDeletePostMutation,
   usePostMeatballsMenuItems,
   useShowPost,
-  VerifyModal,
 } from '@/features'
 import { CircleImage, Popup, Typography } from '@shared/ui'
 import { Close, ImageOutline } from '@/assets/icons/components'
@@ -22,6 +22,7 @@ import { AddCommentField } from '@features/showPost/components/addCommentField/A
 import { useTranslations } from 'next-intl'
 import { DescriptionPost } from '@features/showPost/components/descriptionPost/DescriptionPost'
 import { Comments } from '@features/showPost/components/comments/Comments'
+import { VerifyPopup } from '@/widgets'
 
 export type ShowPostProps = {
   id?: string
@@ -61,10 +62,16 @@ export const ShowPost = (props: ShowPostProps) => {
     setOpenVerifyDeleteModal,
     handleCloseEditModal,
   } = usePostMeatballsMenuItems(isOwnerPost)
-
+  const [deletePost, { isLoading: deletePostIsLoading }] = useDeletePostMutation()
+  const onClickYesHandler = async () => {
+    try {
+      await deletePost(postId).unwrap()
+    } catch (error: unknown) {}
+  }
   return (
     <>
-      <Popup open={true} {...rest} onOpenChange={onCloseHandler} size={'xl'}>
+      {/*Проблема с Popup на мобильной версии, на desktop всё работает нужно узнать почему срабатывает onOpenChange на мобиле */}
+      <Popup {...rest} open={true} onOpenChange={onCloseHandler} size={'xl'}>
         <DialogClose className={s.close} onClick={onClickHandler} aria-label="Close post dialog">
           <Close />
         </DialogClose>
@@ -139,18 +146,18 @@ export const ShowPost = (props: ShowPostProps) => {
         {/* </Scroll>*/}
       </Popup>
       {isEditing && <EditPostForm postId={postId} open={true} onClose={handleCloseEditModal} />}
-      <VerifyModal
-        id={postId}
-        title={t('title')}
-        isOpenValue={isOpenVerifyDeleteModal}
+
+      <VerifyPopup
         onClose={setOpenVerifyDeleteModal}
-        data-id={'verify-delete-modal'}
-        aria-label="Confirm post deletion"
+        onClickYes={onClickYesHandler}
+        isOpenValue={isOpenVerifyDeleteModal}
+        isLoading={deletePostIsLoading}
+        title={t('title')}
       >
         <Typography variant={'regular_text_16'} className={s.verify_text}>
           {t('textBody')}
         </Typography>
-      </VerifyModal>
+      </VerifyPopup>
     </>
   )
 }
