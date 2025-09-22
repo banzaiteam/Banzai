@@ -2,7 +2,7 @@
 
 import { useGetMeQuery } from '@shared/api/userApi'
 import { useEffect, useRef } from 'react'
-import type { getProfileResponse } from '@widgets/profile/model/types/types'
+import type { GetProfileResponse } from '@widgets/profile/model/types/types'
 import styles from '../../../widgets/profile/Profile.module.scss'
 import Link from 'next/link'
 import { ROUTES } from '@shared/constants/routes'
@@ -16,7 +16,7 @@ import { Button } from '@shared/ui'
 import { useRouter } from 'next/navigation'
 
 type Props = {
-  initialProfileData: getProfileResponse
+  initialProfileData: GetProfileResponse
   userIdParam: string
 }
 

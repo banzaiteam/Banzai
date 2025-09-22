@@ -1,0 +1,23 @@
+.show_more_container {
+  font-size: 14px;
+  font-weight: 400;
+
+  & .text_content {
+    display: inline;
+    & > div {
+      display: inline-block;
+    }
+  }
+
+  & .show_more_button {
+    color: var(--primary-500);
+    text-decoration: underline;
+    transition: 0.3s;
+    line-height: 0;
+  }
+
+  & .show_more_button:hover {
+    text-decoration: none;
+    color: var(--primary-700);
+  }
+}
