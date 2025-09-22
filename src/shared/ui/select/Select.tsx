@@ -26,7 +26,6 @@ const Select: React.FC<SelectProps> = ({
   value,
   disabled = false,
   size = 'default',
-  className,
 }) => {
   const [open, setOpen] = React.useState(false)
 

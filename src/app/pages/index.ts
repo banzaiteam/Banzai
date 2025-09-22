@@ -11,4 +11,3 @@ export { EmailVerifyRecoveryPasswordPage } from './emailVerifyRecoveryPasswordPa
 export * from './postPage/PostPage'
 export * from './profilePage/ProfilePage'
 export * from './profileFollowersPage/ProfileFollowersPage'
-export * from './homePage/components/counterRegUsers/CounterRegUsers'
