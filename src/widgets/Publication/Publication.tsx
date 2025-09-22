@@ -1,11 +1,16 @@
+'use client'
 import { ArrowIosBackOutline, PinOutline } from '@/assets/icons/components'
 import styles from './Publication.module.scss'
 import { Button, Input, Textarea } from '@/shared/ui'
-import Palm from '../../assets/images/Palm.png'
 import Ellon from '../../assets/profile/ellon.jpg'
 import Image from 'next/image'
+import { usePublication } from '@widgets/Publication/model/hooks'
+import Palm from '../../assets/images/Palm.png'
+import { SsePhoto } from '@features/createPost/model/hooks'
 
-export default function Publication() {
+export default function Publication({ photo }: { photo?: SsePhoto }) {
+  const { onClickHandler, description, setDescription } = usePublication(photo)
+
   return (
     <div className={styles.publication}>
       <div className={styles.container}>
@@ -13,11 +18,26 @@ export default function Publication() {
           <div className={styles.header}>
             <ArrowIosBackOutline className={styles.arrow} />
             <p className={styles.title}>Publication</p>
-            <Button variant="text-button"> Publish</Button>
+            <Button variant="text-button" onClick={onClickHandler}>
+              {' '}
+              Publish
+            </Button>
           </div>
           <div className={styles.modal__inner}>
             <div className={styles.modal__img}>
-              <Image src={Palm} alt="image" />
+              {photo ? (
+                <img
+                  src={photo.url}
+                  alt={photo.fileName || 'Uploaded image'}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              ) : (
+                <Image src={Palm} alt="Palm" />
+              )}
             </div>
             <div className={styles.post}>
               <div className={styles.user}>
@@ -29,6 +49,8 @@ export default function Publication() {
                   className={styles.editor}
                   title="Add publication descriptions"
                   placeholder="Description"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
                 />
               </div>
               <div className={styles.location}>

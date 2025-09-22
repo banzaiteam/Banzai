@@ -22,6 +22,7 @@ export const ROUTES = {
   post: (id: string) => `/posts/${id}` as const,
   allPosts: '/posts' as const,
   cancelPost: '/posts/cancel' as const,
+  publishPost: '/publish' as const,
 
   // 🎥 SSE upload views
   sseAvatarUpload: '/signup/sse-avatar' as const,
@@ -45,6 +46,7 @@ const authOnlyRoutes: Set<string> = new Set([
   ROUTES.myProfile,
   ROUTES.createPost,
   ROUTES.cancelPost,
+  ROUTES.publishPost,
 ])
 
 const guestOnlyRoutes: Set<string> = new Set([
