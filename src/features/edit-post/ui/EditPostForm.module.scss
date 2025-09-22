@@ -18,11 +18,14 @@
 
   @media (max-width: 768px) {
     flex-direction: column;
+    width: 82vw;
+    height: 90vh;
   }
 
   .image_block {
-    width: 50%;
-
+    flex: 0 0 50%;
+    padding-bottom: 55.8%;
+    position: relative;
     @media (max-width: 768px) {
       width: 100%;
       order: 1;
