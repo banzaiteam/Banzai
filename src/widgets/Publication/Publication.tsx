@@ -19,7 +19,6 @@ export default function Publication({ photo }: { photo?: SsePhoto }) {
             <ArrowIosBackOutline className={styles.arrow} />
             <p className={styles.title}>Publication</p>
             <Button variant="text-button" onClick={onClickHandler}>
-              {' '}
               Publish
             </Button>
           </div>

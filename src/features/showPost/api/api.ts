@@ -9,6 +9,7 @@ import {
 import { userApi } from '@shared/api/userApi'
 
 import { z } from 'zod'
+import { profileApi } from '@widgets/profile/api/profileApi'
 
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -34,6 +35,35 @@ export const showPostApi = baseApi.injectEndpoints({
         url: `/posts/${postId}`,
         method: 'DELETE',
       }),
+      async onQueryStarted(postId, { queryFulfilled, dispatch, getState }) {
+        const cashMe = userApi.endpoints.getMe.select()(getState()).data
+        debugger
+        if (!cashMe) {
+          throw new Error('User not auth')
+        }
+        debugger
+        const patchResult = dispatch(
+          profileApi.util.updateQueryData(
+            'getUserProfile',
+            { id: cashMe.id, page: 1, limit: 8 },
+            state => {
+              debugger
+              const posts = state.posts.items
+              debugger
+              const indexPost = posts.findIndex(post => post.id === postId)
+              if (indexPost >= 0) {
+                posts.splice(indexPost, 1)
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
     }),
     addComment: build.mutation<AddCommentResponse, { postId: string; text: string }>({
       query: body => ({
