@@ -1,3 +1,4 @@
+'use client'
 import { Button, Popup, Textarea, Typography } from '@shared/ui'
 import { Close, ImageOutline } from '@/assets/icons/components'
 import React from 'react'
