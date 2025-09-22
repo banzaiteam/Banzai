@@ -17,6 +17,7 @@ type SelectProps = {
   value: string
   disabled?: boolean
   size?: 'default' | 'small'
+  className?: string
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -25,6 +26,7 @@ const Select: React.FC<SelectProps> = ({
   value,
   disabled = false,
   size = 'default',
+  className,
 }) => {
   const [open, setOpen] = React.useState(false)
 
