@@ -64,6 +64,7 @@ export const ProfilePage = (props: Props) => {
 
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(e)
+    router.push(`${ROUTES.profile(userId)}/settings`)
   }
   const onClickFollowersHandler = () => {
     router.replace(`${ROUTES.profile(userId)}/followers`)
