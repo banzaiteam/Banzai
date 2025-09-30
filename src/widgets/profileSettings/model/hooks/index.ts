@@ -1,1 +1,1 @@
-export * from './useProfileSettings'
+export * from './useGeneralInformation'

@@ -1,9 +1,9 @@
 import { useGetMeQuery } from '@shared/api/userApi'
 import { useEffect, useMemo, useState } from 'react'
 import { useUpdateProfileSettingsMutation } from '@widgets/profileSettings/api/profileSettingsApi'
-import { profileSettingsSchema } from '@widgets/profileSettings/model/schemas'
+import { generalInformationSchema } from '@widgets/profileSettings/model/schemas'
 
-export const useProfileSettings = () => {
+export const useGeneralInformation = () => {
   const { data: meData } = useGetMeQuery()
 
   const [username, setUsername] = useState('')
@@ -15,14 +15,14 @@ export const useProfileSettings = () => {
   const [dateOfBirth, setDateOfBirth] = useState('')
 
   useEffect(() => {
-    if (meData?.profile) {
+    if (meData) {
       setUsername(meData?.profile?.username || '')
+      setAboutMe(meData?.firstname || '')
+      setLastName(meData?.lastname || '')
+      setDateOfBirth(meData?.birthdate || '')
+      setCountry(meData?.country || '')
+      setCity(meData?.city || '')
       setAboutMe(meData?.profile?.aboutMe || '')
-      //setLastName(meData?.profile?.lastName || '')
-      setAboutMe(meData?.profile?.aboutMe || '')
-      //setCountry(meData?.profile?.country || '')
-      //setCity(meData?.profile?.city || '')
-      //setDateOfBirth(meData?.profile?.dateOfBirth || '')
     }
   }, [meData])
 
@@ -30,7 +30,7 @@ export const useProfileSettings = () => {
 
   const isFormValid = useMemo(() => {
     //useMemo пересчитывает isFormValid каждый раз, когда изменяется одно из полей
-    const result = profileSettingsSchema.safeParse({
+    const result = generalInformationSchema.safeParse({
       username,
       firstName,
       lastName,

@@ -1,1 +1,1 @@
-export * from './profileSettingsSchema'
+export * from './generalInformationSchema'

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const profileSettingsSchema = z.object({
+export const generalInformationSchema = z.object({
   username: z
     .string()
     .min(6, { message: 'Username must be at least 6 characters long' })
@@ -46,11 +46,11 @@ export const profileSettingsSchema = z.object({
   city: z.string().optional(),
 })
 
-// export type ProfileSettingsFormData = z.infer<typeof profileSettingsSchema>
+// export type ProfileSettingsFormData = z.infer<typeof generalInformationSchema>
 //
 // // Валидация отдельных полей (если нужно валидировать по одному)
-// export const usernameSchema = profileSettingsSchema.pick({ username: true })
-// export const firstNameSchema = profileSettingsSchema.pick({ firstName: true })
-// export const lastNameSchema = profileSettingsSchema.pick({ lastName: true })
-// export const dateOfBirthSchema = profileSettingsSchema.pick({ dateOfBirth: true })
-// export const aboutMeSchema = profileSettingsSchema.pick({ aboutMe: true })
+// export const usernameSchema = generalInformationSchema.pick({ username: true })
+// export const firstNameSchema = generalInformationSchema.pick({ firstName: true })
+// export const lastNameSchema = generalInformationSchema.pick({ lastName: true })
+// export const dateOfBirthSchema = generalInformationSchema.pick({ dateOfBirth: true })
+// export const aboutMeSchema = generalInformationSchema.pick({ aboutMe: true })
