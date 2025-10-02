@@ -1,6 +1,6 @@
 import { useGetMeQuery } from '@shared/api/userApi'
 import { useEffect, useMemo, useState } from 'react'
-import { useUpdateProfileSettingsMutation } from '@widgets/profileSettings/api/profileSettingsApi'
+import { useUpdateGeneralInformationMutation } from '@widgets/profileSettings/api/profileSettingsApi'
 import { generalInformationSchema } from '@widgets/profileSettings/model/schemas'
 
 export const useGeneralInformation = () => {
@@ -17,7 +17,7 @@ export const useGeneralInformation = () => {
   useEffect(() => {
     if (meData) {
       setUsername(meData?.profile?.username || '')
-      setAboutMe(meData?.firstname || '')
+      setFirstName(meData?.firstname || '')
       setLastName(meData?.lastname || '')
       setDateOfBirth(meData?.birthdate || '')
       setCountry(meData?.country || '')
@@ -26,7 +26,7 @@ export const useGeneralInformation = () => {
     }
   }, [meData])
 
-  const [updateUser] = useUpdateProfileSettingsMutation()
+  const [updateUser] = useUpdateGeneralInformationMutation()
 
   const isFormValid = useMemo(() => {
     //useMemo пересчитывает isFormValid каждый раз, когда изменяется одно из полей
@@ -40,22 +40,36 @@ export const useGeneralInformation = () => {
     return result.success
   }, [username, firstName, lastName, dateOfBirth, aboutMe])
 
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault() //отменяет перезагрузку страницы
+    handleSubmit()
+  }
+
   const handleSubmit = async () => {
     if (!isFormValid) {
       console.warn('Форма не прошла валидацию')
       return
     }
+    const updateUserDto: Record<string, any> = {
+      //тип Record: объект, у которого ключи — строки (string), а значения — любые (any).
+      username,
+      aboutMe,
+      firstName,
+      lastName,
+      country,
+      city,
+    }
 
-    const updateUserDto = { city: 'Minsk' }
-
-    // Заглушка: создаём фиктивный файл
-    const dummyImage = new Uint8Array([137, 80, 78, 71]) // PNG header bytes
-    const file = new File([dummyImage], 'User.png', { type: 'image/png' })
+    if (dateOfBirth) {
+      updateUserDto.birthdate = dateOfBirth
+    }
 
     try {
-      await updateUser({ updateUserDto, file })
+      await updateUser({ updateUserDto }).unwrap()
+      alert('Your settings are saved!')
     } catch (error) {
       console.error('Ошибка при обновлении профиля:', error)
+      alert('Error! Server is not available!')
     }
   }
 
@@ -75,6 +89,6 @@ export const useGeneralInformation = () => {
     dateOfBirth,
     setDateOfBirth,
     isFormValid,
-    handleSubmit,
+    onSubmitHandler,
   }
 }

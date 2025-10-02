@@ -2,14 +2,10 @@ import { baseApi } from '@shared/api/baseApi'
 
 export const profileSettingsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    updateProfileSettings: build.mutation<any, any>({
-      query: ({ updateUserDto, file }) => {
+    updateGeneralInformation: build.mutation<any, any>({
+      query: ({ updateUserDto }) => {
         const formData = new FormData()
         formData.append('updateUserDto', JSON.stringify(updateUserDto))
-        if (file) {
-          formData.append('file', file)
-        }
-
         return {
           url: `/users`,
           method: 'PATCH',
@@ -20,4 +16,4 @@ export const profileSettingsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useUpdateProfileSettingsMutation } = profileSettingsApi
+export const { useUpdateGeneralInformationMutation } = profileSettingsApi
