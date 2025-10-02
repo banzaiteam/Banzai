@@ -15,6 +15,7 @@ export type User = {
   birthdate: string
   country: string
   city: string
+  url: string
   profile: Profile
 }
 

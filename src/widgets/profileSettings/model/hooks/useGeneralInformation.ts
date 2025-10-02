@@ -12,29 +12,49 @@ export const useGeneralInformation = () => {
   const [country, setCountry] = useState('')
   const [city, setCity] = useState('')
   const [aboutMe, setAboutMe] = useState('')
-  const [dateOfBirth, setDateOfBirth] = useState('')
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null)
+  const [avatar, setAvatar] = useState('')
+  const [avatarFile, setAvatarFile] = useState<File | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     if (meData) {
       setUsername(meData?.profile?.username || '')
       setFirstName(meData?.firstname || '')
       setLastName(meData?.lastname || '')
-      setDateOfBirth(meData?.birthdate || '')
+      setDateOfBirth(meData?.birthdate ? new Date(meData.birthdate) : null)
       setCountry(meData?.country || '')
       setCity(meData?.city || '')
       setAboutMe(meData?.profile?.aboutMe || '')
+      setAvatar(meData?.url || '')
     }
   }, [meData])
 
   const [updateUser] = useUpdateGeneralInformationMutation()
 
+  const handleAvatarSave = (file: File) => {
+    setAvatarFile(file)
+    // Создаем временный URL для предпросмотра
+    const imageUrl = URL.createObjectURL(file)
+    setAvatar(imageUrl)
+  }
+
+  const formatDateToDDMMYYYY = (date: Date): string => {
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+    return `${day}.${month}.${year}`
+  }
+
   const isFormValid = useMemo(() => {
+    const dateOfBirthString = dateOfBirth ? formatDateToDDMMYYYY(dateOfBirth) : ''
+
     //useMemo пересчитывает isFormValid каждый раз, когда изменяется одно из полей
     const result = generalInformationSchema.safeParse({
       username,
       firstName,
       lastName,
-      dateOfBirth,
+      dateOfBirth: dateOfBirthString,
       aboutMe,
     })
     return result.success
@@ -61,11 +81,12 @@ export const useGeneralInformation = () => {
     }
 
     if (dateOfBirth) {
-      updateUserDto.birthdate = dateOfBirth
+      // Преобразуем Date в строку для отправки на сервер
+      updateUserDto.birthdate = formatDateToDDMMYYYY(dateOfBirth)
     }
 
     try {
-      await updateUser({ updateUserDto }).unwrap()
+      await updateUser({ updateUserDto, avatarFile }).unwrap()
       alert('Your settings are saved!')
     } catch (error) {
       console.error('Ошибка при обновлении профиля:', error)
@@ -88,7 +109,12 @@ export const useGeneralInformation = () => {
     setAboutMe,
     dateOfBirth,
     setDateOfBirth,
+    avatar,
+    setAvatar,
     isFormValid,
     onSubmitHandler,
+    isModalOpen,
+    setIsModalOpen,
+    handleAvatarSave,
   }
 }
