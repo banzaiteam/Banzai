@@ -11,7 +11,7 @@ import { useSendVerifyEmailMutation } from '@features/auth/signUp/api/signUp.api
 import { z } from 'zod'
 import { PresentationPage } from '@/features'
 import { EmailSentPopup } from '@features/auth/components'
-import { emailInputSchema } from '@features/auth'
+import { emailInputSchema } from '../../model/schemas/emailInputSchema'
 
 const schema = z.object({
   email: emailInputSchema,
@@ -48,12 +48,13 @@ export const EmailVerify = () => {
       await sendVerifyEmail({ email }).unwrap()
       setEmailUser(getValues('email'))
       reset()
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error)
-      if (error.status === 400 || error.status === 401) {
+      const errorApi = error as { status: number; data: { message: string } }
+      if (errorApi.status === 400 || errorApi.status === 401) {
         setError('email', {
           type: 'manual',
-          message: error.data.message,
+          message: errorApi.data.message,
         })
       }
       return

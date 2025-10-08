@@ -1,18 +1,107 @@
 import { baseApi } from '@shared/api/baseApi'
-/*import type { AuthResponse } from '../model/types/types'*/
+import {
+  type AddCommentResponse,
+  type CommentPost,
+  type DeletePostResponse,
+  type GetPostDataResponse,
+  getPostDataSchema,
+} from '@/features'
+import { userApi } from '@shared/api/userApi'
 
-type AuthResponse = {}
+import { z } from 'zod'
+import { profileApi } from '@widgets/profile/api/profileApi'
 
 export const showPostApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    deletePost: build.mutation<AuthResponse, { email: string; password: string }>({
-      query: credentials => ({
-        url: 'auth/login',
-        method: 'POST',
-        body: credentials,
+    getPostData: build.query<GetPostDataResponse, string>({
+      query: postId => `/posts?filter=id:eq:${postId}`,
+      keepUnusedDataFor: 9999999,
+      providesTags: (result, error, postId) => [{ type: 'Post', id: postId }],
+      transformResponse: (response: GetPostDataResponse) => {
+        try {
+          getPostDataSchema.parse(response)
+        } catch (err) {
+          if (err instanceof z.ZodError) {
+            console.table(err.issues)
+          }
+        }
+        return response
+      },
+      /* extraOptions:{dataSchema:getPostDataSchema},*/
+    }),
+
+    deletePost: build.mutation<DeletePostResponse, string>({
+      query: postId => ({
+        url: `/posts/${postId}`,
+        method: 'DELETE',
       }),
+      async onQueryStarted(postId, { queryFulfilled, dispatch, getState }) {
+        const cashMe = userApi.endpoints.getMe.select()(getState()).data
+        debugger
+        if (!cashMe) {
+          throw new Error('User not auth')
+        }
+        debugger
+        const patchResult = dispatch(
+          profileApi.util.updateQueryData(
+            'getUserProfile',
+            { id: cashMe.id, page: 1, limit: 8 },
+            state => {
+              debugger
+              const posts = state.posts.items
+              debugger
+              const indexPost = posts.findIndex(post => post.id === postId)
+              if (indexPost >= 0) {
+                posts.splice(indexPost, 1)
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
+    }),
+    addComment: build.mutation<AddCommentResponse, { postId: string; text: string }>({
+      query: body => ({
+        url: `/posts/comments`,
+        method: 'POST',
+        body,
+      }),
+      async onQueryStarted({ postId, text }, { queryFulfilled, dispatch, getState }) {
+        const cashMe = userApi.endpoints.getMe.select()(getState()).data
+        const patchResult = dispatch(
+          showPostApi.util.updateQueryData('getPostData', postId, state => {
+            const comments = state.items[0].comments
+            const nowDate = new Date().toISOString().split('T')[0]
+            if (comments && cashMe) {
+              const comment: CommentPost = {
+                id: `client-${Date.now()}`,
+                createdAt: nowDate,
+                updatedAt: nowDate,
+                deletedAt: null,
+                userId: cashMe.id,
+                text,
+                likes: 0,
+                parentId: null,
+              }
+              comments.push(comment)
+            }
+          })
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
+      invalidatesTags: (_, __, arg) => [{ type: 'Post', id: arg.postId }],
     }),
   }),
 })
-/*TODO*/
-export const {} = showPostApi
+
+export const { useDeletePostMutation, useGetPostDataQuery, useAddCommentMutation } = showPostApi

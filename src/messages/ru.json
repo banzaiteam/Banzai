@@ -1,5 +1,20 @@
 {
   "IndexPage": {
     "title": "Русский языка"
+  },
+  "SignUp": {
+    "title": "Регистрация"
+  },
+  "VerifyDeleteModal": {
+    "title": "Удалить пост",
+    "textBody": "Вы уверенный что хотите удалить этот пост?",
+    "YesButton": "Да",
+    "NoButton": "Нет"
+  },
+  "Comment": {
+    "AnswerButton": "Ответить"
+  },
+  "CounterRegUsers": {
+    "RegUsers": "Зарегистрированные пользователи:"
   }
 }

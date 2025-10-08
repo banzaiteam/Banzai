@@ -1,0 +1,24 @@
+.wrapper {
+  padding: 24px 64px 24px 24px;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-l);
+  font-family: var(--font-sans), sans-serif;
+  &.not_auth {
+    /*max-width: 972px;*/
+    box-sizing: border-box;
+    padding: 24px 65px;
+    margin: 0 auto;
+    @media screen and (max-width: 768px) {
+      padding: 24px 12px;
+    }
+    @media screen and (max-width: 1280px) {
+      max-width: 972px;
+      margin: 0 auto;
+      box-sizing: unset;
+    }
+  }
+
+  & .counter_reg_users {
+    margin-bottom: 36px;
+  }
+}

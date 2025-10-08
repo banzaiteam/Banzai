@@ -107,3 +107,7 @@ body {
   width: 100%;
   min-height: 100%;
 }
+
+.wrapper_not_auth main {
+  grid-column: 1/3;
+}

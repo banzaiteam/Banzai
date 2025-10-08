@@ -8,9 +8,9 @@ const rawBaseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   credentials: 'include', // обязательно! чтобы отправлялись cookies (если там сессия)
 
-  prepareHeaders: (headers, { endpoint, extra }) => {
+  prepareHeaders: (headers, { extra }) => {
     // получаем путь запроса из extra
-    if ((extra as any)?.isRefresh) return headers
+    if ((extra as { isRefresh: unknown })?.isRefresh) return headers
 
     const token = localStorage.getItem('accessToken')
     if (token) {
@@ -43,7 +43,8 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
         )
 
         if (refreshResult.data) {
-          const newAccessToken = (refreshResult.data as any).accessToken
+          const responseData = refreshResult.data as { accessToken: string }
+          const newAccessToken = responseData.accessToken
 
           // Сохраняем новый токен
           localStorage.setItem('accessToken', newAccessToken)
@@ -67,6 +68,6 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
 
 export const baseApi = createApi({
   baseQuery: baseQueryWithAutoRefresh,
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Post'],
   endpoints: () => ({}),
 })

@@ -20,7 +20,7 @@ type NavMenuItemData = {
   activeIcon: ReactNode
   path: (typeof PATHS)[keyof typeof PATHS] //union
 }
-// @ts-ignore
+
 export const navigationItemsData: NavMenuItemData[] = [
   {
     id: 1,

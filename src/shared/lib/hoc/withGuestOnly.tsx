@@ -2,7 +2,7 @@
 
 import { useGetMeQuery } from '@/shared/api/userApi'
 import { useRouter } from 'next/navigation'
-import { JSX, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Skeleton, SkeletonCircle, SkeletonRect } from '@shared/ui/skeleton/Skeleton'
 
 //export function withGuestOnly<T extends JSX.IntrinsicAttributes>(

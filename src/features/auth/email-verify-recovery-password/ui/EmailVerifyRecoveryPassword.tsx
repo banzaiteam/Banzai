@@ -7,10 +7,9 @@ import { Button } from '@shared/ui'
 import Image from 'next/image'
 import ImageEmailVerification from '@/assets/auth/email_verification.webp'
 import { useForm } from 'react-hook-form'
-import { withGuestOnly } from '@shared/lib/hoc/withGuestOnly'
 import { useRouter } from 'next/navigation'
 
-const EmailVerifyRecoveryPassword = ({ email }: { email: string }) => {
+const EmailVerifyRecoveryPassword = () => {
   const router = useRouter()
 
   const { handleSubmit, reset } = useForm<FormData>({
@@ -21,7 +20,7 @@ const EmailVerifyRecoveryPassword = ({ email }: { email: string }) => {
     try {
       router.push('/auth/forgot-password')
       reset()
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error)
     }
   }
@@ -54,4 +53,4 @@ const EmailVerifyRecoveryPassword = ({ email }: { email: string }) => {
   )
 }
 
-export default withGuestOnly(EmailVerifyRecoveryPassword)
+export default EmailVerifyRecoveryPassword

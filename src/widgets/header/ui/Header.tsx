@@ -1,8 +1,6 @@
 // @flow
 import { HeaderItem } from '@shared/ui/headerItem/HeaderItem'
 
-type Props = {}
-
-export function Header(props: Props) {
+export function Header() {
   return <HeaderItem></HeaderItem>
 }

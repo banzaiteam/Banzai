@@ -14,8 +14,8 @@ import styles from './LoginForm.module.scss'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/assets/icons/components'
 import { InputEmail, InputPassword } from '@features/auth/components'
 import { isApiError } from '@features/auth/login/model/types'
-import { AuthBoundary } from '@shared/lib/hoc/authBoundary'
 import Link from 'next/link'
+import { ROUTES } from '@shared/constants/routes'
 
 const LoginForm = () => {
   const router = useRouter()
@@ -41,11 +41,11 @@ const LoginForm = () => {
       reset()
       router.push('/')
     } catch (error) {
-      let errorMessage = 'Login failed. Please try again.'
+      /* let errorMessage = 'Login failed. Please try again.'*/
       console.error('Login failed:', error)
 
       if (isApiError(error)) {
-        errorMessage = error.data.message || `Error ${error.status}: ${error.data.statusCode}`
+        /*errorMessage = error.data.message || `Error ${error.status}: ${error.data.statusCode}`*/
       } else {
         setRetryDelay(5)
         const interval = setInterval(() => {
@@ -74,6 +74,7 @@ const LoginForm = () => {
         </div>
         <form className={styles.block} onSubmit={handleSubmit(onSubmit)} noValidate>
           <InputEmail
+            data-id="input-email-sign-in"
             placeholder="Enter your email"
             {...register('email')}
             helperText={errors.email?.message}
@@ -81,6 +82,7 @@ const LoginForm = () => {
           />
 
           <InputPassword
+            data-id="input-password-sign-in"
             placeholder="Enter your password"
             {...register('password')}
             helperText={errors.password?.message}
@@ -96,6 +98,7 @@ const LoginForm = () => {
           </Button>
 
           <Button
+            data-id="sign-in-button"
             variant={'primary'}
             className={styles.w100}
             type="submit"
@@ -112,14 +115,14 @@ const LoginForm = () => {
             variant={'text-button'}
             type="button"
           >
-            <Link href={'/signup'}>Don't have an account?</Link>
+            <Link href={ROUTES.signUp}>Don&#39;t have an account?</Link>
           </Button>
           <Button
             className={`${styles.w100} ${styles.btnBottom}`}
             variant={'text-button'}
             type="button"
           >
-            <Link href={'/signup'}>Sign Up</Link>
+            <Link href={ROUTES.signUp}>Sign Up</Link>
           </Button>
         </form>
       </div>

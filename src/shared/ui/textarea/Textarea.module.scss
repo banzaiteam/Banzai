@@ -29,7 +29,7 @@
       border: 1px solid var(--dark-100);
       outline: none;
       resize: none;
-      transition: all .3s;
+      transition: all 0.3s;
 
       &::placeholder {
         color: var(--light-900);
@@ -100,8 +100,6 @@
         outline: none !important;
       }
     }
-
-
   }
 
   .errorMessage {

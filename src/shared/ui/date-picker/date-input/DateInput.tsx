@@ -1,6 +1,6 @@
-import { Calendar, CalendarOutline } from '@/assets/icons/components';
+import { Calendar, CalendarOutline } from '@/assets/icons/components'
 import styles from './DateInput.module.scss'
-import { forwardRef } from 'react';
+import { forwardRef } from 'react'
 
 type Props = {
   id: string
@@ -13,40 +13,28 @@ type Props = {
 }
 
 export const DateInput = forwardRef<HTMLInputElement, Props>(
-  (
-    {
-      id,
-      error,
-      isCalendarOpen,
-      disabled,
-      onBlur,
-      onFocus,
-      onChange,
-      ...rest
-    },
-    ref
-  ) => {
-  const icon = isCalendarOpen ? <Calendar/> : <CalendarOutline/>
-  const iconCombinedClasses = `${styles['icon-wrapper']} ${error ? styles['icon-error'] : ''}`
-  const inputCombinedClasses = `${styles.input} ${error ? styles['input-error'] : ''}`
+  ({ id, error, isCalendarOpen, disabled, onBlur, onChange, ...rest }, ref) => {
+    const icon = isCalendarOpen ? <Calendar /> : <CalendarOutline />
+    const iconCombinedClasses = `${styles['icon-wrapper']} ${error ? styles['icon-error'] : ''}`
+    const inputCombinedClasses = `${styles.input} ${error ? styles['input-error'] : ''}`
 
-  return (
-    <div className={styles.wrapper}>
-      <input 
-        id={`datepicker-${id}`} 
-        type="text" 
-        className={inputCombinedClasses}
-        placeholder='00.00.0000'
-        disabled={disabled}
-        onBlur={onBlur}
-        onChange={onChange}
-        ref={ref}
-        autoComplete="off"
-        {...rest}
-      />
-      <div className={iconCombinedClasses}>
-        {icon}
+    return (
+      <div className={styles.wrapper}>
+        <input
+          id={`datepicker-${id}`}
+          type="text"
+          className={inputCombinedClasses}
+          placeholder="00.00.0000"
+          disabled={disabled}
+          onBlur={onBlur}
+          onChange={onChange}
+          ref={ref}
+          autoComplete="off"
+          {...rest}
+        />
+        <div className={iconCombinedClasses}>{icon}</div>
       </div>
-    </div>
-  )
-});
+    )
+  }
+)
+DateInput.displayName = 'DateInput'
