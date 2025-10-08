@@ -10,6 +10,12 @@ export type User = {
   id: string
   email: string
   verified: boolean
+  firstname: string
+  lastname: string
+  birthdate: string
+  country: string
+  city: string
+  url: string
   profile: Profile
 }
 
