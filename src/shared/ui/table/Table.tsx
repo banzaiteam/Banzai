@@ -37,3 +37,5 @@ export const Table = <T,>({ data, columns, className }: TableProps<T>) => {
     </table>
   )
 }
+
+export type { Column }
