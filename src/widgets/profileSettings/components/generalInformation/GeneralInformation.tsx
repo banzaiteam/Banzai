@@ -52,7 +52,13 @@ export const GeneralInformation = () => {
             <div className={styles.image}>
               <div className={styles.img}>
                 {avatar ? (
-                  <Image src={avatar} alt={'avatar'} width={192} height={192} />
+                  <Image
+                    src={avatar}
+                    alt={'avatar'}
+                    width={192}
+                    height={192}
+                    className={styles.img__uploaded}
+                  />
                 ) : (
                   <ImageOutline className={styles.img__icon} />
                 )}

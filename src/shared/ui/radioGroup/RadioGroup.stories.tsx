@@ -1,35 +1,34 @@
-import type {Meta, StoryObj} from "@storybook/react";
-import {RadioGroup} from "@shared/ui/radioGroup/RadioGroup";
+import type { Meta, StoryObj } from '@storybook/react'
+import { RadioGroup } from './RadioGroup'
+import { useState } from 'react'
 
 const meta = {
-    component: RadioGroup,
-    tags: ['autodocs'],
+  component: RadioGroup,
+  tags: ['autodocs'],
 } satisfies Meta<typeof RadioGroup>
 
 export default meta
-
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: {
-    }
-}
-
-export const DefaultWithLabel: Story = {
-    args: {
-        label: 'RadioGroup'
-    }
+  args: {
+    label: 'Account Type',
+    options: [
+      { label: 'Personal', value: 'personal' },
+      { label: 'Business', value: 'business' },
+    ],
+    value: 'personal',
+  },
 }
 
 export const Disabled: Story = {
-    args: {
-        disabled: true,
-    }
-}
-
-export const DisabledWithLabel: Story = {
-    args: {
-        disabled: true,
-        label: 'RadioGroup'
-    }
+  args: {
+    label: 'Account Type',
+    options: [
+      { label: 'Personal', value: 'personal' },
+      { label: 'Business', value: 'business' },
+    ],
+    value: 'personal',
+    disabled: true,
+  },
 }
