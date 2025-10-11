@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { RadioGroup } from '@/shared/ui/radioGroup/RadioGroup'
 import s from './SubscriptionSelector.module.scss'
-import PayPal from '../../../../assets/images/paypal.png'
-import Stripe from '../../../../assets/images/stripe.png'
+import PayPal from '@/assets/images/paypal.png'
+import Stripe from '@/assets/images/stripe.png'
 import Image from 'next/image'
+import { CreatePaymentModal } from './PaymentModal'
 
 const PLANS = [
   { id: '1-day', label: '$10 per 1 Day' },
@@ -13,11 +14,17 @@ const PLANS = [
 
 export const SubscriptionSelector = () => {
   const [selectedPlan, setSelectedPlan] = useState(PLANS[0].id)
+  const [modal, setModal] = useState<{
+    open: boolean
+    provider: 'paypal' | 'stripe'
+    planId: string
+  } | null>(null)
 
-  const handlePayment = (provider: 'paypal' | 'stripe') => {
-    console.log(`Redirecting to ${provider} for ${selectedPlan}`)
-    // later → window.location.href = `/api/checkout?provider=${provider}&plan=${selectedPlan}`
+  const openModal = (provider: 'paypal' | 'stripe') => {
+    setModal({ open: true, provider, planId: selectedPlan })
   }
+
+  const closeModal = () => setModal(null)
 
   return (
     <div className={s.wrapper}>
@@ -34,7 +41,7 @@ export const SubscriptionSelector = () => {
       <div className={s.payment}>
         <button
           className={s.payBtn}
-          onClick={() => handlePayment('paypal')}
+          onClick={() => openModal('paypal')}
           aria-label="Pay with PayPal"
         >
           <Image src={PayPal} alt="PayPal" />
@@ -44,12 +51,21 @@ export const SubscriptionSelector = () => {
 
         <button
           className={s.payBtn}
-          onClick={() => handlePayment('stripe')}
+          onClick={() => openModal('stripe')}
           aria-label="Pay with Stripe"
         >
           <Image src={Stripe} alt="Stripe" />
         </button>
       </div>
+
+      {modal && (
+        <CreatePaymentModal
+          open={modal.open}
+          provider={modal.provider}
+          planId={modal.planId}
+          onClose={closeModal}
+        />
+      )}
     </div>
   )
 }
