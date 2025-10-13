@@ -89,3 +89,16 @@
   padding: 4px;
   margin-top: 10px;
 }
+
+@media (max-width: 768px) {
+  .aside {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .logOut {
+    display: none;
+  }
+}
