@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--light-100);
+}
+
+.radio {
+  background-color: #171717;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 12px 18px;
+}
+
+.payment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.payBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.payBtn img {
+  display: block;
+}
+
+.payBtn img:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.or {
+  color: #ccc;
+  font-size: 14px;
+}
