@@ -9,6 +9,7 @@ import { linksData } from '@widgets/sidebar/model/linksData'
 import { useGetMeQuery } from '@shared/api/userApi'
 import { ROUTES } from '@shared/constants/routes'
 import { motion } from 'framer-motion'
+import styles from './Sidebar.module.scss'
 
 type SidebarProps = { isDisabled?: boolean } & ComponentPropsWithoutRef<'aside'>
 
@@ -47,7 +48,7 @@ export const Sidebar = ({ isDisabled, ...rest }: SidebarProps) => {
         icon={isActive ? iconActive : icon}
         isActive={isActive}
       >
-        {title}
+        <span className={styles.hide__on__mobile}>{title}</span>
       </SidebarBaseItem>
     )
   })
