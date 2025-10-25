@@ -18,6 +18,13 @@ export const CreatePaymentModal: React.FC<Props> = ({ open, provider, planId, on
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Map plan IDs to subscription types
+  const planToType: Record<string, number> = {
+    '1-day': 1,
+    '7-day': 7,
+    '30-day': 30,
+  }
+
   // Reset states when modal opens
   useEffect(() => {
     if (open) {
@@ -35,6 +42,9 @@ export const CreatePaymentModal: React.FC<Props> = ({ open, provider, planId, on
       const token = localStorage.getItem('accessToken')
       if (!token) throw new Error('Access token missing.')
 
+      const subscriptionType = planToType[planId]
+      if (!subscriptionType) throw new Error('Unknown subscription plan selected.')
+
       const response = await fetch(
         `https://gate.yogram.ru/api/v1/business/subscriptions/subscribe?payment=${provider}`,
         {
@@ -43,11 +53,10 @@ export const CreatePaymentModal: React.FC<Props> = ({ open, provider, planId, on
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ subscriptionType: 1 }),
+          body: JSON.stringify({ subscriptionType }),
         }
       )
 
-      // Try to read JSON response
       const data = await response.json().catch(() => null)
 
       if (response.status === 307 && data?.link) {
