@@ -9,7 +9,7 @@ import { CreatePaymentModal } from './PaymentModal'
 const PLANS = [
   { id: '1-day', label: '$10 per 1 Day' },
   { id: '7-day', label: '$50 per 7 Day' },
-  { id: 'month', label: '$100 per month' },
+  { id: '30-day', label: '$100 per month' },
 ]
 
 export const SubscriptionSelector = () => {
