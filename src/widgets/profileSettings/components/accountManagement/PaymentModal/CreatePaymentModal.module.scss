@@ -1,0 +1,60 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 24px 36px 24px;
+  color: var(--light-100);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  border-bottom: 1px solid #4c4c4c;
+}
+.close {
+  background: transparent;
+  border: none;
+  color: var(--light-100);
+  cursor: pointer;
+  font-size: 24px;
+  padding: 6px;
+  margin-bottom: 10px;
+}
+
+.body {
+  padding-top: 6px;
+}
+.text {
+  margin: 0 0 12px;
+  color: var(--light-200);
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.checkboxLabel {
+  color: var(--light-100);
+  font-size: 14px;
+}
+
+.error {
+  color: #ff6b6b;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 8px;
+}

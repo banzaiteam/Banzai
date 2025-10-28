@@ -1,91 +1,64 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+.groupLabel {
+  font-size: 14px;
+  color: var(--light-100);
 }
 
 .radioGroup {
   display: flex;
-  gap: 10px;
+  gap: 24px;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
   align-items: center;
+  gap: 6px;
 }
 
 .item {
   all: unset;
   cursor: pointer;
-  position: relative;
   width: 20px;
   height: 20px;
   border: 2px solid var(--light-100);
   border-radius: 50%;
-
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-  }
-
-  &:hover::before {
-    width: 36px;
-    height: 36px;
-    background-color: var(--dark-300);
-  }
-
-  &:active::before {
-    width: 36px;
-    height: 36px;
-    background-color: var(--dark-100);
-  }
-
-  &:focus-visible::before {
-    width: 36px;
-    height: 36px;
-    background-color: var(--dark-500);
-  }
-
-  &:disabled {
-    pointer-events: none;
-    color: var(--light-900);
-    border: 2px solid var(--light-900);
-
-    .indicator::after {
-      background-color: var(--light-900);
-    }
-
-    & + .label {
-      pointer-events: none;
-      color: var(--light-900);
-    }
-  }
-
-}
-
-.indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  width: 100%;
-  height: 100%;
+}
 
-  &::after {
-    content: "";
-    display: block;
-    width: 10px;
-    height: 10px;
-    background-color: var(--light-100);
-    border-radius: 50%;
-  }
+.item:hover {
+  opacity: 0.6;
+  transition: all 0.9;
+}
+
+.item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.indicator::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--light-100);
+  border-radius: 50%;
 }
 
 .label {
-  font-weight: 400;
   font-size: 14px;
-  line-height: 170%;
   color: var(--light-100);
+  margin-left: 8px;
 }
 
+.label:hover {
+  opacity: 0.6;
+  transition: all 0.7s;
+}
