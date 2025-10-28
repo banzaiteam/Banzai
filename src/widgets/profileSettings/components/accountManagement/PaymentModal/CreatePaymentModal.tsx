@@ -88,6 +88,7 @@ export const CreatePaymentModal: React.FC<Props> = ({ open, provider, planId, on
   return (
     <Popup
       open={open}
+      // open={true} → modal shows; open={false} → modal hides.
       onOpenChange={v => {
         if (!v) onClose()
       }}
