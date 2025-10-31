@@ -6,6 +6,7 @@ import Select from '@shared/ui/select/Select'
 import Image from 'next/image'
 import React from 'react'
 import { AddProfilePhoto } from '@widgets/profileSettings/components/generalInformation/AddProfilePhotoModal/AddProfilePhoto'
+import { useSearchParams } from 'next/navigation'
 
 export const GeneralInformation = () => {
   const countryOptions = [
