@@ -1,0 +1,42 @@
+.container {
+  max-width: 972px;
+  margin-top: 30px;
+}
+
+.current {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.duration {
+  display: flex;
+  padding: 12px 18px;
+  background-color: #171717;
+  border-radius: 5px;
+  border: 1px solid #333;
+  gap: 30px;
+  margin-bottom: 15px;
+}
+
+.info__item {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.label {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+
+.value {
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.checkbox {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
