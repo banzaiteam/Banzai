@@ -22,7 +22,7 @@ export const CreatePaymentModal: React.FC<Props> = ({ open, provider, planId, on
   const planToType: Record<string, number> = {
     '1-day': 1,
     '7-day': 7,
-    '30-day': 30,
+    month: 30,
   }
 
   // Reset states when modal opens
