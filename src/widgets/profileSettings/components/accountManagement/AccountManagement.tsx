@@ -9,19 +9,25 @@ import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
 export const AccountManagement = () => {
   const [accountType, setAccountType] = useState('personal')
   const [confirmationModal, setConfirmationModal] = useState(false)
+  const [showSubscription, setShowSubscription] = useState(false)
   const searchParams = useSearchParams()
 
   const handleCloseConfimModal = () => setConfirmationModal(false)
 
   useEffect(() => {
     const success = searchParams.get('success')
-    if (success === '1') setConfirmationModal(true)
+    if (success === '1') {
+      setConfirmationModal(true)
+      setShowSubscription(true)
+    } else {
+      setShowSubscription(false)
+    }
   }, [searchParams])
 
   return (
     <section className={s.section}>
       <div className={s.container}>
-        <CurrentSubscription />
+        {showSubscription && <CurrentSubscription />}
         <p className={s.account}>Account type:</p>
         <div className={s.type}>
           <RadioGroup

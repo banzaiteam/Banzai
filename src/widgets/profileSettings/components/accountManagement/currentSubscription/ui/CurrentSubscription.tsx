@@ -1,34 +1,16 @@
 import { Checkbox } from '@/shared/ui/checkbox/Checkbox'
 import styles from './CurrentSubscription.module.scss'
 import { useEffect, useState } from 'react'
-
-type Subscription = {
-  createdAt?: string
-  expiresAt?: string
-  status?: string
-}
+import { fetchSubscription } from '../api/fetchSubscription'
+import { Subscription } from '../model/subscriptionTypes'
 
 export const CurrentSubscription = () => {
   const [currentSubscription, setCurrentSubscription] = useState<Subscription | null>(null)
 
-  const fetchSubscription = async () => {
-    const token = localStorage.getItem('accessToken')
-
-    const request = await fetch('https://gate.yogram.ru/api/v1/business/subscriptions', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    const response = await request.json()
-    console.log(response)
-    setCurrentSubscription(response[0])
-  }
-
   useEffect(() => {
-    fetchSubscription()
+    fetchSubscription().then(response => {
+      setCurrentSubscription(response[0])
+    })
   }, [])
 
   return (

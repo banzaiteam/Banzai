@@ -1,1 +1,1 @@
-export * from './CurrentSubscription'
+export * from './ui/CurrentSubscription'
