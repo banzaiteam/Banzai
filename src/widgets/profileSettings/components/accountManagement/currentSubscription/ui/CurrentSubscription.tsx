@@ -3,8 +3,9 @@ import styles from './CurrentSubscription.module.scss'
 import { useEffect, useState } from 'react'
 import { fetchSubscription } from '../api/fetchSubscription'
 import { Subscription } from '../model/subscriptionTypes'
+import { AutoRenew } from '../model/autoRenew'
 
-export const CurrentSubscription = () => {
+export const CurrentSubscription = ({ autoRenew, setAutoRenew }: AutoRenew) => {
   const [currentSubscription, setCurrentSubscription] = useState<Subscription | null>(null)
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export const CurrentSubscription = () => {
         </div>
       </div>
       <div className={styles.checkbox}>
-        <Checkbox checked />
+        <Checkbox checked={autoRenew} onCheckedChange={checked => setAutoRenew(checked === true)} />
         <span>Auto Renewal</span>
       </div>
     </div>
