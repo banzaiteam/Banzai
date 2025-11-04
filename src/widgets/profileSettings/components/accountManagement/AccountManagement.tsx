@@ -8,6 +8,7 @@ import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
 
 export const AccountManagement = () => {
   const [accountType, setAccountType] = useState('personal')
+  const [autoRenew, setAutoRenew] = useState(true)
   const [confirmationModal, setConfirmationModal] = useState(false)
   const [showSubscription, setShowSubscription] = useState(false)
   const searchParams = useSearchParams()
@@ -24,10 +25,16 @@ export const AccountManagement = () => {
     }
   }, [searchParams])
 
+  useEffect(() => {
+    if (!autoRenew) {
+      setAccountType('personal')
+    }
+  }, [autoRenew])
+
   return (
     <section className={s.section}>
       <div className={s.container}>
-        {showSubscription && <CurrentSubscription />}
+        {<CurrentSubscription autoRenew={autoRenew} setAutoRenew={setAutoRenew} />}
         <p className={s.account}>Account type:</p>
         <div className={s.type}>
           <RadioGroup
