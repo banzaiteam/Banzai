@@ -9,6 +9,7 @@ import ConfirmationModal from './ConfirmationModal/ConfirmationModal'
 export const AccountManagement = () => {
   const [accountType, setAccountType] = useState('personal')
   const [autoRenew, setAutoRenew] = useState(true)
+  const [subscriptionID, setSubscriptionID] = useState('')
   const [confirmationModal, setConfirmationModal] = useState(false)
   const [showSubscription, setShowSubscription] = useState(false)
   const searchParams = useSearchParams()
@@ -17,6 +18,10 @@ export const AccountManagement = () => {
 
   useEffect(() => {
     const success = searchParams.get('success')
+    const id = searchParams.get('subscription_id')
+
+    if (id) setSubscriptionID(id)
+
     if (success === '1') {
       setConfirmationModal(true)
       setShowSubscription(true)
@@ -26,7 +31,21 @@ export const AccountManagement = () => {
   }, [searchParams])
 
   useEffect(() => {
+    const suspendSubscription = async () => {
+      const token = localStorage.getItem('accessToken')
+      await fetch(
+        `https://gate.yogram.ru/api/v1/business/subscriptions/${subscriptionID}/suspend?payment=paypal`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+    }
     if (!autoRenew) {
+      suspendSubscription()
       setAccountType('personal')
     }
   }, [autoRenew])
@@ -34,7 +53,9 @@ export const AccountManagement = () => {
   return (
     <section className={s.section}>
       <div className={s.container}>
-        {<CurrentSubscription autoRenew={autoRenew} setAutoRenew={setAutoRenew} />}
+        {showSubscription && (
+          <CurrentSubscription autoRenew={autoRenew} setAutoRenew={setAutoRenew} />
+        )}
         <p className={s.account}>Account type:</p>
         <div className={s.type}>
           <RadioGroup
