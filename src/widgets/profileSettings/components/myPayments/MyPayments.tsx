@@ -1,64 +1,66 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Table } from '@/shared/ui/table'
 import type { Column } from '@/shared/ui/table'
 import { Pagination } from '@/shared/ui'
 import styles from './MyPayments.module.scss'
 
 type Payment = {
-  date: string
-  endDate: string
-  price: string
-  type: string
+  createdAt: string
+  updatedAt: string
+  price: number
+  paymentType: string
   method: string
 }
 
-const data: Payment[] = [
-  { date: '10.10.2025', endDate: '12.12.2025', price: '$10', type: '1 day', method: 'Stripe' },
-  { date: '11.10.2025', endDate: '13.12.2025', price: '$20', type: '3 days', method: 'PayPal' },
-  { date: '12.10.2025', endDate: '14.12.2025', price: '$30', type: '1 week', method: 'Stripe' },
-  { date: '13.10.2025', endDate: '15.12.2025', price: '$40', type: '2 weeks', method: 'Stripe' },
-  { date: '14.10.2025', endDate: '16.12.2025', price: '$50', type: '1 month', method: 'PayPal' },
-  { date: '15.10.2025', endDate: '17.12.2025', price: '$60', type: '2 months', method: 'Stripe' },
-  { date: '16.10.2025', endDate: '18.12.2025', price: '$70', type: '3 months', method: 'Stripe' },
-  { date: '17.10.2025', endDate: '19.12.2025', price: '$80', type: '6 months', method: 'PayPal' },
-  { date: '10.10.2025', endDate: '12.12.2025', price: '$10', type: '1 day', method: 'Stripe' },
-  { date: '11.10.2025', endDate: '13.12.2025', price: '$20', type: '3 days', method: 'PayPal' },
-  { date: '12.10.2025', endDate: '14.12.2025', price: '$30', type: '1 week', method: 'Stripe' },
-  { date: '13.10.2025', endDate: '15.12.2025', price: '$40', type: '2 weeks', method: 'Stripe' },
-  { date: '14.10.2025', endDate: '16.12.2025', price: '$50', type: '1 month', method: 'PayPal' },
-  { date: '15.10.2025', endDate: '17.12.2025', price: '$60', type: '2 months', method: 'Stripe' },
-  { date: '16.10.2025', endDate: '18.12.2025', price: '$70', type: '3 months', method: 'Stripe' },
-  { date: '17.10.2025', endDate: '19.12.2025', price: '$80', type: '6 months', method: 'PayPal' },
-  { date: '12.10.2025', endDate: '14.12.2025', price: '$30', type: '1 week', method: 'Stripe' },
-  { date: '13.10.2025', endDate: '15.12.2025', price: '$40', type: '2 weeks', method: 'Stripe' },
-  { date: '14.10.2025', endDate: '16.12.2025', price: '$50', type: '1 month', method: 'PayPal' },
-  { date: '15.10.2025', endDate: '17.12.2025', price: '$60', type: '2 months', method: 'Stripe' },
-  { date: '16.10.2025', endDate: '18.12.2025', price: '$70', type: '3 months', method: 'Stripe' },
-  { date: '17.10.2025', endDate: '19.12.2025', price: '$80', type: '6 months', method: 'PayPal' },
-]
+type PaymentsResponse = {
+  items: Payment[]
+}
 
 const columns: Column<Payment>[] = [
-  { header: 'Date of Payment', accessor: 'date' },
-  { header: 'End date of subscription', accessor: 'endDate' },
+  { header: 'Date of Payment', accessor: 'createdAt' },
+  { header: 'End date of subscription', accessor: 'updatedAt' },
   { header: 'Price', accessor: 'price' },
-  { header: 'Subscription Type', accessor: 'type' },
-  { header: 'Payment Type', accessor: 'method' },
+  { header: 'Next Payment', accessor: 'updatedAt' },
+  { header: 'Payment Type', accessor: 'paymentType' },
 ]
 
 const PAGE_SIZE = 10
 
+const fetchPayments = async () => {
+  const token = localStorage.getItem('accessToken')
+
+  const request = await fetch('https://gate.yogram.ru/api/v1/business/payments?payment=paypal', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  return request.json()
+}
+
 export const MyPayments = () => {
+  const [data, setData] = useState<PaymentsResponse | null>(null)
+  useEffect(() => {
+    const getPayments = async () => {
+      const payments = await fetchPayments()
+      setData(payments)
+    }
+
+    getPayments()
+  }, [])
+
   const [currentPage, setCurrentPage] = useState(1)
 
   const start = (currentPage - 1) * PAGE_SIZE
   const end = start + PAGE_SIZE
-  const paginatedData = data.slice(start, end)
 
-  const totalPages = Math.ceil(data.length / PAGE_SIZE)
+  const totalPages = Math.ceil(data?.items?.length ?? 0 / PAGE_SIZE)
 
   return (
     <section className={styles.wrapper}>
-      <Table data={paginatedData} columns={columns} />
+      {data?.items && <Table data={data.items.slice(start, end)} columns={columns} />}
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
     </section>
   )
