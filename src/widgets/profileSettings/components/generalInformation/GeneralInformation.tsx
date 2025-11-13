@@ -4,10 +4,27 @@ import { ImageOutline } from '@/assets/icons/components'
 import { Button, DatePicker, Input, Textarea } from '@shared/ui'
 import Select from '@shared/ui/select/Select'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AddProfilePhoto } from '@widgets/profileSettings/components/generalInformation/AddProfilePhotoModal/AddProfilePhoto'
+import { useSearchParams } from 'next/navigation'
+import ConfirmationModal from '../accountManagement/ConfirmationModal/ConfirmationModal'
 
 export const GeneralInformation = () => {
+  const [confirmationModal, setConfirmationModal] = useState(false)
+
+  const handleCloseConfimModal = () => setConfirmationModal(false)
+
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const success = searchParams.get('success')
+
+    if (success === '1') {
+      setConfirmationModal(true)
+    } else {
+    }
+  }, [searchParams])
+
   const countryOptions = [
     { label: 'Kiribati', value: 'kiribati' },
     { label: 'Bhutan', value: 'Bhutan' },
@@ -146,6 +163,9 @@ export const GeneralInformation = () => {
           onClose={() => setIsModalOpen(false)}
           onSave={handleAvatarSave}
         />
+      )}
+      {confirmationModal && (
+        <ConfirmationModal open={confirmationModal} onOpenChange={handleCloseConfimModal} />
       )}
     </>
   )
