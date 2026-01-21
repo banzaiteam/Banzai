@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useGetMeQuery } from '@shared/api/userApi'
 import { LocaleSwitcher } from '@/widgets'
 import { ROUTES } from '@shared/constants/routes'
+import NotificationsDropdown from '../dropdown/dropdown'
 
 export const HeaderItem: React.FC = () => {
   const { isSuccess } = useGetMeQuery()
@@ -22,7 +23,7 @@ export const HeaderItem: React.FC = () => {
             Piksta
           </Link>
           <div className={styles.header__actions}>
-            {isSuccess && <OutlineBell className={styles.bell} />}
+            {isSuccess && <NotificationsDropdown className={styles.bell} />}
             <LocaleSwitcher />
             <button className={styles.more}>{isSuccess && <MoreHorizontal />}</button>
             {!isSuccess && (
