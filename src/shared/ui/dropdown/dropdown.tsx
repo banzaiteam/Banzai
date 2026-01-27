@@ -1,11 +1,5 @@
 import * as React from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-// import {
-//   HamburgerMenuIcon,
-//   DotFilledIcon,
-//   CheckIcon,
-//   ChevronRightIcon,
-// } from '@radix-ui/react-icons'
 import { OutlineBell } from '@/assets/icons/components'
 import styles from './dropdown.module.scss'
 
@@ -15,49 +9,29 @@ type Props = {
 
 const NotificationsDropdown = ({ className }: Props) => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true)
-  const [urlsChecked, setUrlsChecked] = React.useState(false)
-  const [person, setPerson] = React.useState('pedro')
 
   return (
     <DropdownMenu.Root>
+      {/* .Root is the wrapper/provider for the entire dropdown system. It manages the internal state (is dropdown open or closed?) and provides context to all child components. */}
       <DropdownMenu.Trigger asChild>
+        {/* .Trigger is the clickable element that toggles the dropdown open/closed.  */}
+        {/* Without asChild: Radix creates its own button element and puts your button inside it:
+        With asChild: Radix doesn't create its own element—it merges its props onto your element:
+        */}
         <button className={styles.IconButton} aria-label="Customise options">
+          {/* aria-label
+It's an accessibility attribute for screen readers. Since the button only contains an icon (no text), visually impaired users wouldn't know what it does. The screen reader announces "Customise options" when focused. */}
           <OutlineBell />
         </button>
       </DropdownMenu.Trigger>
-
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className={styles.Content} sideOffset={5}>
+        {/* .Portal gives z-index hight for menu so it stays above other elements */}
+        <DropdownMenu.Content className={styles.Content} sideOffset={1}>
+          {/* .Content is like container for menu */}
+          {/* Sets data-side attribute automatically based where user clicked */}
           <DropdownMenu.Item className={styles.Item}>
-            New Tab <div className={styles.RightSlot}>⌘+T</div>
+            Notifications <div className={styles.RightSlot}></div>
           </DropdownMenu.Item>
-          <DropdownMenu.Item className={styles.Item}>
-            New Window <div className={styles.RightSlot}>⌘+N</div>
-          </DropdownMenu.Item>
-          <DropdownMenu.Item className={styles.Item} disabled>
-            New Private Window <div className={styles.RightSlot}>⇧+⌘+N</div>
-          </DropdownMenu.Item>
-          <DropdownMenu.Sub>
-            <DropdownMenu.SubTrigger className={styles.SubTrigger}>
-              More Tools
-              <div className={styles.RightSlot}>{/* <ChevronRightIcon /> */}</div>
-            </DropdownMenu.SubTrigger>
-            <DropdownMenu.Portal>
-              <DropdownMenu.SubContent
-                className={styles.SubContent}
-                sideOffset={2}
-                alignOffset={-5}
-              >
-                <DropdownMenu.Item className={styles.Item}>
-                  Save Page As… <div className={styles.RightSlot}>⌘+S</div>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item className={styles.Item}>Create Shortcut…</DropdownMenu.Item>
-                <DropdownMenu.Item className={styles.Item}>Name Window…</DropdownMenu.Item>
-                <DropdownMenu.Separator className={styles.Separator} />
-                <DropdownMenu.Item className={styles.Item}>Developer Tools</DropdownMenu.Item>
-              </DropdownMenu.SubContent>
-            </DropdownMenu.Portal>
-          </DropdownMenu.Sub>
 
           <DropdownMenu.Separator className={styles.Separator} />
 
@@ -67,38 +41,20 @@ const NotificationsDropdown = ({ className }: Props) => {
             onCheckedChange={setBookmarksChecked}
           >
             <DropdownMenu.ItemIndicator className={styles.ItemIndicator}>
-              {/* <CheckIcon /> */}
+              New
             </DropdownMenu.ItemIndicator>
-            Show Bookmarks <div className={styles.RightSlot}>⌘+B</div>
+            Notification <div className={styles.RightSlot}></div>
           </DropdownMenu.CheckboxItem>
           <DropdownMenu.CheckboxItem
             className={styles.CheckboxItem}
-            checked={urlsChecked}
-            onCheckedChange={setUrlsChecked}
+            checked={bookmarksChecked}
+            onCheckedChange={setBookmarksChecked}
           >
             <DropdownMenu.ItemIndicator className={styles.ItemIndicator}>
-              {/* <CheckIcon /> */}
+              New
             </DropdownMenu.ItemIndicator>
-            Show Full URLs
+            Show Bookmarks <div className={styles.RightSlot}></div>
           </DropdownMenu.CheckboxItem>
-
-          <DropdownMenu.Separator className={styles.Separator} />
-
-          <DropdownMenu.Label className={styles.Label}>People</DropdownMenu.Label>
-          <DropdownMenu.RadioGroup value={person} onValueChange={setPerson}>
-            <DropdownMenu.RadioItem className={styles.RadioItem} value="pedro">
-              <DropdownMenu.ItemIndicator className={styles.ItemIndicator}>
-                {/* <DotFilledIcon /> */}
-              </DropdownMenu.ItemIndicator>
-              Pedro Duarte
-            </DropdownMenu.RadioItem>
-            <DropdownMenu.RadioItem className={styles.RadioItem} value="colm">
-              <DropdownMenu.ItemIndicator className={styles.ItemIndicator}>
-                {/* <DotFilledIcon /> */}
-              </DropdownMenu.ItemIndicator>
-              Colm Tuite
-            </DropdownMenu.RadioItem>
-          </DropdownMenu.RadioGroup>
 
           <DropdownMenu.Arrow className={styles.Arrow} />
         </DropdownMenu.Content>

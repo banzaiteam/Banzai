@@ -1,4 +1,5 @@
 import { useGetNotificationsQuery } from '@/widgets/notifications/api/notificationsApi'
+import { NotificationItem } from './Notification'
 
 export const Devices = () => {
   const { data: notifications, isLoading, isError } = useGetNotificationsQuery()
@@ -16,16 +17,10 @@ export const Devices = () => {
   }
 
   return (
-    <div style={{ width: 320 }}>
-      <ul>
-        {notifications.map(notification => (
-          <li key={notification.id}>
-            <p>{notification.message}</p>
-
-            {!notification.readAt && <span>• new</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {notifications.map(notification => (
+        <NotificationItem key={notification.id} notification={notification} />
+      ))}
+    </ul>
   )
 }
