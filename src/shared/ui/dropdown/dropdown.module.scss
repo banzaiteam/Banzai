@@ -1,12 +1,12 @@
 .Content,
 .SubContent {
-  min-width: 220px;
+  min-width: 320px;
   background-color: rgb(39, 36, 36);
   border-radius: 6px;
   padding: 5px;
   border: 1px solid grey;
   box-shadow:
-    0px 10px 38px -10px rgba(18, 97, 175, 0.35),
+    0px 10px 38px -10px rgba(179, 202, 224, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
@@ -29,14 +29,15 @@
 .CheckboxItem,
 .RadioItem,
 .SubTrigger {
-  font-size: 13px;
+  font-size: 20px;
   line-height: 1;
   color: #fff;
   border-radius: 3px;
   display: flex;
+  gap: 50px;
   align-items: center;
   height: 25px;
-  padding: 0 5px;
+  padding: 20px 5px;
   position: relative;
   padding-left: 25px;
   user-select: none;
@@ -46,21 +47,14 @@
     pointer-events: none;
   }
   &[data-highlighted] {
-    background-color: var(--violet-9);
-    color: var(--violet-1);
+    background-color: rgb(234, 228, 228);
+    color: black;
   }
 }
 
 .SubTrigger[data-state='open']:not([data-highlighted], [data-disabled]) {
   background-color: var(--violet-4);
   color: var(--violet-11);
-}
-
-.Label {
-  padding-left: 25px;
-  font-size: 12px;
-  line-height: 25px;
-  color: var(--mauve-11);
 }
 
 .Separator {
@@ -116,6 +110,13 @@
   [data-disabled] & {
     color: var(--mauve-8);
   }
+}
+
+.NewBadge {
+  padding: 3px 5px;
+  border: 1px solid red;
+  border-radius: 5px;
+  background-color: rgb(214, 20, 20);
 }
 
 @keyframes slideUpAndFade {

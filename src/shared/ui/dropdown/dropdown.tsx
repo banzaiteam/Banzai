@@ -2,13 +2,26 @@ import * as React from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { OutlineBell } from '@/assets/icons/components'
 import styles from './dropdown.module.scss'
+import {
+  useGetNotificationsQuery,
+  useMarkAsReadMutation,
+} from '@/widgets/notifications/api/notificationsApi'
+import { Notification } from '@/widgets/notifications/model/notificationsTypes'
 
 type Props = {
   className?: string
 }
 
 const NotificationsDropdown = ({ className }: Props) => {
-  const [bookmarksChecked, setBookmarksChecked] = React.useState(true)
+  const { data: notifications } = useGetNotificationsQuery()
+  const [markAsRead] = useMarkAsReadMutation()
+
+  function handleNotificationClick(notification: Notification) {
+    // Only send request if not already read
+    if (notification.readAt === '') {
+      markAsRead(notification.id)
+    }
+  }
 
   return (
     <DropdownMenu.Root>
@@ -29,32 +42,38 @@ It's an accessibility attribute for screen readers. Since the button only contai
         <DropdownMenu.Content className={styles.Content} sideOffset={1}>
           {/* .Content is like container for menu */}
           {/* Sets data-side attribute automatically based where user clicked */}
-          <DropdownMenu.Item className={styles.Item}>
+          <DropdownMenu.Item className={styles.Item} disabled>
             Notifications <div className={styles.RightSlot}></div>
           </DropdownMenu.Item>
 
           <DropdownMenu.Separator className={styles.Separator} />
+          {notifications?.map(notification => {
+            const diffInMs = notification.expiresAt - notification.createdAt
+            const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+            const now = Date.now()
+            const diffFromNow = Math.floor((now - notification.createdAt) / (1000 * 60 * 60 * 24))
 
-          <DropdownMenu.CheckboxItem
-            className={styles.CheckboxItem}
-            checked={bookmarksChecked}
-            onCheckedChange={setBookmarksChecked}
-          >
-            <DropdownMenu.ItemIndicator className={styles.ItemIndicator}>
-              New
-            </DropdownMenu.ItemIndicator>
-            Notification <div className={styles.RightSlot}></div>
-          </DropdownMenu.CheckboxItem>
-          <DropdownMenu.CheckboxItem
-            className={styles.CheckboxItem}
-            checked={bookmarksChecked}
-            onCheckedChange={setBookmarksChecked}
-          >
-            <DropdownMenu.ItemIndicator className={styles.ItemIndicator}>
-              New
-            </DropdownMenu.ItemIndicator>
-            Show Bookmarks <div className={styles.RightSlot}></div>
-          </DropdownMenu.CheckboxItem>
+            return (
+              <div key={notification.id}>
+                <DropdownMenu.Item
+                  className={styles.Item}
+                  onClick={() => handleNotificationClick(notification)}
+                >
+                  <span>Your subscription expires in {diffInDays} days</span>
+
+                  {/* Only show "new" badge if unread */}
+                  {notification.readAt === '' && <div className={styles.NewBadge}>new</div>}
+                  {/* 
+                  <div className={styles.time}>
+                    {diffFromNow === 0
+                      ? 'Today'
+                      : `${diffFromNow} day${diffFromNow > 1 ? 's' : ''} ago`}
+                  </div> */}
+                </DropdownMenu.Item>
+                <DropdownMenu.Separator className={styles.Separator} />
+              </div>
+            )
+          })}
 
           <DropdownMenu.Arrow className={styles.Arrow} />
         </DropdownMenu.Content>

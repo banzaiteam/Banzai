@@ -68,6 +68,6 @@ const baseQueryWithAutoRefresh: typeof rawBaseQuery = async (args, api, extraOpt
 
 export const baseApi = createApi({
   baseQuery: baseQueryWithAutoRefresh,
-  tagTypes: ['User', 'Post'],
+  tagTypes: ['User', 'Post', 'Notifications'],
   endpoints: () => ({}),
 })
