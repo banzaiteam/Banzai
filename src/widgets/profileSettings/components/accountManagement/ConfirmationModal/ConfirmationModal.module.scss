@@ -1,0 +1,28 @@
+.container {
+  max-width: 366px;
+  padding: 20px 25px 35px 25px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #676666;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.confirmation {
+  text-align: center;
+}
+
+.close {
+  font-weight: normal;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}

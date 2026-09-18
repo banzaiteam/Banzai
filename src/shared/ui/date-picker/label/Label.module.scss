@@ -1,0 +1,12 @@
+.label,
+.label-disabled {
+  font-size: 14px;
+}
+
+.label {
+  color: var(--light-900);
+
+  &-disabled {
+    color: var(--dark-100);
+  }
+}

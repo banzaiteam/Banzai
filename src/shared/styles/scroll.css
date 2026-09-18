@@ -1,0 +1,62 @@
+/* Основные стили */
+.scroll-root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.scroll-viewport {
+    width: 100%;
+    height: 100%;
+    scrollbar-width: none;
+}
+
+.scroll-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+/* Общие стили для скроллбаров */
+.scroll-scrollbar {
+    user-select: none;
+    touch-action: none;
+    transition: background 160ms ease-out;
+    background: transparent;
+}
+
+.scroll-scrollbar:hover {
+    background: var(--scrollbar-track);
+}
+
+.scroll-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+    transition: background 160ms ease-out;
+    cursor: pointer;
+}
+
+.scroll-thumb:hover {
+    background: var(--light-900);
+}
+
+/* Вертикальный скролл */
+.scroll-scrollbar[orientation='vertical'] {
+    width: 12px;
+    padding: 0 4px;
+}
+
+.scroll-scrollbar[orientation='vertical'] .scroll-thumb {
+    width: 4px;
+    margin: 0 auto;
+}
+
+/* Горизонтальный скролл */
+.scroll-scrollbar[orientation='horizontal'] {
+    height: 12px;
+    padding: 4px 0;
+}
+
+.scroll-scrollbar[orientation='horizontal'] .scroll-thumb {
+    height: 4px;
+    margin: auto 0;
+}

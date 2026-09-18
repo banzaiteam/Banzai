@@ -1,0 +1,94 @@
+.sign_up {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+
+  button {
+    cursor: pointer;
+  }
+
+  & .wrapper {
+    flex: 0 0 378px;
+    padding: 24px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: var(--dark-500);
+  }
+
+  & .title {
+    /* color:  var(--light-100); */
+    margin-bottom: 14px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  & .button_icon_group {
+    display: flex;
+    column-gap: 60px;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    button,
+    a {
+      line-height: 0;
+    }
+  }
+
+  & .input_group {
+    margin-bottom: 20px;
+
+    & > *:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    & > div {
+      text-align: left;
+    }
+  }
+
+  & .checkbox_wrapper {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+
+    span {
+      font-size: 12px;
+      line-height: var(--line-height-snug);
+
+      a {
+        color: var(--primary-300);
+        text-decoration: underline;
+        text-decoration-skip-ink: none;
+      }
+    }
+  }
+
+  & .button_wrapper {
+    margin-bottom: 16px;
+
+    & > div {
+      width: 100%;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+
+  & .signin {
+    background-color: transparent;
+  }
+
+  & .question {
+    display: block;
+    margin-bottom: 4px;
+  }
+}
+
+.popup_text {
+  margin-bottom: 18px;
+}

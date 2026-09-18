@@ -1,0 +1,20 @@
+.wrapper {
+  position: fixed;
+  /*z-index: 1;*/
+  bottom: 5%;
+  left: 0;
+
+  display: inline-block;
+
+  max-width: 390px;
+
+  transition: 0.3s 0.4s all;
+
+  &.open {
+    transform: translateX(20%);
+  }
+
+  &.close {
+    transform: translateX(-100%);
+  }
+}

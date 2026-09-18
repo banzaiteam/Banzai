@@ -1,0 +1,52 @@
+.counter_wrapper {
+  min-height: 72px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  border: 1px solid var(--dark-300);
+  border-radius: 2px;
+  background: var(--dark-500);
+  gap: 25px;
+
+  @media screen and (max-width: 495px) {
+    gap: 10px;
+    justify-content: center;
+  }
+  & .counter_text {
+    flex: 1 1 45%;
+
+    /*justify-content: center;*/
+    @media screen and (max-width: 495px) {
+      flex: 1 1 100%;
+      text-align: center;
+    }
+    @media screen and (max-width: 404px) {
+      font-size: var(--font-size-m);
+    }
+  }
+  & .counter {
+    min-height: 0;
+    padding: 10px;
+
+    background: var(--dark-700);
+    & .counter__list {
+      display: flex;
+      justify-content: space-around;
+      li {
+        position: relative;
+        padding: 0 10px;
+
+        &:not(:last-child):before {
+          content: '';
+          width: 1px;
+          height: 100%;
+          background-color: var(--dark-300);
+          right: 0;
+          position: absolute;
+        }
+      }
+    }
+  }
+}

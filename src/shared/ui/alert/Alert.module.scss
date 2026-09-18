@@ -1,0 +1,52 @@
+.toast {
+  padding: 12px 24px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-radius: 2px;
+
+  @media (max-width: 480px) {
+    padding: 6px 15px;
+  }
+}
+
+.success {
+  border: 1px solid var(--success-500);
+  background-color: var(--success-900);
+}
+
+.error {
+  border: 1px solid var(--danger-500);
+  background-color: var(--danger-900);
+
+  .first-word {
+    font-weight: 700;
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
+}
+
+.description {
+  text-align: center;
+  // for storybook
+  color: var(--light-100);
+}
+
+.close-button {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  // for storybook
+  color: var(--light-100)
+}
+
+.viewport {
+  width: 100%;
+}
